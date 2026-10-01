@@ -1,0 +1,760 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
+<meta name="theme-color" content="#101c23">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Dock Dash">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="description" content="Dock Dash: a tiny, fast-paced warehouse arcade. Match parcels to trucks, build a streak, and keep your shift alive.">
+<title>Dock Dash — Warehouse Arcade</title>
+<style>
+  :root { color-scheme: light dark; --page-bg: #e5e8e2; --page-dot: #cdd5cc; --page-fg: #23342e; }
+  @media (prefers-color-scheme: dark) { :root { --page-bg: #080f14; --page-dot: #17242b; --page-fg: #e5ebe8; } }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; overscroll-behavior: none; touch-action: none; }
+  body { background: var(--page-bg); color: var(--page-fg); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; user-select: none; -webkit-user-select: none; }
+  .viewport { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; padding: max(6px, env(safe-area-inset-top)) max(6px, env(safe-area-inset-right)) max(6px, env(safe-area-inset-bottom)) max(6px, env(safe-area-inset-left)); background-image: radial-gradient(var(--page-dot) 1px, transparent 1px); background-size: 20px 20px; }
+  .stage { --s: 1; width: 360px; height: 640px; position: relative; flex: none; overflow: hidden; border-radius: calc(18px * var(--s)); background: #101c23; box-shadow: 0 18px 70px #0005, 0 0 0 1px #ffffff12; isolation: isolate; touch-action: none; }
+  canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+  button { font: inherit; cursor: pointer; touch-action: none; -webkit-appearance: none; appearance: none; }
+  button:focus-visible { outline: 3px solid #faf4d9; outline-offset: -5px; }
+  [hidden] { display: none !important; }
+  .menu { position: absolute; inset: 0; z-index: 5; pointer-events: none; }
+  .menu button { pointer-events: auto; position: absolute; border: 0; }
+  .action { left: 7.7778%; width: 84.4444%; height: 8.4375%; border-radius: calc(12px * var(--s)); background: linear-gradient(180deg, #ffb15c, #ff924b); box-shadow: 0 calc(5px * var(--s)) 0 #a9502c, inset 0 1px 0 #ffe1ad; color: #25180d; font-weight: 800; letter-spacing: .01em; font-size: calc(18px * var(--s)); display: flex; align-items: center; justify-content: space-between; padding: 0 calc(22px * var(--s)); }
+  .action .arrow { font-size: calc(26px * var(--s)); line-height: 1; font-weight: 500; }
+  .action:active { transform: translateY(calc(3px * var(--s))); box-shadow: 0 calc(2px * var(--s)) 0 #a9502c, inset 0 1px 0 #ffe1ad; }
+  .action:disabled { opacity: .65; cursor: default; }
+  .start { top: 78.4375%; }
+  .replay { top: 70.46875%; }
+  .resume { top: 61.71875%; }
+  .sound { left: 27.7778%; width: 44.4444%; height: 6.875%; min-height: 36px; border-radius: calc(10px * var(--s)); background: #ffffff08; color: #cfddd8; font-size: calc(13px * var(--s)); font-weight: 600; display: flex; align-items: center; justify-content: center; gap: calc(9px * var(--s)); }
+  .sound .note { font-size: calc(19px * var(--s)); color: #ffb96d; }
+  .title-menu .sound { top: 88.75%; }
+  .end-menu .sound { top: 80.625%; }
+  .title-menu .sound, .end-menu .sound { left: 51.1111%; width: 41.1111%; }
+  .fleet-button { left: 7.7778%; width: 41.1111%; height: 6.875%; border-radius: calc(10px * var(--s)); background: #ffffff08; color: #d9d8b6; font-size: calc(12px * var(--s)); font-weight: 700; }
+  .title-menu .fleet-button { top: 88.75%; }
+  .end-menu .fleet-button { top: 80.625%; }
+  .learn-link { left: 7.7778%; width: 84.4444%; height: 3.4375%; top: 95.9375%; color: #aabda5; background: transparent; font-size: calc(10px * var(--s)); font-weight: 600; }
+  .garage-back { top: 81.875%; }
+  .skin-choice { width: 41.9444%; height: 23.4375%; border-radius: calc(12px * var(--s)); background: transparent; }
+  .skin-choice:nth-of-type(1) { left: 6.1111%; top: 25.15625%; }
+  .skin-choice:nth-of-type(2) { left: 51.9444%; top: 25.15625%; }
+  .skin-choice:nth-of-type(3) { left: 6.1111%; top: 50.9375%; }
+  .skin-choice:nth-of-type(4) { left: 51.9444%; top: 50.9375%; }
+  .tutorial-ui { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
+  .skip-tutorial { position: absolute; pointer-events: auto; top: 2.5%; right: 4.4444%; width: 16.6667%; height: 4.6875%; border: 0; border-radius: calc(7px * var(--s)); background: #263a40; color: #e3ead7; font-size: calc(10px * var(--s)); font-weight: 700; }
+  .pause-menu .sound { top: 73.125%; }
+  .pause-trigger { position: absolute; z-index: 3; left: 86.6667%; top: 8.90625%; width: 10%; height: 5.625%; border: 1px solid #ffffff15; border-radius: calc(10px * var(--s)); background: #ffffff08; color: #e9f0e6; font-size: calc(16px * var(--s)); font-weight: 800; }
+  .lanes { position: absolute; z-index: 2; left: 0; right: 0; top: 74.0625%; bottom: 0; display: flex; }
+  .lane-input { height: 100%; width: 25%; border: 0; padding: 0; background: transparent; color: transparent; }
+  .lane-input:disabled { cursor: default; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+  @media (prefers-reduced-motion: reduce) { .action:active { transform: none; } }
+</style>
+</head>
+<body>
+<main class="viewport" id="viewport">
+  <div class="stage" id="stage">
+    <canvas id="game" width="360" height="640" role="img" aria-label="Dock Dash. Wait for the ringed parcel to reach the green loading zone, then tap its matching truck. The bright centre stripe gives a perfect bonus. Red circle, blue square, green triangle, yellow diamond. Golden stars fit any unlocked truck.">Your browser needs canvas support to play Dock Dash.</canvas>
+    <div class="lanes" id="lanes" hidden aria-label="Truck docks">
+      <button class="lane-input" type="button" data-lane="0" aria-label="Dock 1: red circle. Keyboard 1."></button>
+      <button class="lane-input" type="button" data-lane="1" aria-label="Dock 2: blue square. Keyboard 2."></button>
+      <button class="lane-input" type="button" data-lane="2" aria-label="Dock 3: green triangle. Keyboard 3."></button>
+      <button class="lane-input" type="button" data-lane="3" aria-label="Dock 4: locked until shift 2. Keyboard 4." disabled></button>
+    </div>
+    <button class="pause-trigger" id="pause" type="button" aria-label="Pause game. Keyboard P or Escape." hidden>Ⅱ</button>
+    <section class="menu title-menu" id="title-menu" aria-label="Dock Dash menu">
+      <h1 class="sr-only">Dock Dash</h1>
+      <p class="sr-only">Let the lowest parcel reach the green loading zone, then tap the dock matching its colour and symbol. The bright stripe earns a perfect bonus. Early taps are safe. Fill a truck with five parcels for double points. Each shift has a bonus objective. Keys 1 through 4 also work.</p>
+      <button class="action start" id="start" type="button"><span>Start your shift</span><span class="arrow" aria-hidden="true">→</span></button>
+      <button class="fleet-button" type="button">Fleet · Classic</button>
+      <button class="sound" type="button" aria-pressed="true"><span class="note" aria-hidden="true">♪</span><span class="sound-label">Sound on</span></button>
+      <button class="learn-link" id="learn" type="button">How to play · 3 quick steps</button>
+    </section>
+    <section class="menu end-menu" id="end-menu" aria-label="Shift results" hidden>
+      <h2 class="sr-only">Shift over</h2><p class="sr-only" id="results"></p>
+      <button class="action replay" id="replay" type="button"><span>One more shift</span><span class="arrow" aria-hidden="true">↻</span></button>
+      <button class="fleet-button" type="button">Fleet · Classic</button>
+      <button class="sound" type="button" aria-pressed="true"><span class="note" aria-hidden="true">♪</span><span class="sound-label">Sound on</span></button>
+    </section>
+    <section class="menu garage-menu" id="garage-menu" aria-label="Truck fleet designs" hidden>
+      <h2 class="sr-only">The fleet</h2>
+      <button class="skin-choice" type="button" data-skin="0" aria-label="Classic truck design" aria-pressed="true"></button>
+      <button class="skin-choice" type="button" data-skin="1" aria-label="Rally truck design. Unlock with 25 total deliveries." aria-pressed="false"></button>
+      <button class="skin-choice" type="button" data-skin="2" aria-label="Nightline truck design. Unlock with 75 total deliveries." aria-pressed="false"></button>
+      <button class="skin-choice" type="button" data-skin="3" aria-label="Gold trim truck design. Unlock with 150 total deliveries." aria-pressed="false"></button>
+      <button class="action garage-back" id="garage-back" type="button"><span>Back to menu</span><span class="arrow" aria-hidden="true">→</span></button>
+    </section>
+    <div class="tutorial-ui" id="tutorial-ui" hidden><button class="skip-tutorial" id="skip-tutorial" type="button">Skip →</button></div>
+    <section class="menu pause-menu" id="pause-menu" aria-label="Game paused" hidden>
+      <h2 class="sr-only">On a break</h2>
+      <button class="action resume" id="resume" type="button"><span>Back to the dock</span><span class="arrow" aria-hidden="true">→</span></button>
+      <button class="sound" type="button" aria-pressed="true"><span class="note" aria-hidden="true">♪</span><span class="sound-label">Sound on</span></button>
+    </section>
+    <div class="sr-only" id="announcer" role="status" aria-live="polite"></div>
+  </div>
+</main>
+<script>
+(() => {
+  'use strict';
+  const W = 360, H = 640, BELT_TOP = 142, SPAWN_Y = 154, BELT_END = 445, LANE_TOP = 474;
+  const LOAD_START = 310, PERFECT_START = 352, PERFECT_END = 392;
+  const $ = id => document.getElementById(id);
+  const canvas = $('game'), ctx = canvas.getContext('2d', { alpha: false });
+  const stage = $('stage'), viewport = $('viewport'), announcer = $('announcer');
+  const titleMenu = $('title-menu'), endMenu = $('end-menu'), pauseMenu = $('pause-menu');
+  const laneButtons = [...document.querySelectorAll('.lane-input')];
+  const soundButtons = [...document.querySelectorAll('.sound')];
+  const fleetButtons = [...document.querySelectorAll('.fleet-button')];
+  const skinButtons = [...document.querySelectorAll('.skin-choice')];
+  const SKINS = [{ name: 'Classic', need: 0 }, { name: 'Rally', need: 25 }, { name: 'Nightline', need: 75 }, { name: 'Gold trim', need: 150 }];
+  const COLORS = [
+    { name: 'Red', symbol: 'circle', bright: '#ff897e', mid: '#ef625b', dark: '#a7383d', ink: '#a92b32' },
+    { name: 'Blue', symbol: 'square', bright: '#8edbff', mid: '#58afe5', dark: '#286695', ink: '#215f8d' },
+    { name: 'Green', symbol: 'triangle', bright: '#b8e8a5', mid: '#84c989', dark: '#3e805d', ink: '#327052' },
+    { name: 'Yellow', symbol: 'diamond', bright: '#ffe696', mid: '#f5c758', dark: '#ad7932', ink: '#936022' }
+  ];
+  const GOLD = { name: 'Golden', symbol: 'star', bright: '#fff7b8', mid: '#ffd663', dark: '#bc7c20', ink: '#8e5b18' };
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const rand = (a, b) => a + Math.random() * (b - a);
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const ease = t => 1 - Math.pow(1 - clamp(t, 0, 1), 3);
+  const num = n => Math.floor(n).toLocaleString('en-US');
+  let best = 0, muted = false;
+  try { best = Math.max(0, Math.floor(Number(localStorage.getItem('dockDashBest')) || 0)); if (!Number.isFinite(best)) best = 0; muted = localStorage.getItem('dockDashMuted') === 'true'; } catch (_) {}
+  const profile = { totalDelivered: 0, totalPerfect: 0, totalTrucks: 0, totalGoals: 0, highestShift: 1, selectedSkin: 0, tutorialDone: false };
+  try {
+    const saved = JSON.parse(localStorage.getItem('dockDashProfileV2') || 'null');
+    if (saved && typeof saved === 'object') {
+      for (const k of ['totalDelivered', 'totalPerfect', 'totalTrucks', 'totalGoals', 'highestShift']) if (typeof saved[k] === 'number' && Number.isFinite(saved[k])) profile[k] = clamp(Math.floor(saved[k]), k === 'highestShift' ? 1 : 0, 1e9);
+      profile.tutorialDone = saved.tutorialDone === true;
+      if (Number.isInteger(saved.selectedSkin) && saved.selectedSkin >= 0 && saved.selectedSkin < SKINS.length && profile.totalDelivered >= SKINS[saved.selectedSkin].need) profile.selectedSkin = saved.selectedSkin;
+    }
+  } catch (_) {}
+  let state = 'title', paused = false, game = null, endedAt = -Infinity, newBest = false;
+  let clock = 0, lastFrame = null, shake = 0, bump = 0, banner = null, tutorial = null, unlockToast = null, garageReturn = 'title';
+  let floorCache, beltCache, parcelCache = [], truckCache = [], skinTruckCache = [], lockedCache;
+  const particles = [], popups = [], flights = [], ghosts = [];
+  let audio = null, master = null;
+
+  function rr(c, x, y, w, h, r = 8) {
+    const k = Math.min(r, w / 2, h / 2);
+    c.beginPath(); c.moveTo(x + k, y); c.lineTo(x + w - k, y); c.quadraticCurveTo(x + w, y, x + w, y + k);
+    c.lineTo(x + w, y + h - k); c.quadraticCurveTo(x + w, y + h, x + w - k, y + h);
+    c.lineTo(x + k, y + h); c.quadraticCurveTo(x, y + h, x, y + h - k); c.lineTo(x, y + k); c.quadraticCurveTo(x, y, x + k, y); c.closePath();
+  }
+  function rect(c, x, y, w, h, fill, r = 0) { c.fillStyle = fill; if (r) { rr(c, x, y, w, h, r); c.fill(); } else c.fillRect(x, y, w, h); }
+  function text(c, str, x, y, size = 12, color = '#eef0e6', weight = 600, align = 'left') {
+    c.font = `${weight} ${size}px -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif`;
+    c.fillStyle = color; c.textAlign = align; c.textBaseline = 'middle'; c.fillText(str, x, y);
+  }
+  function line(c, x1, y1, x2, y2, color, width = 1) { c.strokeStyle = color; c.lineWidth = width; c.beginPath(); c.moveTo(x1, y1); c.lineTo(x2, y2); c.stroke(); }
+  function symbol(c, type, x, y, radius = 8, fill = '#fff') {
+    c.fillStyle = fill; c.beginPath();
+    if (type === 0) c.arc(x, y, radius, 0, Math.PI * 2);
+    else if (type === 1) c.rect(x - radius * .85, y - radius * .85, radius * 1.7, radius * 1.7);
+    else if (type === 2) { c.moveTo(x, y - radius); c.lineTo(x + radius, y + radius * .8); c.lineTo(x - radius, y + radius * .8); c.closePath(); }
+    else if (type === 3) { c.moveTo(x, y - radius); c.lineTo(x + radius, y); c.lineTo(x, y + radius); c.lineTo(x - radius, y); c.closePath(); }
+    else { for (let i = 0; i < 10; i++) { const a = i * Math.PI / 5 - Math.PI / 2, r = i % 2 ? radius * .45 : radius; if (!i) c.moveTo(x + Math.cos(a) * r, y + Math.sin(a) * r); else c.lineTo(x + Math.cos(a) * r, y + Math.sin(a) * r); } c.closePath(); }
+    c.fill();
+  }
+  function heart(c, x, y, fill, s = 1) {
+    c.save(); c.translate(x, y); c.scale(s, s); c.fillStyle = fill; c.beginPath(); c.moveTo(0, 7); c.bezierCurveTo(-18, -4, -8, -14, 0, -7); c.bezierCurveTo(8, -14, 18, -4, 0, 7); c.fill(); c.restore();
+  }
+  function lock(c, x, y, color = '#7a8a8e', s = 1) {
+    c.save(); c.translate(x, y); c.scale(s, s); c.strokeStyle = color; c.lineWidth = 2.5; c.beginPath(); c.moveTo(-5, -1); c.lineTo(-5, -5); c.arc(0, -5, 5, Math.PI, 0); c.lineTo(5, -1); c.stroke(); rect(c, -8, -1, 16, 12, color, 3); rect(c, -1, 3, 2, 4, '#16232b', 1); c.restore();
+  }
+  function offscreen(w, h, scale = 2) { const c = document.createElement('canvas'); c.width = Math.round(w * scale); c.height = Math.round(h * scale); const d = c.getContext('2d'); d.setTransform(scale, 0, 0, scale, 0, 0); return [c, d]; }
+
+  function buildFloor(scale) {
+    const [f, c] = offscreen(W, H, scale);
+    const g = c.createLinearGradient(0, 0, W, H); g.addColorStop(0, '#25343a'); g.addColorStop(.46, '#19292f'); g.addColorStop(1, '#101d24'); rect(c, 0, 0, W, H, g);
+    c.strokeStyle = '#8daaa70d'; c.lineWidth = 1;
+    for (let y = 126; y < H; y += 44) { c.beginPath(); c.moveTo(0, y); c.lineTo(W, y); c.stroke(); }
+    for (let x = 0; x < W; x += 45) { c.beginPath(); c.moveTo(x, 122); c.lineTo(x, H); c.stroke(); }
+    // Quiet concrete speckles, rendered once rather than every frame.
+    let seed = 9217;
+    for (let i = 0; i < 650; i++) { seed = (seed * 16807) % 2147483647; const x = seed % W; seed = (seed * 16807) % 2147483647; const y = seed % H; rect(c, x, y, 1, 1, i % 3 ? '#e7e3c805' : '#0000001b'); }
+    line(c, 21, 131, 99, 131, '#dfe6cd20'); line(c, 261, 131, 339, 131, '#dfe6cd20');
+    text(c, 'RECEIVING', 24, 147, 9, '#869b9870', 600); text(c, 'DOCK 04', 335, 147, 9, '#869b9870', 600, 'right');
+    for (const x of [21, 102, 258, 339]) { line(c, x, 162, x, 428, '#bbc7a90d'); }
+    const v = c.createRadialGradient(180, 303, 100, 180, 320, 390); v.addColorStop(0, '#060e1400'); v.addColorStop(1, '#030a10b8'); rect(c, 0, 0, W, H, v);
+    floorCache = f;
+  }
+  function buildBelt() {
+    const [b, c] = offscreen(W, H);
+    c.shadowColor = '#0008'; c.shadowBlur = 15; c.shadowOffsetY = 6; rect(c, 125, 133, 110, 320, '#091119', 8); c.shadowBlur = 0; c.shadowOffsetY = 0;
+    const steel = c.createLinearGradient(133, 0, 227, 0); steel.addColorStop(0, '#5c6e75'); steel.addColorStop(.09, '#26363e'); steel.addColorStop(.18, '#829498'); steel.addColorStop(.24, '#384b52'); steel.addColorStop(.77, '#243841'); steel.addColorStop(.85, '#7d8d8e'); steel.addColorStop(1, '#2d424c');
+    rect(c, 129, 137, 102, 312, steel, 5); rect(c, 142, 139, 76, 309, '#18262e', 3);
+    for (const x of [130, 223]) {
+      c.save(); rr(c, x, 139, 7, 308, 2); c.clip(); rect(c, x, 139, 7, 308, '#e6c667'); c.strokeStyle = '#18252c'; c.lineWidth = 6;
+      for (let y = 127; y < 468; y += 19) { c.beginPath(); c.moveTo(x - 5, y); c.lineTo(x + 12, y + 14); c.stroke(); } c.restore();
+      for (const y of [143, 243, 343, 443]) { c.fillStyle = '#bac7c7'; c.beginPath(); c.arc(x + 3.5, y, 1.35, 0, Math.PI * 2); c.fill(); }
+    }
+    rect(c, 139, 134, 82, 9, '#81918f', 3); line(c, 144, 136, 215, 136, '#d8dfcd60');
+    rect(c, 139, 443, 82, 9, '#6a7c81', 3); rect(c, 149, 446, 62, 5, '#15232c', 1);
+    beltCache = b;
+  }
+  function makeParcel(type) {
+    const [p, c] = offscreen(80, 80), col = type === 4 ? GOLD : COLORS[type];
+    c.translate(40, 38);
+    if (type === 4) { c.shadowColor = '#ffc644aa'; c.shadowBlur = 15; rect(c, -23, -22, 46, 45, '#f4c451', 6); c.shadowBlur = 0; }
+    c.shadowColor = '#0009'; c.shadowBlur = 8; c.shadowOffsetY = 6; c.shadowOffsetX = 1; rect(c, -23, -22, 46, 45, col.dark, 6); c.shadowBlur = 0; c.shadowOffsetX = c.shadowOffsetY = 0;
+    const g = c.createLinearGradient(-12, -22, 15, 23); g.addColorStop(0, col.bright); g.addColorStop(.43, col.mid); g.addColorStop(1, col.dark); rect(c, -23, -22, 46, 45, g, 6);
+    rect(c, 17, -16, 5, 34, '#00000017', 2); rect(c, -22, 15, 43, 7, '#00000013', 3);
+    rect(c, -5, -21, 10, 43, '#ffefc838'); line(c, -5, -20, -5, 21, '#f8eccc45'); line(c, 5, -20, 5, 21, '#533f2f22');
+    line(c, -21, -3, 21, -3, '#60493820'); rect(c, -18, -17, 33, 3, '#ffffff65', 2);
+    rect(c, -12, -10, 24, 24, '#8e533033', 5); rect(c, -12, -12, 24, 24, '#fff7e8', 5); symbol(c, type, 0, 0, type === 4 ? 10 : 8, col.ink);
+    line(c, -17, 18, -11, 18, '#ffebc966'); line(c, 10, 18, 15, 18, '#ffebc933');
+    return p;
+  }
+  function makeTruck(type, locked = false, skin = 0) {
+    const [t, c] = offscreen(90, 141), col = locked ? { bright: '#627076', mid: '#3d4c53', dark: '#25363f' } : COLORS[type];
+    c.shadowColor = '#0008'; c.shadowBlur = 8; c.shadowOffsetY = 5; rect(c, 15, 8, 60, 121, '#091219', 9); c.shadowBlur = 0; c.shadowOffsetY = 0;
+    for (const y of [24, 54, 104]) {
+      for (const x of [10, 70]) { rect(c, x, y, 10, 19, '#050d13', 3); rect(c, x + 2, y + 2, 2, 15, '#53616a', 1); }
+    }
+    const cargo = c.createLinearGradient(18, 0, 73, 0); cargo.addColorStop(0, col.dark); cargo.addColorStop(.12, col.bright); cargo.addColorStop(.5, col.mid); cargo.addColorStop(1, col.dark);
+    rect(c, 18, 8, 54, 77, '#090f15', 5); rect(c, 19, 8, 52, 74, cargo, 4);
+    for (let y = 15; y < 76; y += 8) { line(c, 24, y, 66, y, '#09162525', 2); line(c, 24, y + 1, 66, y + 1, '#e9f7ed24'); }
+    rect(c, 21, 10, 3, 69, '#ffffff20', 1); rect(c, 23, 73, 44, 7, '#13232bcc', 2);
+    if (!locked && skin === 1) { rect(c, 27, 11, 5, 60, '#fff7e895', 1); rect(c, 58, 11, 5, 60, '#fff7e895', 1); }
+    if (!locked && skin === 2) { c.shadowColor = '#a7ffe5'; c.shadowBlur = 5; line(c, 22, 13, 22, 69, '#b3f4e1', 1.5); line(c, 68, 13, 68, 69, '#b3f4e1', 1.5); line(c, 22, 13, 68, 13, '#b3f4e1', 1.5); c.shadowBlur = 0; }
+    if (!locked && skin === 3) { c.strokeStyle = '#ffe6a1'; c.lineWidth = 2; rr(c, 22, 11, 46, 59, 3); c.stroke(); symbol(c, 4, 45, 20, 5, '#ffe6a1'); }
+    rect(c, 31, 30, 28, 28, locked ? '#27363e' : '#f8f3df', 7);
+    if (locked) lock(c, 45, 42); else symbol(c, type, 45, 44, 9, COLORS[type].ink);
+    rect(c, 24, 84, 42, 5, '#09131b', 2);
+    const cab = c.createLinearGradient(0, 88, 0, 123); cab.addColorStop(0, col.bright); cab.addColorStop(.5, col.mid); cab.addColorStop(1, col.dark); rect(c, 20, 89, 50, 34, cab, 7);
+    rect(c, 24, 90, 42, 16, '#122737', 4); const glass = c.createLinearGradient(0, 91, 0, 105); glass.addColorStop(0, '#bce8e78f'); glass.addColorStop(1, '#33768950'); rect(c, 26, 92, 38, 11, glass, 2);
+    line(c, 45, 92, 45, 103, '#162d38'); line(c, 28, 93, 40, 93, '#e2fcfba0', 2);
+    rect(c, 15, 91, 6, 8, '#4a6069', 2); rect(c, 69, 91, 6, 8, '#4a6069', 2);
+    line(c, 25, 112, 65, 112, '#f3f1d543'); rect(c, 24, 122, 42, 5, '#bac6bf', 2); rect(c, 33, 119, 24, 3, '#142632', 1);
+    if (!locked && skin === 1) { rect(c, 35, 108, 5, 9, '#fff6db99', 1); rect(c, 50, 108, 5, 9, '#fff6db99', 1); }
+    if (!locked && skin === 2) { rect(c, 30, 85, 30, 3, '#a9f9e2', 1); }
+    if (!locked && skin === 3) { line(c, 24, 111, 66, 111, '#ffdf95', 2); rect(c, 24, 122, 42, 4, '#e7bd71', 1); }
+    for (const x of [23, 59]) { rect(c, x, 116, 8, 5, locked ? '#839497' : '#fff4b4', 2); }
+    rect(c, 38, 124, 14, 3, '#0d202b', 1);
+    return t;
+  }
+  function fit() {
+    const box = viewport.getBoundingClientRect(), cs = getComputedStyle(viewport);
+    const w = box.width - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    const h = box.height - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+    const s = Math.max(.1, Math.min(w / W, h / H));
+    stage.style.width = `${W * s}px`; stage.style.height = `${H * s}px`; stage.style.setProperty('--s', s);
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    canvas.width = Math.max(1, Math.round(W * s * dpr)); canvas.height = Math.max(1, Math.round(H * s * dpr));
+    ctx.setTransform(canvas.width / W, 0, 0, canvas.height / H, 0, 0); ctx.imageSmoothingEnabled = true;
+    buildFloor(canvas.width / W);
+    render();
+  }
+
+  function wakeAudio() {
+    if (muted) return;
+    try { const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return; if (!audio) { audio = new AC(); master = audio.createGain(); master.gain.value = .16; master.connect(audio.destination); } if (audio.state === 'suspended') audio.resume().catch(() => {}); } catch (_) {}
+  }
+  function beep(freq, duration = .12, delay = 0, type = 'sine', volume = .5) {
+    if (muted || !audio || !master || audio.state !== 'running') return;
+    try { const o = audio.createOscillator(), g = audio.createGain(), at = audio.currentTime + delay; o.type = type; o.frequency.setValueAtTime(freq, at); g.gain.setValueAtTime(0, at); g.gain.linearRampToValueAtTime(volume, at + .008); g.gain.exponentialRampToValueAtTime(.001, at + duration); o.connect(g); g.connect(master); o.start(at); o.stop(at + duration + .02); o.onended = () => { o.disconnect(); g.disconnect(); }; } catch (_) {}
+  }
+  function sound(kind) {
+    if (kind === 'load') { const f = 420 + Math.min(game.streak, 35) * 18; beep(f, .1, 0, 'sine', .55); beep(f * 1.5, .07, .045, 'sine', .18); }
+    else if (kind === 'wrong') { beep(140, .19, 0, 'triangle', .6); beep(86, .2, .07, 'triangle', .4); }
+    else if (kind === 'dispatch') [523, 659, 784, 1047].forEach((f, i) => beep(f, .16, i * .065, 'triangle', .4));
+    else if (kind === 'shift') [392, 523, 659, 784, 1047].forEach((f, i) => beep(f, .21, i * .085, 'triangle', .4));
+    else if (kind === 'over') [392, 330, 262, 196].forEach((f, i) => beep(f, .23, i * .14, 'triangle', .45));
+  }
+  function syncSound() { soundButtons.forEach(b => { b.setAttribute('aria-pressed', String(!muted)); b.querySelector('.sound-label').textContent = muted ? 'Sound off' : 'Sound on'; }); }
+  function announce(message) { announcer.textContent = message; }
+  function saveProfile() { try { localStorage.setItem('dockDashProfileV2', JSON.stringify(profile)); } catch (_) {} }
+  function isPerfect(p) { return p.y >= PERFECT_START && p.y <= PERFECT_END; }
+  function nextGap() { return game.shift <= 2 ? rand(72, 94) : rand(72, 114); }
+  function makeGoal() {
+    const definitions = [
+      { kind: 'loads', target: 8, reward: 75, lines: ['LOAD 8', 'PARCELS'] },
+      { kind: 'trucks', target: 2, reward: 100, lines: ['DISPATCH 2', 'TRUCKS'] },
+      { kind: 'perfect', target: 3, reward: 125, lines: ['LAND 3', 'PERFECT LOADS'] },
+      { kind: 'clean', target: 8, reward: 150, lines: ['BUILD AN', '8 LOAD STREAK'] },
+      { kind: 'special', target: 2, reward: 150, lines: ['LOAD 2', 'SPECIALS'] }
+    ];
+    return { ...definitions[(game.shift - 1) % definitions.length], value: 0, completed: false, bonus: 0 };
+  }
+  function updateGoal(event) {
+    const g = game.goal; if (g.completed || tutorial) return;
+    if (g.kind === 'loads' && event.load) g.value++;
+    if (g.kind === 'trucks' && event.truck) g.value++;
+    if (g.kind === 'perfect' && event.perfect) g.value++;
+    if (g.kind === 'clean' && event.load) g.value = Math.max(g.value, game.cleanWithinShift);
+    if (g.kind === 'special' && event.special) g.value++;
+    g.value = Math.min(g.value, g.target);
+    if (g.value >= g.target) {
+      g.completed = true; g.bonus = g.reward * (game.hot > 0 ? 2 : 1); game.goalsCompleted++; profile.totalGoals++;
+      score(g.bonus); popup(`GOAL +${g.bonus}`, 69, 227, '#e6efac', 13); burst(69, 200, '#dcebaa', 14);
+      [659, 880, 1047].forEach((f, i) => beep(f, .15, i * .08, 'triangle', .35));
+      announce(`Shift goal complete. ${g.bonus} bonus points.`);
+    }
+  }
+  function checkUnlocks(previous) {
+    for (const skin of SKINS) if (previous < skin.need && profile.totalDelivered >= skin.need) {
+      unlockToast = { name: skin.name, time: 3.5 }; burst(285, 220, '#ffe5a0', 18);
+      announce(`${skin.name} truck design unlocked. Select it in the Fleet menu.`);
+    }
+  }
+  function openGarage() {
+    if (!['title', 'over'].includes(state) || (state === 'over' && performance.now() - endedAt < 500)) return;
+    garageReturn = state; state = 'garage'; syncControls(); announce('Fleet. Cosmetic truck designs unlock with total deliveries.');
+  }
+  function closeGarage() { state = garageReturn; syncControls(); (state === 'over' ? $('replay') : $('start')).focus({ preventScroll: true }); }
+  function selectSkin(index) {
+    if (state !== 'garage') return;
+    if (profile.totalDelivered < SKINS[index].need) { announce(`${SKINS[index].need - profile.totalDelivered} more total deliveries unlock ${SKINS[index].name}.`); return; }
+    profile.selectedSkin = index; truckCache = skinTruckCache[index]; saveProfile(); syncControls();
+    wakeAudio(); beep(660, .1, 0, 'sine', .3); announce(`${SKINS[index].name} truck design selected.`);
+  }
+  function syncControls() {
+    const playing = state === 'play' && !paused;
+    titleMenu.hidden = state !== 'title'; endMenu.hidden = state !== 'over'; pauseMenu.hidden = !paused;
+    $('garage-menu').hidden = state !== 'garage'; $('tutorial-ui').hidden = !playing || !tutorial;
+    $('lanes').hidden = !playing; $('pause').hidden = !playing;
+    fleetButtons.forEach(b => { b.textContent = `Fleet · ${SKINS[profile.selectedSkin].name}`; });
+    skinButtons.forEach((b, i) => { const unlocked = profile.totalDelivered >= SKINS[i].need; b.setAttribute('aria-pressed', String(profile.selectedSkin === i)); b.setAttribute('aria-disabled', String(!unlocked)); b.setAttribute('aria-label', `${SKINS[i].name}. ${unlocked ? 'Select this cosmetic truck design.' : `Locked. ${SKINS[i].need - profile.totalDelivered} more total deliveries needed.`}`); });
+    $('learn').textContent = `BEST ${num(best)} · HOW TO PLAY`;
+    laneButtons.forEach((b, i) => { const t = game ? game.trucks[i] : null; const locked = t ? game.shift === 1 && t.type === 3 : i === 3; b.disabled = !playing || locked; b.setAttribute('aria-label', `Dock ${i + 1}: ${locked ? 'locked until shift 2' : `${COLORS[t ? t.type : i].name} ${COLORS[t ? t.type : i].symbol}, ${t ? t.fill : 0} of 5 parcels`}. Keyboard ${i + 1}.`); });
+  }
+  function multiplier() { return Math.min(5, 1 + Math.floor(game.streak / 5)); }
+  function beltSpeed() { return Math.min(215, 66 + 15 * game.shift + 1.6 * (game.delivered % 12)) * (game.slow > 0 ? .55 : 1); }
+  function spawnParcel() {
+    const golden = !game.specialDue && game.delivered >= 4 && Math.random() < .09;
+    let kind = 'normal';
+    if (!golden) {
+      if (game.specialDue) { kind = game.specialDue; game.specialDue = null; }
+      else { const roll = Math.random(); if (game.shift >= 3 && roll < .12) kind = 'fragile'; else if (game.shift >= 4 && roll < .24) kind = 'express'; }
+    }
+    game.parcels.push({ type: golden ? 4 : Math.floor(Math.random() * (game.shift === 1 ? 3 : 4)), kind, expressLeft: null, y: SPAWN_Y, phase: rand(0, Math.PI * 2) });
+  }
+  function nextParcel() {
+    let target = null;
+    for (const p of game.parcels) if (p.y >= BELT_TOP - 18 && p.y < BELT_END && (!target || p.y > target.y)) target = p;
+    return target;
+  }
+  function startGame(options = {}) {
+    if (state === 'over' && performance.now() - endedAt < 500) return;
+    wakeAudio(); state = 'play'; paused = false; newBest = false; shake = bump = 0; tutorial = null; unlockToast = null;
+    soundButtons.forEach(b => { b.disabled = false; }); fleetButtons.forEach(b => { b.disabled = false; });
+    particles.length = popups.length = flights.length = ghosts.length = 0;
+    game = { score: 0, streak: 0, shift: 1, lives: 3, delivered: 0, perfects: 0, dispatched: 0, goalsCompleted: 0, cleanWithinShift: 0, hot: 0, slow: 0, travel: 14, gap: rand(72, 94), roller: 0, hold: 0, earlyHint: 0, specialDue: null, parcels: [], flashes: [0, 0, 0, 0], trucks: COLORS.map((_, type) => ({ type, fill: 0, x: type * 90 + 45, fromX: type * 90 + 45, toX: type * 90 + 45, slide: 0, enter: 0 })) };
+    game.goal = makeGoal();
+    const first = Math.floor(Math.random() * 3);
+    for (let i = 0; i < 3; i++) game.parcels.push({ type: (first + i) % 3, kind: 'normal', y: 336 - i * 84, phase: rand(0, Math.PI * 2), expressLeft: null });
+    banner = { title: 'SHIFT 01', sub: 'WAIT FOR GREEN · PERFECT TIMING PAYS', life: false, time: 1.35, total: 1.35 };
+    if (options.tutorial === true || (!profile.tutorialDone && !options.skipTutorial)) { tutorial = { step: 0, done: 0 }; setupTutorialStep(); }
+    syncControls(); if (!tutorial) announce('Shift one. Three lives. Yellow unlocks in shift two.');
+  }
+  function setupTutorialStep() {
+    banner = null;
+    const step = tutorial.step;
+    game.parcels = [{ type: step === 2 ? 4 : step, kind: 'normal', y: step === 0 ? 278 : step === 1 ? 318 : 372, phase: 0, expressLeft: null }];
+    if (step === 2) game.trucks[0].fill = 4;
+    announce(step === 0 ? 'Practice one: wait for the green zone, then tap the red circle truck. Early taps are safe.' : step === 1 ? 'Practice two: wait for the bright perfect stripe, then tap the blue square truck.' : 'Practice three: gold fits any unlocked truck. Try the red truck with four pip lights.');
+  }
+  function finishTutorial() { profile.tutorialDone = true; saveProfile(); startGame({ skipTutorial: true }); }
+  function loadTutorialLane(lane, p) {
+    if (tutorial.done > 0) return;
+    if (p.y < LOAD_START || (tutorial.step === 1 && !isPerfect(p))) { if (game.earlyHint <= 0) { popup(tutorial.step === 1 ? 'WAIT FOR PERFECT' : 'WAIT FOR GREEN', 180, p.y - 34, '#e2dab0', 11); game.earlyHint = .6; } return; }
+    if (p.type !== 4 && game.trucks[lane].type !== p.type) { popup(`TRY ${COLORS[p.type].name.toUpperCase()}`, 180, p.y - 35, '#ffdda0', 12); return; }
+    game.parcels.length = 0; game.trucks[lane].fill++;
+    flights.push({ type: p.type, kind: 'normal', x: 180, y: p.y, endX: lane * 90 + 45, age: 0 }); burst(lane * 90 + 45, 540, p.type === 4 ? GOLD.mid : COLORS[p.type].bright, 14); sound('load');
+    popup(tutorial.step === 0 ? 'GOOD MATCH!' : tutorial.step === 1 ? 'PERFECT +5!' : 'GOLD FITS ANY!', 180, p.y - 20, '#e7f1b8', 15);
+    if (game.trucks[lane].fill >= 5) { ghosts.push({ type: game.trucks[lane].type, x: lane * 90 + 45, age: 0 }); game.trucks[lane].fill = 0; game.trucks[lane].enter = .85; sound('dispatch'); }
+    if (tutorial.step < 2) { tutorial.step++; setupTutorialStep(); }
+    else { tutorial.done = .8; announce('Training complete. Your first shift starts now.'); }
+    syncControls();
+  }
+  function pauseGame(value = !paused) {
+    if (state !== 'play') return; paused = value; lastFrame = null; syncControls();
+    if (paused) { announce('Game paused.'); $('resume').focus({ preventScroll: true }); }
+    else { wakeAudio(); announce('Back to the dock.'); $('pause').focus({ preventScroll: true }); }
+  }
+  function popup(message, x, y, color = '#f9f2dd', size = 17) {
+    if (popups.length >= 12) popups.shift(); popups.push({ message, x, y, color, size, life: .95, total: .95 });
+  }
+  function burst(x, y, color, count = 14) {
+    for (let i = 0; i < count && particles.length < 140; i++) { const a = rand(0, Math.PI * 2), s = rand(35, 115); particles.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s - 20, life: rand(.3, .65), total: .65, size: rand(2, 4.5), color }); }
+  }
+  function score(points) { game.score += points; bump = .23; }
+  function loseLife(reason, x = 180, y = 417) {
+    game.lives = Math.max(0, game.lives - 1); game.streak = 0; game.cleanWithinShift = 0; shake = .38;
+    popup(reason, x, y, '#ff988b', 18); burst(x, y + 6, '#ee6e63', 9); sound('wrong');
+    try { if (navigator.vibrate) navigator.vibrate([40, 25, 55]); } catch (_) {}
+    announce(`${reason}. ${game.lives} ${game.lives === 1 ? 'life' : 'lives'} left.`);
+    if (game.lives === 0) gameOver();
+  }
+  function gameOver() {
+    state = 'over'; paused = false; tutorial = null; endedAt = performance.now(); banner = null; saveProfile();
+    newBest = game.score > best;
+    if (newBest) { best = game.score; try { localStorage.setItem('dockDashBest', String(best)); } catch (_) {} }
+    $('results').textContent = `${newBest ? 'New best! ' : ''}Score ${num(game.score)}. Best ${num(best)}. ${game.delivered} parcels delivered. Shift ${game.shift} reached. ${game.perfects} perfect loads. ${game.dispatched} trucks dispatched. ${game.goalsCompleted} shift goals completed.`;
+    $('replay').disabled = true; soundButtons.forEach(b => { b.disabled = true; }); fleetButtons.forEach(b => { b.disabled = true; });
+    sound('over'); syncControls(); announce(`Shift over. ${$('results').textContent}`);
+  }
+  function dispatchTruck(truck, lane, hotFactor) {
+    const pts = 50 * hotFactor; score(pts); popup(`TRUCK OUT +${pts}`, lane * 90 + 45, 516, '#ffd687', 13);
+    ghosts.push({ type: truck.type, x: truck.x, age: 0 }); truck.fill = 0; truck.enter = .85;
+    game.hot = 5; game.dispatched++; profile.totalTrucks++; updateGoal({ truck: true }); sound('dispatch'); burst(lane * 90 + 45, 562, '#ffb365', 18);
+    announce('Truck dispatched. Hot streak: double points for five seconds.');
+  }
+  function nextShift() {
+    game.shift++; const healed = game.lives < 3; game.lives = Math.min(3, game.lives + 1); game.hold = game.shift >= 3 ? 1 : .5;
+    game.goal = makeGoal(); game.cleanWithinShift = 0; profile.highestShift = Math.max(profile.highestShift, game.shift);
+    let subtitle = game.shift === 2 ? 'YELLOW DOCK UNLOCKED' : game.shift === 3 ? 'FRAGILE BONUS · DOCKS REMIXED' : game.shift === 4 ? 'EXPRESS ARRIVING · LOAD QUICKLY' : 'DOCKS REMIXED · CHECK YOUR SYMBOLS';
+    if (game.shift === 3) game.specialDue = 'fragile'; if (game.shift === 4) game.specialDue = 'express';
+    if (game.shift >= 3) {
+      const old = [...game.trucks];
+      for (let i = 3; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [game.trucks[i], game.trucks[j]] = [game.trucks[j], game.trucks[i]]; }
+      if (old.every((t, i) => t === game.trucks[i])) game.trucks.push(game.trucks.shift());
+      game.trucks.forEach((t, i) => { t.fromX = t.x; t.toX = i * 90 + 45; t.slide = 1; });
+    } else { burst(315, 528, COLORS[3].bright, 20); }
+    banner = { title: `SHIFT ${String(game.shift).padStart(2, '0')}`, sub: subtitle, life: healed, time: 1.8, total: 1.8 };
+    sound('shift'); saveProfile(); syncControls(); announce(`Shift ${game.shift}. ${game.shift === 2 ? 'Yellow unlocked.' : 'Trucks changed docks.'} ${game.shift === 3 ? 'Fragile parcels reward perfect timing.' : game.shift === 4 ? 'Express parcels have a short countdown.' : ''} ${healed ? 'One life restored.' : 'Three lives.'}`);
+  }
+  function loadLane(lane) {
+    if (state !== 'play' || paused) return;
+    wakeAudio(); game.flashes[lane] = .22;
+    if (game.hold > 0) return;
+    const truck = game.trucks[lane];
+    if (game.shift === 1 && truck.type === 3) { popup('SHIFT 2', 315, 493, '#c5d0c9', 12); return; }
+    const p = nextParcel(); if (!p) return;
+    if (tutorial) { loadTutorialLane(lane, p); return; }
+    if (p.y < LOAD_START) { if (game.earlyHint <= 0) { popup('WAIT FOR GREEN', 180, p.y - 34, '#e3dba9', 11); game.earlyHint = .6; beep(245, .06, 0, 'sine', .13); } return; }
+    game.parcels.splice(game.parcels.indexOf(p), 1);
+    const x = 180 + Math.sin(p.phase + clock * 1.5) * 2;
+    if (p.type !== 4 && p.type !== truck.type) { loseLife('Wrong dock', x, p.y); syncControls(); return; }
+    game.streak++; game.delivered++; game.cleanWithinShift++;
+    const perfect = isPerfect(p), extra = perfect ? (p.kind === 'fragile' ? 15 : 5) : 0;
+    const hotFactor = game.hot > 0 ? 2 : 1;
+    const pts = ((p.type === 4 ? 25 : p.kind === 'express' ? 15 : 10) + extra) * multiplier() * hotFactor;
+    score(pts); truck.fill++; sound('load');
+    popup(`${perfect ? 'PERFECT ' : ''}+${pts}`, x, p.y - 12, perfect ? '#dafaaf' : p.type === 4 ? '#ffe292' : '#eff5df', perfect ? 16 : 21);
+    if (perfect) { game.perfects++; profile.totalPerfect++; beep(1100, .09, .07, 'sine', .22); }
+    const previous = profile.totalDelivered; profile.totalDelivered++; checkUnlocks(previous);
+    updateGoal({ load: true, perfect, special: p.type === 4 || (p.kind && p.kind !== 'normal') });
+    flights.push({ type: p.type, kind: p.kind || 'normal', x, y: p.y, endX: lane * 90 + 45, age: 0 });
+    burst(lane * 90 + 45, 533, p.type === 4 ? GOLD.mid : COLORS[p.type].bright, 12);
+    if (p.type === 4) { game.slow = 4; popup('SLOW BELT', 271, 360, '#ffe6a4', 12); }
+    if (truck.fill >= 5) dispatchTruck(truck, lane, hotFactor);
+    if (game.delivered % 12 === 0) nextShift();
+    saveProfile(); syncControls();
+  }
+  function update(dt) {
+    clock += dt;
+    if ((state === 'over' || (state === 'garage' && garageReturn === 'over')) && performance.now() - endedAt >= 500 && $('replay').disabled) { $('replay').disabled = false; soundButtons.forEach(b => { b.disabled = false; }); fleetButtons.forEach(b => { b.disabled = false; }); }
+    if (paused) return;
+    shake = Math.max(0, shake - dt); bump = Math.max(0, bump - dt);
+    if (banner) { banner.time -= dt; if (banner.time <= 0) banner = null; }
+    if (unlockToast) { unlockToast.time -= dt; if (unlockToast.time <= 0) unlockToast = null; }
+    for (let i = particles.length - 1; i >= 0; i--) { const p = particles[i]; p.life -= dt; if (p.life <= 0) { particles.splice(i, 1); continue; } p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 175 * dt; p.vx *= Math.pow(.4, dt); }
+    for (let i = popups.length - 1; i >= 0; i--) { popups[i].life -= dt; popups[i].y -= 26 * dt; if (popups[i].life <= 0) popups.splice(i, 1); }
+    for (let i = flights.length - 1; i >= 0; i--) { flights[i].age += dt; if (flights[i].age >= .34) flights.splice(i, 1); }
+    for (let i = ghosts.length - 1; i >= 0; i--) { ghosts[i].age += dt; if (ghosts[i].age >= .65) ghosts.splice(i, 1); }
+    if (state !== 'play') return;
+    game.earlyHint = Math.max(0, game.earlyHint - dt);
+    game.flashes = game.flashes.map(v => Math.max(0, v - dt));
+    game.trucks.forEach(t => { t.enter = Math.max(0, t.enter - dt); if (t.slide > 0) { t.slide = Math.max(0, t.slide - dt); t.x = t.fromX + (t.toX - t.fromX) * ease(1 - t.slide); } else t.x = t.toX; });
+    if (tutorial) {
+      if (tutorial.done > 0) { tutorial.done -= dt; if (tutorial.done <= 0) finishTutorial(); return; }
+      const p = game.parcels[0], stop = tutorial.step === 0 ? 330 : 372, move = Math.min(80 * dt, Math.max(0, stop - p.y));
+      p.y += move; game.roller = (game.roller + move) % 16; return;
+    }
+    // Shift transitions give the player a brief, safe moment to read the new docks.
+    if (game.hold > 0) { game.hold = Math.max(0, game.hold - dt); return; }
+    const movement = beltSpeed() * dt; game.roller = (game.roller + movement) % 16;
+    game.hot = Math.max(0, game.hot - dt); game.slow = Math.max(0, game.slow - dt);
+    for (const p of game.parcels) p.y += movement;
+    game.travel += movement;
+    if (game.travel >= game.gap) {
+      const remainder = game.travel - game.gap; spawnParcel(); game.parcels[game.parcels.length - 1].y += remainder; game.travel = remainder; game.gap = nextGap();
+    }
+    for (let i = game.parcels.length - 1; i >= 0; i--) {
+      const p = game.parcels[i];
+      if (p.kind === 'express' && p.y >= LOAD_START) { if (p.expressLeft === null || p.expressLeft === undefined) p.expressLeft = Math.min(.85, (BELT_END - LOAD_START) / beltSpeed() * .78); else p.expressLeft -= dt; }
+      const expired = p.kind === 'express' && typeof p.expressLeft === 'number' && p.expressLeft <= 0;
+      if (p.y >= BELT_END || expired) { game.parcels.splice(i, 1); loseLife(expired ? 'Express expired' : 'Missed', 180, Math.min(p.y, 417)); if (state !== 'play') break; }
+    }
+  }
+
+  function drawParcel(type, x, y, angle = 0, scale = 1, kind = 'normal') {
+    ctx.save(); ctx.translate(x, y); ctx.rotate(angle); ctx.scale(scale, scale); ctx.drawImage(parcelCache[type], -40, -38, 80, 80);
+    if (kind === 'fragile') {
+      rect(ctx, 10, 9, 17, 17, '#23394b', 4); ctx.strokeStyle = '#dfecf2'; ctx.lineWidth = 1.4;
+      ctx.beginPath(); ctx.moveTo(15, 13); ctx.lineTo(22, 13); ctx.lineTo(21, 17); ctx.quadraticCurveTo(18.5, 20, 16, 17); ctx.closePath(); ctx.stroke(); line(ctx, 18.5, 19, 18.5, 23, '#dfecf2', 1.4); line(ctx, 15.5, 23, 21.5, 23, '#dfecf2', 1.4);
+    } else if (kind === 'express') {
+      rect(ctx, 10, 9, 17, 17, '#ffe094', 4); ctx.fillStyle = '#683b18'; ctx.beginPath(); ctx.moveTo(20, 11); ctx.lineTo(14, 19); ctx.lineTo(18, 19); ctx.lineTo(17, 24); ctx.lineTo(24, 16); ctx.lineTo(20, 16); ctx.closePath(); ctx.fill();
+    }
+    ctx.restore();
+    if (type === 4 && !reducedMotion) {
+      ctx.save(); ctx.globalAlpha = .45 + Math.sin(clock * 4) * .2;
+      for (let i = 0; i < 3; i++) { const a = clock * .5 + i * 2.094, sx = x + Math.cos(a) * 31 * scale, sy = y + Math.sin(a) * 29 * scale; line(ctx, sx - 3, sy, sx + 3, sy, '#ffe79b', 1.5); line(ctx, sx, sy - 3, sx, sy + 3, '#ffe79b', 1.5); } ctx.restore();
+    }
+  }
+  function rollers(top = BELT_TOP, bottom = 443, offset = 0) {
+    ctx.save(); ctx.beginPath(); ctx.rect(143, top, 74, bottom - top); ctx.clip();
+    // Each small roller gets a light edge and a dark seam.
+    for (let y = top - 16 + offset; y < bottom + 16; y += 16) { rect(ctx, 144, y, 72, 10, '#40565e', 2); line(ctx, 146, y + 1, 214, y + 1, '#8ca19b50'); line(ctx, 145, y + 9, 215, y + 9, '#07141b'); line(ctx, 153, y + 4, 207, y + 4, '#73908520'); }
+    ctx.restore();
+  }
+  function drawBelt() {
+    ctx.drawImage(beltCache, 0, 0, W, H); rollers(BELT_TOP, 443, game.roller);
+    rect(ctx, 143, LOAD_START, 74, BELT_END - LOAD_START, '#91d4a122');
+    rect(ctx, 143, PERFECT_START, 74, PERFECT_END - PERFECT_START, '#c7fcae36');
+    line(ctx, 137, LOAD_START, 223, LOAD_START, '#b8e6b7', 2);
+    for (const y of [PERFECT_START, PERFECT_END]) { line(ctx, 139, y, 148, y, '#d5ffa8', 2); line(ctx, 212, y, 221, y, '#d5ffa8', 2); }
+    if (game.hot > 0) {
+      const a = .6 + Math.sin(clock * 8) * .2;
+      ctx.save(); ctx.globalAlpha = a; ctx.shadowColor = '#ff8e48'; ctx.shadowBlur = 12;
+      rect(ctx, 127, 143, 3, 299, '#ff9950', 1); rect(ctx, 230, 143, 3, 299, '#ff9950', 1); ctx.restore();
+    }
+    const target = nextParcel(), danger = target ? clamp((target.y - 400) / 43, 0, 1) : 0;
+    if (danger > 0) {
+      const g = ctx.createLinearGradient(0, 363, 0, 453); g.addColorStop(0, '#ff4b4800'); g.addColorStop(1, `rgba(255,69,62,${danger * (.16 + .17 * Math.sin(clock * 14) ** 2)})`); rect(ctx, 127, 360, 106, 93, g, 3);
+      ctx.save(); ctx.globalAlpha = danger * (.45 + .35 * Math.sin(clock * 14) ** 2); ctx.shadowBlur = 18; ctx.shadowColor = '#ff534b'; line(ctx, 135, 451, 226, 451, '#ff6653', 3); ctx.restore();
+    }
+    ctx.save(); ctx.beginPath(); ctx.rect(105, 130, 150, 320); ctx.clip();
+    for (const p of game.parcels) {
+      const sway = reducedMotion ? 0 : Math.sin(clock * 1.5 + p.phase);
+      drawParcel(p.type, 180 + sway * 2, p.y, sway * .035, 1, p.kind);
+    }
+    ctx.restore();
+    if (target) {
+      const y = target.y, ready = y >= LOAD_START, perfect = isPerfect(target), pulse = reducedMotion ? .5 : .5 + .5 * Math.sin(clock * 5.5), col = !ready ? '#b3c7bd' : perfect ? '#d9ffac' : danger > .75 ? '#ffa392' : '#bcebb8';
+      ctx.save(); ctx.strokeStyle = col; ctx.globalAlpha = .4 + pulse * .5; ctx.lineWidth = 2;
+      if (!ready) ctx.setLineDash([4, 5]);
+      ctx.beginPath(); ctx.arc(180, y, 31 + pulse * 2, 0, Math.PI * 2); ctx.stroke();
+      ctx.globalAlpha = .12; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(180, y, 37 + pulse * 3, 0, Math.PI * 2); ctx.stroke(); ctx.restore();
+      const ly = clamp(y, 178, 424); line(ctx, 218, ly, 235, ly, '#c8d7c86b');
+      rect(ctx, 240, ly - 12, 75, 24, perfect ? '#30452b' : '#0d1a22', 7); text(ctx, !ready ? 'WAIT' : perfect ? 'PERFECT' : 'LOAD NOW', 277.5, ly, 10, col, 800, 'center');
+      if (ready && (target.kind === 'express' || target.kind === 'fragile') && (!unlockToast || target.kind === 'express')) {
+        rect(ctx, 240, 190, 99, 61, target.kind === 'express' ? '#3e3021' : '#24394a', 9);
+        text(ctx, target.kind === 'express' ? 'EXPRESS' : 'FRAGILE', 289.5, 205, 10, '#e6e5cd', 800, 'center');
+        text(ctx, target.kind === 'express' ? `${Math.max(0, target.expressLeft === null ? .85 : target.expressLeft).toFixed(1)}s` : 'PERFECT +15', 289.5, 225, target.kind === 'express' ? 21 : 11, '#ffdda0', 800, 'center');
+        if (target.kind === 'express') text(ctx, 'LOAD QUICKLY', 289.5, 242, 8, '#dccca4', 700, 'center');
+      }
+    }
+    if (!target || target.y < LOAD_START - 50) text(ctx, 'GREEN = READY', 287, LOAD_START - 10, 8.5, '#b8d4a7', 700, 'center');
+    if (unlockToast && !(target && target.kind === 'express' && target.y >= LOAD_START)) {
+      rect(ctx, 240, 190, 99, 65, '#3b3320', 9); text(ctx, 'FLEET UNLOCK', 289.5, 205, 9, '#ffde9c', 800, 'center'); text(ctx, unlockToast.name.toUpperCase(), 289.5, 226, 11, '#fff0bd', 800, 'center'); text(ctx, 'SELECT IN MENU', 289.5, 244, 8, '#d2c7a0', 600, 'center');
+    }
+    drawGoal();
+    const hot = game.hot > 0, slow = game.slow > 0;
+    if (hot) { rect(ctx, 14, 274, 101, 44, '#3b281e', 8); text(ctx, 'HOT STREAK', 64.5, 287, 9, '#ffb474', 800, 'center'); text(ctx, `×2  ·  ${game.hot.toFixed(1)}s`, 64.5, 304, 14, '#ffe1a9', 800, 'center'); }
+    if (slow) { const y = hot ? 326 : 274; rect(ctx, 14, y, 101, 44, '#36301e', 8); text(ctx, 'SLOW BELT', 64.5, y + 13, 9, '#e4d491', 800, 'center'); text(ctx, `${game.slow.toFixed(1)}s`, 64.5, y + 30, 14, '#ffecb4', 800, 'center'); }
+    if (!tutorial) { text(ctx, `${game.perfects} PERFECT`, 21, 409, 10, '#cee2b4', 800); text(ctx, 'BRIGHT STRIPE +5', 21, 425, 8.5, '#9faf99', 600); }
+  }
+  function drawGoal() {
+    if (tutorial) {
+      const copy = [
+        { title: ['MATCH THE', 'CIRCLE'], body: ['Let the parcel', 'reach the green', 'loading zone.', 'Then tap red.'] },
+        { title: ['TIME IT', 'PERFECTLY'], body: ['Aim for the', 'bright stripe.', 'We pause it', 'so you can try.'] },
+        { title: ['GOLD GOES', 'ANYWHERE'], body: ['Try the truck', 'with four lights.', 'Any unlocked', 'dock works.'] }
+      ][tutorial.step];
+      rect(ctx, 14, 167, 104, 132, '#253a3ff2', 9); text(ctx, 'QUICK PRACTICE', 24, 181, 8, '#e1d6a8', 800);
+      copy.title.forEach((s, i) => text(ctx, s, 24, 200 + i * 14, 11, '#eef1d9', 800));
+      copy.body.forEach((s, i) => text(ctx, s, 24, 236 + i * 14, 10, '#c9d9c0', 500)); return;
+    }
+    const g = game.goal;
+    rect(ctx, 14, 167, 101, 94, g.completed ? '#30402b' : '#22353c', 9);
+    text(ctx, g.completed ? 'GOAL COMPLETE' : 'SHIFT GOAL', 24, 182, 8.5, g.completed ? '#e5efb8' : '#d0d5b5', 800);
+    g.lines.forEach((s, i) => text(ctx, s, 24, 201 + i * 14, 10, '#edf0d4', 800));
+    rect(ctx, 24, 230, 80, 3, '#ffffff15', 2); if (g.value) rect(ctx, 24, 230, 80 * g.value / g.target, 3, '#d2e6a7', 2);
+    text(ctx, g.completed ? `+${g.bonus} EARNED` : `${g.value}/${g.target}  ·  +${g.reward}`, 24, 246, 9.5, '#c5d5b2', 700);
+  }
+  function drawTruck(t, lane, options = {}) {
+    const locked = options.locked || false, scale = options.scale || .88;
+    const enterY = t.enter > 0 ? -146 * (1 - ease(1 - t.enter / .85)) : 0;
+    const y = options.y === undefined ? 504 + enterY : options.y;
+    ctx.save(); ctx.translate(t.x, y); ctx.scale(scale, scale); ctx.drawImage(locked ? lockedCache : truckCache[t.type], -45, 0, 90, 141);
+    if (!locked) { for (let i = 0; i < 5; i++) { const fill = i < t.fill; if (fill) { ctx.shadowColor = '#fff5ba'; ctx.shadowBlur = 4; } rect(ctx, -18 + i * 8, 75, 5, 3, fill ? '#fff4c0' : '#839da15e', 1); ctx.shadowBlur = 0; } }
+    else text(ctx, 'SHIFT 2', 0, 67, 7.5, '#a5b1ac', 700, 'center');
+    ctx.restore();
+  }
+  function drawDocks() {
+    const target = nextParcel(), left = 12 - game.delivered % 12, warning = !tutorial && game.shift >= 2 && left <= 2;
+    if (warning) rect(ctx, 16, 451, 328, 21, '#523626', 5);
+    const hint = warning ? `${left} ${left === 1 ? 'LOAD' : 'LOADS'} UNTIL DOCKS MOVE` : game.hold > 0 ? 'DOCKS MOVING · GET READY' : !target || target.y < LOAD_START ? 'WAIT FOR THE GREEN ZONE' : isPerfect(target) ? 'PERFECT TIMING · TAP NOW' : 'TAP THE MATCHING DOCK';
+    text(ctx, hint, 180, 462, 9.5, warning ? '#ffd09b' : '#c3d8b8', 700, 'center');
+    line(ctx, 20, 462, 88, 462, '#e4d9ab22'); line(ctx, 272, 462, 340, 462, '#e4d9ab22');
+    for (let i = 0; i < 4; i++) {
+      const t = game.trucks[i], col = COLORS[t.type], locked = game.shift === 1 && t.type === 3;
+      rect(ctx, i * 90, LANE_TOP, 90, 166, locked ? '#7e91a008' : `${col.mid}0d`);
+      if (game.flashes[i] > 0) { ctx.save(); ctx.globalAlpha = game.flashes[i] / .22 * .28; rect(ctx, i * 90 + 1, LANE_TOP, 88, 166, locked ? '#91a4a2' : col.bright); ctx.restore(); }
+      line(ctx, i * 90 + 1, LANE_TOP, i * 90 + 1, H, '#e9ecd713');
+      line(ctx, i * 90 + 8, LANE_TOP, i * 90 + 82, LANE_TOP, locked ? '#7a858445' : `${col.mid}70`, 2);
+      const x = i * 90 + 45;
+      if (locked) lock(ctx, x, 490, '#83918b', .7);
+      else { rect(ctx, x - 13, 478, 26, 25, '#0a161e', 7); symbol(ctx, t.type, x, 490, 7, col.bright); }
+      rect(ctx, x - (locked ? 25 : 11), 618, locked ? 50 : 22, 16, '#07151b', 4); text(ctx, locked ? 'LOCKED' : String(i + 1), x, 626, locked ? 8 : 10, locked ? '#9aa69e' : '#c4d2be', 800, 'center');
+    }
+    // Clip incoming and outgoing trucks to the dock area, keeping the belt clear.
+    ctx.save(); ctx.beginPath(); ctx.rect(0, 504, W, 112); ctx.clip();
+    for (const g of ghosts) { drawTruck({ type: g.type, fill: 5, x: g.x, enter: 0 }, 0, { y: 504 + ease(g.age / .65) * 180 }); }
+    game.trucks.forEach((t, i) => drawTruck(t, i, { locked: game.shift === 1 && t.type === 3 }));
+    ctx.restore();
+  }
+  function drawHUD() {
+    const g = ctx.createLinearGradient(0, 0, 0, 127); g.addColorStop(0, '#0c1b24f5'); g.addColorStop(1, '#11232bdc'); rect(ctx, 0, 0, W, 123, g);
+    text(ctx, 'SCORE', 20, 22, 9, '#b0c1b1', 800);
+    const s = 1 + Math.sin(clamp(bump / .23, 0, 1) * Math.PI) * .1;
+    ctx.save(); ctx.translate(20, 46); ctx.scale(s, s); text(ctx, num(game.score).padStart(3, '0'), 0, 0, 29, '#f5f0db', 850); ctx.restore();
+    for (let i = 0; i < 3; i++) heart(ctx, 279 + i * 23, 27, i < game.lives ? '#ff887b' : '#405057', .74);
+    const multi = multiplier(); rect(ctx, 20, 65, 113, 24, multi >= 3 ? '#384229' : '#263a3e', 7);
+    text(ctx, `STREAK ${game.streak}`, 30, 77, 10, '#e1e9d7', 800); text(ctx, `×${multi}`, 121, 77, 12, '#f7cc7b', 800, 'right');
+    text(ctx, `SHIFT ${String(game.shift).padStart(2, '0')}`, 302, 76, 11, '#e7efda', 800, 'right');
+    rect(ctx, 20, 98, 320, 4, '#ffffff12', 2); const progress = (game.delivered % 12) / 12; if (progress) rect(ctx, 20, 98, 320 * progress, 4, '#d5dea6', 2);
+    text(ctx, `${game.delivered % 12} / 12 LOADED`, 20, 113, 8.5, '#bac8b7', 700);
+    const warning = game.shift >= 2 && game.delivered % 12 >= 10;
+    text(ctx, warning ? `DOCKS MOVE IN ${12 - game.delivered % 12}` : game.shift === 1 ? 'YELLOW AT SHIFT 2' : 'NEXT SHIFT  +1 LIFE', 340, 113, 8.5, warning ? '#ffce94' : '#bac8b7', warning ? 800 : 600, 'right');
+  }
+  function drawEffects() {
+    for (const f of flights) {
+      const t = clamp(f.age / .34, 0, 1), inv = 1 - t, mx = (f.x + f.endX) / 2 + (f.endX < f.x ? -45 : 45);
+      const x = inv * inv * f.x + 2 * inv * t * mx + t * t * f.endX;
+      const y = inv * inv * f.y + 2 * inv * t * (f.y - 48) + t * t * 547;
+      ctx.save(); ctx.globalAlpha = 1 - t * .45; drawParcel(f.type, x, y, t * .45, 1 - t * .6, f.kind); ctx.restore();
+    }
+    for (const p of particles) { ctx.save(); ctx.globalAlpha = clamp(p.life / .25, 0, 1); rect(ctx, p.x - p.size / 2, p.y - p.size / 2, p.size, p.size, p.color, 1); ctx.restore(); }
+    for (const p of popups) { ctx.save(); ctx.globalAlpha = clamp(p.life / .25, 0, 1); ctx.shadowColor = '#08151c'; ctx.shadowBlur = 6; const x = clamp(p.x, 58, 302); text(ctx, p.message, x, p.y, p.size, p.color, 850, 'center'); ctx.restore(); }
+    if (banner && state === 'play') {
+      const age = banner.total - banner.time, a = Math.min(age / .16, banner.time / .25, 1);
+      ctx.save(); ctx.globalAlpha = Math.max(0, a); const lift = reducedMotion ? 0 : (1 - ease(age / .25)) * -16;
+      // Keep shift announcements above the cargo so the player can always see the next symbol.
+      rect(ctx, 16, 13 + lift, 328, 77, '#081a22f5', 13); line(ctx, 30, 15 + lift, 330, 15 + lift, '#e8c87575', 2);
+      text(ctx, banner.title, 32, 38 + lift, 21, '#f7e6bc', 850); text(ctx, banner.sub, 175, 67 + lift, 8.5, '#c9d7bd', 800, 'center');
+      if (banner.life) { heart(ctx, 260, 38 + lift, '#ff9687', .4); text(ctx, '+1 LIFE', 296, 38 + lift, 9, '#ffa99b', 800, 'center'); }
+      ctx.restore();
+    }
+  }
+  function warehouseBrand(y = 27) {
+    ctx.save(); ctx.translate(23, y); ctx.strokeStyle = '#e8c58a'; ctx.lineWidth = 1.5; rr(ctx, 0, -8, 16, 16, 3); ctx.stroke(); line(ctx, 8, -7, 8, 7, '#e8c58a', 1); line(ctx, 1, -1, 15, -1, '#e8c58a', 1); ctx.restore();
+    text(ctx, 'DOCKSIDE ARCADE', 49, y, 9, '#c5cfbd', 800);
+    rect(ctx, 281, y - 9, 57, 18, '#bedc9514', 5); text(ctx, 'OFFLINE', 309.5, y, 8, '#c2d4ac', 700, 'center');
+  }
+  function drawTitle() {
+    warehouseBrand();
+    text(ctx, 'DOCK', 29, 94, 67, '#f3f0dd', 900);
+    text(ctx, 'DASH', 29, 154, 67, '#ffb365', 900);
+    text(ctx, 'A LITTLE CHAOS. A LOT OF CARGO.', 33, 195, 9.5, '#c6d1ba', 800);
+    // The miniature warehouse is the menu's illustration, with bobbing parcels.
+    ctx.save(); ctx.beginPath(); ctx.rect(124, 215, 112, 218); ctx.clip(); ctx.translate(0, 78); ctx.drawImage(beltCache, 0, 0, W, H); rollers(142, 363, (clock * 25) % 16); ctx.restore();
+    const bob = n => reducedMotion ? 0 : Math.sin(clock * 1.8 + n) * 4;
+    drawParcel(0, 179, 249 + bob(0), -.08, 1.1); drawParcel(1, 180, 320 + bob(2), .065, 1.1); drawParcel(2, 178, 390 + bob(4), -.03, 1.1);
+    drawParcel(4, 280, 282 + bob(1), .13, .78);
+    rect(ctx, 255, 321, 68, 23, '#3b3524', 7); text(ctx, 'GOLD = ANY', 289, 332.5, 8.5, '#f8db91', 800, 'center');
+    ctx.save(); ctx.translate(65, 292); ctx.rotate(-Math.PI / 2); text(ctx, 'SORT  /  LOAD  /  GO', 0, 0, 9, '#82988d', 700, 'center'); ctx.restore();
+    // A dock sill hides the illustrated belt's lower end.
+    rect(ctx, 21, 433, 318, 17, '#18262c', 3); line(ctx, 24, 435, 336, 435, '#d8b85c4d', 2);
+    text(ctx, 'Wait for green. Match. Tap.', 180, 469, 14.5, '#e4ead7', 700, 'center');
+    text(ctx, 'Perfect timing pays. Fill five for ×2.', 180, 489, 11.5, '#b7c6b0', 500, 'center');
+  }
+  function drawEnd() {
+    warehouseBrand();
+    drawParcel(0, 99, 106 + (reducedMotion ? 0 : Math.sin(clock * 1.8) * 4), -.16, .92);
+    drawParcel(4, 180, 97 + (reducedMotion ? 0 : Math.sin(clock * 1.8 + 1) * 4), .07, 1.04);
+    drawParcel(1, 261, 106 + (reducedMotion ? 0 : Math.sin(clock * 1.8 + 2) * 4), .16, .92);
+    text(ctx, 'SHIFT OVER', 180, 165, 35, '#f4edda', 900, 'center');
+    text(ctx, 'There’s always another delivery.', 180, 193, 12, '#bdcbb9', 500, 'center');
+    const card = ctx.createLinearGradient(0, 218, 0, 415); card.addColorStop(0, '#304149'); card.addColorStop(1, '#1b3039');
+    rect(ctx, 27, 219, 306, 196, card, 15); line(ctx, 42, 221, 318, 221, '#d5dfca23');
+    text(ctx, 'YOUR SCORE', 180, 243, 9.5, '#bfcebd', 800, 'center');
+    text(ctx, num(game.score), 180, 283, game.score > 99999 ? 39 : 49, '#fff0c9', 900, 'center');
+    if (newBest) { rect(ctx, 135, 308, 90, 21, '#eac46f', 6); text(ctx, 'NEW BEST!', 180, 318.5, 10, '#352c1c', 900, 'center'); }
+    else text(ctx, 'NEXT TIME, ONE MORE TRUCK.', 180, 318, 8.5, '#9fb5a6', 700, 'center');
+    line(ctx, 44, 345, 316, 345, '#bacfbc20');
+    const stats = [['BEST', num(best)], ['PARCELS', num(game.delivered)], ['SHIFT', String(game.shift).padStart(2, '0')]];
+    stats.forEach(([label, value], i) => { const x = 82 + i * 98; text(ctx, label, x, 365, 8.5, '#b4c5b5', 800, 'center'); text(ctx, value, x, 390, value.length > 6 ? 15 : 21, '#eff1da', 800, 'center'); });
+    text(ctx, `${game.perfects} PERFECT  ·  ${game.dispatched} TRUCKS  ·  ${game.goalsCompleted} GOALS`, 180, 432, 9, '#bacaac', 700, 'center');
+    text(ctx, newBest ? 'NEW RECORD. KEEP THE DOCK MOVING.' : best ? `${num(best - game.score + 1)} POINTS FROM A NEW BEST` : 'YOUR FIRST RECORD IS ONE SHIFT AWAY.', 180, 583, 10, '#d5d9b3', 700, 'center');
+    const next = SKINS.find(s => s.need > profile.totalDelivered);
+    text(ctx, next ? `${next.need - profile.totalDelivered} MORE LOADS TO UNLOCK ${next.name.toUpperCase()}` : 'THE WHOLE FLEET IS YOURS.', 180, 615, 9, '#a7bb9f', 700, 'center');
+  }
+  function drawGarage() {
+    warehouseBrand(); text(ctx, 'THE FLEET', 180, 98, 34, '#f3eed7', 900, 'center');
+    text(ctx, 'Earn a new look. Keep your truck symbols.', 180, 131, 11, '#b8cbb2', 500, 'center');
+    SKINS.forEach((skin, i) => {
+      const x = i % 2 ? 187 : 22, y = i < 2 ? 161 : 326, unlocked = profile.totalDelivered >= skin.need, selected = profile.selectedSkin === i;
+      rect(ctx, x, y, 151, 150, selected ? '#3b4834' : '#23353d', 12);
+      if (selected) { ctx.strokeStyle = '#d2dea8'; ctx.lineWidth = 2; rr(ctx, x + 1, y + 1, 149, 148, 11); ctx.stroke(); }
+      ctx.save(); ctx.globalAlpha = unlocked ? 1 : .35; ctx.drawImage(skinTruckCache[i][i], x + 46, y + 8, 59.4, 93.1); ctx.restore();
+      if (!unlocked) lock(ctx, x + 75.5, y + 54, '#ead69e', .9);
+      text(ctx, skin.name.toUpperCase(), x + 75.5, y + 122, 12, unlocked ? '#edf1d7' : '#aabcad', 800, 'center');
+      text(ctx, selected ? 'SELECTED' : unlocked ? 'TAP TO EQUIP' : `${skin.need} TOTAL LOADS`, x + 75.5, y + 139, 9, selected ? '#d5e6b1' : '#a7bca5', 700, 'center');
+    });
+    text(ctx, `${num(profile.totalDelivered)} TOTAL DELIVERIES`, 180, 497, 10, '#d4d7b1', 800, 'center');
+    text(ctx, 'Cosmetic rewards. Every colour still sorts the same.', 180, 605, 9, '#9eb49c', 500, 'center');
+  }
+  function drawTutorial() {
+    if (!tutorial) return;
+    rect(ctx, 16, 13, 328, 77, '#081a22f5', 13); line(ctx, 30, 15, 330, 15, '#e8c87575', 2);
+    const titles = ['1/3  MATCH A SYMBOL', '2/3  TRY A PERFECT', '3/3  GOLD FITS ANY'];
+    text(ctx, tutorial.done > 0 ? 'YOU’RE READY!' : titles[tutorial.step], 32, 36, 16, '#f2dfaa', 850);
+    const captions = ['Wait for green, then tap the red circle dock.', 'Wait for the bright stripe, then tap blue.', 'Gold can finish any unlocked truck.'];
+    text(ctx, tutorial.done > 0 ? 'YOUR FIRST SHIFT STARTS NOW' : captions[tutorial.step], 173, 66, 9, '#d0dcbf', 600, 'center');
+  }
+  function drawPause() {
+    rect(ctx, 0, 0, W, H, '#08131de8');
+    drawParcel(1, 153, 231, -.14, 1.05); drawParcel(2, 211, 231, .14, 1.05);
+    text(ctx, 'ON A BREAK', 180, 301, 30, '#f2eed9', 850, 'center'); text(ctx, 'Your parcels can wait.', 180, 335, 13, '#c6d1bd', 500, 'center');
+    text(ctx, 'P / ESC TO RESUME', 180, 528, 9, '#9fb19d', 700, 'center');
+  }
+  function render() {
+    ctx.save();
+    if (shake > 0 && state === 'play' && !reducedMotion) { const amplitude = shake / .38 * 6; ctx.translate(rand(-amplitude, amplitude), rand(-amplitude, amplitude)); }
+    rect(ctx, -12, -12, W + 24, H + 24, '#101c23'); ctx.drawImage(floorCache, 0, 0, W, H);
+    if (state === 'title') drawTitle();
+    else if (state === 'over') drawEnd();
+    else if (state === 'garage') drawGarage();
+    else { drawBelt(); drawDocks(); drawHUD(); drawEffects(); drawTutorial(); if (paused) drawPause(); }
+    ctx.restore();
+  }
+  function frame(now) { const dt = lastFrame === null ? 0 : clamp((now - lastFrame) / 1000, 0, .05); lastFrame = now; update(dt); render(); requestAnimationFrame(frame); }
+
+  laneButtons.forEach((b, i) => {
+    b.addEventListener('pointerdown', e => { if (e.button !== undefined && e.button !== 0) return; e.preventDefault(); loadLane(i); });
+    // Native keyboard activation also makes the invisible dock controls accessible.
+    b.addEventListener('click', e => { if (e.detail === 0) loadLane(i); });
+  });
+  $('start').addEventListener('click', startGame); $('replay').addEventListener('click', startGame);
+  $('learn').addEventListener('click', () => startGame({ tutorial: true }));
+  $('skip-tutorial').addEventListener('click', finishTutorial);
+  fleetButtons.forEach(b => b.addEventListener('click', openGarage));
+  skinButtons.forEach((b, i) => b.addEventListener('click', () => selectSkin(i)));
+  $('garage-back').addEventListener('click', closeGarage);
+  $('pause').addEventListener('click', () => pauseGame(true)); $('resume').addEventListener('click', () => pauseGame(false));
+  soundButtons.forEach(b => b.addEventListener('click', () => {
+    if (state === 'over' && performance.now() - endedAt < 500) return;
+    muted = !muted; try { localStorage.setItem('dockDashMuted', String(muted)); } catch (_) {}
+    if (master) master.gain.value = muted ? 0 : .16;
+    wakeAudio(); syncSound(); if (!muted) beep(660, .1, 0, 'sine', .3);
+  }));
+  window.addEventListener('keydown', e => {
+    if (e.repeat) return;
+    if (/^[1-4]$/.test(e.key)) { e.preventDefault(); loadLane(Number(e.key) - 1); }
+    else if (e.key === 'Escape' && state === 'garage') { e.preventDefault(); closeGarage(); }
+    else if ((e.key.toLowerCase() === 'p' || e.key === 'Escape') && state === 'play') { e.preventDefault(); pauseGame(); }
+    else if ((e.key === 'Enter' || e.key === ' ') && (state === 'title' || state === 'over') && !(document.activeElement instanceof HTMLButtonElement)) { e.preventDefault(); startGame(); }
+  });
+  stage.addEventListener('contextmenu', e => e.preventDefault());
+  window.addEventListener('resize', fit);
+  if (window.visualViewport) window.visualViewport.addEventListener('resize', fit);
+  document.addEventListener('visibilitychange', () => { lastFrame = null; if (document.hidden && state === 'play') pauseGame(true); });
+  buildBelt(); parcelCache = [0, 1, 2, 3, 4].map(makeParcel); skinTruckCache = SKINS.map((_, s) => [0, 1, 2, 3].map(t => makeTruck(t, false, s))); truckCache = skinTruckCache[profile.selectedSkin]; lockedCache = makeTruck(3, true);
+  syncSound(); syncControls(); fit(); requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
