@@ -2,7 +2,7 @@
   "id": "./",
   "name": "Dock Dash",
   "short_name": "Dock Dash",
-  "description": "A fast warehouse arcade: match parcels to trucks, build streaks, and master each shift.",
+  "description": "Sort 300 products across a warehouse, harbour depot and airport cargo hub. Match colour and shape, build streaks and enjoy original music.",
   "lang": "en",
   "dir": "ltr",
   "start_url": "./index.html",
