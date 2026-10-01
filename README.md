@@ -1,4 +1,4 @@
-# Dock Dash — Cargo Worlds
+# Dock Dash — Pixel Routes
 
 A mobile-first warehouse sorting arcade in one self-contained HTML game.
 
@@ -10,7 +10,24 @@ yellow diamond remain the sorting rules, regardless of the product pictured.
 Golden star parcels fit any unlocked truck. The bright stripe earns a perfect
 bonus. Pause with P or Escape.
 
-## Cargo Worlds update
+## Pixel Routes update
+
+- Original generated pixel art for the Warehouse and Air cargo hub. The warehouse
+  has stocked shelves, pallets, work lights and forklifts. The airport has a
+  cargo freighter, loading equipment, baggage carts and apron lights.
+- Pixel scenery is pre-rendered with nearest-neighbour sampling. The HUD and
+  sorting stickers stay clear above the artwork. Both scenes are embedded in
+  the HTML, so they need no image downloads.
+- Three original music arrangements are embedded as compact MP3 loops. Music
+  starts directly from a touch or keyboard action and uses the phone's media
+  playback path. It continues independently of the canvas animation loop.
+- Returning from another app waits for Resume. Any new touch recovers interrupted
+  playback; blocked music shows a Tap for music button. Effects also recover from
+  interrupted or closed audio contexts.
+- Music volume, music/effects switches, pause, hot-streak tempo and route changes
+  all work with the new playback path. Existing scores and settings are preserved.
+
+## Cargo Worlds features
 
 - 300 named products in 25 categories, including PlayStation 5, running shoes,
   spiral notebooks, cameras, groceries, tools and toys.
@@ -20,9 +37,8 @@ bonus. Pause with P or Escape.
   products delivered correctly. Tutorial loads do not affect collection records.
 - Warehouse, Harbour depot and Air cargo hub locations; Tour mode changes the
   location every two shifts. Scenery does not change sorting rules or difficulty.
-- Original synthesized music with bass, melody, chords and percussion. Each
-  location has its own arrangement; hot streaks add energy. Audio begins after
-  user interaction and pauses when the game pauses or the page is hidden.
+- Original music with bass, melody, chords and percussion. Each location has its
+  own arrangement; hot streaks add energy. Music pauses with the game or app.
 - Saved music/effects toggles, music volume, location and Tour mode preferences.
 - Existing best scores, fleet unlocks and tutorial progress remain compatible.
 
@@ -39,13 +55,21 @@ guaranteed. Browser storage may also be cleared by the device or user.
 
 ## Validation
 
-47 core-game checks and 35 Cargo Worlds checks pass. Coverage includes a
-100-delivery run reaching shift 9, scoring and lives, touch and keyboard input,
-all product pages, settings persistence, mobile sizing, actual music signal,
-pause/mute behavior, and unavailable localStorage.
+The 47 core-game checks pass, including a 100-delivery run reaching shift 9,
+scoring, lives, touch and keyboard input, mobile sizing, saved records and denied
+localStorage. Dedicated Pixel Routes checks cover image decoding and pixel
+sampling, touch-authorized media playback, nonzero decoded audio, looping,
+volume, independent effects, pause/resume, hidden pages, blocked play requests,
+simulated interrupted Safari audio contexts, and music without WebAudio support.
+The Home Screen manifest, launch scope and all icons also load from a subfolder.
 
-Higgsfield generation was attempted for location artwork but the connected
-account required a Basic plan. This release uses procedural canvas scenery and
-WebAudio music; it does not claim to contain Higgsfield-generated artwork/audio.
+Playback was verified in a touch-enabled Chromium browser with autoplay
+restrictions. Safari interruption states were simulated; physical iPhone
+hardware was not available for testing.
 
-Version: 3.0-cargo-worlds.
+Higgsfield artwork generation was attempted but the connected account required
+an upgraded plan. The warehouse and airport artwork were created with the
+built-in image generator, then compressed and embedded. The game has no runtime
+image-generation or external library dependency.
+
+Version: 3.1-pixel-routes.
