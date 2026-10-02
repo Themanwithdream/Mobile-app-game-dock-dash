@@ -1,6 +1,6 @@
-# Dock Dash — Pixel Routes
+# Dock Dash — Route Soundtracks
 
-A mobile-first warehouse sorting arcade in one self-contained HTML game.
+A mobile-first warehouse sorting arcade with bundled artwork and route soundtracks.
 
 ## Play
 
@@ -10,7 +10,27 @@ yellow diamond remain the sorting rules, regardless of the product pictured.
 Golden star parcels fit any unlocked truck. The bright stripe earns a perfect
 bonus. Pause with P or Escape.
 
-## Pixel Routes update
+## Route Soundtracks update
+
+- Three new instrumental themes generated with ElevenLabs Music v2, then edited
+  and mastered for the game: **Warehouse Groove** (69 seconds), **Harbour Breeze**
+  (76 seconds), and **Runway Rush** (64 seconds). These replace the previous
+  8–10 second loops with fuller melodies, chord changes and musical variation.
+- The warehouse uses an electro-funk groove, the harbour has a warm electronic
+  theme, and the airport has a driving arcade synth theme.
+- Ending and opening bars are blended for smoother loop joins. All three tracks
+  are mastered to consistent loudness with headroom for the game's sound effects.
+- Route changes crossfade using two media players. The outgoing player stops
+  after the transition; rapid route changes and delayed playback requests cannot
+  restart a muted or paused soundtrack. Devices with read-only media volume use
+  one player and a direct handoff instead of overlapping songs.
+- Native media playback and transition timers remain independent of canvas
+  animation. Existing touch/keyboard activation, pause/resume, hidden-page
+  handling, retry after blocked playback, music toggles and saved settings remain.
+- Tracks are in `audio/` and load only when needed. Ship the entire repository
+  folder together; `index.html` now uses the bundled audio and player files.
+
+## Pixel Routes artwork
 
 - Original generated pixel art for the Warehouse and Air cargo hub. The warehouse
   has stocked shelves, pallets, work lights and forklifts. The airport has a
@@ -18,9 +38,6 @@ bonus. Pause with P or Escape.
 - Pixel scenery is pre-rendered with nearest-neighbour sampling. The HUD and
   sorting stickers stay clear above the artwork. Both scenes are embedded in
   the HTML, so they need no image downloads.
-- Three original music arrangements are embedded as compact MP3 loops. Music
-  starts directly from a touch or keyboard action and uses the phone's media
-  playback path. It continues independently of the canvas animation loop.
 - Returning from another app waits for Resume. Any new touch recovers interrupted
   playback; blocked music shows a Tap for music button. Effects also recover from
   interrupted or closed audio contexts.
@@ -49,27 +66,32 @@ Open the game URL in iPhone Safari, choose Share > Add to Home Screen and enable
 Open as Web App if offered. The manifest and supplied icons support the app name,
 portrait preference and standalone launch. Some browsers ignore orientation.
 
-The game code has no runtime network dependencies. This release does not include
-a service worker, so offline reopening of the hosted Home Screen app is not
+The game uses no external runtime libraries, API keys or third-party music
+services. Soundtrack files load from the same game folder. This release does not
+include a service worker, so offline reopening of the hosted Home Screen app is not
 guaranteed. Browser storage may also be cleared by the device or user.
 
 ## Validation
 
-The 47 core-game checks pass, including a 100-delivery run reaching shift 9,
-scoring, lives, touch and keyboard input, mobile sizing, saved records and denied
-localStorage. Dedicated Pixel Routes checks cover image decoding and pixel
-sampling, touch-authorized media playback, nonzero decoded audio, looping,
-volume, independent effects, pause/resume, hidden pages, blocked play requests,
-simulated interrupted Safari audio contexts, and music without WebAudio support.
-The Home Screen manifest, launch scope and all icons also load from a subfolder.
+Run the 13 soundtrack regression tests with:
 
-Playback was verified in a touch-enabled Chromium browser with autoplay
-restrictions. Safari interruption states were simulated; physical iPhone
-hardware was not available for testing.
+```sh
+node --test tests/route-music.test.cjs
+```
 
-Higgsfield artwork generation was attempted but the connected account required
-an upgraded plan. The warehouse and airport artwork were created with the
-built-in image generator, then compressed and embedded. The game has no runtime
-image-generation or external library dependency.
+They cover synchronous gesture activation, loading and crossfading, rapid route
+changes, stale promises after mute, pause during transitions, resume position,
+blocked playback and retry, failed assets, read-only volume, zero volume,
+pitch-preserving hot-streak tempo, hidden pages and repeated input.
 
-Version: 3.1-pixel-routes.
+Playback is also checked in touch-enabled Chromium with autoplay restrictions:
+actual MP3 decoding and nonzero stereo audio, saved progress, pause/resume,
+route transitions independent of canvas frames, volume and music/effects
+controls, native looping, hidden-page recovery, blocked playback retry, and
+simulated read-only volume without WebAudio. Physical iPhone hardware was not
+available for testing.
+
+The warehouse and airport artwork remains embedded in the HTML. Music generation
+is a development step; the installed game never contacts a generation service.
+
+Version: 3.2-route-soundtracks.
