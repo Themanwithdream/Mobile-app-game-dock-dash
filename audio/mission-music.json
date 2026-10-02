@@ -1,0 +1,26 @@
+[
+  {
+    "file": "matchday-anthem.mp3",
+    "bpm": 112,
+    "duration_seconds": 68.571,
+    "bytes": 823684
+  },
+  {
+    "file": "festival-lights.mp3",
+    "bpm": 104,
+    "duration_seconds": 73.846,
+    "bytes": 887004
+  },
+  {
+    "file": "rescue-tide.mp3",
+    "bpm": 108,
+    "duration_seconds": 71.111,
+    "bytes": 854400
+  },
+  {
+    "file": "orbital-express.mp3",
+    "bpm": 120,
+    "duration_seconds": 64.0,
+    "bytes": 768826
+  }
+]

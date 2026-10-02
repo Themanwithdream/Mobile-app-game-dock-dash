@@ -1,6 +1,7 @@
-# Dock Dash — Route Soundtracks
+# Dock Dash — Mission Worlds
 
-A mobile-first warehouse sorting arcade with bundled artwork and route soundtracks.
+A mobile-first parcel sorting arcade with 348 products, themed pixel-art missions,
+and seven original soundtracks.
 
 ## Play
 
@@ -9,6 +10,43 @@ truck or use keys 1–4. The original red circle, blue square, green triangle an
 yellow diamond remain the sorting rules, regardless of the product pictured.
 Golden star parcels fit any unlocked truck. The bright stripe earns a perfect
 bonus. Pause with P or Escape.
+
+## Mission Worlds update
+
+Choose **Missions** from the main menu. All four worlds start open; completing a
+mission unlocks the next challenge in that world.
+
+| World | Cargo and setting | Soundtrack |
+| --- | --- | --- |
+| Matchday | Soccer field, ball bundles, jerseys, kits, boots, gloves, cones and trophies | Matchday Anthem, 112 BPM |
+| Festival Rush | Festival stage, tickets, speakers, lights, instruments and food | Festival Lights, 104 BPM |
+| Ocean Rescue | Coastal station, first-aid cases, life jackets, water and rescue equipment | Rescue Tide, 108 BPM |
+| Space Launch | Moonbase, astronaut helmets, oxygen, fuel, solar panels and robots | Orbital Express, 120 BPM |
+
+- Twelve missions, with three challenges per world and 36 stars to earn.
+  Deliver the required number of packages **and** priority supplies before the
+  deadline. The briefing explains both targets and the next difficulty changes.
+- One star for a successful delivery, two with at most one mistake, and three
+  for a mistake-free delivery with the displayed perfect-load target.
+- The second challenge opens the yellow dock. The final challenge adds fragile
+  and express cargo, and shuffles docks after 14 loads with a safe reading pause.
+- Every new arcade shift, replay, tutorial, post-tutorial run and mission starts
+  with a visible **3, 2, 1** countdown. Input, parcels, timers and scoring wait for
+  GO. Pausing or hiding the page freezes the countdown and mission deadline.
+- Mission stars, best scores and fastest clear times save separately from the
+  arcade record. Replays retain the best of each. Mission deliveries also build
+  the existing cargo collection and unlock fleet designs.
+- 48 additional illustrated products extend the collection to 348 across 29
+  categories. Existing 0–299 product IDs and all prior storage keys are preserved.
+- Four matching pixel scenes are in `assets/missions/`. Their generation prompts
+  and processing notes are in [the artwork notes](assets/missions/ARTWORK.md).
+- Four original, synthesized 32-bar mission scores run 64–74 seconds. Their
+  note tails wrap around the loop boundary; all are mastered near −18 LUFS with
+  headroom for effects. [Source](audio/compose-missions.py) and
+  [track metadata](audio/mission-music.json) are included. The prior three
+  ElevenLabs route tracks remain unchanged. The connected ElevenLabs account
+  lacked credits for the new request, so no ElevenLabs-generated mission audio
+  is claimed or included.
 
 ## Route Soundtracks update
 
@@ -46,7 +84,7 @@ bonus. Pause with P or Escape.
 
 ## Cargo Worlds features
 
-- 300 named products in 25 categories, including PlayStation 5, running shoes,
+- 348 named products in 29 categories, including PlayStation 5, running shoes,
   spiral notebooks, cameras, groceries, tools and toys.
 - Product illustrations rendered in canvas, with the sorting sticker drawn on
   top so it stays visible. No image downloads or third-party runtime libraries.
@@ -73,13 +111,15 @@ guaranteed. Browser storage may also be cleared by the device or user.
 
 ## Validation
 
-Run the 13 soundtrack regression tests with:
+Run the 20 mission and soundtrack regression tests with:
 
 ```sh
-node --test tests/route-music.test.cjs
+node --test tests/*.test.cjs
 ```
 
-They cover synchronous gesture activation, loading and crossfading, rapid route
+Mission tests cover unlocking, both objective requirements, deadlines, star
+grades, safe storage recovery, replay records and stable cargo IDs. Soundtrack
+tests cover synchronous gesture activation, loading and crossfading, rapid route
 changes, stale promises after mute, pause during transitions, resume position,
 blocked playback and retry, failed assets, read-only volume, zero volume,
 pitch-preserving hot-streak tempo, hidden pages and repeated input.
@@ -94,4 +134,13 @@ available for testing.
 The warehouse and airport artwork remains embedded in the HTML. Music generation
 is a development step; the installed game never contacts a generation service.
 
-Version: 3.2-route-soundtracks.
+The mission browser suite, `node tests/missions.browser.cjs`, additionally checks
+all twelve missions through three-star completion, real touch countdowns,
+arcade/replay/tutorial starts, pause/tab handling, scene/music selection,
+decoded MP3s, storage reloads, failed missions, retries and existing progress.
+It requires Playwright and Chromium; set `DOCK_CHROME` to the browser executable
+and `DOCK_TEST_OUTPUT` to a directory for screenshots and the JSON report.
+Test hooks are injected into the local test response and are absent from the
+published game.
+
+Version: 4.0-mission-worlds.

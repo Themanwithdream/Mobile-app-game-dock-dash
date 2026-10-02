@@ -10,7 +10,7 @@ minute long, with consistent loudness and smoother loop joins. Route changes
 crossfade where supported. Music still starts from a phone tap and recovers
 after interruptions. Artwork stays embedded; audio loads from the game folder.
 
-300 products, the Cargo Collection, all four sorting shapes, three locations,
+348 products, the Cargo Collection, all four sorting shapes, three arcade routes,
 Tour mode, saved audio controls, scores and fleet unlocks remain available.
 Open Routes & audio on the menu or pause screen to choose your preferences.
 If playback is blocked, tap the Tap for music control to start it.
@@ -21,4 +21,15 @@ Share > Add to Home Screen > Open as Web App (if shown) > Add.
 This version does not include a service worker for offline reopening.
 See README.md for the complete feature list and validation.
 
-Version: 3.2-route-soundtracks.
+Mission Worlds adds Matchday soccer, Festival Rush, Ocean Rescue and Space Launch.
+Each world has its own pixel scenery, twelve cargo products and original music.
+Clear three challenges per world and earn up to 36 saved stars. Meet the package
+and priority-supply targets before time runs out. Later challenges add a fourth
+dock, fragile/express parcels and a dock shuffle.
+
+Every arcade run, replay, tutorial and mission starts with a 3, 2, 1 countdown.
+Parcels and scoring wait for GO. Pause and hidden tabs freeze mission timers.
+Existing best scores, collection IDs and fleet unlocks remain compatible.
+Ship index.html with audio/, assets/, missions/, icons/ and the manifest.
+
+Version: 4.0-mission-worlds.
