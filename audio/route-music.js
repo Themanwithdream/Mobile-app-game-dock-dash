@@ -1,4 +1,4 @@
-/* Dock Dash: two media players keep music independent of the game frame loop. */
+/* Native playback stays independent of the game loop; phones use one decoder. */
 (function (root) {
   'use strict';
   class DockDashSoundtrack {
@@ -6,6 +6,7 @@
       this.tracks = tracks;
       this.allowed = options.allowed || (() => true);
       this.onStatus = options.onStatus || (() => {});
+      this.lowPower = options.lowPower ?? (typeof root.matchMedia === 'function' && root.matchMedia('(pointer: coarse)').matches);
       this.volume = .52;
       this.enabled = true;
       this.rate = 1;
@@ -14,10 +15,12 @@
       this.serial = 0;
       this.timer = null;
       this.blocked = false;
-      this.slots = [0, 1].map(() => {
+      this.slots = (this.lowPower ? [0] : [0, 1]).map(() => {
         const player = document.createElement('audio');
         player.loop = true;
         player.preload = 'none';
+        player.preservesPitch = true;
+        if ('webkitPreservesPitch' in player) player.webkitPreservesPitch = true;
         player.setAttribute('playsinline', '');
         player.setAttribute('aria-hidden', 'true');
         document.body.appendChild(player);
@@ -42,8 +45,9 @@
       });
       // iPhone Safari may ignore per-element volume. Never overlap songs there.
       const probe = this.slots[0].player;
-      this.canFade = false;
-      try { probe.volume = .314; this.canFade = Math.abs(probe.volume - .314) < .001; } catch (_) {}
+      this.canSetVolume = false;
+      try { probe.volume = .314; this.canSetVolume = Math.abs(probe.volume - .314) < .001; } catch (_) {}
+      this.canFade = this.canSetVolume && !this.lowPower;
       this.applyMix();
     }
     canPlay() { return this.enabled && this.volume > 0 && this.allowed(); }
@@ -60,8 +64,10 @@
     }
     applyMix() {
       for (const slot of this.slots) {
-        slot.player.muted = !this.enabled || this.volume === 0;
-        if (this.canFade) slot.player.volume = Math.max(0, Math.min(1, this.volume * slot.weight));
+        const muted = !this.enabled || this.volume === 0;
+        if (slot.player.muted !== muted) slot.player.muted = muted;
+        const volume = Math.max(0, Math.min(1, this.volume * slot.weight));
+        if (this.canSetVolume && slot.player.volume !== volume) slot.player.volume = volume;
       }
     }
     setMix(volume, enabled) {
@@ -71,12 +77,23 @@
       if (!this.canPlay()) this.pause();
     }
     setRate(rate) {
-      this.rate = Number.isFinite(rate) ? Math.max(.8, Math.min(1.2, rate)) : 1;
+      // Mobile pitch resampling and overlapping decoders can stutter under load.
+      const next = !this.lowPower && Number.isFinite(rate) ? Math.max(.8, Math.min(1.2, rate)) : 1;
+      if (this.rate === next) return;
+      this.rate = next;
       for (const {player} of this.slots) {
-        player.preservesPitch = true;
-        if ('webkitPreservesPitch' in player) player.webkitPreservesPitch = true;
         if (player.playbackRate !== this.rate) player.playbackRate = this.rate;
       }
+    }
+    prime(track) {
+      // Buffer just the selected theme without playing or replacing a live song.
+      if (!Number.isInteger(track) || !this.tracks[track] || !this.canPlay() || this.active || this.pending) return;
+      const target = this.slots[0];
+      if (target.track === track && !target.player.error) return;
+      target.track = track;
+      target.player.preload = 'auto';
+      target.player.src = this.tracks[track];
+      if (typeof target.player.load === 'function') target.player.load();
     }
     pause() {
       if (!this.pending && this.timer === null && this.slots.every(s => s.player.paused)) return;
@@ -128,7 +145,7 @@
       this.cancelFade();
       const previous = this.active;
       const target = !this.canFade ? previous || this.slots[0] : previous && previous.track === track ? previous : this.slots.find(s => s !== previous);
-      // Reuse at most two elements, even during very rapid route changes.
+      // Reuse the phone's single element or the desktop's two crossfade slots.
       if (target !== previous || target.player.error) this.silence(target);
       if (target.track !== track || target.player.error) {
         this.silence(target);
@@ -136,8 +153,8 @@
         target.player.src = this.tracks[track];
         target.player.preload = 'auto';
       }
-      target.weight = 0;
-      target.player.playbackRate = this.rate;
+      target.weight = this.canFade ? 0 : 1;
+      if (target.player.playbackRate !== this.rate) target.player.playbackRate = this.rate;
       this.applyMix();
       const token = ++this.serial;
       this.pending = {slot: target, track, token};

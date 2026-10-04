@@ -3,7 +3,7 @@ DOCK DASH — ROUTE SOUNDTRACKS
 The current game is index.html. App launch settings are manifest.webmanifest.
 The icons folder contains 192px and 512px web icons, a maskable Android icon,
 and a 180px iPhone Home Screen icon. The audio folder contains the music player
-and all three MP3 themes. Keep the complete folder together when publishing.
+and all seven MP3 themes. Keep the complete folder together when publishing.
 
 New: fuller warehouse, harbour and airport instrumental themes, each over one
 minute long, with consistent loudness and smoother loop joins. Route changes
@@ -32,4 +32,10 @@ Parcels and scoring wait for GO. Pause and hidden tabs freeze mission timers.
 Existing best scores, collection IDs and fleet unlocks remain compatible.
 Ship index.html with audio/, assets/, missions/, icons/ and the manifest.
 
-Version: 4.0-mission-worlds.
+Phone fixes: touch devices use a single native player and steady tempo, with
+selected-theme buffering and fewer repeated audio and viewport operations.
+Tap the Main menu button from any mission screen; during play it reads Menu.
+Returning from a mission keeps earned stars, cargo and fleet progress saved.
+Desktop route transitions still crossfade.
+
+Version: 4.1-mobile-fixes.
