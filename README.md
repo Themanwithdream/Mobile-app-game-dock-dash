@@ -11,6 +11,27 @@ yellow diamond remain the sorting rules, regardless of the product pictured.
 Golden star parcels fit any unlocked truck. The bright stripe earns a perfect
 bonus. Pause with P or Escape.
 
+## Engine and arcade home update
+
+- The pause keyboard hint has its own row beneath the back button and is hidden
+  on touch devices, fixing the overlapping text reported on iPhone.
+- Arcade results include **Back to home**, alongside replay and the existing
+  fleet, audio and collection controls. The short results tap guard applies to
+  the new button too. Returning keeps best scores, stars, cargo and fleet data.
+- Gameplay now advances in fixed 1/120-second steps. Countdown, parcel positions
+  and mission deadlines match at 30, 60 and 120 Hz, including short frame hitches.
+- Gameplay rendering targets 60 FPS and animated menus target 30 FPS. Paused
+  scenes and static menus paint when their content changes. Hidden pages stop
+  drawing through the frame loop. Touch feedback still requests an immediate
+  repaint on the next animation callback.
+- A frame gap longer than 250 ms pauses active gameplay, protecting lives and
+  mission time from a long browser freeze. Resume resets the clock so background
+  time cannot rush the conveyor forward.
+- The update loop reuses its dock-flash array and calculates particle drag once
+  per step, reducing repeated allocation and math during bursts.
+- The existing pixel artwork, cargo and music controller remain bundled with
+  the game. Publish the new `engine/` folder together with the other assets.
+
 ## Phone audio and mission navigation update
 
 - Touch devices use one native music player and a steady playback rate. This
@@ -130,7 +151,7 @@ guaranteed. Browser storage may also be cleared by the device or user.
 
 ## Validation
 
-Run the 27 mission and soundtrack regression tests with:
+Run the 36 engine, mission and soundtrack regression tests with:
 
 ```sh
 node --test tests/*.test.cjs
@@ -170,4 +191,11 @@ recovery, viewport cache reuse, rotation, all six mission-to-menu paths, saved
 stars, mute, desktop crossfades and simulated Safari volume restrictions without
 WebAudio. It uses the same Playwright and Chromium environment variables.
 
-Version: 4.1-mobile-fixes.
+The engine tests also verify equivalent elapsed time across frame rates, bounded
+catch-up, long-stall recovery, rendering cadence, frozen-screen invalidation,
+resume resets and invalid timestamps. `node tests/engine.browser.cjs` checks
+actual gameplay timing, four phone layouts, the pause hint, arcade home/replay,
+stored progress, content repainting, stalls and hidden-page recovery. Test hooks
+and canvas counters are injected only into the local test response.
+
+Version: 4.2-engine-and-home.

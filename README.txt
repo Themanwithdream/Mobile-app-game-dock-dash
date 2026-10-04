@@ -38,4 +38,10 @@ Tap the Main menu button from any mission screen; during play it reads Menu.
 Returning from a mission keeps earned stars, cargo and fleet progress saved.
 Desktop route transitions still crossfade.
 
-Version: 4.1-mobile-fixes.
+New: the pause keyboard hint no longer overlaps Back to menu. Arcade results
+now have Back to home. The engine uses fixed gameplay steps, reduces drawing
+on high-refresh and paused screens, and safely pauses after a long freeze.
+Countdowns and mission deadlines stay consistent across display frame rates.
+Include the engine/ folder when publishing.
+
+Version: 4.2-engine-and-home.
