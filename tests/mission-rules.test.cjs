@@ -53,9 +53,10 @@ test('mission product IDs extend existing cargo without collisions or cross-worl
     assert.equal(w.cargo.split(';').length, 12);
     assert.equal(new Set(m.products).size, 12);
     assert.ok(m.priorityProducts.every(id => m.products.includes(id)));
-    for (const id of m.products) { assert.ok(id >= 300 && id < 348); assert.equal(all.has(id), false); all.add(id); }
+    for (const id of m.products) { assert.ok(id >= 300 && id < 300 + rules.worlds.length * 12); assert.equal(all.has(id), false); all.add(id); }
   }
-  assert.equal(all.size, 48);
+  assert.equal(all.size, rules.worlds.length * 12);
+  for (const [i,id] of ['matchday','festival','rescue','space'].entries()) assert.equal(rules.getMission(id,0).products[0],300+i*12);
   assert.equal(rules.getMission('unknown', 0), null);
   assert.equal(rules.getMission('space', 3), null);
   assert.equal(rules.isUnlocked(null, {}), false);
@@ -65,6 +66,15 @@ test('total stars count only known missions and survive a storage round trip', (
   let records = {};
   for (const m of rules.missions) records = rules.recordResult(records, m, { ...clear, delivered: m.loads, priorityLoaded: m.priority, perfects: m.perfects });
   records = rules.readRecords(JSON.stringify(records));
-  assert.equal(rules.totalStars(records), 36);
+  assert.equal(rules.totalStars(records), rules.missions.length * 3);
   assert.equal(rules.totalStars(records, 'space'), 9);
+});
+
+test('six new worlds provide distinct cargo, stories and open first missions', () => {
+  assert.equal(rules.worlds.length,10);assert.equal(rules.missions.length,30);
+  for(const id of ['batcave','school','dino','candy','forest','arctic']) {
+    const world=rules.worlds.find(w=>w.id===id);
+    assert.equal(new Set(world.stories).size,3);assert.equal(new Set(world.cargo.split(';')).size,12);
+    for(let stage=0;stage<3;stage++)assert.equal(rules.getMission(id,stage).story,world.stories[stage]);
+  }
 });

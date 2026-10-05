@@ -70,7 +70,7 @@ function pass(name,detail){checks.push({name,detail});console.log('PASS '+name+(
  assert.equal(pressure.scale,1.5);assert.ok(pressure.after<pressure.before);assert.equal(pressure.sameGame,true);assert.equal(pressure.sameLayout,true);assert.equal(pressure.aligned,true);assert.equal(pressure.sharpScenery,true);assert.equal(pressure.lives,3);assert.ok(Math.abs(pressure.elapsed-2.1)<1e-9);
  pass('sustained frame pressure reduces pixels while retaining layout, alignment and exact game time',pressure);
  const cache=await page.evaluate(()=>{
-  const d=__dockTest;for(let id=0;id<348;id++)for(let type=0;type<5;type++)d.parcelSprite(type,id%2?'fragile':'normal',id);
+  const d=__dockTest;for(let id=0;id<420;id++)for(let type=0;type<5;type++)d.parcelSprite(type,id%2?'fragile':'normal',id);
   for(const loc of [2,1,3,4,5,6,0])d.useLocation(loc);
   d.game.parcels=[];d.render();return {parcels:d.parcelSprites.entries.size,floors:d.floors.filter(Boolean).length,cargoPanel:d.panels.has('cargo')};
  });

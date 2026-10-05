@@ -79,16 +79,18 @@ async function advance(page, seconds) {
     pass('real touch start displays 3, 2, 1, freezes parcels/input/timer, and respects pause');
     const decoded = await page.evaluate(async () => {
       const media = JSON.parse(document.getElementById('bundled-media').textContent), ac = new AudioContext(), tracks = [];
+      const metadata=await (await fetch('./audio/mission-music.json')).json();
       for (const src of media.music) {
         const buffer = await ac.decodeAudioData(await (await fetch(src)).arrayBuffer()), data = buffer.getChannelData(0);
         let sum = 0, peak = 0; for (const sample of data) { sum += sample * sample; peak = Math.max(peak, Math.abs(sample)); }
-        tracks.push({ src, duration: buffer.duration, channels: buffer.numberOfChannels, rms: Math.sqrt(sum/data.length), peak });
+        const expected=metadata.find(m=>src.endsWith('/'+m.file));
+        tracks.push({ src, duration: buffer.duration, expectedDuration:expected?.duration_seconds, channels: buffer.numberOfChannels, rms: Math.sqrt(sum/data.length), peak });
       }
       await ac.close(); return tracks;
     });
-    assert.equal(decoded.length, 7);
-    for (const t of decoded) { assert.ok(t.duration > 60); assert.equal(t.channels, 2); assert.ok(t.rms > .04); assert.ok(t.peak < .99); }
-    pass('all seven stereo soundtracks decode, contain music, and stay below clipping', decoded.map(t => ({ src: t.src, seconds: +t.duration.toFixed(2) })));
+    assert.equal(decoded.length, 13);
+    for (const t of decoded) { assert.ok(t.duration > 60);if(t.expectedDuration)assert.ok(Math.abs(t.duration-t.expectedDuration)<.1,t.src+' complete loop');assert.equal(t.channels, 2); assert.ok(t.rms > .04); assert.ok(t.peak < .99); }
+    pass('all thirteen stereo soundtracks decode, contain music, and stay below clipping', decoded.map(t => ({ src: t.src, seconds: +t.duration.toFixed(2) })));
     const settingsTimer = await page.evaluate(() => __dockTest.game.missionElapsed);
     await page.locator('.settings-button:visible').tap(); await page.locator('[data-location="1"]').tap(); await page.locator('#settings-back').tap();
     assert.equal(await page.evaluate(() => __dockTest.scene), 3);
@@ -142,13 +144,13 @@ async function advance(page, seconds) {
       }
       return results;
     });
-    assert.equal(results.length, 12);
+    assert.equal(results.length, 30);
     for (const r of results) { assert.equal(r.state, 'missionResult', r.id); assert.equal(r.stars, 3, r.id); assert.equal(r.lives, 3, r.id); if (r.id.endsWith('-3')) assert.equal(r.remixed, true, r.id); }
-    pass('all twelve missions can be completed at three stars with their own cargo and final-stage remix', results);
+    pass('all thirty missions can be completed at three stars with their own cargo and final-stage remix', results);
     await sim.screenshot({ path: path.join(output, 'space-result.png') });
     assert.equal(await sim.evaluate(() => localStorage.getItem('dockDashBest')), '12345');
     await sim.reload(); await sim.waitForFunction(() => window.__dockTest && [3,4,5,6].every(i=>__dockTest.art[i]));
-    assert.equal(await sim.evaluate(() => __dockTest.MR.totalStars(__dockTest.records)), 36);
+    assert.equal(await sim.evaluate(() => __dockTest.MR.totalStars(__dockTest.records)), 90);
     assert.ok(await sim.evaluate(() => __dockTest.profile.totalDelivered > 180 && [3,14,29].every(id=>__dockTest.discovered.has(id))));
     pass('mission stars, fleet deliveries and cargo persist after reload; arcade best is preserved');
     await sim.evaluate(() => { __dockTest.openBriefing('matchday', 0); __dockTest.launchMission(); }); await advance(sim, 3.01);

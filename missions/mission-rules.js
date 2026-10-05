@@ -25,7 +25,43 @@
       tag: 'Supply the next giant little leap.', location: 6, accent: '#c4baff', tempo: 120,
       priority: 'FLIGHT ESSENTIALS', priorityCopy: 'Helmets · oxygen · fuel',
       stages: ['Moonbase supplies', 'Launch window', 'Orbital express'],
-      cargo: 'Astronaut helmet|astronaut;Oxygen tanks|oxygen;Rocket fuel cells|fuel;Solar panel|solar;Moon rover|car;Service robot|robot;Space food packs|box;Navigation tablet|tablet;Satellite kit|satellite;Star map|book;Launch rocket|rocket;Repair tools|tools' }
+      cargo: 'Astronaut helmet|astronaut;Oxygen tanks|oxygen;Rocket fuel cells|fuel;Solar panel|solar;Moon rover|car;Service robot|robot;Space food packs|box;Navigation tablet|tablet;Satellite kit|satellite;Star map|book;Launch rocket|rocket;Repair tools|tools' },
+    { id:'batcave', name:'Batcave', category:'Batman gadgets', badge:'GOTHAM',
+      tag:'Keep Gotham’s night shift ready.', location:7, accent:'#ffdf72', tempo:110,
+      priority:'HERO ESSENTIALS', priorityCopy:'Batarangs · grapples · belts',
+      stages:['Gadget delivery','Gotham patrol','Dark knight express'],
+      stories:['Alfred is stocking the cave. Send the first gadget crates.', 'The Bat-Signal is on. Gear up all four patrol docks.', 'A busy night in Gotham. Fragile tech and express gadgets arrive.'],
+      cargo:'Batarang case|bat;Grappling launcher|grapple;Utility belts|utilitybelt;Batman cowl|cowl;Folded cape|cape;Bat-Signal lens|batsignal;Batcomputer parts|chip;Detective scanner|scanner;Armoured gloves|gloves;Batmobile tools|tools;Smoke capsules|capsule;Gotham city map|map' },
+    { id:'school', name:'School Run', category:'School supplies', badge:'SCHOOL',
+      tag:'Little deliveries. Big bright ideas.', location:8, accent:'#ffd783', tempo:106,
+      priority:'CLASSROOM ESSENTIALS', priorityCopy:'Books · pencils · backpacks',
+      stages:['First bell','Art class rush','Science fair express'],
+      stories:['The first bell is close. Fill the classrooms with essentials.', 'Art class needs a fresh supply of colour. Yellow joins the fleet.', 'The science fair opens soon. Handle models and express supplies.'],
+      cargo:'Textbook stack|bookstack;Coloured pencils|pencils;School backpacks|backpack;Spiral notebooks|notebook;Geometry rulers|ruler;Lunch boxes|box;Art palettes|palette;Safety scissors|scissors;Glue sticks|bottle;Classroom globe|globe;Science microscope|microscope;School bell|bell' },
+    { id:'dino', name:'Dino Park', category:'Dinosaur park supplies', badge:'DINOS',
+      tag:'Tiny trucks. Jurassic-sized wonder.', location:9, accent:'#c3e89e', tempo:114,
+      priority:'RANGER ESSENTIALS', priorityCopy:'Eggs · feed · ranger kits',
+      stages:['Hatchery helpers','Ranger rounds','Jurassic jamboree'],
+      stories:['A baby dinosaur is hatching. Deliver eggs and ranger supplies.', 'The park is waking up. Stock four ranger stations.', 'Visitors are arriving. Move fossils, feed and fragile eggs with care.'],
+      cargo:'Dinosaur eggs|dinoegg;Dinosaur feed|feed;Ranger kits|kitbag;Fossil specimens|fossil;Excavation brushes|brush;Ranger binoculars|binoculars;Fern seedlings|plant;Tracking radios|radio;Park maps|map;Ranger hats|cap;Dinosaur models|dinosaur;Visitor passes|ticket' },
+    { id:'candy', name:'Candy Works', category:'Candy factory supplies', badge:'CANDY',
+      tag:'Sweet cargo. A perfectly timed treat.', location:10, accent:'#ffc1df', tempo:118,
+      priority:'SWEET ESSENTIALS', priorityCopy:'Chocolate · sugar · sprinkles',
+      stages:['Morning batch','Sugar rush','Midnight confection'],
+      stories:['The first batch is mixing. Deliver the sweet ingredients.', 'The candy counters are busy. Keep all four docks supplied.', 'The special orders are ready. Fragile treats need perfect timing.'],
+      cargo:'Chocolate bars|chocolate;Sugar sacks|bag;Rainbow sprinkles|sprinkles;Swirl lollipops|lollipop;Cupcake trays|cupcake;Cookie tins|cookie;Candy canes|candycane;Gummy bear boxes|teddy;Jam jars|jar;Baking tools|tools;Gift ribbons|bow;Sweet gift boxes|gift' },
+    { id:'forest', name:'Moonleaf Forest', category:'Enchanted supplies', badge:'MAGIC',
+      tag:'Deliver a little wonder after dark.', location:11, accent:'#d5bfff', tempo:100,
+      priority:'MAGIC ESSENTIALS', priorityCopy:'Potions · spellbooks · crystals',
+      stages:['Lantern trail','Potion moonrise','Starlight delivery'],
+      stories:['Light the lantern trail. The woodland camp needs supplies.', 'Moonrise is near. Bring potions and books to four magic docks.', 'A starlight celebration awaits. Sort fragile crystals and swift spells.'],
+      cargo:'Potion bottles|potion;Spellbooks|spellbook;Moon crystals|crystal;Mushroom lanterns|mushroom;Wizard hats|wizardhat;Magic wands|wand;Herb bundles|plant;Bottled starlight|starjar;Silver moon charms|moon;Enchanted maps|map;Fairy house kits|house;Woodland tea|jar' },
+    { id:'arctic', name:'Arctic Outpost', category:'Polar expedition supplies', badge:'POLAR',
+      tag:'Warm hearts. Ice-cool deliveries.', location:12, accent:'#bdeaff', tempo:102,
+      priority:'EXPEDITION ESSENTIALS', priorityCopy:'Parkas · heaters · hot drinks',
+      stages:['Warm the camp','Aurora rounds','Polar night express'],
+      stories:['The research crew has arrived. Warm up the camp.', 'Aurora rounds are starting. Stock four expedition stations.', 'The polar night is quiet. Deliver instruments and express warmth.'],
+      cargo:'Thermal parkas|parka;Camp heaters|heater;Hot drink flasks|thermos;Snow goggles|glasses;Ice axes|iceaxe;Sled repair kits|tools;Research sensors|scanner;Snow boots|boot;Polar radios|radio;Sample cases|crystal;Aurora camera|camera;Snowflake badges|snowflake' }
   ];
   const tiers = [
     { loads: 12, priority: 3, seconds: 45, perfects: 4, speed: 82, gap: 90, shift: 1, detail: 'Three docks. A steady belt. Find your rhythm.' },
@@ -37,7 +73,7 @@
     if (index < 0 || !Number.isInteger(stage) || stage < 0 || stage >= tiers.length) return null;
     const world = worlds[index], base = 300 + index * 12;
     return { ...tiers[stage], id: `${worldId}-${stage + 1}`, world, stage,
-      title: world.stages[stage], products: Array.from({ length: 12 }, (_, i) => base + i),
+      title: world.stages[stage], story:world.stories?.[stage] || world.tag, products: Array.from({ length: 12 }, (_, i) => base + i),
       priorityProducts: [base, base + 1, base + 2] };
   }
   const missions = worlds.flatMap(w => tiers.map((_, i) => getMission(w.id, i)));

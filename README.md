@@ -1,7 +1,7 @@
-# Dock Dash — Mission Worlds
+# Dock Dash — Coins & Mission Worlds
 
-A mobile-first parcel sorting arcade with 348 products, themed pixel-art missions,
-and seven original soundtracks.
+A mobile-first parcel sorting arcade with 420 products, 30 missions in 10 worlds,
+14 collectible truck designs, earned coins and 13 original soundtracks.
 
 ## Play
 
@@ -10,6 +10,64 @@ truck or use keys 1–4. The original red circle, blue square, green triangle an
 yellow diamond remain the sorting rules, regardless of the product pictured.
 Golden star parcels fit any unlocked truck. The bright stripe earns a perfect
 bonus. Pause with P or Escape.
+
+## Coins, shop and six new worlds
+
+The Truck Shop opens from the home menu and arcade or mission results. Ten new
+themed trucks cost earned coins; the four original designs retain their delivery
+unlocks. Buying also equips the truck, and owned trucks can be equipped again for
+free. Every truck keeps its dock colour and sorting symbol. Purchases save price
+and ownership together; if saving fails, the purchase leaves your coins intact.
+
+| Earn coins | Reward |
+|---|---:|
+| Correct delivery | 2 |
+| Perfect delivery | +1 |
+| Golden, fragile or express cargo | +1 |
+| Full truck dispatched | 8 |
+| Arcade goal / next shift | 15 / 10 |
+| Mission completion | 20 / 30 / 40 by stage |
+| First clear | +50 / +75 / +100 by stage |
+| Each newly earned mission star | +15 |
+
+New players receive a one-time 100-coin welcome gift. Returning players also
+receive credit for previous deliveries, perfects, trucks and goals, capped at
+3,100 total gift coins. Tutorials, early taps, wrong docks and failed mission
+completions award no coins. Correct deliveries already made on an unfinished or
+failed run stay earned. Replaying a cleared mission earns its completion and
+delivery coins; first-clear and new-star bonuses are awarded only for progress.
+Coins, owned trucks and your equipped choice save on this device alongside all
+previous stars, cargo, records and settings. Coins are earned by playing.
+
+| New mission world | Cargo and stages | Shop truck |
+|---|---|---|
+| Batcave | Batman gadgets, batarangs, grappling launchers and utility belts; gadget delivery → Gotham patrol → dark knight express | Bat Courier, 320 coins |
+| School Run | Books, pencils, backpacks and science supplies; first bell → art class rush → science fair express | School Bus, 150 coins |
+| Dino Park | Eggs, feed, ranger kits and fossils; hatchery helpers → ranger rounds → Jurassic jamboree | Ranger Rover, 500 coins |
+| Candy Works | Chocolate, sugar, sprinkles and sweet gifts; morning batch → sugar rush → midnight confection | Sweet Wheels, 420 coins |
+| Moonleaf Forest | Potions, spellbooks, crystals and lanterns; lantern trail → potion moonrise → starlight delivery | Moonleaf, 650 coins |
+| Arctic Outpost | Parkas, heaters, hot drinks and research gear; warm the camp → aurora rounds → polar night express | Polar Express, 560 coins |
+
+The earlier soccer, festival, rescue and space worlds also have their own shop
+trucks: Goal Getter (220), Tour Bus (280), Rescue Runner (360) and Star Hauler
+(800). The paged mission map now has 30 missions and 90 stars; every world's first
+mission starts open. Three stages per world add a fourth dock, then fragile and
+express cargo with a safe pause for the dock shuffle. The 72 new cargo identities
+append to the existing IDs, bringing the collection to 420 in 35 categories.
+
+Six matching pixel-art scenes are in `assets/missions/`; final generation prompts
+are in [the artwork notes](assets/missions/ARTWORK.md). Six original synthesized
+32-bar scores are in `audio/`, with source and metadata alongside them. The extra
+world images load when their page or briefing is opened, soundtrack playback
+loads only the selected theme, and truck artwork is built as needed. The layered
+renderer, bounded caches, deferred delivery saves and steady phone music remain.
+
+The coin unit tests cover migration, legacy rewards, exact purchases, repeated
+taps, insufficient coins, ownership persistence, practice exclusion and replay
+bonuses. `node tests/economy.browser.cjs` exercises the native touch shop, saved
+purchases, failed storage, all mission pages, earned rewards, four phone layouts
+and retained rendering/input budgets. Test hooks are injected only in local
+test responses.
 
 ## Smooth gameplay update
 
@@ -37,7 +95,7 @@ bonus. Pause with P or Escape.
 - Unchanged viewport resize events avoid canvas allocation and drawing. Rotation
   still fits both layers and rebuilds the static scene at the new size.
 
-The browser regression suites cover touch phones, desktop, all twelve missions,
+The browser regression suites cover touch phones, desktop, all thirty missions,
 countdown and pause handling, saved progress, native music and rendering budgets.
 Performance measurements use mobile-sized Chromium emulation; physical iPhone
 hardware was not available.
@@ -196,7 +254,7 @@ guaranteed. Browser storage may also be cleared by the device or user.
 
 ## Validation
 
-Run the 46 engine, gameplay, mission and soundtrack regression tests with:
+Run the 59 economy, engine, gameplay, mission and soundtrack regression tests with:
 
 ```sh
 node --test tests/*.test.cjs
@@ -222,7 +280,7 @@ The warehouse and airport artwork remains embedded in the HTML. Music generation
 is a development step; the installed game never contacts a generation service.
 
 The mission browser suite, `node tests/missions.browser.cjs`, additionally checks
-all twelve missions through three-star completion, real touch countdowns,
+all thirty missions through three-star completion, real touch countdowns,
 arcade/replay/tutorial starts, pause/tab handling, scene/music selection,
 decoded MP3s, storage reloads, failed missions, retries and existing progress.
 It requires Playwright and Chromium; set `DOCK_CHROME` to the browser executable
@@ -250,4 +308,4 @@ changes, adaptive motion resolution with sharp static labels, bounded caches,
 all seven small route previews, and a full 140-particle burst. Like the other
 browser suites, its hooks are injected into the local test response only.
 
-Version: 4.3-smooth-gameplay.
+Version: 5.0-coins-and-worlds.

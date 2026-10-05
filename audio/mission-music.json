@@ -22,5 +22,41 @@
     "bpm": 120,
     "duration_seconds": 64.0,
     "bytes": 768826
+  },
+  {
+    "file": "gotham-after-dark.mp3",
+    "bpm": 110,
+    "duration_seconds": 69.818,
+    "bytes": 838732
+  },
+  {
+    "file": "first-bell.mp3",
+    "bpm": 106,
+    "duration_seconds": 72.453,
+    "bytes": 870386
+  },
+  {
+    "file": "jurassic-trail.mp3",
+    "bpm": 114,
+    "duration_seconds": 67.368,
+    "bytes": 809263
+  },
+  {
+    "file": "sugar-rush.mp3",
+    "bpm": 118,
+    "duration_seconds": 65.085,
+    "bytes": 781987
+  },
+  {
+    "file": "moonleaf-lullaby.mp3",
+    "bpm": 100,
+    "duration_seconds": 76.8,
+    "bytes": 922427
+  },
+  {
+    "file": "aurora-rounds.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904557
   }
 ]

@@ -1,4 +1,4 @@
-"""Render Dock Dash's four original mission scores (NumPy, SciPy and FFmpeg).
+"""Render Dock Dash's original mission scores (NumPy, SciPy and FFmpeg).
 
 The circular mixer wraps every note tail across the 32-bar boundary. These are
 composed scores, not randomized beeps. No recordings or licensed samples are used.
@@ -8,6 +8,7 @@ import json
 import re
 import subprocess
 import tempfile
+import argparse
 import numpy as np
 from scipy.signal import butter, sosfilt
 
@@ -30,6 +31,30 @@ SCORES = [
          roots=[40, 40, 48, 48, 43, 43, 50, 50], minor={40},
          melody=[[76, 79, None, 83, 81, 79, 78, 74], [76, None, 79, 83, 86, 83, 79, None],
                  [79, 83, None, 86, 83, 81, 79, None], [78, None, 81, 86, 84, 81, 78, 74]], voice='chip'),
+    dict(slug='gotham-after-dark',title='Gotham After Dark',bpm=110,
+         roots=[45,45,41,41,48,48,43,40],minor={45,40},
+         melody=[[69,None,72,76,None,74,72,69],[65,69,None,72,76,72,69,None],
+                 [72,None,76,79,76,None,74,72],[67,71,None,74,71,68,64,None]],voice='chip',pulse=True),
+    dict(slug='first-bell',title='First Bell',bpm=106,
+         roots=[48,48,53,53,45,45,43,43],minor={45},
+         melody=[[72,76,79,None,81,79,76,None],[77,None,81,84,81,79,77,76],
+                 [76,81,None,84,81,79,76,72],[74,79,77,None,76,74,72,None]],voice='bell'),
+    dict(slug='jurassic-trail',title='Jurassic Trail',bpm=114,
+         roots=[50,50,43,43,47,47,45,45],minor={47},
+         melody=[[74,None,78,81,78,74,76,None],[79,78,None,74,71,74,79,None],
+                 [78,81,83,None,81,78,74,None],[76,None,73,69,73,76,78,None]],voice='marimba',tropical=True),
+    dict(slug='sugar-rush',title='Sugar Rush',bpm=118,
+         roots=[53,53,48,48,50,50,46,48],minor={50},
+         melody=[[77,81,84,81,86,None,84,81],[79,None,76,72,76,79,84,None],
+                 [81,86,89,None,86,84,81,77],[82,None,79,77,79,84,81,None]],voice='bell',pulse=True),
+    dict(slug='moonleaf-lullaby',title='Moonleaf Lullaby',bpm=100,
+         roots=[45,45,53,53,48,48,43,40],minor={45,40},
+         melody=[[76,None,81,None,79,76,72,None],[77,None,81,84,None,81,79,None],
+                 [79,76,None,72,76,None,79,83],[74,None,71,67,68,None,71,76]],voice='pan',gentle=True),
+    dict(slug='aurora-rounds',title='Aurora Rounds',bpm=102,
+         roots=[50,50,47,47,43,43,45,45],minor={47},
+         melody=[[78,None,81,86,None,83,81,78],[78,83,None,86,83,81,78,None],
+                 [79,None,83,86,83,79,78,74],[81,None,78,76,73,76,81,None]],voice='bell',gentle=True),
 ]
 
 def tone(midi, seconds, voice):
@@ -50,6 +75,9 @@ def tone(midi, seconds, voice):
     elif voice == 'pan':
         wave = np.sin(phase + .8 * np.sin(phase * 2) * np.exp(-t * 9)) + .17 * np.sin(phase * 3)
         env = np.exp(-t * 4.5) * attack * release
+    elif voice == 'bell':
+        wave = np.sin(phase) + .3 * np.sin(phase * 2) * np.exp(-t * 7) + .13 * np.sin(phase * 3.99) * np.exp(-t * 10)
+        env = np.exp(-t * 4) * attack * release
     elif voice == 'brass':
         wave = sum(np.sin(phase * h) / h for h in range(1, 7)) / 1.5
         env = np.exp(-t * 2.8) * np.minimum(1, t / .025) * release
@@ -98,7 +126,7 @@ def render(score, index):
         at = bar * 4
         for i, interval in enumerate(chord):
             add(tone(root + 12 + interval, 4.15 * beat, 'pad'), at, .055, (i - 1) * .45)
-        for pos in ([0, 1.5, 2.75] if index == 2 else [0, 1, 2, 3]):
+        for pos in ([0, 1.5, 2.75] if index == 2 or score.get('tropical') else [0,2] if score.get('gentle') else [0, 1, 2, 3]):
             add(kit['kick'], at + pos, .33)
         for pos in [1, 3]:
             add(kit['snare'], at + pos, .17, .05)
@@ -106,7 +134,7 @@ def render(score, index):
         for h in range(8):
             add(kit['hat'], at + h * .5, .036 if h % 2 == 0 else .054, .25 if h % 2 else -.25)
         bass_pattern = [(0, 0), (.75, 0), (1.5, 7), (2, 0), (2.75, 12), (3.5, 7)]
-        if index == 3: bass_pattern = [(i * .5, 0 if i % 4 < 2 else 7) for i in range(8)]
+        if index == 3 or score.get('pulse'): bass_pattern = [(i * .5, 0 if i % 4 < 2 else 7) for i in range(8)]
         for pos, interval in bass_pattern:
             add(tone(root - 12 + interval, .43 * beat, 'bass'), at + pos, .2)
         motif = score['melody'][(bar // 2) % 4]
@@ -116,7 +144,7 @@ def render(score, index):
             if note is not None:
                 add(tone(note, .46 * beat, score['voice']), at + step * .5, .12, -.15)
                 add(tone(note, .4 * beat, score['voice']), at + step * .5 + .25, .025, .4)
-        if index == 3:
+        if index == 3 or score.get('pulse'):
             for step in range(16):
                 add(tone(root + 12 + chord[step % 3] + (12 if step % 4 == 3 else 0), .2 * beat, 'chip'), at + step * .25, .025, .45)
         else:
@@ -140,8 +168,11 @@ def render(score, index):
     return dict(file=target.name, bpm=score['bpm'], duration_seconds=round(length / SR, 3), bytes=target.stat().st_size)
 
 if __name__ == '__main__':
-    report = []
+    parser=argparse.ArgumentParser();parser.add_argument('--new-only',action='store_true');args=parser.parse_args()
+    metadata=OUT / 'mission-music.json'
+    report=json.loads(metadata.read_text())[:4] if args.new_only else []
     for index, score in enumerate(SCORES):
+        if args.new_only and index<4: continue
         result = render(score, index)
         report.append(result)
         print(json.dumps(result), flush=True)
