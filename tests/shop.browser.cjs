@@ -73,6 +73,8 @@ const overlap=(a,b)=>a.x<b.x+b.width && a.x+a.width>b.x && a.y<b.y+b.height && a
    assert.deepEqual(await page.evaluate(()=>[__dockTest.wallet.coins,__dockTest.profile.selectedSkin,__dockTest.settings.location,__dockTest.profile.selectedWrap,__dockTest.profile.selectedZone]),[18280,14,7,'wrap:hero','zone:neon']);
    assert.deepEqual(await page.evaluate(()=>__dockTest.wallet.owned),['batcave','school','batmobile','venue:batcave','wrap:hero','zone:neon']);
    pass('coins, old ownership, new ownership and all four equipped choices persist after reload');
+   await page.waitForFunction(()=>!!__dockTest.art[7],null,{polling:50});await paint(page);await page.screenshot({path:path.join(output,'equipped-place-after-reload.png')});
+   pass('a saved arcade place loads its pixel scenery immediately on the home screen after reload');
    await page.locator('.settings-button:visible').tap();await paint(page);
    assert.deepEqual(await page.locator('.location-choice:visible').evaluateAll(a=>a.map(b=>Number(b.dataset.location))),[7]);
    assert.equal(await page.locator('#routes-next').isDisabled(),true);await page.locator('#routes-prev').tap();

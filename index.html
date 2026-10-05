@@ -389,6 +389,7 @@
   function preloadPixelArt() {
     // Extra worlds are fetched only when their page or mission is opened.
     for(let i=0;i<Math.min(7,MEDIA.floors.length);i++)loadPixelArt(i);
+    loadPixelArt(activeLocation);
   }
   function loadPixelArt(i) {
       if (!MEDIA.floors[i] || pixelRequests.has(i)) return;
