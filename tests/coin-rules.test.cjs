@@ -59,3 +59,43 @@ test('invalid awards and capped balances cannot create negative or nonfinite coi
   assert.equal(next.coins,1e9);assert.equal(next.earned,1e9);
   for(const amount of [0,-5,NaN,Infinity,1.5,'10'])assert.equal(rules.award(wallet,amount),wallet);
 });
+test('the expanded catalog has unique permanent IDs and retains all fourteen original vehicles',()=>{
+  assert.equal(rules.trucks.length,20);assert.equal(rules.venues.length,13);assert.equal(rules.styles.length,9);
+  assert.equal(new Set(rules.catalog.map(i=>i.id)).size,42);
+  assert.equal(rules.trucks[7].id,'batcave');assert.equal(rules.trucks[13].id,'space');
+  assert.deepEqual(rules.trucks.slice(14).map(t=>t.body),['batmobile','tumbler','fire','icecream','monster','rover']);
+  for(const item of rules.catalog)assert.equal(rules.item(item.id),item);
+});
+test('old truck ownership and new place and style ownership migrate together without another gift',()=>{
+  const raw={version:1,coins:731,earned:1451,spent:720,owned:['batcave','school','venue:batcave','wrap:hero','zone:neon','venue:batcave','unknown']};
+  const saved=rules.readWallet(raw,{totalDelivered:500});
+  assert.deepEqual(saved,{...raw,owned:['batcave','school','venue:batcave','wrap:hero','zone:neon']});
+  assert.equal(rules.isOwned(saved,rules.item('batcave')),true);assert.equal(rules.isOwned(saved,rules.item('venue:school')),false);
+});
+test('each paid category uses the same exact atomic transaction and duplicate-tap protection',()=>{
+  let wallet=rules.award(rules.readWallet(null),5000);
+  for(const id of ['batmobile','venue:batcave','wrap:hero','zone:neon']){
+    const before=wallet,result=rules.purchase(wallet,id);assert.equal(result.reason,'bought');
+    assert.equal(result.wallet.coins,before.coins-rules.item(id).price);assert.equal(result.wallet.spent,before.spent+rules.item(id).price);
+    assert.equal(before.owned.includes(id),false);wallet=result.wallet;
+    assert.equal(rules.purchase(wallet,id).wallet,wallet);assert.equal(rules.purchase(wallet,id).reason,'owned');
+  }
+  const loaded=rules.readWallet(JSON.stringify(wallet));assert.deepEqual(loaded,wallet);
+});
+test('arcade tours rotate only through included or purchased places, starting at the selected place',()=>{
+  let wallet=rules.readWallet(null);assert.deepEqual(rules.ownedLocations(wallet),[0,1,2]);
+  assert.equal(rules.arcadeLocation(wallet,7),0);
+  wallet=rules.purchase(rules.award(wallet,500),'venue:batcave').wallet;
+  assert.deepEqual(rules.ownedLocations(wallet),[0,1,2,7]);
+  assert.deepEqual([1,2,3,5,7,9].map(shift=>rules.arcadeLocation(wallet,7,shift,true)),[7,7,0,1,2,7]);
+  for(const shift of [1,3,8,99])assert.equal(rules.arcadeLocation(wallet,7,shift,false),7);
+  for(let shift=1;shift<=40;shift++)assert.ok([0,1,2,7].includes(rules.arcadeLocation(wallet,12,shift,true)));
+});
+test('style equipment requires ownership and the correct type, with safe included defaults',()=>{
+  let wallet=rules.readWallet(null);
+  assert.equal(rules.equippedStyle(wallet,'wrap:hero','wrap'),'wrap:classic');
+  wallet=rules.purchase(rules.award(wallet,500),'wrap:hero').wallet;
+  assert.equal(rules.equippedStyle(wallet,'wrap:hero','wrap'),'wrap:hero');
+  for(const id of ['wrap:hero','batcave','zone:neon','broken',null])assert.equal(rules.equippedStyle(wallet,id,'zone'),'zone:classic');
+  for(const item of rules.catalog.filter(i=>!i.price && i.need===0))assert.equal(rules.isOwned(wallet,item),true);
+});

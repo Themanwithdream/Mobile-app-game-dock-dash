@@ -47,9 +47,9 @@ function overlap(a,b){return a.x<b.x+b.width && a.x+a.width>b.x && a.y<b.y+b.hei
  assert.equal(await page.evaluate(()=>__dockTest.wallet.coins),426);assert.deepEqual(await page.evaluate(()=>__dockTest.wallet.owned),['batcave','school']);assert.equal(await page.evaluate(()=>__dockTest.profile.selectedSkin),4);
  pass('paid trucks, equipped choice, balance and free legacy rewards persist without a second welcome gift');
  await page.locator('.fleet-button:visible').tap();await page.locator('#shop-next').tap();await page.locator('#shop-next').tap();await paint(page);
- assert.equal(await page.locator('.skin-choice:visible').count(),2);assert.equal(await page.locator('#shop-next').isDisabled(),true);
+ assert.equal(await page.locator('.skin-choice:visible').count(),4);assert.equal(await page.locator('#shop-next').isDisabled(),false);
  await page.locator('[data-skin="13"]').tap();assert.match(await page.locator('#shop-message').textContent(),/Need 374 more/);assert.equal(await page.evaluate(()=>__dockTest.wallet.coins),426);assert.equal(await page.evaluate(()=>__dockTest.profile.selectedSkin),4);
- pass('last shop page hides empty cards and insufficient coins never buy, equip or deduct');
+ pass('insufficient coins never buy, equip or deduct on a page shared with new special editions');
  await page.locator('#shop-prev').tap();await page.locator('#shop-prev').tap();
  await page.evaluate(()=>{Storage.prototype.setItem=function(key,...a){if(key==='dockDashWalletV1')throw new Error('storage full');return __setItem.call(this,key,...a);};});
  await page.locator('[data-skin="5"]').tap();assert.match(await page.locator('#shop-message').textContent(),/Coins kept/);assert.equal(await page.evaluate(()=>__dockTest.wallet.coins),426);assert.equal(await page.evaluate(()=>__dockTest.wallet.owned.includes('matchday')),false);

@@ -1,7 +1,8 @@
-# Dock Dash — Coins & Mission Worlds
+# Dock Dash — Your Fleet, Your World
 
 A mobile-first parcel sorting arcade with 420 products, 30 missions in 10 worlds,
-14 collectible truck designs, earned coins and 13 original soundtracks.
+20 collectible vehicles, 13 arcade places, nine parcel/dock styles, earned coins
+and 13 original soundtracks.
 
 ## Play
 
@@ -11,10 +12,55 @@ yellow diamond remain the sorting rules, regardless of the product pictured.
 Golden star parcels fit any unlocked truck. The bright stripe earns a perfect
 bonus. Pause with P or Escape.
 
-## Coins, shop and six new worlds
+## Expanded Dock Shop
 
-The Truck Shop opens from the home menu and arcade or mission results. Ten new
-themed trucks cost earned coins; the four original designs retain their delivery
+The shop has three paged categories: Trucks, Arcade Places and Style. Purchases
+are permanent and also equip the item. Vehicles, arcade places, parcel wraps and
+loading-zone styles are independent choices. Existing balances, ownership and
+delivery rewards retain their original IDs and prices.
+
+| New special edition | Coins | Native canvas details |
+|---|---:|---|
+| Batmobile | 900 | Swept wings, rear jet and an angular nose |
+| Tumbler | 1,200 | Armour panels and six large tyres |
+| Fire Engine | 600 | Roof ladder and emergency lights |
+| Ice Cream Van | 700 | Striped counter and rooftop cone |
+| Monster Truck | 950 | Oversized tyres and an off-road body |
+| Moon Rover | 1,400 | Solar panels, satellite dish and six lunar wheels |
+
+The three original arcade routes are included. The ten mission worlds can also
+be purchased as **endless arcade places**, each using its own twelve cargo items,
+scene and music. Their mission stages remain available independently. Pick a
+place in the shop or in Routes & Audio; Tour mode rotates every two shifts
+through included and purchased places only, starting at your selected place.
+
+| Arcade place | Coins |
+|---|---:|
+| Soccer Field / School Campus | 250 each |
+| Festival Stage / Candy Factory | 350 each |
+| Rescue Harbour | 400 |
+| Dino Park | 450 |
+| Batcave | 500 |
+| Arctic Station | 550 |
+| Magic Forest | 650 |
+| Moonbase | 750 |
+
+Hero (120), Candy (150), Holo (180) and Star (220) parcel wraps decorate the
+original parcel colours beneath the sorting sticker. Neon (200), Starlight (300)
+and Golden (450) docks add side rails while retaining the green loading zone and
+bright perfect stripe. Classic wraps and docks are included. Practice keeps its
+original presentation. All artwork is baked into bounded caches; vehicle art is
+built only when needed, and idle shop screens redraw only when invalidated.
+
+`node tests/shop.browser.cjs` verifies native touch purchases across categories,
+permanent equipment after reload, failed saves, every themed arcade cargo pool,
+owned-only tours, mission route isolation, all special sorting plates, four phone
+layouts and cache/rendering limits. The test hooks exist only in local responses.
+
+## Coins and mission worlds
+
+The Dock Shop opens from the home menu and arcade or mission results. The ten
+original themed trucks cost earned coins; the four classic designs retain their delivery
 unlocks. Buying also equips the truck, and owned trucks can be equipped again for
 free. Every truck keeps its dock colour and sorting symbol. Purchases save price
 and ownership together; if saving fails, the purchase leaves your coins intact.
@@ -308,4 +354,4 @@ changes, adaptive motion resolution with sharp static labels, bounded caches,
 all seven small route previews, and a full 140-particle burst. Like the other
 browser suites, its hooks are injected into the local test response only.
 
-Version: 5.0-coins-and-worlds.
+Version: 5.1-expanded-shop.
