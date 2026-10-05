@@ -14,10 +14,25 @@ test('30, 60 and 120 Hz displays advance the same gameplay time',()=>{
     assert.ok(Math.abs(r.simulated-3)<1e-10);
   }
 });
-test('high-refresh displays draw at most 60 frames per second',()=>{
+test('the default graphics budget remains 60 frames per second',()=>{
   assert.equal(run(120).draws,181);
   assert.equal(run(60).draws,181);
   assert.equal(run(30).draws,91);
+});
+test('120 Hz gameplay draws every refresh while preserving 120 Hz simulation',()=>{
+  let draws=0,steps=0;
+  const engine=new DockDashEngine({update:()=>steps++,render:()=>draws++});
+  for(let i=0;i<=360;i++)engine.advance(i*1000/120,{fps:120});
+  assert.equal(draws,361);assert.equal(steps,360);
+});
+test('fractional render time smooths irregular refreshes without advancing gameplay',()=>{
+  let time=0;const ahead=[];
+  const engine=new DockDashEngine({update:dt=>time+=dt,render:f=>ahead.push(f)});
+  engine.advance(0,{fps:120});engine.advance(7,{fps:120});engine.invalidate();engine.advance(12,{fps:120});
+  assert.ok(Math.abs(time-1/120)<1e-10);assert.ok(Math.abs(ahead.at(-1)-(.012-1/120))<1e-10);
+  assert.ok(ahead.every(f=>f>=0 && f<=1/120));
+  engine.invalidate();engine.advance(15,{fps:120,frozen:true});assert.equal(ahead.at(-1),0);
+  engine.advance(1000,{fps:120});assert.equal(ahead.at(-1),0);
 });
 test('irregular frames and a short 180 ms hitch preserve elapsed gameplay time',()=>{
   let time=0,steps=0;

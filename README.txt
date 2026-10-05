@@ -40,8 +40,17 @@ Desktop route transitions still crossfade.
 
 New: the pause keyboard hint no longer overlaps Back to menu. Arcade results
 now have Back to home. The engine uses fixed gameplay steps, reduces drawing
-on high-refresh and paused screens, and safely pauses after a long freeze.
+on paused screens, follows refresh rates up to 120 Hz, and safely pauses after a long freeze.
 Countdowns and mission deadlines stay consistent across display frame rates.
 Include the engine/ folder when publishing.
 
-Version: 4.2-engine-and-home.
+Smooth gameplay: static scenery, HUD labels and stationary trucks now reuse a
+separate canvas layer. Parcels, glows and score effects use bounded caches;
+particle batches reduce drawing work. Motion stays smooth between fixed updates,
+and taps score the parcel position shown on screen. Dock press feedback responds
+without a full menu refresh. Sustained slow frames lower only motion resolution,
+keeping static labels sharp and game speed unchanged. Deliveries batch progress
+saves; pause, home, results, hidden pages and page exit flush pending data.
+Duplicate viewport events no longer redraw unchanged frames.
+
+Version: 4.3-smooth-gameplay.

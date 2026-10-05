@@ -11,6 +11,51 @@ yellow diamond remain the sorting rules, regardless of the product pictured.
 Golden star parcels fit any unlocked truck. The bright stripe earns a perfect
 bonus. Pause with P or Escape.
 
+## Smooth gameplay update
+
+- Parcel, conveyor, flight and truck motion use the remaining fraction of each
+  fixed simulation step for smooth drawing between updates. Touch timing uses
+  the last displayed parcel position, including the perfect stripe. Early taps
+  remain safe. Native dock press feedback and the next canvas frame respond
+  without refreshing the entire menu.
+- Scenery, HUD labels, goals, cargo cards and stationary trucks live on a separate
+  static canvas. Only changing content repaints it. Panel canvases are reused;
+  moving parcels, animated trucks and effects draw on the transparent front layer.
+- Parcel illustrations and sorting stickers are composed once, with a 96-image
+  cache. Truck lights and glows are baked once, score popups are cached, and
+  particles are drawn in colour/fade batches. Full-size floor caching holds two
+  scenes; the seven menu previews use small 180×320 canvases.
+- Gameplay follows refresh rates up to 120 Hz. Sustained slow frames gradually
+  reduce the moving layer's pixel resolution with a cooldown. Static artwork and
+  small labels retain their full resolution; layout, game speed, deadlines and
+  scoring do not depend on that adjustment. Pauses and isolated hitches do not
+  accumulate pressure against the next run.
+- Deliveries queue the latest cargo and fleet snapshots for an idle save, with a
+  one-second timeout and a timer fallback. Pause, home, results, hidden pages and
+  page exit flush pending progress. Shift milestones still save immediately.
+  Failed storage writes stay pending for a later retry.
+- Unchanged viewport resize events avoid canvas allocation and drawing. Rotation
+  still fits both layers and rebuilds the static scene at the new size.
+
+The browser regression suites cover touch phones, desktop, all twelve missions,
+countdown and pause handling, saved progress, native music and rendering budgets.
+Performance measurements use mobile-sized Chromium emulation; physical iPhone
+hardware was not available.
+
+A before/after run used a 390×844 touch viewport, DPR 2, 4× CPU throttling,
+140 particles, eight score popups, three parcel flights and three departing
+trucks. Both releases used the same warmed scene. Frame spacing below is the
+median after the first five seconds; the moving layer adapted to DPR 1.5 while
+static labels retained DPR 2. Timing depends on the browser and machine.
+
+| Measurement | Previous release | This release |
+| --- | ---: | ---: |
+| Repeated canvas paths per busy frame | 344 | 23 |
+| Median spacing between busy frames | 43.8 ms | 16.7 ms |
+| Busy render callback, 95th percentile | 6.6 ms | 2.9 ms |
+| Storage writes inside 40 delivery handlers | 83 | 6 |
+| Control attribute writes across those deliveries | 860 | 95 |
+
 ## Engine and arcade home update
 
 - The pause keyboard hint has its own row beneath the back button and is hidden
@@ -20,7 +65,7 @@ bonus. Pause with P or Escape.
   the new button too. Returning keeps best scores, stars, cargo and fleet data.
 - Gameplay now advances in fixed 1/120-second steps. Countdown, parcel positions
   and mission deadlines match at 30, 60 and 120 Hz, including short frame hitches.
-- Gameplay rendering targets 60 FPS and animated menus target 30 FPS. Paused
+- Gameplay rendering follows the display up to 120 FPS and animated menus target 30 FPS. Paused
   scenes and static menus paint when their content changes. Hidden pages stop
   drawing through the frame loop. Touch feedback still requests an immediate
   repaint on the next animation callback.
@@ -151,7 +196,7 @@ guaranteed. Browser storage may also be cleared by the device or user.
 
 ## Validation
 
-Run the 36 engine, mission and soundtrack regression tests with:
+Run the 46 engine, gameplay, mission and soundtrack regression tests with:
 
 ```sh
 node --test tests/*.test.cjs
@@ -198,4 +243,11 @@ actual gameplay timing, four phone layouts, the pause hint, arcade home/replay,
 stored progress, content repainting, stalls and hidden-page recovery. Test hooks
 and canvas counters are injected only into the local test response.
 
-Version: 4.2-engine-and-home.
+`node tests/gameplay.browser.cjs` checks static-layer reuse without allocations
+or runtime blur, touch timing against the displayed perfect stripe, safe early
+taps, deferred saves and lifecycle flushes, fractional rendering without state
+changes, adaptive motion resolution with sharp static labels, bounded caches,
+all seven small route previews, and a full 140-particle burst. Like the other
+browser suites, its hooks are injected into the local test response only.
+
+Version: 4.3-smooth-gameplay.

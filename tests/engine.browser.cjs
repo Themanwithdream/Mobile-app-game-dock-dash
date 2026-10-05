@@ -24,8 +24,7 @@ async function setup(page){
     localStorage.setItem('dockDashCargoCollectionV1','[3,14,29]');
     localStorage.setItem('dockDashMissionsV1',JSON.stringify({'matchday-1':{stars:3,bestScore:1000,bestTime:20}}));
     window.__draws=0;window.__texts=[];
-    const fill=CanvasRenderingContext2D.prototype.fillRect;
-    CanvasRenderingContext2D.prototype.fillRect=function(x,y,w,h){if(this.canvas.id==='game'&&x===-12&&y===-12)__draws++;return fill.call(this,x,y,w,h);};
+    for(const method of ['fillRect','clearRect']){const fn=CanvasRenderingContext2D.prototype[method];CanvasRenderingContext2D.prototype[method]=function(x,y,w,h){if(this.canvas.id==='game'&&x===-12&&y===-12)__draws++;return fn.call(this,x,y,w,h);};}
     const text=CanvasRenderingContext2D.prototype.fillText;
     CanvasRenderingContext2D.prototype.fillText=function(str,x,y,...args){if(this.canvas.id==='game')__texts.push({str:String(str),x,y});return text.call(this,str,x,y,...args);};
   });
@@ -98,7 +97,7 @@ async function frame(page,now){await page.evaluate(now=>__dockTest.frame(now),no
       return results;
     });
     for(const r of timing){assert.equal(r.ready,0);assert.ok(Math.abs(r.elapsed-.4)<1e-9);assert.equal(r.lives,3);assert.deepEqual(r.y,timing[0].y);}
-    assert.ok(timing[2].draws<=206);assert.equal(timing[2].draws,timing[1].draws);
+    assert.equal(timing[2].draws,409);assert.equal(timing[1].draws,205);
     pass('actual missions have matching countdown, positions and deadlines at 30, 60 and 120 Hz',timing);
     const hitch=await page.evaluate(()=>{
       const d=__dockTest;d.launchMission();d.game.readyIn=0;d.engine.reset();d.frame(0);d.frame(100);d.frame(280);

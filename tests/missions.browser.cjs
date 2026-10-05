@@ -159,7 +159,7 @@ async function advance(page, seconds) {
     await sim.locator('#mission-next').tap(); assert.equal(await sim.evaluate(() => __dockTest.game.readyIn), 3);
     pass('deadline failures preserve earned stars and retry restarts the countdown');
     await advance(sim, 3.01);
-    await sim.evaluate(() => { const d=__dockTest;for(let i=0;i<3;i++){const p=d.nextParcel();p.type=0;p.y=365;d.loadLane(d.game.trucks.findIndex(t=>t.type===1));}d.render(); });
+    await sim.evaluate(() => { const d=__dockTest;for(let i=0;i<3;i++){const p=d.nextParcel();p.type=0;p.y=365;d.render();d.loadLane(d.game.trucks.findIndex(t=>t.type===1));}d.render(); });
     assert.equal(await sim.evaluate(() => __dockTest.state), 'missionResult');
     assert.ok(await sim.locator('#mission-results').textContent().then(s=>s.includes('Out of lives')));
     pass('wrong docks can end a mission without granting or erasing stars');

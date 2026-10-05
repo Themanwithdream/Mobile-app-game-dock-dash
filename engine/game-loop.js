@@ -45,7 +45,8 @@
         if (this.dirty || this.nextDraw === null) this.nextDraw = now + interval;
         else this.nextDraw += (Math.floor(Math.max(0, now - this.nextDraw + .01) / interval) + 1) * interval;
         this.dirty = false;
-        this.render();
+        // Render the remaining fraction without advancing scores or deadlines.
+        this.render(frozen || stalled ? 0 : Math.min(this.accumulator, this.step));
       }
       return {steps, drawn, stalled};
     }
