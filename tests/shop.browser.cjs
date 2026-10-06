@@ -39,13 +39,13 @@ const overlap=(a,b)=>a.x<b.x+b.width && a.x+a.width>b.x && a.y<b.y+b.height && a
    assert.equal(await page.evaluate(()=>__dockTest.wallet.coins),19100);assert.equal(await page.evaluate(()=>__dockTest.profile.selectedSkin),14);
    assert.equal(await page.locator('[data-item="batmobile"]').getAttribute('aria-pressed'),'true');
    pass('native touch buys the Batmobile, equips it and never charges repeated taps');
-   await page.locator('#shop-next').tap();await paint(page);assert.equal(await page.locator('.skin-choice:visible').count(),4);assert.equal(await page.locator('#shop-next').isDisabled(),true);
+   await page.locator('#shop-next').tap();await paint(page);assert.equal(await page.locator('.skin-choice:visible').count(),4);assert.equal(await page.locator('#shop-next').isDisabled(),false);
    await page.screenshot({path:path.join(output,'special-edition-shop.png')});
    const plates=await page.evaluate(()=>__dockTest.SKINS.slice(14).map((skin,j)=>__dockTest.trucksForSkin(j+14).map((image,type)=>{
      const scale=image.width/90,pixel=Array.from(image.getContext('2d').getImageData(45*scale,43*scale,1,1).data),ink=__dockTest.COLORS[type].ink;
      return {id:skin.id,type,size:[image.width,image.height],pixel,expected:[1,3,5].map(n=>parseInt(ink.slice(n,n+2),16)).concat(255)};
    })).flat());for(const p of plates){assert.deepEqual(p.size,[180,282]);assert.deepEqual(p.pixel,p.expected,JSON.stringify(p));}
-   pass('all six special bodies retain four large, readable colour and shape plates');
+   pass('all special bodies retain four large, readable colour and shape plates');
    await page.locator('[data-shop="venues"]').tap();await paint(page);assert.equal(await page.locator('[data-item="venue:warehouse"]').getAttribute('aria-pressed'),'true');
    await page.locator('#shop-next').tap();await page.locator('[data-item="venue:batcave"]').tap();await paint(page);
    assert.equal(await page.evaluate(()=>__dockTest.settings.location),7);assert.equal(await page.evaluate(()=>__dockTest.wallet.coins),18600);
@@ -105,18 +105,18 @@ const overlap=(a,b)=>a.x<b.x+b.width && a.x+a.width>b.x && a.y<b.y+b.height && a
    pass('changing the future arcade place during a paused mission preserves its scene and mission route');
    const themed=await page.evaluate(()=>{const d=__dockTest;d.backToTitle();d.openGarage();return d.ER.venues.filter(v=>v.world).map(v=>{d.selectShopItem(v.id);d.closeGarage();d.startGame({skipTutorial:true});const ids=Array.from({length:36},()=>d.pickProduct()),expected=d.MR.getMission(v.world,0).products;const out={name:v.name,location:d.location,expected:v.location,valid:ids.every(id=>expected.includes(id)),unique:new Set(ids).size,mission:d.game.mission};d.backToTitle();d.openGarage();return out;});});
    for(const v of themed){assert.equal(v.location,v.expected);assert.equal(v.valid,true);assert.equal(v.unique,12);assert.equal(v.mission,null);}
-   pass('all fourteen purchasable places produce their own endless arcade cargo pools');
-   await page.locator('[data-shop="styles"]').tap();await page.locator('#shop-next').tap();await page.locator('#shop-next').tap();assert.equal(await page.locator('.skin-choice:visible').count(),1);assert.equal(await page.locator('#shop-next').isDisabled(),true);
+   pass('all twenty-three purchasable places produce their own endless arcade cargo pools');
+   await page.locator('[data-shop="styles"]').tap();while(!await page.locator('#shop-next').isDisabled())await page.locator('#shop-next').tap();assert.equal(await page.locator('.skin-choice:visible').count(),2);assert.equal(await page.locator('#shop-next').isDisabled(),true);
    pass('short final pages hide unused cards and prevent advancing past the catalog');
    for(const size of [{width:320,height:568},{width:390,height:844},{width:414,height:896},{width:844,height:390}]){
      await page.setViewportSize(size);await page.waitForFunction(()=>{const v=document.getElementById('viewport'),b=v.getBoundingClientRect(),c=getComputedStyle(v),s=Math.min((b.width-parseFloat(c.paddingLeft)-parseFloat(c.paddingRight))/360,(b.height-parseFloat(c.paddingTop)-parseFloat(c.paddingBottom))/640);return Math.abs(document.getElementById('stage').getBoundingClientRect().width-360*s)<1;},null,{polling:50});
-     for(const category of ['trucks','venues','styles']){
+     for(const category of ['trucks','venues','styles','new']){
        await page.evaluate(category=>{__dockTest.changeShopCategory(category);__dockTest.render();},category);
        const boxes=await page.locator('#garage-menu button:visible').evaluateAll(a=>a.map(b=>{const r=b.getBoundingClientRect();return {id:b.id||b.dataset.item||b.dataset.shop,x:r.x,y:r.y,width:r.width,height:r.height};})),stage=await page.locator('#stage').boundingBox();
        for(let i=0;i<boxes.length;i++){const a=boxes[i];assert.ok(a.x>=stage.x-.5 && a.x+a.width<=stage.x+stage.width+.5 && a.y+a.height<=stage.y+stage.height+.5);for(let j=i+1;j<boxes.length;j++)assert.equal(overlap(a,boxes[j]),false,JSON.stringify({category,size,a,b:boxes[j]}));}
      }
    }
-   pass('three shop categories fit four phone orientations without overlapping touch controls');
+   pass('four shop categories fit four phone orientations without overlapping touch controls');
    await page.setViewportSize({width:390,height:844});
    await page.evaluate(()=>{const d=__dockTest;d.selectShopItem('venue:batcave');d.closeGarage();});await page.locator('.sound:visible').tap();
    const ready=async track=>{await page.waitForFunction(track=>__dockTest.soundtrack.active?.track===track && !__dockTest.soundtrack.pending && !__dockTest.soundtrack.active.player.paused && __dockTest.soundtrack.active.player.readyState>=3,track,{polling:50});assert.equal(await page.evaluate(()=>__dockTest.soundtrack.slots.filter(s=>!s.player.paused).length),1);};

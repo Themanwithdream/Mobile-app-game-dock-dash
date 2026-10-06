@@ -97,14 +97,14 @@ async function layout(page){
   pass('historical arcade places charge once, equip their cargo, and preserve wallet and equipment after reload');
   const art=await page.evaluate(()=>{
    const d=__dockTest,canvas=document.createElement('canvas');canvas.width=720;canvas.height=720;const c=canvas.getContext('2d');c.fillStyle='#20333e';c.fillRect(0,0,720,720);c.font='12px sans-serif';c.textAlign='center';
-   const examples=[...['soccerball','cleats','keepergloves','kitbag','trophy','dinosaur'].map(kind=>d.PRODUCTS.find(p=>p.kind===kind)),...d.PRODUCTS.filter(p=>p.id>=420)];
+   const examples=[...['soccerball','cleats','keepergloves','kitbag','trophy','dinosaur'].map(kind=>d.PRODUCTS.find(p=>p.kind===kind)),...d.PRODUCTS.filter(p=>p.id>=420 && p.id<468)];
    const hashes=[];for(let i=0;i<examples.length;i++){const p=examples[i],x=i%8*90+45,y=Math.floor(i/8)*100+34;c.drawImage(d.cache[p.id],x-27,y-27,54,54);c.fillStyle='#f8edd5';c.fillText(p.name.split(' ').slice(0,2).join(' '),x,y+40);const pixel=d.cache[p.id].getContext('2d').getImageData(0,0,72,72).data;let alpha=0;for(let j=3;j<pixel.length;j+=4)if(pixel[j])alpha++;if(alpha<80)throw Error('Empty art '+p.name);hashes.push({id:p.id,kind:p.kind,alpha});}
    return {png:canvas.toDataURL('image/png').split(',')[1],hashes};
   });fs.writeFileSync(path.join(out,'cargo-art.png'),Buffer.from(art.png,'base64'));assert.equal(art.hashes.length,54);pass('six improved item silhouettes and all 48 historical products render clearly',art.hashes.map(x=>x.kind));
   const headings=await page.evaluate(()=>{
    const d=__dockTest,old=CanvasRenderingContext2D.prototype.fillText,rows=[];
    CanvasRenderingContext2D.prototype.fillText=function(value,...rest){if(rest[0]===248 && rest[1]===146)rows.push({value,width:this.measureText(value).width});return old.call(this,value,...rest);};
-   try{for(const p of d.PRODUCTS.filter(p=>p.id>=420))d.drawCargoInfo({product:p.id});}finally{CanvasRenderingContext2D.prototype.fillText=old;}
+   try{for(const p of d.PRODUCTS.filter(p=>p.id>=420 && p.id<468))d.drawCargoInfo({product:p.id});}finally{CanvasRenderingContext2D.prototype.fillText=old;}
    return rows;
   });assert.equal(headings.length,48);assert.ok(headings.every(h=>h.width<80),JSON.stringify(headings));pass('historical cargo headings fit inside their information cards');
   assert.deepEqual(errors,[]);assert.deepEqual(requests,[]);pass('historical scenes, sprites and controls have no runtime or asset-loading errors');

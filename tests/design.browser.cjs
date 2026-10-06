@@ -50,8 +50,8 @@ const overlap=(a,b)=>a.x<b.x+b.width && a.x+a.width>b.x && a.y<b.y+b.height && a
   await page.locator('[data-item="wrap:hero"]').tap();await page.locator('[data-item="zone:gold"]').tap();await paint(page);
   assert.equal(await page.evaluate(()=>__dockTest.wallet.coins),2000);await page.screenshot({path:path.join(output,'owned-collection.png')});
   await page.locator('#shop-owned').tap();await page.locator('#shop-next').tap();await page.locator('#shop-next').tap();
-  assert.deepEqual(await visibleItems(page),['zone:gold']);await page.locator('#shop-owned').tap();assert.equal(await page.locator('#shop-next').isDisabled(),true);
-  await page.locator('#shop-owned').tap();assert.deepEqual(await visibleItems(page),['zone:gold']);
+  assert.deepEqual(await visibleItems(page),['zone:gold','wrap:picnic','wrap:blueprint','wrap:prism']);await page.locator('#shop-owned').tap();assert.equal(await page.locator('#shop-next').isDisabled(),true);
+  await page.locator('#shop-owned').tap();assert.deepEqual(await visibleItems(page),['zone:gold','wrap:picnic','wrap:blueprint','wrap:prism']);
   pass('owned places and independent styles stay easy to find, with safe short pages and no repeat spending');
   await page.locator('#shop-play').tap();
   assert.deepEqual(await page.evaluate(()=>({mission:__dockTest.game.mission,ready:__dockTest.game.readyIn,scene:__dockTest.scene,lives:__dockTest.game.lives,types:__dockTest.game.trucks.map(t=>t.type),skin:__dockTest.profile.selectedSkin,wrap:__dockTest.profile.selectedWrap,zone:__dockTest.profile.selectedZone})),{mission:null,ready:3,scene:7,lives:3,types:[0,1,2,3],skin:14,wrap:'wrap:hero',zone:'zone:gold'});

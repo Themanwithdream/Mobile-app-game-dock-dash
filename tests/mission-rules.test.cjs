@@ -71,7 +71,7 @@ test('total stars count only known missions and survive a storage round trip', (
 });
 
 test('six new worlds provide distinct cargo, stories and open first missions', () => {
-  assert.equal(rules.worlds.length,14);assert.equal(rules.missions.length,112);
+  assert.equal(rules.worlds.length,23);assert.equal(rules.missions.length,184);
   for(const id of ['batcave','school','dino','candy','forest','arctic']) {
     const world=rules.worlds.find(w=>w.id===id);
     assert.equal(new Set(world.stories.slice(0,3)).size,3);assert.equal(new Set(world.cargo.split(';')).size,12);
@@ -109,7 +109,7 @@ test('returning players keep all thirty original records and can continue at lev
 test('four historical routes have distinct cargo, stories and a single map page',()=>{
   const historical=rules.worlds.filter(w=>w.era==='history');
   assert.deepEqual(historical.map(w=>w.id),['rome','egypt','viking','silkroad']);
-  assert.deepEqual(rules.worldPages.at(-1),historical);
+  assert.deepEqual(rules.worldPages[3],historical);
   assert.deepEqual(rules.worldPages.flat(),rules.worlds);
   for(const w of historical){assert.equal(new Set(w.stories).size,8);assert.equal(new Set(w.cargo.split(';')).size,12);assert.equal(rules.isUnlocked(rules.getMission(w.id,0),{}),true);}
 });

@@ -71,6 +71,42 @@ SCORES = [
          roots=[50,50,43,43,48,48,45,45],minor={50,45},
          melody=[[74,77,None,81,84,81,77,74],[79,None,83,86,83,79,77,None],
                  [76,79,84,None,79,76,74,72],[76,None,81,84,81,76,73,None]],voice='plucked',tropical=True),
+    dict(slug='midnight-orders',title='Midnight Orders',bpm=112,
+         roots=[48,48,45,45,53,53,50,43],minor={45,50},
+         melody=[[76,None,79,81,79,76,74,None],[72,76,None,79,76,72,69,None],
+                 [77,81,84,None,81,79,77,None],[74,None,77,79,77,74,71,None]],voice='keys',gentle=True),
+    dict(slug='warm-first-batch',title='Warm First Batch',bpm=106,
+         roots=[53,53,48,48,50,50,46,48],minor={50},
+         melody=[[77,None,81,84,81,79,77,None],[76,79,None,84,81,79,76,72],
+                 [74,77,81,None,79,77,74,None],[70,None,74,77,79,77,76,None]],voice='plucked',gentle=True),
+    dict(slug='cross-town-lights',title='Cross-Town Lights',bpm=116,
+         roots=[45,45,53,53,48,48,43,40],minor={45,40},
+         melody=[[69,72,76,None,79,76,72,69],[77,None,81,79,77,76,72,None],
+                 [76,79,None,84,81,79,76,72],[74,None,71,67,68,71,74,None]],voice='keys',pulse=True),
+    dict(slug='bridges-and-baskets',title='Bridges and Baskets',bpm=108,
+         roots=[43,43,48,48,40,40,50,50],minor={40},
+         melody=[[71,None,74,79,76,74,71,None],[72,76,None,79,81,79,76,None],
+                 [71,None,76,79,78,76,74,71],[74,78,81,None,78,76,74,None]],voice='pan',tropical=True,gentle=True),
+    dict(slug='skyguard-assembly',title='Skyguard Assembly',bpm=118,
+         roots=[50,50,43,43,47,47,45,45],minor={47},
+         melody=[[74,None,81,78,83,81,78,74],[79,83,None,86,83,79,78,None],
+                 [78,81,83,None,86,83,81,78],[73,None,76,81,78,76,73,None]],voice='brass',pulse=True),
+    dict(slug='courtside-carnival',title='Courtside Carnival',bpm=120,
+         roots=[48,48,53,53,45,45,43,43],minor={45},
+         melody=[[72,76,79,None,84,81,79,76],[77,None,81,84,86,84,81,77],
+                 [76,79,81,None,84,81,79,76],[74,None,79,77,76,74,71,None]],voice='marimba',pulse=True),
+    dict(slug='brick-by-brick',title='Brick by Brick',bpm=114,
+         roots=[40,40,43,43,45,45,48,47],minor={40,45,47},
+         melody=[[64,67,None,71,74,71,67,64],[67,None,71,74,76,74,71,None],
+                 [69,72,76,None,79,76,72,69],[72,None,76,79,78,74,71,None]],voice='marimba'),
+    dict(slug='tiny-machines',title='Tiny Machines',bpm=122,
+         roots=[47,47,43,43,50,50,45,45],minor={47},
+         melody=[[71,74,78,None,81,78,74,71],[79,None,83,86,83,81,79,None],
+                 [78,81,86,None,83,81,78,74],[73,None,76,81,83,81,76,None]],voice='chip',pulse=True),
+    dict(slug='prism-workshop',title='Prism Workshop',bpm=116,
+         roots=[48,48,50,50,45,45,53,43],minor={50,45},
+         melody=[[76,None,79,84,86,84,79,76],[77,81,None,86,84,81,77,None],
+                 [76,None,81,84,83,81,79,76],[77,81,84,None,79,76,74,None]],voice='bell',pulse=True),
 ]
 
 def tone(midi, seconds, voice):
@@ -97,6 +133,9 @@ def tone(midi, seconds, voice):
     elif voice == 'brass':
         wave = sum(np.sin(phase * h) / h for h in range(1, 7)) / 1.5
         env = np.exp(-t * 2.8) * np.minimum(1, t / .025) * release
+    elif voice == 'keys':
+        wave = np.sin(phase + .65 * np.sin(phase * 2) * np.exp(-t * 7)) + .16 * np.sin(phase * 3) * np.exp(-t * 5)
+        env = np.exp(-t * 3) * attack * release
     elif voice == 'plucked':
         wave = sum(np.sin(phase * h) / h ** 1.5 * np.exp(-t * h * 1.2) for h in range(1, 7))
         env = np.exp(-t * 5) * attack * release
@@ -187,9 +226,9 @@ def render(score, index):
     return dict(file=target.name, bpm=score['bpm'], duration_seconds=round(length / SR, 3), bytes=target.stat().st_size)
 
 if __name__ == '__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('--new-only',action='store_true');parser.add_argument('--history-only',action='store_true');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--new-only',action='store_true');parser.add_argument('--history-only',action='store_true');parser.add_argument('--expansion-only',action='store_true');args=parser.parse_args()
     metadata=OUT / 'mission-music.json'
-    first=10 if args.history_only else 4 if args.new_only else 0
+    first=14 if args.expansion_only else 10 if args.history_only else 4 if args.new_only else 0
     report=json.loads(metadata.read_text())[:first] if first else []
     for index, score in enumerate(SCORES):
         if index<first: continue

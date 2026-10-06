@@ -82,5 +82,59 @@
     "bpm": 116,
     "duration_seconds": 66.207,
     "bytes": 795471
+  },
+  {
+    "file": "midnight-orders.mp3",
+    "bpm": 112,
+    "duration_seconds": 68.571,
+    "bytes": 823684
+  },
+  {
+    "file": "warm-first-batch.mp3",
+    "bpm": 106,
+    "duration_seconds": 72.453,
+    "bytes": 870392
+  },
+  {
+    "file": "cross-town-lights.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795473
+  },
+  {
+    "file": "bridges-and-baskets.mp3",
+    "bpm": 108,
+    "duration_seconds": 71.111,
+    "bytes": 854408
+  },
+  {
+    "file": "skyguard-assembly.mp3",
+    "bpm": 118,
+    "duration_seconds": 65.085,
+    "bytes": 781994
+  },
+  {
+    "file": "courtside-carnival.mp3",
+    "bpm": 120,
+    "duration_seconds": 64.0,
+    "bytes": 768829
+  },
+  {
+    "file": "brick-by-brick.mp3",
+    "bpm": 114,
+    "duration_seconds": 67.368,
+    "bytes": 809263
+  },
+  {
+    "file": "tiny-machines.mp3",
+    "bpm": 122,
+    "duration_seconds": 62.951,
+    "bytes": 756286
+  },
+  {
+    "file": "prism-workshop.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795470
   }
 ]

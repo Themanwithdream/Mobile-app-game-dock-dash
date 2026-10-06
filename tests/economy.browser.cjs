@@ -61,7 +61,7 @@ function overlap(a,b){return a.x<b.x+b.width && a.x+a.width>b.x && a.y<b.y+b.hei
  for(const id of ['batcave','school','dino','candy']){await page.locator(`[data-world="${id}"]`).tap();assert.equal(await page.evaluate(()=>__dockTest.game),null);await page.locator('#briefing-back').tap();}
  await page.locator('#missions-next').tap();await paint(page);assert.equal(await page.locator('.mission-card:visible').count(),2);assert.equal(await page.locator('#missions-next').isDisabled(),false);
  assert.deepEqual(await page.locator('.mission-card:visible').evaluateAll(a=>a.map(b=>b.dataset.world)),['forest','arctic']);
- await page.locator('#missions-next').tap();await paint(page);assert.equal(await page.locator('.mission-card:visible').count(),4);assert.equal(await page.locator('#missions-next').isDisabled(),true);
+ await page.locator('#missions-next').tap();await paint(page);assert.equal(await page.locator('.mission-card:visible').count(),4);assert.equal(await page.locator('#missions-next').isDisabled(),false);
  assert.deepEqual(await page.locator('.mission-card:visible').evaluateAll(a=>a.map(b=>b.dataset.world)),['rome','egypt','viking','silkroad']);
  pass('all six new worlds are reachable through native paged mission cards and return to the same page');
  const first=await clearMission(page,'batcave',0);assert.equal(first.state,'missionResult');assert.equal(first.stars,3);assert.equal(first.earned,36+115);assert.equal(first.after-first.before,first.earned);

@@ -87,6 +87,54 @@
       stories:['Welcome the caravan with a steady first delivery.', 'The tea courtyard opens its four trading stalls.', 'Sort colourful silk and precious spice shipments.', 'Lanterns are lit. Keep an eye on the changing docks.', 'Prepare the next caravan with fast, accurate loading.', 'Jade and porcelain arrive. Perfect timing protects the cargo.', 'Merchants gather from every route. Clear the great trade fair.', 'Master the final caravan rush and its six dock changes.'],
       cargo:'Silk bolts|silkrolls;Tea jars|jar;Spice sacks|spices;Rolled carpets|rug;Brass lanterns|lantern;Porcelain bowls|porcelain;Paper fans|paperfan;Jade pendants|jade;Trade coins|coins;Caravan maps|map;Merchant seals|seal;Counting frames|abacus' }
   ];
+  // Append worlds so every existing cargo, location and star-record ID stays stable.
+  worlds.push(
+    {id:'diner',name:'Midnight Diner',category:'Diner deliveries',badge:'DINER',chapter:'city',location:17,accent:'#ffa99c',tempo:112,
+      tag:'Hot plates. Neon nights. Happy tables.',priority:'DINNER ESSENTIALS',priorityCopy:'Burgers · fries · shakes',
+      stages:['Doors open','Lunch orders','Dinner rush','Drive-through dash','Neon supper','Late-night tables','Kitchen relay','Midnight special'],
+      stories:['The grill is warm. Bring the diner its first meal kits.','Tables fill up. Four docks keep lunch on schedule.','Dinner is served. Handle hot meals and express orders.','Drive-through orders arrive. Watch the changing docks.','Neon signs glow. Keep every table supplied.','Night owls need warm food and careful loading.','The kitchen is working flat out. Perfect timing keeps meals moving.','Close the busiest night with six dock changes and a flawless final service.'],
+      cargo:'Burger boxes|burger;Fries cartons|fries;Milkshake cups|milkshake;Pizza slices|pizzaslice;Soup bowls|soupbowl;Chef hats|chefhat;Coffee pots|coffeepot;Menu cards|menu;Cutlery bundles|cutlery;Sauce bottles|saucebottle;Takeaway bags|takeaway;Dinner plates|plate'},
+    {id:'bakery',name:'Sunrise Bakery',category:'Bakery deliveries',badge:'BAKERY',chapter:'city',location:18,accent:'#ffe1a4',tempo:106,
+      tag:'Little pastries. A big morning rush.',priority:'FRESH BATCH',priorityCopy:'Croissants · bread · cakes',
+      stages:['First batch','Breakfast boxes','Pastry parade','Market morning','Afternoon tea','Wedding orders','Festival baking','Golden crust'],
+      stories:['The first oven opens. Deliver warm bread and fresh pastries.','Breakfast queues grow. Yellow joins the morning fleet.','The pastry counter needs delicate cakes and quick deliveries.','Market orders arrive. Follow the new dock positions.','Tea time means careful loading and a faster belt.','Celebration cakes need steady hands through four dock changes.','The whole neighbourhood orders treats. Keep every batch on time.','Bake your best finale: six dock changes and a legendary breakfast service.'],
+      cargo:'Croissant trays|croissant;Bread loaves|breadloaf;Celebration cakes|layercake;Doughnut boxes|donut;Rolling pins|rollingpin;Flour sacks|floursack;Whisk bundles|whisk;Baguettes|baguette;Butter blocks|butter;Oven gloves|keepergloves;Pastry boxes|takeaway;Recipe books|book'},
+    {id:'metro',name:'Metro Crossing',category:'Metro deliveries',badge:'METRO',chapter:'city',location:19,accent:'#99deff',tempo:116,
+      tag:'Keep a bright little city moving.',priority:'CITY ESSENTIALS',priorityCopy:'Tickets · mail · repairs',
+      stages:['Morning commute','Corner kiosks','Station rush','Cross-town relay','Rush hour','Night network','Citywide service','Metro maestro'],
+      stories:['The city wakes up. Bring tickets, mail and repair tools.','Corner shops open. Connect all four city docks.','Train arrivals bring fragile parcels and urgent deliveries.','Routes change. Read the docks before the next load.','Rush hour fills the belt. Deliver with precision.','The night network needs supplies across four route changes.','Every district calls. Keep the entire city connected.','Master six route changes and the fastest metropolitan delivery shift.'],
+      cargo:'Transit tickets|transitticket;Mail bundles|mailbundle;Repair toolboxes|toolbox;Traffic signals|trafficlight;Bike helmets|bikehelmet;Camera kits|camera;Street plants|plant;Coffee cups|coffeecup;Newspaper stacks|newspaper;Bus passes|transitticket;City maps|map;Signal radios|walkie'},
+    {id:'canal',name:'Canal Quarter',category:'Canal market cargo',badge:'CANAL',chapter:'city',location:20,accent:'#a4e4cf',tempo:108,
+      tag:'Bridges, boats and waterside markets.',priority:'MARKET ESSENTIALS',priorityCopy:'Flowers · fruit · parcels',
+      stages:['Quayside welcome','Bridge market','Boat arrivals','Canal crossings','Floating fair','Evening lanterns','Harbour relay','Waterside wonder'],
+      stories:['Open the waterside market with flowers and fresh fruit.','Four market stalls need a steady delivery rhythm.','Boats arrive with fragile gifts and express parcels.','The bridge route changes. Watch the dock colours.','The floating fair fills up. Keep the market moving.','Lanterns light the quay. Four dock changes test your route memory.','Every boat brings another order. Protect the precious cargo.','Complete the grand waterfront fair with six dock changes and perfect loading.'],
+      cargo:'Flower bouquets|bouquet;Fruit crates|fruitcrate;Post parcels|mailbundle;Canal boat models|reedboat;Market baskets|basket;Bridge lanterns|lantern;Cycle bells|bell;Paint tins|paintcan;Bread baskets|breadloaf;Striped umbrellas|umbrella;Pottery gifts|porcelain;Watering cans|wateringcan'},
+    {id:'skyguard',name:'Skyguard HQ',category:'Skyguard equipment',badge:'HEROES',chapter:'makers',location:21,accent:'#ffc9a1',tempo:118,
+      tag:'Supply your own team of city heroes.',priority:'HERO EQUIPMENT',priorityCopy:'Visors · shields · boots',
+      stages:['New recruits','Training day','Rescue readiness','Rooftop relay','City defence','Skybridge scramble','Guardian assembly','Heroes united'],
+      stories:['Welcome the Skyguard. Equip the first rescue team.','Training opens all four docks. Ready every recruit.','Fragile gear and urgent supplies prepare the next rescue.','Rooftop routes move. Match each load to its new dock.','The city needs its guardians. Keep the equipment flowing.','Four dock changes test the fastest rescue suppliers.','Every hero joins the assembly. Perfect loading protects the gear.','Unite the whole Skyguard through six dock changes and a legendary final dispatch.'],
+      cargo:'Flight visors|flightvisor;Rescue shields|heroshield;Jet boots|jetboots;Grapple reels|rope;Wing packs|wingpack;Signal beacons|beacon;Rescue gloves|keepergloves;Drone scouts|drone;Medical packs|firstaid;Training targets|target;Power cells|powercell;Hero badges|herobadge'},
+    {id:'arena',name:'All-Star Arena',category:'Arena equipment',badge:'SPORTS',chapter:'makers',location:22,accent:'#b9e8a0',tempo:120,
+      tag:'Every court. Every team. Game on.',priority:'GAME-DAY GEAR',priorityCopy:'Basketballs · rackets · mitts',
+      stages:['Practice courts','Team check-in','Tournament day','Court switch','Semifinal rush','Championship relay','Arena all-stars','Final whistle'],
+      stories:['Open the practice courts with balls, rackets and mitts.','All four teams arrive. Deliver the gear before tipoff.','Tournament supplies include fragile trophies and urgent kits.','Courts switch. Read the new dock order before loading.','The semifinals begin. Keep every team ready to play.','Four dock changes turn championship day into a timing challenge.','The full arena celebrates. Keep the equipment arriving.','Win the final delivery championship through six dock changes and the fastest belt.'],
+      cargo:'Basketball bundles|basketball;Tennis rackets|tennisracket;Baseball mitts|baseballmitt;Volleyball packs|volleyball;Badminton shuttles|shuttlecock;Medal cases|medal;Scoreboard kits|scoreboard;Hockey sticks|hockeystick;Swimming goggles|goggles;Track shoes|cleats;Team pennants|flag;Champion cups|trophy'},
+    {id:'build',name:'Big Build',category:'Construction supplies',badge:'BUILD',chapter:'makers',location:23,accent:'#ffd276',tempo:114,
+      tag:'Raise a new neighbourhood, one load at a time.',priority:'BUILD ESSENTIALS',priorityCopy:'Hard hats · bricks · cement',
+      stages:['Site briefing','Foundations','Workshop rush','Crane crossing','Skyline supplies','Concrete convoy','Tower topping','Grand opening'],
+      stories:['The site opens. Bring safety helmets and foundation supplies.','Four work crews start building. Keep each dock supplied.','Fragile tools and urgent materials arrive from the workshop.','Crane routes change. Follow the docks around the site.','The skyline grows. Precise loading keeps the build on time.','Cement crews need a steady flow through four dock changes.','The last tower rises. Every material matters.','Finish the neighbourhood with six dock changes and a master builder delivery run.'],
+      cargo:'Safety hard hats|hardhat;Brick stacks|brickstack;Cement sacks|cementsack;Blueprint rolls|blueprint;Steel beams|steelbeam;Traffic cones|cone;Paint cans|paintcan;Measuring tapes|tapemeasure;Work boots|workboot;Drill kits|drill;Toolboxes|toolbox;Safety vests|safetyvest'},
+    {id:'robot',name:'Robot Lab',category:'Technology components',badge:'TECH',chapter:'makers',location:24,accent:'#a9eee7',tempo:122,
+      tag:'Build tiny robots with big ideas.',priority:'LAB COMPONENTS',priorityCopy:'Chips · sensors · cells',
+      stages:['Power on','Prototype parts','Assembly line','Circuit switch','Drone launch','Systems relay','Robot showcase','Future express'],
+      stories:['Power up the lab with chips, sensors and battery cells.','Four assembly stations open. Connect every component.','Delicate circuits and express parts keep the prototypes moving.','Assembly routes switch. Follow the new station colours.','Scout drones are ready. Deliver their final components.','Four dock changes test your fastest systems relay.','The robot showcase opens. Perfect loading protects the inventions.','Complete the future express through six station changes and the most demanding delivery test.'],
+      cargo:'Microchip packs|microchip;Sensor lenses|sensor;Battery cells|powercell;Robot arms|robotarm;Circuit boards|circuitboard;Scout drones|drone;VR headsets|vrheadset;Server drives|serverdrive;Solar tiles|solartile;Cable reels|cablereel;Robot kits|robotkit;Lab tablets|tablet'},
+    {id:'prism',name:'Prism Forge',category:'Prism workshop gear',badge:'PRISM',chapter:'prism',location:25,accent:'#c7bfff',tempo:116,
+      tag:'Forge rings in the colours of your trucks.',priority:'FORGE ESSENTIALS',priorityCopy:'Rings · gems · bracelets',
+      stages:['First spark','Four colours','Crystal orders','Colour crossing','Prism festival','Workshop relay','Master jewellers','Spectrum finale'],
+      stories:['The first rings are ready. Match their colour and shape to the trucks.','Yellow joins the workshop. Four colours fill the forge.','Delicate gems and urgent ring orders need careful loading.','The docks move. The rings keep the colour of their matching truck.','The prism festival opens. Bring the jewellers every component.','Four dock changes test your colour reading and timing.','Master jewellers gather. Protect the glowing workshop cargo.','Forge a perfect spectrum finale through six dock changes and legendary delivery timing.'],
+      cargo:'Prism rings|prismring;Faceted gems|facetedgem;Prism bracelets|prismbracelet;Jeweller tools|jewellertool;Crystal ingots|crystalingot;Display boxes|ringbox;Polishing cloths|linen;Gem scales|gemscale;Light prisms|lightprism;Workshop goggles|goggles;Ring moulds|ringmould;Colour charts|colourchart'}
+  );
   const tiers = [
     { loads:12, priority:3, seconds:45, perfects:4, speed:82, gap:90, shift:1, fragile:0, express:0, shuffleAt:[], difficulty:'EASY', detail:'Three docks. A steady belt. Find your rhythm.' },
     { loads:20, priority:5, seconds:50, perfects:7, speed:102, gap:84, shift:2, fragile:0, express:0, shuffleAt:[], difficulty:'STEADY', detail:'Four docks and a faster belt. Yellow joins in.' },
@@ -115,10 +163,12 @@
     while(w.stories.length<tiers.length)w.stories.push(`${w.name} needs your best deliveries. ${tiers[w.stories.length].detail}`);
   }
   const worldPages=[];
-  for(const history of [false,true]) {
-    const group=worlds.filter(w=>!!w.era===history);
+  const chapters={adventures:'ADVENTURES',history:'HISTORY',city:'CITY LIFE',makers:'HEROES & MAKERS',prism:'PRISM FORGE'};
+  for(const chapter of Object.keys(chapters)) {
+    const group=worlds.filter(w=>(w.chapter || w.era || 'adventures')===chapter);
     for(let i=0;i<group.length;i+=4)worldPages.push(group.slice(i,i+4));
   }
+  function pageLabel(page) {const w=worldPages[page]?.[0];return chapters[w?.chapter || w?.era || 'adventures'];}
   function getMission(worldId, stage) {
     const index = worlds.findIndex(w => w.id === worldId);
     if (index < 0 || !Number.isInteger(stage) || stage < 0 || stage >= tiers.length) return null;
@@ -162,5 +212,5 @@
   function totalStars(records, worldId) {
     return missions.filter(m => !worldId || m.world.id === worldId).reduce((sum, m) => sum + (records[m.id]?.stars || 0), 0);
   }
-  return { worlds, worldPages, tiers, levelCount:tiers.length, missions, getMission, readRecords, isUnlocked, grade, recordResult, totalStars };
+  return { worlds, worldPages, pageLabel, tiers, levelCount:tiers.length, missions, getMission, readRecords, isUnlocked, grade, recordResult, totalStars };
 });

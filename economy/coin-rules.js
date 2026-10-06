@@ -26,7 +26,16 @@
     { id:'fire-engine', name:'Fire Engine', price:600, accent:'#ffb6a1', emblem:'firstaid', body:'fire', copy:'A roof ladder and bright emergency lights.' },
     { id:'ice-cream', name:'Ice Cream Van', price:700, accent:'#ffc7ea', emblem:'lollipop', body:'icecream', copy:'A striped counter and a giant rooftop cone.' },
     { id:'monster', name:'Monster Truck', price:950, accent:'#c6f49a', emblem:'bolt', body:'monster', copy:'Oversized wheels and a little off-road attitude.' },
-    { id:'moon-rover', name:'Moon Rover', price:1400, accent:'#c8d9ff', emblem:'satellite', body:'rover', copy:'Six lunar wheels, solar panels and a dish.' }
+    { id:'moon-rover', name:'Moon Rover', price:1400, accent:'#c8d9ff', emblem:'satellite', body:'rover', copy:'Six lunar wheels, solar panels and a dish.' },
+    { id:'food-truck', name:'Food Truck', price:450, accent:'#ffa99c', emblem:'burger', body:'foodtruck', world:'diner', new:true, copy:'A roof grill, serving hatch and striped awning.' },
+    { id:'bread-van', name:'Bread Van', price:380, accent:'#ffe1a4', emblem:'croissant', body:'breadvan', world:'bakery', new:true, copy:'A rounded bakery van with bread racks and a warm roof.' },
+    { id:'city-tram', name:'City Tram', price:650, accent:'#99deff', emblem:'transitticket', body:'citytram', world:'metro', new:true, copy:'A little tram with passenger windows and a rooftop collector.' },
+    { id:'canal-wagon', name:'Canal Wagon', price:520, accent:'#a4e4cf', emblem:'bouquet', body:'canalwagon', world:'canal', new:true, copy:'An open market wagon with flower crates and canvas trim.' },
+    { id:'sky-glider', name:'Sky Glider', price:1000, accent:'#ffc9a1', emblem:'heroshield', body:'skyglider', world:'skyguard', new:true, copy:'An original rescue craft with swept wings and twin turbines.' },
+    { id:'arena-sprinter', name:'Arena Sprinter', price:720, accent:'#b9e8a0', emblem:'basketball', body:'arenasprinter', world:'arena', new:true, copy:'A low sports transporter with racing stripes and a rear spoiler.' },
+    { id:'cement-mixer', name:'Cement Mixer', price:850, accent:'#ffd276', emblem:'hardhat', body:'cementmixer', world:'build', new:true, copy:'A six-wheel work truck with a striped mixing drum.' },
+    { id:'robot-carrier', name:'Robot Carrier', price:1100, accent:'#a9eee7', emblem:'robotkit', body:'robotcarrier', world:'robot', new:true, copy:'A tracked lab transporter with circuits and a tiny robot assistant.' },
+    { id:'prism-hauler', name:'Prism Hauler', price:950, accent:'#c7bfff', emblem:'prismring', body:'prismhauler', world:'prism', new:true, copy:'Faceted cargo pods and a ring that matches each truck colour.' }
   ].map(item=>({...item,type:'truck'}));
   const venues = [
     { id:'venue:warehouse', name:'Warehouse', location:0, need:0, accent:'#e8bd70', copy:'Your original arcade home. All cargo varieties.' },
@@ -45,7 +54,16 @@
     { id:'venue:rome', name:'Roman Forum', world:'rome', location:13, price:600, accent:'#f2d08c', copy:'Roman scenery, music and endless amphorae, scrolls and shields.' },
     { id:'venue:egypt', name:'Nile Court', world:'egypt', location:14, price:650, accent:'#91dfe5', copy:'Nile scenery, music and endless papyrus, pottery and linen.' },
     { id:'venue:viking', name:'Viking Harbour', world:'viking', location:15, price:700, accent:'#b8dbe9', copy:'Northern scenery, music and endless shields, barrels and wool.' },
-    { id:'venue:silkroad', name:'Silk Road Bazaar', world:'silkroad', location:16, price:750, accent:'#bddea8', copy:'Caravan scenery, music and endless silk, tea and spices.' }
+    { id:'venue:silkroad', name:'Silk Road Bazaar', world:'silkroad', location:16, price:750, accent:'#bddea8', copy:'Caravan scenery, music and endless silk, tea and spices.' },
+    { id:'venue:diner', name:'Midnight Diner', world:'diner', location:17, price:350, accent:'#ffa99c', new:true, copy:'Neon diner scenery, music and endless burgers, fries and shakes.' },
+    { id:'venue:bakery', name:'Sunrise Bakery', world:'bakery', location:18, price:350, accent:'#ffe1a4', new:true, copy:'Warm bakery scenery, music and endless bread, cakes and pastries.' },
+    { id:'venue:metro', name:'Metro Crossing', world:'metro', location:19, price:550, accent:'#99deff', new:true, copy:'City streets, metro music and endless urban supplies.' },
+    { id:'venue:canal', name:'Canal Quarter', world:'canal', location:20, price:500, accent:'#a4e4cf', new:true, copy:'Canal markets, waterside music and endless flower and fruit deliveries.' },
+    { id:'venue:skyguard', name:'Skyguard HQ', world:'skyguard', location:21, price:700, accent:'#ffc9a1', new:true, copy:'An original superhero base, soaring music and rescue equipment.' },
+    { id:'venue:arena', name:'All-Star Arena', world:'arena', location:22, price:500, accent:'#b9e8a0', new:true, copy:'Multi-sport courts, tournament music and endless game-day gear.' },
+    { id:'venue:build', name:'Big Build', world:'build', location:23, price:600, accent:'#ffd276', new:true, copy:'Cranes, worksite music and endless construction materials.' },
+    { id:'venue:robot', name:'Robot Lab', world:'robot', location:24, price:750, accent:'#a9eee7', new:true, copy:'Robot workshop scenery, electronic music and technology components.' },
+    { id:'venue:prism', name:'Prism Forge', world:'prism', location:25, price:650, accent:'#c7bfff', new:true, copy:'Crystal workshop scenery, prism music and colour-matched ring deliveries.' }
   ].map(item=>({...item,type:'venue'}));
   const styles = [
     { id:'wrap:classic', name:'Classic Wrap', style:'wrap', pattern:'classic', need:0, accent:'#e8c58a', copy:'The original parcel look.' },
@@ -56,9 +74,14 @@
     { id:'zone:classic', name:'Classic Dock', style:'zone', pattern:'classic', need:0, accent:'#b8e6b7', copy:'Your original green loading zone.' },
     { id:'zone:neon', name:'Neon Dock', style:'zone', pattern:'neon', price:200, accent:'#9fe9f3', copy:'Cyan side rails and tiny circuit lights.' },
     { id:'zone:stars', name:'Starlight Dock', style:'zone', pattern:'stars', price:300, accent:'#ccb8ff', copy:'Violet rails with a scattering of little stars.' },
-    { id:'zone:gold', name:'Golden Dock', style:'zone', pattern:'gold', price:450, accent:'#ffe097', copy:'Gold trim and a chequered perfect stripe.' }
+    { id:'zone:gold', name:'Golden Dock', style:'zone', pattern:'gold', price:450, accent:'#ffe097', copy:'Gold trim and a chequered perfect stripe.' },
+    { id:'wrap:picnic', name:'Picnic Wrap', style:'wrap', pattern:'picnic', price:130, accent:'#ffd7b0', new:true, copy:'A gingham border for your restaurant deliveries.' },
+    { id:'wrap:blueprint', name:'Blueprint Wrap', style:'wrap', pattern:'blueprint', price:170, accent:'#a7deff', new:true, copy:'Drafting lines and corner measurements around each parcel.' },
+    { id:'wrap:prism', name:'Prism Wrap', style:'wrap', pattern:'prism', price:240, accent:'#d5c5ff', new:true, copy:'Four-colour crystal corners with a tiny gem seal.' },
+    { id:'zone:hazard', name:'Builder Dock', style:'zone', pattern:'hazard', price:230, accent:'#ffd276', new:true, copy:'Amber safety stripes and a precise loading marker.' },
+    { id:'zone:circuit', name:'Circuit Dock', style:'zone', pattern:'circuit', price:280, accent:'#a9eee7', new:true, copy:'Mint circuit traces with tiny component lights.' }
   ].map(item=>({...item,type:'style'}));
-  const catalog=[...trucks,...venues,...styles], byId=new Map(catalog.map(item=>[item.id,item]));
+  const catalog=[...trucks,...venues,...styles], newItems=catalog.filter(item=>item.new), byId=new Map(catalog.map(item=>[item.id,item]));
   const integer = n => typeof n === 'number' && Number.isFinite(n) ? Math.max(0, Math.min(MAX, Math.floor(n))) : 0;
   function readWallet(raw, profile = {}) {
     // Only an absent wallet receives the one-time welcome / returning-player gift.
@@ -103,5 +126,5 @@
   function equippedStyle(wallet,id,kind) {
     const item=byId.get(id);return item?.style===kind && isOwned(wallet,item)?item.id:`${kind}:classic`;
   }
-  return {trucks,venues,styles,catalog,item:id=>byId.get(id),ownedLocations,arcadeLocation,equippedStyle,readWallet,isOwned,purchase,award,deliveryReward,missionReward,rewards:{truck:8,goal:15,shift:10}};
+  return {trucks,venues,styles,catalog,newItems,item:id=>byId.get(id),ownedLocations,arcadeLocation,equippedStyle,readWallet,isOwned,purchase,award,deliveryReward,missionReward,rewards:{truck:8,goal:15,shift:10}};
 });

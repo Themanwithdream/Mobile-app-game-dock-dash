@@ -1,8 +1,42 @@
 # Dock Dash — Your Fleet, Your World
 
-A mobile-first parcel sorting arcade with 468 products, 112 missions in 14 worlds,
-20 collectible vehicles, 17 arcade places, nine parcel/dock styles, earned coins
-and 17 original soundtracks.
+A mobile-first parcel sorting arcade with 576 products, 184 missions in 23 worlds,
+29 collectible vehicles, 26 arcade places, 14 parcel/dock styles, earned coins
+and 26 original soundtracks.
+
+## Nine New Worlds and 23 New Purchases
+
+Eight missions each bring Midnight Diner, Sunrise Bakery, Metro Crossing,
+Canal Quarter, Skyguard HQ, All-Star Arena, Big Build, Robot Lab and Prism Forge
+into the mission map. Three new map pages keep the previous adventure and history
+pages in their original order. First missions are free, and existing records,
+coins, cargo IDs, vehicle indices and equipment stay valid.
+
+The New shop tab contains nine distinct vehicles, nine endless Arcade places and
+five parcel/dock styles. Food Truck, Bread Van, City Tram, Canal Wagon, Sky Glider,
+Arena Sprinter, Cement Mixer, Robot Carrier and Prism Hauler use separate native
+canvas silhouettes while keeping each colour and sorting plate. Purchases use the
+same exact-price, permanent-ownership transaction as older items.
+
+Prism Forge is an original gemstone workshop. Rings take the red, blue, green,
+yellow or golden colour of the matching parcel/truck type and stay correct when
+docks shuffle. Colour-sensitive illustrations are built inside the bounded parcel
+sprite cache, never on every animation frame. This expansion does not add Green
+Lantern names, emblems, characters or lore. Existing Batman references elsewhere
+in the game have not been licensed by this expansion.
+
+All nine new scenes are lazy-loaded 360×640 indexed PNGs. Their saved paths and
+built-in imagegen prompts are in `assets/missions/NEW-WORLDS-ARTWORK.md`.
+`art/cargo-expansion.js` adds 108 new cargo identities; `art/fleet-art.js` contains
+the nine original vehicle bodies. New soundtracks are original 32-bar synthesized
+scores with circular note tails and use the existing audio-clock loop player.
+Regenerate only these nine tracks with `python audio/compose-missions.py --expansion-only`.
+
+`node tests/expansion.browser.cjs` checks every new free mission, all 23 native
+touch purchases, duplicate-charge protection, four shop tabs across four viewport
+sizes, cached ring colours, sorting plates, every cargo illustration and purchase
+persistence. The mission suite plays all 184 missions to three-star completion;
+the music suite checks two actual repeat boundaries in every one of the 26 tracks.
 
 ## Historical Routes and Eight-Level Progression
 
@@ -50,7 +84,7 @@ bonus. Pause with P or Escape.
 
 ## Expanded Dock Shop
 
-The shop has three paged categories: Trucks, Arcade Places and Style. Purchases
+The shop has four paged tabs: Trucks, Places, Style and New. Purchases
 are permanent and also equip the item. Vehicles, arcade places, parcel wraps and
 loading-zone styles are independent choices. Existing balances, ownership and
 delivery rewards retain their original IDs and prices.
@@ -193,7 +227,7 @@ test responses.
 - Unchanged viewport resize events avoid canvas allocation and drawing. Rotation
   still fits both layers and rebuilds the static scene at the new size.
 
-The browser regression suites cover touch phones, desktop, all 112 missions,
+The browser regression suites cover touch phones, desktop, all 184 missions,
 countdown and pause handling, saved progress, native music and rendering budgets.
 Performance measurements use mobile-sized Chromium emulation; physical iPhone
 hardware was not available.
@@ -400,7 +434,7 @@ The warehouse and airport artwork remains embedded in the HTML. Music generation
 is a development step; the installed game never contacts a generation service.
 
 The mission browser suite, `node tests/missions.browser.cjs`, additionally checks
-all 112 missions through three-star completion, real touch countdowns,
+all 184 missions through three-star completion, real touch countdowns,
 arcade/replay/tutorial starts, pause/tab handling, scene/music selection,
 decoded MP3s, storage reloads, failed missions, retries and existing progress.
 It requires Playwright and Chromium; set `DOCK_CHROME` to the browser executable
@@ -435,4 +469,4 @@ changes, adaptive motion resolution with sharp static labels, bounded caches,
 all seven small route previews, and a full 140-particle burst. Like the other
 browser suites, its hooks are injected into the local test response only.
 
-Version: 5.1-expanded-shop.
+Version: 5.5-new-worlds.
