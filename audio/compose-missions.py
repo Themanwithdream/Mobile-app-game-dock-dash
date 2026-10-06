@@ -31,10 +31,10 @@ SCORES = [
          roots=[40, 40, 48, 48, 43, 43, 50, 50], minor={40},
          melody=[[76, 79, None, 83, 81, 79, 78, 74], [76, None, 79, 83, 86, 83, 79, None],
                  [79, 83, None, 86, 83, 81, 79, None], [78, None, 81, 86, 84, 81, 78, 74]], voice='chip'),
-    dict(slug='gotham-after-dark',title='Gotham After Dark',bpm=110,
-         roots=[45,45,41,41,48,48,43,40],minor={45,40},
-         melody=[[69,None,72,76,None,74,72,69],[65,69,None,72,76,72,69,None],
-                 [72,None,76,79,76,None,74,72],[67,71,None,74,71,68,64,None]],voice='chip',pulse=True),
+    dict(slug='beacon-homecoming',title='Beacon Homecoming',bpm=110,
+         roots=[48,48,53,53,45,45,43,43],minor={45},
+         melody=[[72,None,76,79,81,79,76,None],[77,81,None,84,81,79,77,None],
+                 [76,None,81,84,81,79,76,72],[74,None,79,77,76,74,72,None]],voice='pan',gentle=True),
     dict(slug='first-bell',title='First Bell',bpm=106,
          roots=[48,48,53,53,45,45,43,43],minor={45},
          melody=[[72,76,79,None,81,79,76,None],[77,None,81,84,81,79,77,76],
@@ -109,6 +109,33 @@ SCORES = [
                  [76,None,81,84,83,81,79,76],[77,81,84,None,79,76,74,None]],voice='bell',pulse=True),
 ]
 
+# Hand-written chapter motifs; each location gets a distinct transposition,
+# phrase order, rests and answer phrase, with circular note-tail mixing.
+def lantern_scores():
+    data=json.loads(subprocess.check_output(['node','-e',
+        "console.log(JSON.stringify(require('./missions/world-pack').worlds))"],cwd=OUT.parent,text=True))
+    motifs={
+      'greenwood':[0,4,7,9,7,4,2,0], 'tidebound':[7,4,2,0,2,4,7,11],
+      'skyroads':[0,7,11,14,11,9,7,4], 'wildheart':[0,2,7,9,7,2,4,0],
+      'clockwork':[0,3,7,10,7,5,3,0], 'hearthside':[4,7,9,7,4,2,0,2],
+      'echoes':[0,3,7,8,7,3,2,0], 'starlight':[0,7,9,12,14,12,7,4]}
+    progressions=[[0,0,5,5,9,9,7,7],[0,0,7,7,9,9,5,5],[0,0,9,9,5,5,7,7]]
+    scores=[]
+    for w in data:
+      m=w['music'];i=m['motif'];key=m['key'];base=motifs[m['chapter']]
+      phrases=[]
+      for phrase in range(4):
+        rotation=(i//7+phrase*2)%8
+        notes=[key+24+base[(n+rotation)%8] for n in range(8)]
+        if phrase==1:notes=list(reversed(notes))
+        if phrase==2:notes=[n+(12 if j in [2,5] and i%3==0 else 0) for j,n in enumerate(notes)]
+        notes[(i+phrase*3)%8]=None
+        phrases.append(notes)
+      roots=[key+p for p in progressions[(i//3)%3]]
+      scores.append(dict(slug=m['file'][:-4],title=m['title'],bpm=w['tempo'],roots=roots,minor={key+9},melody=phrases,voice=m['voice'],gentle=m['chapter'] in ['tidebound','hearthside','echoes','starlight'],pulse=m['chapter']=='clockwork',tropical=m['chapter'] in ['wildheart','tidebound']))
+    return scores
+
+
 def tone(midi, seconds, voice):
     t = np.arange(round(seconds * SR), dtype=np.float64) / SR
     f = 440 * 2 ** ((midi - 69) / 12)
@@ -165,6 +192,11 @@ def drums(rng):
     return {k: v.astype(np.float32) for k, v in dict(kick=kick, snare=snare, hat=hat, clap=clap).items()}
 
 def render(score, index):
+    tones={}
+    def cached_tone(midi,seconds,voice):
+        key=(midi,seconds,voice)
+        if key not in tones:tones[key]=tone(midi,seconds,voice)
+        return tones[key]
     beat = 60 / score['bpm']
     length = round(128 * beat * SR)
     mix = np.zeros((length, 2), dtype=np.float32)
@@ -183,7 +215,7 @@ def render(score, index):
         chord = [0, 3 if root in score['minor'] else 4, 7]
         at = bar * 4
         for i, interval in enumerate(chord):
-            add(tone(root + 12 + interval, 4.15 * beat, 'pad'), at, .055, (i - 1) * .45)
+            add(cached_tone(root + 12 + interval, 4.15 * beat, 'pad'), at, .055, (i - 1) * .45)
         for pos in ([0, 1.5, 2.75] if index == 2 or score.get('tropical') else [0,2] if score.get('gentle') else [0, 1, 2, 3]):
             add(kit['kick'], at + pos, .33)
         for pos in [1, 3]:
@@ -194,21 +226,21 @@ def render(score, index):
         bass_pattern = [(0, 0), (.75, 0), (1.5, 7), (2, 0), (2.75, 12), (3.5, 7)]
         if index == 3 or score.get('pulse'): bass_pattern = [(i * .5, 0 if i % 4 < 2 else 7) for i in range(8)]
         for pos, interval in bass_pattern:
-            add(tone(root - 12 + interval, .43 * beat, 'bass'), at + pos, .2)
+            add(cached_tone(root - 12 + interval, .43 * beat, 'bass'), at + pos, .2)
         motif = score['melody'][(bar // 2) % 4]
         # A contrasting bridge and a clear return make each 32-bar theme a song.
         if 16 <= bar < 24: motif = score['melody'][(bar // 2 + 2) % 4]
         for step, note in enumerate(motif):
             if note is not None:
-                add(tone(note, .46 * beat, score['voice']), at + step * .5, .12, -.15)
-                add(tone(note, .4 * beat, score['voice']), at + step * .5 + .25, .025, .4)
+                add(cached_tone(note, .46 * beat, score['voice']), at + step * .5, .12, -.15)
+                add(cached_tone(note, .4 * beat, score['voice']), at + step * .5 + .25, .025, .4)
         if index == 3 or score.get('pulse'):
             for step in range(16):
-                add(tone(root + 12 + chord[step % 3] + (12 if step % 4 == 3 else 0), .2 * beat, 'chip'), at + step * .25, .025, .45)
+                add(cached_tone(root + 12 + chord[step % 3] + (12 if step % 4 == 3 else 0), .2 * beat, 'chip'), at + step * .25, .025, .45)
         else:
             for pos in [.5, 1.5, 2.5, 3.5]:
                 for interval in chord:
-                    add(tone(root + 24 + interval, .18 * beat, 'marimba'), at + pos, .025, .25)
+                    add(cached_tone(root + 24 + interval, .18 * beat, 'marimba'), at + pos, .025, .25)
     mix = np.tanh(mix * 1.1).astype('<f4') / 1.1
     with tempfile.TemporaryDirectory(prefix='dock-score-') as temp:
         pcm = Path(temp) / 'score.f32'
@@ -219,20 +251,32 @@ def render(score, index):
         levels = json.loads(re.findall(r'\{\s*"input_i".*?\}', first.stderr, re.S)[-1])
         measured = f":measured_I={levels['input_i']}:measured_TP={levels['input_tp']}:measured_LRA={levels['input_lra']}:measured_thresh={levels['input_thresh']}:offset={levels['target_offset']}:linear=true"
         target = OUT / (score['slug'] + '.mp3')
+        encoded = Path(temp) / 'complete.mp3'
         subprocess.run(['ffmpeg', '-y', '-v', 'error', *input_args, '-af', normal + measured,
                         '-ar', str(SR), '-c:a', 'libmp3lame', '-b:a', '96k', '-write_xing', '1',
                         '-metadata', f"title={score['title']}", '-metadata', 'artist=Dock Dash Original Soundtrack',
-                        '-metadata', f"comment=Original synthesized 32-bar score. {score['bpm']} BPM. Circular note-tail mix.", str(target)], check=True)
+                        '-metadata', f"comment=Original synthesized 32-bar score. {score['bpm']} BPM. Circular note-tail mix.", str(encoded)], check=True)
+        pending=target.with_suffix('.complete')
+        pending.write_bytes(encoded.read_bytes());pending.replace(target)
     return dict(file=target.name, bpm=score['bpm'], duration_seconds=round(length / SR, 3), bytes=target.stat().st_size)
 
 if __name__ == '__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('--new-only',action='store_true');parser.add_argument('--history-only',action='store_true');parser.add_argument('--expansion-only',action='store_true');args=parser.parse_args()
-    metadata=OUT / 'mission-music.json'
-    first=14 if args.expansion_only else 10 if args.history_only else 4 if args.new_only else 0
-    report=json.loads(metadata.read_text())[:first] if first else []
-    for index, score in enumerate(SCORES):
-        if index<first: continue
-        result = render(score, index)
-        report.append(result)
-        print(json.dumps(result), flush=True)
-    (OUT / 'mission-music.json').write_text(json.dumps(report, indent=2) + '\n')
+    parser=argparse.ArgumentParser()
+    for flag in ['new-only','history-only','expansion-only','lanterns-only']:parser.add_argument('--'+flag,action='store_true')
+    args=parser.parse_args();metadata=OUT / 'mission-music.json';all_scores=SCORES+lantern_scores()
+    if args.lanterns_only:
+      from concurrent.futures import ProcessPoolExecutor,as_completed
+      scores=all_scores;report=json.loads(metadata.read_text())[:23]+[None]*77
+      tasks=[(4,scores[4])]+list(enumerate(scores[23:],start=23))
+      with ProcessPoolExecutor(max_workers=2) as pool:
+        jobs={pool.submit(render,score,index):index for index,score in tasks}
+        for future in as_completed(jobs):
+          index=jobs[future];report[index]=future.result();print(json.dumps({'world':index,**report[index]}),flush=True)
+    else:
+      first=14 if args.expansion_only else 10 if args.history_only else 4 if args.new_only else 0
+      report=json.loads(metadata.read_text())[:first] if first else []
+      for index,score in enumerate(all_scores):
+        if index<first:continue
+        result=render(score,index);report.append(result);print(json.dumps(result),flush=True)
+    metadata.write_text(json.dumps(report,indent=2)+'\n')
+    (OUT / 'world-scorebook.json').write_text(json.dumps(all_scores,default=lambda obj:sorted(obj),indent=2)+'\n')

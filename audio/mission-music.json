@@ -24,7 +24,7 @@
     "bytes": 768826
   },
   {
-    "file": "gotham-after-dark.mp3",
+    "file": "beacon-homecoming.mp3",
     "bpm": 110,
     "duration_seconds": 69.818,
     "bytes": 838732
@@ -136,5 +136,467 @@
     "bpm": 116,
     "duration_seconds": 66.207,
     "bytes": 795470
+  },
+  {
+    "file": "greenwood-lantern.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904575
+  },
+  {
+    "file": "oakmarket-lantern.mp3",
+    "bpm": 109,
+    "duration_seconds": 70.459,
+    "bytes": 846583
+  },
+  {
+    "file": "foxbridge-lantern.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795482
+  },
+  {
+    "file": "willowkeep-lantern.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904572
+  },
+  {
+    "file": "moonarchery-lantern.mp3",
+    "bpm": 109,
+    "duration_seconds": 70.459,
+    "bytes": 846582
+  },
+  {
+    "file": "thistlemill-lantern.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795485
+  },
+  {
+    "file": "fernhollow-lantern.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904572
+  },
+  {
+    "file": "dawnwood-lantern.mp3",
+    "bpm": 109,
+    "duration_seconds": 70.459,
+    "bytes": 846582
+  },
+  {
+    "file": "coralhaven-lantern.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795484
+  },
+  {
+    "file": "pearlquay-lantern.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904571
+  },
+  {
+    "file": "kelpforest-lantern.mp3",
+    "bpm": 109,
+    "duration_seconds": 70.459,
+    "bytes": 846580
+  },
+  {
+    "file": "saltwind-lantern.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795486
+  },
+  {
+    "file": "turtlebay-lantern.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904571
+  },
+  {
+    "file": "stormharbour-lantern.mp3",
+    "bpm": 109,
+    "duration_seconds": 70.459,
+    "bytes": 846582
+  },
+  {
+    "file": "glasslagoon-lantern.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795485
+  },
+  {
+    "file": "mangroveroot-lantern.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904575
+  },
+  {
+    "file": "whalesong-lantern.mp3",
+    "bpm": 109,
+    "duration_seconds": 70.459,
+    "bytes": 846583
+  },
+  {
+    "file": "horizonlight-lantern.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795486
+  },
+  {
+    "file": "cloudpost-lantern.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904571
+  },
+  {
+    "file": "kitefestival-lantern.mp3",
+    "bpm": 109,
+    "duration_seconds": 70.459,
+    "bytes": 846580
+  },
+  {
+    "file": "snowpass-lantern.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795486
+  },
+  {
+    "file": "windmillridge-lantern.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904575
+  },
+  {
+    "file": "eaglenest-lantern.mp3",
+    "bpm": 109,
+    "duration_seconds": 70.459,
+    "bytes": 846580
+  },
+  {
+    "file": "floatinggarden-lantern.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795487
+  },
+  {
+    "file": "thunderpeak-lantern.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904573
+  },
+  {
+    "file": "airshipquay-lantern.mp3",
+    "bpm": 109,
+    "duration_seconds": 70.459,
+    "bytes": 846581
+  },
+  {
+    "file": "sunforge-lantern.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795481
+  },
+  {
+    "file": "firstflight-lantern.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904573
+  },
+  {
+    "file": "junglecanopy-lantern.mp3",
+    "bpm": 109,
+    "duration_seconds": 70.459,
+    "bytes": 846580
+  },
+  {
+    "file": "orchidriver-lantern.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795485
+  },
+  {
+    "file": "bamboovillage-lantern.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904575
+  },
+  {
+    "file": "savannastation-lantern.mp3",
+    "bpm": 109,
+    "duration_seconds": 70.459,
+    "bytes": 846584
+  },
+  {
+    "file": "desertbloom-lantern.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795485
+  },
+  {
+    "file": "fireflyfen-lantern.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904572
+  },
+  {
+    "file": "redwoodtrail-lantern.mp3",
+    "bpm": 109,
+    "duration_seconds": 70.459,
+    "bytes": 846582
+  },
+  {
+    "file": "glaciergarden-lantern.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795487
+  },
+  {
+    "file": "monsooncamp-lantern.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904573
+  },
+  {
+    "file": "wildheart-lantern.mp3",
+    "bpm": 109,
+    "duration_seconds": 70.459,
+    "bytes": 846583
+  },
+  {
+    "file": "copperclock-lantern.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795485
+  },
+  {
+    "file": "automatonalley-lantern.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904575
+  },
+  {
+    "file": "glasslab-lantern.mp3",
+    "bpm": 109,
+    "duration_seconds": 70.459,
+    "bytes": 846578
+  },
+  {
+    "file": "railworkshop-lantern.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795486
+  },
+  {
+    "file": "neonnetwork-lantern.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904573
+  },
+  {
+    "file": "solarvillage-lantern.mp3",
+    "bpm": 109,
+    "duration_seconds": 70.459,
+    "bytes": 846582
+  },
+  {
+    "file": "maglevyard-lantern.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795484
+  },
+  {
+    "file": "musicfactory-lantern.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904573
+  },
+  {
+    "file": "tinyfoundry-lantern.mp3",
+    "bpm": 109,
+    "duration_seconds": 70.459,
+    "bytes": 846581
+  },
+  {
+    "file": "tomorrowfair-lantern.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795486
+  },
+  {
+    "file": "teacourtyard-lantern.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904574
+  },
+  {
+    "file": "noodlequarter-lantern.mp3",
+    "bpm": 109,
+    "duration_seconds": 70.459,
+    "bytes": 846583
+  },
+  {
+    "file": "pizzapiazza-lantern.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795485
+  },
+  {
+    "file": "spicegarden-lantern.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904573
+  },
+  {
+    "file": "harvesthill-lantern.mp3",
+    "bpm": 109,
+    "duration_seconds": 70.459,
+    "bytes": 846581
+  },
+  {
+    "file": "orchardlane-lantern.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795485
+  },
+  {
+    "file": "snowcafe-lantern.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904575
+  },
+  {
+    "file": "paperstreet-lantern.mp3",
+    "bpm": 109,
+    "duration_seconds": 70.459,
+    "bytes": 846581
+  },
+  {
+    "file": "carnivalcamp-lantern.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795486
+  },
+  {
+    "file": "grandfeast-lantern.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904572
+  },
+  {
+    "file": "riverclay-lantern.mp3",
+    "bpm": 109,
+    "duration_seconds": 70.459,
+    "bytes": 846579
+  },
+  {
+    "file": "hillcitadel-lantern.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795485
+  },
+  {
+    "file": "reedlibrary-lantern.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904573
+  },
+  {
+    "file": "bronzesmith-lantern.mp3",
+    "bpm": 109,
+    "duration_seconds": 70.459,
+    "bytes": 846582
+  },
+  {
+    "file": "oasiscaravan-lantern.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795486
+  },
+  {
+    "file": "mountainloom-lantern.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904574
+  },
+  {
+    "file": "seafarerhall-lantern.mp3",
+    "bpm": 109,
+    "duration_seconds": 70.459,
+    "bytes": 846582
+  },
+  {
+    "file": "mosaiccourt-lantern.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795485
+  },
+  {
+    "file": "starobservatory-lantern.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904574
+  },
+  {
+    "file": "memorygate-lantern.mp3",
+    "bpm": 109,
+    "duration_seconds": 70.459,
+    "bytes": 846580
+  },
+  {
+    "file": "cometcamp-lantern.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795483
+  },
+  {
+    "file": "moonorchard-lantern.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904573
+  },
+  {
+    "file": "aurorabazaar-lantern.mp3",
+    "bpm": 109,
+    "duration_seconds": 70.459,
+    "bytes": 846582
+  },
+  {
+    "file": "dreamstation-lantern.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795486
+  },
+  {
+    "file": "crystalchoir-lantern.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904574
+  },
+  {
+    "file": "planetarium-lantern.mp3",
+    "bpm": 109,
+    "duration_seconds": 70.459,
+    "bytes": 846583
+  },
+  {
+    "file": "wishharbour-lantern.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795485
+  },
+  {
+    "file": "lanternlibrary-lantern.mp3",
+    "bpm": 102,
+    "duration_seconds": 75.294,
+    "bytes": 904576
+  },
+  {
+    "file": "hundreddawn-lantern.mp3",
+    "bpm": 109,
+    "duration_seconds": 70.459,
+    "bytes": 846581
   }
 ]

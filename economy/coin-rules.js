@@ -1,9 +1,9 @@
 /* Earned currency, vehicles, arcade places and styles. IDs never change. */
 (function (root, factory) {
-  const rules = factory();
+  const rules = factory(typeof module==='object'&&module.exports?require('../missions/world-pack.js'):root.DockDashWorldPack);
   if (typeof module === 'object' && module.exports) module.exports = rules;
   else root.DockDashEconomy = rules;
-})(typeof globalThis !== 'undefined' ? globalThis : this, function () {
+})(typeof globalThis !== 'undefined' ? globalThis : this, function (pack) {
   'use strict';
   const MAX = 1e9;
   const trucks = [
@@ -14,15 +14,15 @@
     { id:'school', name:'School Bus', price:150, accent:'#ffd66f', emblem:'pencils', world:'school', copy:'Make every school day bright.' },
     { id:'matchday', name:'Goal Getter', price:220, accent:'#c8ec9a', emblem:'soccerball', world:'matchday', copy:'Deliver a little kickoff magic.' },
     { id:'festival', name:'Tour Bus', price:280, accent:'#ffc2dd', emblem:'guitar', world:'festival', copy:'Take the show on the road.' },
-    { id:'batcave', name:'Bat Courier', price:320, accent:'#ffdf72', emblem:'bat', world:'batcave', copy:'Gotham needs its gadgets.' },
+    { id:'beacon', name:'Beacon Wagon', price:320, accent:'#ffdf9b', emblem:'lantern', body:'beaconwagon', world:'beacon', copy:'A keeper wagon with a brass light and a rope rack.' },
     { id:'rescue', name:'Rescue Runner', price:360, accent:'#a2e8f1', emblem:'firstaid', world:'rescue', copy:'Ready when the crew needs you.' },
     { id:'candy', name:'Sweet Wheels', price:420, accent:'#ffbadc', emblem:'lollipop', world:'candy', copy:'A tiny truck. A huge sugar rush.' },
     { id:'dino', name:'Ranger Rover', price:500, accent:'#c0e9a0', emblem:'dinoegg', world:'dino', copy:'Precious cargo from the past.' },
     { id:'arctic', name:'Polar Express', price:560, accent:'#bdeaff', emblem:'snowflake', world:'arctic', copy:'Warm deliveries, cool adventures.' },
     { id:'forest', name:'Moonleaf', price:650, accent:'#d2bdff', emblem:'potion', world:'forest', copy:'A little wonder in every load.' },
     { id:'space', name:'Star Hauler', price:800, accent:'#c9bfff', emblem:'rocket', world:'space', copy:'The final frontier has four docks.' },
-    { id:'batmobile', name:'Batmobile', price:900, accent:'#ffe17e', emblem:'bat', body:'batmobile', copy:'Swept wings, a jet engine and Gotham style.' },
-    { id:'tumbler', name:'Tumbler', price:1200, accent:'#d9b77b', emblem:'bat', body:'tumbler', copy:'Heavy armour and six enormous patrol tyres.' },
+    { id:'beacon-runner', name:'Beacon Runner', price:900, accent:'#ffe17e', emblem:'lens', body:'beaconrunner', world:'beacon', copy:'An original coastal craft with a great glass lens and solar fins.' },
+    { id:'tide-crawler', name:'Tide Crawler', price:1200, accent:'#b9e2d2', emblem:'compass', body:'tidecrawler', world:'beacon', copy:'Six sand wheels, a survey mast and a tiny tide-chart cabin.' },
     { id:'fire-engine', name:'Fire Engine', price:600, accent:'#ffb6a1', emblem:'firstaid', body:'fire', copy:'A roof ladder and bright emergency lights.' },
     { id:'ice-cream', name:'Ice Cream Van', price:700, accent:'#ffc7ea', emblem:'lollipop', body:'icecream', copy:'A striped counter and a giant rooftop cone.' },
     { id:'monster', name:'Monster Truck', price:950, accent:'#c6f49a', emblem:'bolt', body:'monster', copy:'Oversized wheels and a little off-road attitude.' },
@@ -45,7 +45,7 @@
     { id:'venue:festival', name:'Festival Stage', world:'festival', location:4, price:350, accent:'#ffbf89', copy:'Endless festival deliveries: music, tickets and lights.' },
     { id:'venue:rescue', name:'Rescue Harbour', world:'rescue', location:5, price:400, accent:'#92dfeb', copy:'Endless rescue deliveries: safety gear and crew supplies.' },
     { id:'venue:space', name:'Moonbase', world:'space', location:6, price:750, accent:'#c4baff', copy:'Endless lunar deliveries: oxygen, robots and rockets.' },
-    { id:'venue:batcave', name:'Batcave', world:'batcave', location:7, price:500, accent:'#ffdf72', copy:'Endless Gotham deliveries: Batarangs, grapples and gadgets.' },
+    { id:'venue:beacon', name:'Beacon Bay', world:'beacon', location:7, price:500, accent:'#ffdf9b', copy:'Original lighthouse scenery, coastal music and keeper supplies.' },
     { id:'venue:school', name:'School Campus', world:'school', location:8, price:250, accent:'#ffd783', copy:'Endless school deliveries: books, pencils and science supplies.' },
     { id:'venue:dino', name:'Dino Park', world:'dino', location:9, price:450, accent:'#c3e89e', copy:'Endless ranger deliveries: eggs, fossils and dinosaur feed.' },
     { id:'venue:candy', name:'Candy Factory', world:'candy', location:10, price:350, accent:'#ffc1df', copy:'Endless sweet deliveries: chocolate, sugar and sprinkles.' },
@@ -67,7 +67,7 @@
   ].map(item=>({...item,type:'venue'}));
   const styles = [
     { id:'wrap:classic', name:'Classic Wrap', style:'wrap', pattern:'classic', need:0, accent:'#e8c58a', copy:'The original parcel look.' },
-    { id:'wrap:hero', name:'Hero Wrap', style:'wrap', pattern:'hero', price:120, accent:'#ffe17e', copy:'Comic corner marks and a little bat stamp.' },
+    { id:'wrap:crest', name:'Keeper Wrap', style:'wrap', pattern:'crest', price:120, accent:'#ffe17e', copy:'Brass corner marks and an original keeper lantern seal.' },
     { id:'wrap:hologram', name:'Holo Wrap', style:'wrap', pattern:'hologram', price:180, accent:'#a5f4f0', copy:'A fine holographic grid around your cargo.' },
     { id:'wrap:candy', name:'Candy Wrap', style:'wrap', pattern:'candy', price:150, accent:'#ffc7ea', copy:'Sweet striped edges and a ribbon seal.' },
     { id:'wrap:stars', name:'Star Wrap', style:'wrap', pattern:'stars', price:220, accent:'#d9cbff', copy:'Tiny constellations for interstellar deliveries.' },
@@ -81,6 +81,28 @@
     { id:'zone:hazard', name:'Builder Dock', style:'zone', pattern:'hazard', price:230, accent:'#ffd276', new:true, copy:'Amber safety stripes and a precise loading marker.' },
     { id:'zone:circuit', name:'Circuit Dock', style:'zone', pattern:'circuit', price:280, accent:'#a9eee7', new:true, copy:'Mint circuit traces with tiny component lights.' }
   ].map(item=>({...item,type:'style'}));
+  // Append the new catalogue: existing equipped vehicle indices stay unchanged.
+  const chapterTrucks=[
+    ['ranger-cart','Ranger Cart','greenwood','rangercart','longbow',480],
+    ['reef-rover','Reef Rover','coralhaven','reefrover','coral',650],
+    ['kite-carrier','Kite Carrier','cloudpost','kitecarrier','kite',800],
+    ['canopy-runner','Canopy Runner','junglecanopy','canopyrunner','plant',700],
+    ['clock-coach','Clock Coach','copperclock','clockcoach','gear',900],
+    ['tea-wagon','Tea Wagon','teacourtyard','teawagon','kettle',550],
+    ['caravan-cart','Caravan Cart','riverclay','caravancart','amphora',750],
+    ['comet-courier','Comet Courier','cometcamp','cometcourier','facetedgem',1200]
+  ];
+  for(const [id,name,world,body,emblem,price] of chapterTrucks){const w=pack.worlds.find(w=>w.id===world);trucks.push({id,name,world,body,emblem,price,accent:w.accent,type:'truck',new:true,copy:`An original ${pack.chapters[w.chapter].name.toLowerCase()} fleet with a distinct silhouette.`});}
+  for(const w of pack.worlds)venues.push({id:'venue:'+w.id,name:w.name,world:w.id,location:w.location,price:350+50*(pack.worlds.indexOf(w)%10),accent:w.accent,type:'venue',new:true,copy:`Own ${w.name} for endless arcade deliveries, its supplies, scenery and original music.`});
+  styles.push(
+    {id:'wrap:woodland',name:'Woodland Wrap',style:'wrap',pattern:'woodland',price:160,accent:'#bddd95',new:true,type:'style',copy:'Little leaf borders and an archer feather seal.'},
+    {id:'wrap:tide',name:'Tide Wrap',style:'wrap',pattern:'tide',price:180,accent:'#95e4df',new:true,type:'style',copy:'Sea-blue waves and a shell at the lower corner.'},
+    {id:'wrap:letter',name:'Letter Wrap',style:'wrap',pattern:'letter',price:200,accent:'#ffd8a3',new:true,type:'style',copy:'A tiny wax seal for your travelling stories.'},
+    {id:'zone:woodland',name:'Ranger Dock',style:'zone',pattern:'woodland',price:240,accent:'#bddd95',new:true,type:'style',copy:'Leaf-green rails and small ranger trail markers.'},
+    {id:'zone:tide',name:'Tide Dock',style:'zone',pattern:'tide',price:260,accent:'#95e4df',new:true,type:'style',copy:'Foam-blue rails and little wave markers.'}
+  );
+  const legacyIds={'batcave':'beacon','venue:batcave':'venue:beacon','batmobile':'beacon-runner','tumbler':'tide-crawler','wrap:hero':'wrap:crest'};
+  const canonicalId=id=>legacyIds[id]||id;
   const catalog=[...trucks,...venues,...styles], newItems=catalog.filter(item=>item.new), byId=new Map(catalog.map(item=>[item.id,item]));
   const integer = n => typeof n === 'number' && Number.isFinite(n) ? Math.max(0, Math.min(MAX, Math.floor(n))) : 0;
   function readWallet(raw, profile = {}) {
@@ -94,7 +116,7 @@
     if (!saved || typeof saved !== 'object' || Array.isArray(saved)) saved = {};
     const coins=integer(saved.coins),spent=integer(saved.spent);
     return { version:1, coins, earned:Math.max(coins,integer(saved.earned)), spent,
-      owned:[...new Set(Array.isArray(saved.owned) ? saved.owned.filter(id => byId.get(id)?.price) : [])] };
+      owned:[...new Set(Array.isArray(saved.owned) ? saved.owned.map(canonicalId).filter(id => byId.get(id)?.price) : [])] };
   }
   function isOwned(wallet, truck, profile = {}) {
     return !!truck && (truck.price ? wallet.owned.includes(truck.id) : integer(profile.totalDelivered) >= truck.need);
@@ -124,7 +146,7 @@
     return locations[(origin+(rotate?Math.floor((Math.max(1,integer(shift))-1)/2):0))%locations.length];
   }
   function equippedStyle(wallet,id,kind) {
-    const item=byId.get(id);return item?.style===kind && isOwned(wallet,item)?item.id:`${kind}:classic`;
+    const item=byId.get(canonicalId(id));return item?.style===kind && isOwned(wallet,item)?item.id:`${kind}:classic`;
   }
   return {trucks,venues,styles,catalog,newItems,item:id=>byId.get(id),ownedLocations,arcadeLocation,equippedStyle,readWallet,isOwned,purchase,award,deliveryReward,missionReward,rewards:{truck:8,goal:15,shift:10}};
 });

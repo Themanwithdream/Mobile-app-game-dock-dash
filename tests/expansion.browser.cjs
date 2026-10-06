@@ -22,12 +22,12 @@ async function layout(page,selector){const boxes=await page.locator(selector+' b
     window.requestAnimationFrame=()=>0;
     if(!localStorage.getItem('dockDashProfileV2')){
       localStorage.setItem('dockDashProfileV2',JSON.stringify({totalDelivered:200,totalPerfect:90,totalTrucks:40,totalGoals:15,highestShift:10,selectedSkin:7,tutorialDone:true}));
-      localStorage.setItem('dockDashWalletV1',JSON.stringify({version:1,coins:30000,earned:31000,spent:1000,owned:['batcave','wrap:hero','venue:rome']}));
+      localStorage.setItem('dockDashWalletV1',JSON.stringify({version:1,coins:100000,earned:101000,spent:1000,owned:['beacon','wrap:crest','venue:rome']}));
     }
     localStorage.setItem('dockDashMuted','true');
   });
   await page.goto(url);await page.waitForFunction(()=>window.__dockTest && __dockTest.art[0],null,{polling:50});
-  assert.equal(requested.length,0);assert.equal(await page.evaluate(()=>__dockTest.PRODUCTS.length),576);pass('nine added scenes stay lazy while the full 576-item catalog is available');
+  assert.equal(requested.length,0);assert.equal(await page.evaluate(()=>__dockTest.PRODUCTS.length),1500);pass('nine added scenes stay lazy while the full 1500-item catalog is available');
   await page.locator('#missions').tap();for(let i=0;i<4;i++)await page.locator('#missions-next').tap();await paint(page);
   assert.deepEqual(await page.locator('.mission-card:visible').evaluateAll(a=>a.map(b=>b.dataset.world)),['diner','bakery','metro','canal']);
   await page.waitForFunction(()=>[17,18,19,20].every(i=>__dockTest.art[i]),null,{polling:50});await paint(page);await page.screenshot({path:path.join(out,'city-life-map.png')});
@@ -46,9 +46,9 @@ async function layout(page,selector){const boxes=await page.locator(selector+' b
     if(group[0]!=='prism')await page.locator('#missions-next').tap();
   }
   pass('all nine worlds are reachable through native cards, start free with a countdown and keep their own cargo',worlds);
-  assert.equal(await page.locator('#missions-next').isDisabled(),true);await layout(page,'#missions-menu');await paint(page);await page.screenshot({path:path.join(out,'prism-map.png')});
+  assert.equal(await page.locator('#missions-next').isDisabled(),false);await layout(page,'#missions-menu');await paint(page);await page.screenshot({path:path.join(out,'prism-map.png')});
   await page.locator('#mission-home').tap();await page.locator('.fleet-button:visible').tap();await page.locator('[data-shop="new"]').tap();await paint(page);
-  assert.equal(await page.locator('[data-shop="new"]').textContent(),'New · 23');assert.deepEqual(await page.locator('.skin-choice:visible').evaluateAll(a=>a.map(b=>b.dataset.item)),['food-truck','bread-van','city-tram','canal-wagon']);await page.screenshot({path:path.join(out,'new-arrivals-shop.png')});
+  assert.equal(await page.locator('[data-shop="new"]').textContent(),'New · 113');assert.deepEqual(await page.locator('.skin-choice:visible').evaluateAll(a=>a.map(b=>b.dataset.item)),['food-truck','bread-van','city-tram','canal-wagon']);await page.screenshot({path:path.join(out,'new-arrivals-shop.png')});
   pass('a dedicated New shop tab exposes the expansion without moving existing vehicles or purchases');
   const items=await page.evaluate(()=>__dockTest.ER.newItems.map(i=>({id:i.id,price:i.price}))),start=await page.evaluate(()=>__dockTest.wallet.coins);let spent=0;
   for(let i=0;i<items.length;i++){
@@ -57,7 +57,7 @@ async function layout(page,selector){const boxes=await page.locator(selector+' b
     assert.equal(await page.evaluate(()=>__dockTest.wallet.coins),start-spent);await button.tap();assert.equal(await page.evaluate(()=>__dockTest.wallet.coins),start-spent);
     assert.equal(await button.getAttribute('aria-pressed'),'true');
   }
-  assert.equal(await page.locator('#shop-next').isDisabled(),true);pass('all 23 native purchases deduct their exact cost, equip and reject repeat charges',{purchases:items.length,spent});
+  assert.equal(await page.locator('#shop-next').isDisabled(),true);pass('all 113 native purchases deduct their exact cost, equip and reject repeat charges',{purchases:items.length,spent});
   for(const size of [{width:320,height:568},{width:390,height:844},{width:844,height:390},{width:1280,height:800}]){
     await page.setViewportSize(size);await page.evaluate(()=>window.dispatchEvent(new Event('resize')));
     for(const category of ['trucks','venues','styles','new']){await page.evaluate(c=>{__dockTest.changeShopCategory(c);__dockTest.render();},category);await layout(page,'#garage-menu');}
@@ -75,7 +75,7 @@ async function layout(page,selector){const boxes=await page.locator(selector+' b
   pass('prism rings use the exact matching truck colour, retain sorting stickers and reuse cached artwork',rings.calls);
   const fleet=await page.evaluate(()=>{
     const d=__dockTest,c=document.createElement('canvas');c.width=480;c.height=9*155;const ctx=c.getContext('2d');ctx.fillStyle='#142b39';ctx.fillRect(0,0,c.width,c.height);const samples=[];
-    d.ER.trucks.slice(20).forEach((truck,row)=>{
+    d.ER.trucks.slice(20,29).forEach((truck,row)=>{
       const art=d.trucksForSkin(d.ER.trucks.indexOf(truck));art.slice(0,4).forEach((image,type)=>{
         const x=45*image.width/90,y=43*image.height/141,rgba=Array.from(image.getContext('2d').getImageData(Math.floor(x),Math.floor(y),1,1).data);
         samples.push({truck:truck.id,type,rgba,ink:d.COLORS[type].ink});ctx.drawImage(image,type*120+18,row*155,90,141);
@@ -86,11 +86,11 @@ async function layout(page,selector){const boxes=await page.locator(selector+' b
   fs.writeFileSync(path.join(out,'new-fleet.png'),Buffer.from(fleet.image.split(',')[1],'base64'));pass('all nine original vehicle bodies keep the four correct sorting plates',fleet.samples.length);
   const atlas=await page.evaluate(()=>{
     const d=__dockTest,c=document.createElement('canvas');c.width=820;c.height=9*80;const ctx=c.getContext('2d');ctx.fillStyle='#142b39';ctx.fillRect(0,0,c.width,c.height);
-    d.MR.worlds.slice(14).forEach((w,row)=>{ctx.fillStyle=w.accent;ctx.font='12px sans-serif';ctx.fillText(w.badge,4,row*80+40);d.MR.getMission(w.id,0).products.forEach((id,i)=>{ctx.drawImage(d.cache[id],92+i*60,row*80+4,48,48);ctx.fillStyle='#e7e9d4';ctx.font='8px sans-serif';ctx.fillText(d.PRODUCTS[id].kind.slice(0,12),87+i*60,row*80+64);});});return c.toDataURL('image/png');
+    d.MR.worlds.slice(14,23).forEach((w,row)=>{ctx.fillStyle=w.accent;ctx.font='12px sans-serif';ctx.fillText(w.badge,4,row*80+40);d.MR.getMission(w.id,0).products.forEach((id,i)=>{ctx.drawImage(d.cache[id],92+i*60,row*80+4,48,48);ctx.fillStyle='#e7e9d4';ctx.font='8px sans-serif';ctx.fillText(d.PRODUCTS[id].kind.slice(0,12),87+i*60,row*80+64);});});return c.toDataURL('image/png');
   });fs.writeFileSync(path.join(out,'new-cargo.png'),Buffer.from(atlas.split(',')[1],'base64'));pass('all 108 new cargo illustrations render into the collection cache');
   await page.reload();await page.waitForFunction(()=>window.__dockTest && __dockTest.art[0],null,{polling:50});
   const saved=await page.evaluate(()=>({coins:__dockTest.wallet.coins,spent:__dockTest.wallet.spent,owned:__dockTest.wallet.owned,skin:__dockTest.ER.trucks[__dockTest.profile.selectedSkin].id,wrap:__dockTest.profile.selectedWrap,zone:__dockTest.profile.selectedZone,location:__dockTest.settings.location}));
-  assert.equal(saved.coins,start-spent);assert.equal(saved.spent,1000+spent);assert.ok(items.every(i=>saved.owned.includes(i.id)));assert.ok(['batcave','wrap:hero','venue:rome'].every(id=>saved.owned.includes(id)));assert.equal(saved.skin,'prism-hauler');assert.equal(saved.wrap,'wrap:prism');assert.equal(saved.zone,'zone:circuit');assert.equal(saved.location,25);
+  assert.equal(saved.coins,start-spent);assert.equal(saved.spent,1000+spent);assert.ok(items.every(i=>saved.owned.includes(i.id)));assert.ok(['beacon','wrap:crest','venue:rome'].every(id=>saved.owned.includes(id)));assert.equal(saved.skin,'comet-courier');assert.equal(saved.wrap,'wrap:letter');assert.equal(saved.zone,'zone:tide');assert.equal(saved.location,102);
   pass('new purchases and equipment persist together with the previous wallet and ownership after reload',saved);
   assert.deepEqual(errors,[]);pass('no browser runtime errors');fs.writeFileSync(path.join(out,'report.json'),JSON.stringify({checks,errors},null,2));
  }finally{if(browser)await browser.close();server.kill();}

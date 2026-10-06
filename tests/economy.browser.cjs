@@ -12,7 +12,7 @@ async function paint(page){await page.evaluate(()=>__dockTest.render());}
 async function setup(page,profile){await page.route(url,route=>route.fulfill({contentType:'text/html',body:html}));await page.addInitScript(profile=>{
  window.requestAnimationFrame=()=>0;localStorage.setItem('dockDashMuted','true');
  if(!localStorage.getItem('dockDashProfileV2'))localStorage.setItem('dockDashProfileV2',JSON.stringify(profile));
- window.__newAssets=[];const src=Object.getOwnPropertyDescriptor(HTMLImageElement.prototype,'src');Object.defineProperty(HTMLImageElement.prototype,'src',{...src,set(value){if(/batcave|school|dino|candy|forest|arctic/.test(value))__newAssets.push(value);return src.set.call(this,value);}});
+ window.__newAssets=[];const src=Object.getOwnPropertyDescriptor(HTMLImageElement.prototype,'src');Object.defineProperty(HTMLImageElement.prototype,'src',{...src,set(value){if(/beacon|school|dino|candy|forest|arctic/.test(value))__newAssets.push(value);return src.set.call(this,value);}});
  window.__counts={canvases:0,attributes:0,storage:0};const create=document.createElement.bind(document);document.createElement=(tag,...args)=>{if(tag==='canvas')__counts.canvases++;return create(tag,...args);};
  const set=Storage.prototype.setItem;window.__setItem=set;Storage.prototype.setItem=function(...a){__counts.storage++;return set.apply(this,a);};const attr=Element.prototype.setAttribute;Element.prototype.setAttribute=function(...a){__counts.attributes++;return attr.apply(this,a);};
  },profile);page.on('pageerror',e=>errors.push(e.message));await page.goto(url);await page.waitForFunction(()=>window.__dockTest && __dockTest.art[0] && __dockTest.art[2],null,{polling:50});}
@@ -44,7 +44,7 @@ function overlap(a,b){return a.x<b.x+b.width && a.x+a.width>b.x && a.y<b.y+b.hei
  await page.locator('#shop-prev').tap();await page.locator('[data-skin="3"]').tap();assert.equal(await page.evaluate(()=>__dockTest.wallet.coins),576);
  await page.locator('#shop-next').tap();await page.locator('[data-skin="4"]').tap();await paint(page);await page.screenshot({path:path.join(output,'school-truck-purchased.png')});
  await page.reload();await page.waitForFunction(()=>!!window.__dockTest,null,{polling:50});
- assert.equal(await page.evaluate(()=>__dockTest.wallet.coins),426);assert.deepEqual(await page.evaluate(()=>__dockTest.wallet.owned),['batcave','school']);assert.equal(await page.evaluate(()=>__dockTest.profile.selectedSkin),4);
+ assert.equal(await page.evaluate(()=>__dockTest.wallet.coins),426);assert.deepEqual(await page.evaluate(()=>__dockTest.wallet.owned),['beacon','school']);assert.equal(await page.evaluate(()=>__dockTest.profile.selectedSkin),4);
  pass('paid trucks, equipped choice, balance and free legacy rewards persist without a second welcome gift');
  await page.locator('.fleet-button:visible').tap();await page.locator('#shop-next').tap();await page.locator('#shop-next').tap();await paint(page);
  assert.equal(await page.locator('.skin-choice:visible').count(),4);assert.equal(await page.locator('#shop-next').isDisabled(),false);
@@ -57,20 +57,20 @@ function overlap(a,b){return a.x<b.x+b.width && a.x+a.width>b.x && a.y<b.y+b.hei
  pass('a failed purchase save keeps every coin and does not grant an unrecorded truck');
  await page.locator('#garage-back').tap();await page.locator('#missions').tap();await page.locator('#missions-next').tap();await paint(page);
  await page.waitForFunction(()=>[7,8,9,10].every(i=>__dockTest.art[i]),null,{polling:50});await paint(page);await page.screenshot({path:path.join(output,'new-mission-worlds.png')});
- assert.deepEqual(await page.locator('.mission-card:visible').evaluateAll(a=>a.map(b=>b.dataset.world)),['batcave','school','dino','candy']);
- for(const id of ['batcave','school','dino','candy']){await page.locator(`[data-world="${id}"]`).tap();assert.equal(await page.evaluate(()=>__dockTest.game),null);await page.locator('#briefing-back').tap();}
+ assert.deepEqual(await page.locator('.mission-card:visible').evaluateAll(a=>a.map(b=>b.dataset.world)),['beacon','school','dino','candy']);
+ for(const id of ['beacon','school','dino','candy']){await page.locator(`[data-world="${id}"]`).tap();assert.equal(await page.evaluate(()=>__dockTest.game),null);await page.locator('#briefing-back').tap();}
  await page.locator('#missions-next').tap();await paint(page);assert.equal(await page.locator('.mission-card:visible').count(),2);assert.equal(await page.locator('#missions-next').isDisabled(),false);
  assert.deepEqual(await page.locator('.mission-card:visible').evaluateAll(a=>a.map(b=>b.dataset.world)),['forest','arctic']);
  await page.locator('#missions-next').tap();await paint(page);assert.equal(await page.locator('.mission-card:visible').count(),4);assert.equal(await page.locator('#missions-next').isDisabled(),false);
  assert.deepEqual(await page.locator('.mission-card:visible').evaluateAll(a=>a.map(b=>b.dataset.world)),['rome','egypt','viking','silkroad']);
  pass('all six new worlds are reachable through native paged mission cards and return to the same page');
- const first=await clearMission(page,'batcave',0);assert.equal(first.state,'missionResult');assert.equal(first.stars,3);assert.equal(first.earned,36+115);assert.equal(first.after-first.before,first.earned);
+ const first=await clearMission(page,'beacon',0);assert.equal(first.state,'missionResult');assert.equal(first.stars,3);assert.equal(first.earned,36+115);assert.equal(first.after-first.before,first.earned);
  const savedCoins=await page.evaluate(()=>JSON.parse(localStorage.getItem('dockDashWalletV1')).coins);assert.equal(savedCoins,first.after);
  await page.evaluate(()=>{__dockTest.finishMission(true);});assert.equal(await page.evaluate(()=>__dockTest.wallet.coins),first.after);
- await page.screenshot({path:path.join(output,'batcave-result-coins.png')});
+ await page.screenshot({path:path.join(output,'beacon-result-coins.png')});
  pass('a new three-star mission grants delivery and first-clear coins exactly once and saves before results',first);
  await page.locator('#mission-shop').tap();assert.equal(await page.evaluate(()=>__dockTest.state),'garage');await page.locator('#garage-back').tap();assert.equal(await page.evaluate(()=>__dockTest.state),'missionResult');
- const repeat=await clearMission(page,'batcave',0);assert.equal(repeat.earned,36+20);assert.equal(repeat.after-repeat.before,56);
+ const repeat=await clearMission(page,'beacon',0);assert.equal(repeat.earned,36+20);assert.equal(repeat.after-repeat.before,56);
  pass('mission results open the shop and return safely; replays earn completion coins without another first-clear bonus');
  const arcade=await page.evaluate(()=>{
  const d=__dockTest;d.backToTitle();d.startGame({skipTutorial:true});d.game.readyIn=0;const before=d.wallet.coins;

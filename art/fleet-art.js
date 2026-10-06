@@ -1,10 +1,10 @@
 /* Expansion fleet silhouettes. Rendered once per colour into the existing truck cache. */
 (function(root){
   'use strict';
-  const bodies=['foodtruck','breadvan','citytram','canalwagon','skyglider','arenasprinter','cementmixer','robotcarrier','prismhauler'];
+  const bodies=['foodtruck','breadvan','citytram','canalwagon','skyglider','arenasprinter','cementmixer','robotcarrier','prismhauler','beaconwagon','beaconrunner','tidecrawler','rangercart','reefrover','kitecarrier','canopyrunner','clockcoach','teawagon','caravancart','cometcourier'];
   function draw(c,col,theme){
     if(!bodies.includes(theme.body))return false;
-    const cream='#fff0d1',ink='#132936',glass='#416779',metal='#a6bcc1',accent=theme.accent;
+    const cream='#fff0d1',ink='#132936',glass='#416779',metal='#a6bcc1',wood='#a4784f',accent=theme.accent;
     const r=(x,y,w,h,color)=>{c.fillStyle=color;c.fillRect(x,y,w,h);};
     const poly=(pts,color)=>{c.fillStyle=color;c.beginPath();pts.forEach(([x,y],i)=>i?c.lineTo(x,y):c.moveTo(x,y));c.closePath();c.fill();};
     const line=(x,y,a,b,color,w=2)=>{c.strokeStyle=color;c.lineWidth=w;c.beginPath();c.moveTo(x,y);c.lineTo(a,b);c.stroke();};
@@ -14,6 +14,29 @@
     const cab=()=>{r(24,87,42,36,col.mid);r(27,90,36,15,glass);r(29,92,12,3,'#bde7e8');r(44,90,2,15,ink);r(24,123,42,5,metal);for(const x of [25,59])r(x,115,6,5,cream);};
     wheels();chassis();
     switch(theme.body){
+      case 'beaconwagon':
+        r(24,15,42,66,'#eed9ac');r(29,21,32,51,'#7b735c');r(38,51,14,26,accent);r(40,55,10,17,cream);r(36,48,18,5,ink);for(const x of [25,61])r(x,18,4,59,metal);cab();break;
+      case 'beaconrunner':
+        poly([[28,13],[62,13],[73,38],[69,87],[61,123],[29,123],[21,87],[17,38]],cream);for(const x of [11,66]){r(x,21,13,51,col.dark);for(const y of [26,39,52,65])r(x+2,y,9,2,col.bright);}
+        disc(45,65,19,accent);disc(45,65,15,col.mid);disc(40,60,5,cream);cab();r(31,108,28,5,accent);break;
+      case 'tidecrawler':
+        wheels([13,55,97]);r(24,13,42,67,'#c7d8c4');for(const y of [20,64])r(28,y,34,7,col.mid);r(41,62,8,22,metal);disc(45,69,11,cream);disc(45,69,7,col.mid);line(45,69,45,61,ink,2);cab();r(33,107,24,9,accent);break;
+      case 'rangercart':
+        r(22,15,46,68,'#866544');for(const x of [26,60])r(x,17,4,60,cream);for(const y of [17,67])r(26,y,38,6,col.mid);for(const x of [31,55]){line(x,19,x,75,accent,2);line(x,22,x+4,22,cream,2);}cab();r(26,107,38,5,accent);break;
+      case 'reefrover':
+        wheels([15,96]);poly([[27,10],[63,10],[72,25],[68,82],[22,82],[18,25]],col.bright);r(26,20,38,59,cream);for(const x of [31,45,59]){line(x,64,x,45,accent,3);line(x,52,x-5,44,accent,2);line(x,55,x+4,46,accent,2);}cab();r(25,111,40,5,accent);break;
+      case 'kitecarrier':
+        poly([[22,19],[8,49],[13,80],[30,65],[60,65],[77,80],[82,49],[68,19]],cream);r(26,18,38,60,col.dark);poly([[45,62],[26,75],[45,85],[64,75]],accent);line(45,64,45,82,cream,1);cab();break;
+      case 'canopyrunner':
+        r(23,13,44,71,'#567c65');for(const x of [26,60])r(x,16,4,63,wood);for(const y of [20,63]){r(31,y,28,12,col.mid);for(const x of [35,49])disc(x,y+2,6,accent);}cab();r(28,108,34,6,accent);break;
+      case 'clockcoach':
+        r(22,12,46,71,'#8b6c4f');r(27,16,36,64,cream);disc(45,67,15,accent);disc(45,67,11,cream);line(45,67,45,58,ink,2);line(45,67,52,71,ink,2);for(const x of [26,60])r(x,19,4,52,col.mid);cab();break;
+      case 'teawagon':
+        r(22,14,46,68,'#c9b38b');for(const y of [21,62])r(26,y,38,10,cream);for(const x of [30,49]){r(x,63,10,9,col.mid);r(x+3,61,4,2,accent);}r(28,45,34,7,accent);cab();r(29,108,32,4,cream);break;
+      case 'caravancart':
+        r(22,12,46,70,wood);poly([[22,13],[68,13],[72,37],[67,79],[23,79],[18,37]],cream);for(const x of [29,54])r(x,17,7,62,accent);for(const y of [64,76])r(25,y,40,3,wood);cab();break;
+      case 'cometcourier':
+        poly([[30,7],[60,7],[73,53],[64,119],[45,132],[26,119],[17,53]],col.bright);for(const x of [17,63]){r(x,16,10,53,metal);r(x+2,18,6,42,col.dark);}r(31,16,28,60,col.dark);poly([[45,56],[58,68],[45,81],[32,68]],accent);line(35,68,45,59,cream,2);cab();break;
       case 'foodtruck':
         r(24,15,42,66,'#eee1c7');r(28,16,34,9,ink);for(let x=31;x<59;x+=6)r(x,18,3,5,metal);
         r(55,48,15,29,glass);r(57,49,11,21,cream);for(let y=47;y<78;y+=7)r(67,y,8,4,accent);

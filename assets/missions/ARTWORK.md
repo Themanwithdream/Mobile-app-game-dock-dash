@@ -28,13 +28,10 @@ Scene: a magnificent lunar launchbase cargo yard. Deep midnight-blue metal floor
 
 ## Coins & Worlds expansion
 
-Six new assets (`batcave.png`, `school.png`, `dino.png`, `candy.png`, `forest.png`, `arctic.png`) live in `assets/missions/`. Each is an opaque 360 × 640 RGB PNG, generated with the built-in imagegen tool and resized with nearest-neighbour sampling. The six new worlds load when their mission page or briefing is opened. Truck designs and product icons extend the game's canvas art, with sorting symbols kept above decoration.
 
 ### Final generation prompts
 
-#### batcave.png
 
-Use case: stylized-concept. Asset type: portrait 9:16 pixel-art background for the mobile game Dock Dash, matching a detailed 16-bit warehouse pixel-art game. Full-bleed top-down orthographic scene, crisp tiny square pixel clusters, detailed texture, dark navy outlines and restrained glowing lights. No UI, text, letters, numbers, watermark, trucks, parcels or conveyor belt. Keep the middle vertical 32% as an uncluttered relatively dark service path for a conveyor overlay. Keep the bottom 25% a quiet loading apron for four trucks. Put the distinctive themed props on both sides between 20% and 70% image height. No perspective horizon, blur, smooth painting, vector art or 3D render. Portrait 360:640 composition. Batman’s secret Batcave supply bay. Jagged charcoal cave walls, steel platforms, amber bat-shaped signal emblem on an upper wall, cyan-lit Batcomputer terminal bank on the left, black-and-yellow utility belts, batarangs, grappling guns and masks in side racks, cape display and gadget workbench on the right, small bat silhouettes near the cave ceiling, cool blue underground water visible at outer edge. Central dark steel service aisle and bottom slate apron. Rich mysterious comic-book atmosphere, subtle amber and cyan lights, playful heroic setting without people.
 
 #### school.png
 
@@ -56,3 +53,5 @@ Use case: stylized-concept. Asset type: portrait 9:16 pixel-art background for t
 
 Use case: stylized-concept. Asset type: portrait 9:16 pixel-art background for the mobile game Dock Dash, matching a detailed 16-bit warehouse pixel-art game. Full-bleed top-down orthographic scene, crisp tiny square pixel clusters, detailed texture, dark navy outlines and restrained glowing lights. No UI, text, letters, numbers, watermark, trucks, parcels or conveyor belt. Keep the middle vertical 32% as an uncluttered relatively dark service path for a conveyor overlay. Keep the bottom 25% a quiet loading apron for four trucks. Put the distinctive themed props on both sides between 20% and 70% image height. No perspective horizon, blur, smooth painting, vector art or 3D render. Portrait 360:640 composition. An Arctic expedition supply outpost under soft polar twilight. Dark navy metal service platform surrounded at outer edges by icy snow and turquoise frozen water, warm amber-lit research cabins, stacked thermal suits, goggles, sled runners, rescue ropes, hot drink flasks and scientific instruments on side racks, small radio tower and a friendly penguin on the far-right ice, cyan ice crystal detail. Keep center dark slate metal path and bottom loading apron empty. Cozy warmth against deep icy blue, crisp retro pixel texture.
 
+
+The retired character environment is replaced by original Beacon Bay artwork; see ../worlds/HUNDRED-LANTERNS-ARTWORK.md.

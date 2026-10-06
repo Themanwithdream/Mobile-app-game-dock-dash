@@ -29,9 +29,9 @@ async function layout(page){
   await page.addInitScript(()=>{
    window.requestAnimationFrame=()=>0;
    if(!localStorage.getItem('dockDashProfileV2')){
-    localStorage.setItem('dockDashProfileV2',JSON.stringify({totalDelivered:180,totalPerfect:64,totalTrucks:24,totalGoals:12,highestShift:9,selectedSkin:14,selectedWrap:'wrap:hero',tutorialDone:true}));
-    localStorage.setItem('dockDashWalletV1',JSON.stringify({version:1,coins:6000,earned:7200,spent:1200,owned:['batmobile','wrap:hero']}));
-    localStorage.setItem('dockDashMissionsV1',JSON.stringify(Object.fromEntries(['matchday','festival','rescue','space','batcave','school','dino','candy','forest','arctic'].flatMap(w=>[1,2,3].map(stage=>[w+'-'+stage,{stars:3,bestScore:900,bestTime:30}])))));
+    localStorage.setItem('dockDashProfileV2',JSON.stringify({totalDelivered:180,totalPerfect:64,totalTrucks:24,totalGoals:12,highestShift:9,selectedSkin:14,selectedWrap:'wrap:crest',tutorialDone:true}));
+    localStorage.setItem('dockDashWalletV1',JSON.stringify({version:1,coins:6000,earned:7200,spent:1200,owned:['beacon-runner','wrap:crest']}));
+    localStorage.setItem('dockDashMissionsV1',JSON.stringify(Object.fromEntries(['matchday','festival','rescue','space','beacon','school','dino','candy','forest','arctic'].flatMap(w=>[1,2,3].map(stage=>[w+'-'+stage,{stars:3,bestScore:900,bestTime:30}])))));
    }
    localStorage.setItem('dockDashMuted','true');
   });
@@ -44,7 +44,7 @@ async function layout(page){
   pass('all thirty original records survive and returning players continue at level four');
   const sizes=[];
   for(const size of [{width:320,height:568},{width:390,height:844},{width:844,height:390},{width:1280,height:800}]){
-   await page.setViewportSize(size);await page.evaluate(()=>window.dispatchEvent(new Event('resize')));await paint(page);const bounds=await layout(page);assert.equal(bounds.length,10);
+   await page.setViewportSize(size);await page.evaluate(()=>window.dispatchEvent(new Event('resize')));await paint(page);const bounds=await layout(page);assert.equal(bounds.length,11);
    sizes.push({...size,levelWidth:bounds[0].width,levelHeight:bounds[0].height});
   }
   await page.setViewportSize({width:390,height:844});await page.evaluate(()=>window.dispatchEvent(new Event('resize')));pass('eight level controls, launch and back stay separate on small phones, landscape and desktop',sizes);

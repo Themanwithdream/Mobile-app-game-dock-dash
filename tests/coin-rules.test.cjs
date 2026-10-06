@@ -7,8 +7,8 @@ test('first wallet grants a welcome gift once and recognises previous deliveries
 });
 test('corrupt or forged storage is bounded without granting a second welcome gift',()=>{
   for(const raw of ['broken','null','[]','7','{}'])assert.equal(rules.readWallet(raw).coins,0);
-  const wallet=rules.readWallet({coins:Infinity,earned:-1,spent:'100',owned:['batcave','batcave','unknown','classic',null]});
-  assert.deepEqual(wallet,{version:1,coins:0,earned:0,spent:0,owned:['batcave']});
+  const wallet=rules.readWallet({coins:Infinity,earned:-1,spent:'100',owned:['beacon','beacon','unknown','classic',null]});
+  assert.deepEqual(wallet,{version:1,coins:0,earned:0,spent:0,owned:['beacon']});
   assert.equal(rules.readWallet({coins:1e12}).coins,1e9);assert.equal(rules.readWallet({coins:25.9}).coins,25);
 });
 test('all four old truck rewards keep their IDs, order and delivery thresholds',()=>{
@@ -19,10 +19,10 @@ test('all four old truck rewards keep their IDs, order and delivery thresholds',
   assert.equal(rules.isOwned(wallet,rules.trucks[3],{totalDelivered:150}),true);
 });
 test('a purchase deducts the exact cost, records ownership and never mutates the prior wallet',()=>{
-  const wallet=rules.award(rules.readWallet(null),220),result=rules.purchase(wallet,'batcave');
+  const wallet=rules.award(rules.readWallet(null),220),result=rules.purchase(wallet,'beacon');
   assert.equal(result.reason,'bought');assert.equal(result.wallet.coins,0);assert.equal(result.wallet.spent,320);
-  assert.deepEqual(result.wallet.owned,['batcave']);assert.equal(wallet.coins,320);assert.deepEqual(wallet.owned,[]);
-  assert.equal(rules.isOwned(result.wallet,rules.trucks.find(t=>t.id==='batcave')),true);
+  assert.deepEqual(result.wallet.owned,['beacon']);assert.equal(wallet.coins,320);assert.deepEqual(wallet.owned,[]);
+  assert.equal(rules.isOwned(result.wallet,rules.trucks.find(t=>t.id==='beacon')),true);
 });
 test('repeated taps and re-equipping an owned truck cannot charge twice',()=>{
   let result=rules.purchase(rules.award(rules.readWallet(null),900),'school');const wallet=result.wallet;
@@ -31,10 +31,10 @@ test('repeated taps and re-equipping an owned truck cannot charge twice',()=>{
 });
 test('insufficient balance, unknown IDs and unearned old trucks never consume coins',()=>{
   const wallet=rules.readWallet(null);
-  for(const [id,reason] of [['batcave','coins'],['not-a-truck','unknown'],['gold','deliveries']]){
+  for(const [id,reason] of [['beacon','coins'],['not-a-truck','unknown'],['gold','deliveries']]){
     const result=rules.purchase(wallet,id);assert.equal(result.ok,false);assert.equal(result.reason,reason);assert.equal(result.wallet,wallet);
   }
-  assert.equal(rules.purchase(wallet,'batcave').missing,220);
+  assert.equal(rules.purchase(wallet,'beacon').missing,220);
   assert.equal(rules.purchase(wallet,'gold',{totalDelivered:150}).reason,'owned');
 });
 test('purchased ownership and spend totals survive storage and future progress',()=>{
@@ -61,21 +61,21 @@ test('invalid awards and capped balances cannot create negative or nonfinite coi
   for(const amount of [0,-5,NaN,Infinity,1.5,'10'])assert.equal(rules.award(wallet,amount),wallet);
 });
 test('the expanded catalog has unique permanent IDs and retains all fourteen original vehicles',()=>{
-  assert.equal(rules.trucks.length,29);assert.equal(rules.venues.length,26);assert.equal(rules.styles.length,14);
-  assert.equal(new Set(rules.catalog.map(i=>i.id)).size,69);
-  assert.equal(rules.trucks[7].id,'batcave');assert.equal(rules.trucks[13].id,'space');
-  assert.deepEqual(rules.trucks.slice(14,20).map(t=>t.body),['batmobile','tumbler','fire','icecream','monster','rover']);
+  assert.equal(rules.trucks.length,37);assert.equal(rules.venues.length,103);assert.equal(rules.styles.length,19);
+  assert.equal(new Set(rules.catalog.map(i=>i.id)).size,159);
+  assert.equal(rules.trucks[7].id,'beacon');assert.equal(rules.trucks[13].id,'space');
+  assert.deepEqual(rules.trucks.slice(14,20).map(t=>t.body),['beaconrunner','tidecrawler','fire','icecream','monster','rover']);
   for(const item of rules.catalog)assert.equal(rules.item(item.id),item);
 });
 test('old truck ownership and new place and style ownership migrate together without another gift',()=>{
-  const raw={version:1,coins:731,earned:1451,spent:720,owned:['batcave','school','venue:batcave','wrap:hero','zone:neon','venue:batcave','unknown']};
+  const raw={version:1,coins:731,earned:1451,spent:720,owned:['beacon','school','venue:beacon','wrap:crest','zone:neon','venue:beacon','unknown']};
   const saved=rules.readWallet(raw,{totalDelivered:500});
-  assert.deepEqual(saved,{...raw,owned:['batcave','school','venue:batcave','wrap:hero','zone:neon']});
-  assert.equal(rules.isOwned(saved,rules.item('batcave')),true);assert.equal(rules.isOwned(saved,rules.item('venue:school')),false);
+  assert.deepEqual(saved,{...raw,owned:['beacon','school','venue:beacon','wrap:crest','zone:neon']});
+  assert.equal(rules.isOwned(saved,rules.item('beacon')),true);assert.equal(rules.isOwned(saved,rules.item('venue:school')),false);
 });
 test('each paid category uses the same exact atomic transaction and duplicate-tap protection',()=>{
   let wallet=rules.award(rules.readWallet(null),5000);
-  for(const id of ['batmobile','venue:batcave','wrap:hero','zone:neon']){
+  for(const id of ['beacon-runner','venue:beacon','wrap:crest','zone:neon']){
     const before=wallet,result=rules.purchase(wallet,id);assert.equal(result.reason,'bought');
     assert.equal(result.wallet.coins,before.coins-rules.item(id).price);assert.equal(result.wallet.spent,before.spent+rules.item(id).price);
     assert.equal(before.owned.includes(id),false);wallet=result.wallet;
@@ -86,7 +86,7 @@ test('each paid category uses the same exact atomic transaction and duplicate-ta
 test('arcade tours rotate only through included or purchased places, starting at the selected place',()=>{
   let wallet=rules.readWallet(null);assert.deepEqual(rules.ownedLocations(wallet),[0,1,2]);
   assert.equal(rules.arcadeLocation(wallet,7),0);
-  wallet=rules.purchase(rules.award(wallet,500),'venue:batcave').wallet;
+  wallet=rules.purchase(rules.award(wallet,500),'venue:beacon').wallet;
   assert.deepEqual(rules.ownedLocations(wallet),[0,1,2,7]);
   assert.deepEqual([1,2,3,5,7,9].map(shift=>rules.arcadeLocation(wallet,7,shift,true)),[7,7,0,1,2,7]);
   for(const shift of [1,3,8,99])assert.equal(rules.arcadeLocation(wallet,7,shift,false),7);
@@ -94,9 +94,9 @@ test('arcade tours rotate only through included or purchased places, starting at
 });
 test('style equipment requires ownership and the correct type, with safe included defaults',()=>{
   let wallet=rules.readWallet(null);
-  assert.equal(rules.equippedStyle(wallet,'wrap:hero','wrap'),'wrap:classic');
-  wallet=rules.purchase(rules.award(wallet,500),'wrap:hero').wallet;
-  assert.equal(rules.equippedStyle(wallet,'wrap:hero','wrap'),'wrap:hero');
-  for(const id of ['wrap:hero','batcave','zone:neon','broken',null])assert.equal(rules.equippedStyle(wallet,id,'zone'),'zone:classic');
+  assert.equal(rules.equippedStyle(wallet,'wrap:crest','wrap'),'wrap:classic');
+  wallet=rules.purchase(rules.award(wallet,500),'wrap:crest').wallet;
+  assert.equal(rules.equippedStyle(wallet,'wrap:crest','wrap'),'wrap:crest');
+  for(const id of ['wrap:crest','beacon','zone:neon','broken',null])assert.equal(rules.equippedStyle(wallet,id,'zone'),'zone:classic');
   for(const item of rules.catalog.filter(i=>!i.price && i.need===0))assert.equal(rules.isOwned(wallet,item),true);
 });

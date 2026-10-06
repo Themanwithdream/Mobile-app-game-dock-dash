@@ -17,7 +17,7 @@ async function setup(page,{newPlayer=false}={}){
   window.requestAnimationFrame=()=>0;
   if(!localStorage.getItem('dockDashProfileV2')){
    localStorage.setItem('dockDashProfileV2',JSON.stringify({totalDelivered:newPlayer?0:180,totalPerfect:60,totalTrucks:20,totalGoals:10,highestShift:8,tutorialDone:!newPlayer,selectedSkin:0}));
-   localStorage.setItem('dockDashWalletV1',JSON.stringify({version:1,coins:newPlayer?100:2000,earned:4000,spent:2000,owned:newPlayer?[]:['school','batcave','batmobile','venue:batcave','wrap:hero','zone:gold']}));
+   localStorage.setItem('dockDashWalletV1',JSON.stringify({version:1,coins:newPlayer?100:2000,earned:4000,spent:2000,owned:newPlayer?[]:['school','beacon','beacon-runner','venue:beacon','wrap:crest','zone:gold']}));
   }
   localStorage.setItem('dockDashMuted','true');
  },newPlayer);
@@ -38,25 +38,25 @@ const overlap=(a,b)=>a.x<b.x+b.width && a.x+a.width>b.x && a.y<b.y+b.height && a
   assert.equal(await page.locator('#shop-play').isVisible(),true);assert.equal(await page.locator('#mission-home').isVisible(),false);
   pass('the shop has one header Home control and a useful Play Arcade action');
   await page.locator('#shop-owned').tap();assert.deepEqual(await visibleItems(page),['classic','rally','nightline','gold']);
-  await page.locator('#shop-next').tap();assert.deepEqual(await visibleItems(page),['school','batcave','batmobile']);
-  await page.locator('[data-item="batmobile"]').tap();assert.equal(await page.evaluate(()=>__dockTest.profile.selectedSkin),14);assert.equal(await page.evaluate(()=>__dockTest.wallet.coins),2000);
-  await page.locator('#shop-owned').tap();assert.deepEqual(await visibleItems(page),['school','matchday','festival','batcave']);
-  await page.locator('#shop-next').tap();await page.locator('#shop-next').tap();assert.ok((await visibleItems(page)).includes('batmobile'));
-  await page.locator('#shop-owned').tap();assert.deepEqual(await visibleItems(page),['school','batcave','batmobile']);
+  await page.locator('#shop-next').tap();assert.deepEqual(await visibleItems(page),['school','beacon','beacon-runner']);
+  await page.locator('[data-item="beacon-runner"]').tap();assert.equal(await page.evaluate(()=>__dockTest.profile.selectedSkin),14);assert.equal(await page.evaluate(()=>__dockTest.wallet.coins),2000);
+  await page.locator('#shop-owned').tap();assert.deepEqual(await visibleItems(page),['school','matchday','festival','beacon']);
+  await page.locator('#shop-next').tap();await page.locator('#shop-next').tap();assert.ok((await visibleItems(page)).includes('beacon-runner'));
+  await page.locator('#shop-owned').tap();assert.deepEqual(await visibleItems(page),['school','beacon','beacon-runner']);
   pass('Owned shows earned and purchased vehicles, equips the correct truck for free and remembers both page positions');
-  await page.locator('[data-shop="venues"]').tap();assert.deepEqual(await visibleItems(page),['venue:warehouse','venue:harbour','venue:airport','venue:batcave']);
-  await page.locator('[data-item="venue:batcave"]').tap();await page.locator('[data-shop="styles"]').tap();
-  assert.deepEqual(await visibleItems(page),['wrap:classic','wrap:hero','zone:classic','zone:gold']);
-  await page.locator('[data-item="wrap:hero"]').tap();await page.locator('[data-item="zone:gold"]').tap();await paint(page);
+  await page.locator('[data-shop="venues"]').tap();assert.deepEqual(await visibleItems(page),['venue:warehouse','venue:harbour','venue:airport','venue:beacon']);
+  await page.locator('[data-item="venue:beacon"]').tap();await page.locator('[data-shop="styles"]').tap();
+  assert.deepEqual(await visibleItems(page),['wrap:classic','wrap:crest','zone:classic','zone:gold']);
+  await page.locator('[data-item="wrap:crest"]').tap();await page.locator('[data-item="zone:gold"]').tap();await paint(page);
   assert.equal(await page.evaluate(()=>__dockTest.wallet.coins),2000);await page.screenshot({path:path.join(output,'owned-collection.png')});
   await page.locator('#shop-owned').tap();await page.locator('#shop-next').tap();await page.locator('#shop-next').tap();
   assert.deepEqual(await visibleItems(page),['zone:gold','wrap:picnic','wrap:blueprint','wrap:prism']);await page.locator('#shop-owned').tap();assert.equal(await page.locator('#shop-next').isDisabled(),true);
   await page.locator('#shop-owned').tap();assert.deepEqual(await visibleItems(page),['zone:gold','wrap:picnic','wrap:blueprint','wrap:prism']);
   pass('owned places and independent styles stay easy to find, with safe short pages and no repeat spending');
   await page.locator('#shop-play').tap();
-  assert.deepEqual(await page.evaluate(()=>({mission:__dockTest.game.mission,ready:__dockTest.game.readyIn,scene:__dockTest.scene,lives:__dockTest.game.lives,types:__dockTest.game.trucks.map(t=>t.type),skin:__dockTest.profile.selectedSkin,wrap:__dockTest.profile.selectedWrap,zone:__dockTest.profile.selectedZone})),{mission:null,ready:3,scene:7,lives:3,types:[0,1,2,3],skin:14,wrap:'wrap:hero',zone:'zone:gold'});
+  assert.deepEqual(await page.evaluate(()=>({mission:__dockTest.game.mission,ready:__dockTest.game.readyIn,scene:__dockTest.scene,lives:__dockTest.game.lives,types:__dockTest.game.trucks.map(t=>t.type),skin:__dockTest.profile.selectedSkin,wrap:__dockTest.profile.selectedWrap,zone:__dockTest.profile.selectedZone})),{mission:null,ready:3,scene:7,lives:3,types:[0,1,2,3],skin:14,wrap:'wrap:crest',zone:'zone:gold'});
   await page.evaluate(()=>__dockTest.backToTitle());await page.reload();await page.waitForFunction(()=>window.__dockTest,null,{polling:50});
-  assert.deepEqual(await page.evaluate(()=>[__dockTest.wallet.coins,__dockTest.profile.selectedSkin,__dockTest.settings.location,__dockTest.profile.selectedWrap,__dockTest.profile.selectedZone]),[2000,14,7,'wrap:hero','zone:gold']);
+  assert.deepEqual(await page.evaluate(()=>[__dockTest.wallet.coins,__dockTest.profile.selectedSkin,__dockTest.settings.location,__dockTest.profile.selectedWrap,__dockTest.profile.selectedZone]),[2000,14,7,'wrap:crest','zone:gold']);
   pass('quick play preserves the three-second countdown, sorting rules, selected theme and saved equipment');
   await page.locator('#missions').tap();await paint(page);await page.screenshot({path:path.join(output,'mission-map-redesign.png')});
   assert.equal(await page.locator('#missions-back').count(),0);assert.equal(await page.locator('#mission-home').textContent(),'← Home');
@@ -66,7 +66,7 @@ const overlap=(a,b)=>a.x<b.x+b.width && a.x+a.width>b.x && a.y<b.y+b.height && a
   pass('the mission map has one Home button and opens an unlocked mission briefing without starting gameplay');
   await page.evaluate(()=>__dockTest.setRecords({'matchday-1':{stars:2}}));await page.locator('#briefing-back').tap();await page.locator('#missions-continue').tap();
   assert.equal(await page.evaluate(()=>__dockTest.selected.id),'matchday-2');
-  await page.locator('#briefing-back').tap();await page.locator('#missions-next').tap();await page.locator('#missions-continue').tap();assert.equal(await page.evaluate(()=>__dockTest.selected.id),'batcave-1');
+  await page.locator('#briefing-back').tap();await page.locator('#missions-next').tap();await page.locator('#missions-continue').tap();assert.equal(await page.evaluate(()=>__dockTest.selected.id),'beacon-1');
   await page.locator('#briefing-back').tap();await page.locator('#missions-next').tap();await page.locator('#missions-continue').tap();assert.equal(await page.evaluate(()=>__dockTest.selected.id),'forest-1');
   pass('suggestions follow earned stage unlocks and the currently visible mission worlds');
   await page.evaluate(()=>__dockTest.setRecords(Object.fromEntries(__dockTest.MR.missions.map(m=>[m.id,{stars:m.id==='forest-2'?2:3}]))));
@@ -79,7 +79,7 @@ const overlap=(a,b)=>a.x<b.x+b.width && a.x+a.width>b.x && a.y<b.y+b.height && a
   const textBounds=await page.evaluate(()=>{
    const d=__dockTest,draw=CanvasRenderingContext2D.prototype.fillText,rows=[];
    CanvasRenderingContext2D.prototype.fillText=function(str,x,y,...args){if(this.canvas.id==='game'){const width=this.measureText(str).width,left=this.textAlign==='center'?x-width/2:this.textAlign==='right'?x-width:x;rows.push({str,left,right:left+width,y});}return draw.call(this,str,x,y,...args);};
-   try{for(const category of ['trucks','venues','styles']){d.changeShopCategory(category);d.changeShopPage(-20);do{d.render();if(document.getElementById('shop-next').disabled)break;d.changeShopPage(1);}while(true);}const coins=d.wallet.coins;d.wallet.coins=1e9;d.render();d.wallet.coins=coins;}finally{CanvasRenderingContext2D.prototype.fillText=draw;}
+   try{for(const category of ['trucks','venues','styles']){d.changeShopCategory(category);d.changeShopPage(-1000);do{d.render();if(document.getElementById('shop-next').disabled)break;d.changeShopPage(1);}while(true);}const coins=d.wallet.coins;d.wallet.coins=1e9;d.render();d.wallet.coins=coins;}finally{CanvasRenderingContext2D.prototype.fillText=draw;}
    return rows;
   });
   for(const row of textBounds)assert.ok(row.left>=15 && row.right<=345,JSON.stringify(row));
@@ -92,13 +92,13 @@ const overlap=(a,b)=>a.x<b.x+b.width && a.x+a.width>b.x && a.y<b.y+b.height && a
     for(let i=0;i<boxes.length;i++){const a=boxes[i];assert.ok(a.textFits,JSON.stringify({size,a}));assert.ok(a.x>=stage.x-.5 && a.x+a.width<=stage.x+stage.width+.5 && a.y>=stage.y && a.y+a.height<=stage.y+stage.height+.5);for(let j=i+1;j<boxes.length;j++)assert.equal(overlap(a,boxes[j]),false,JSON.stringify({size,a,b:boxes[j]}));}
     const homes=await page.locator('#stage button:visible').evaluateAll(a=>a.filter(b=>/Home|Main menu/.test(b.textContent)).length);assert.equal(homes,1);
    }
-   if(size.width===320){await page.evaluate(()=>{__dockTest.backToTitle();__dockTest.openGarage();__dockTest.changeShopCategory('trucks');__dockTest.changeShopPage(-20);__dockTest.render();});await page.screenshot({path:path.join(output,'narrow-phone-shop.png')});}
+   if(size.width===320){await page.evaluate(()=>{__dockTest.backToTitle();__dockTest.openGarage();__dockTest.changeShopCategory('trucks');__dockTest.changeShopPage(-1000);__dockTest.render();});await page.screenshot({path:path.join(output,'narrow-phone-shop.png')});}
   }
   pass('both menus have exactly one Home control, contained labels and separate touch targets in four phone layouts');
   await page.setViewportSize({width:390,height:844});await page.evaluate(()=>__dockTest.backToTitle());await page.locator('.sound:visible').tap();await readyMusic(page,7);
-  await page.locator('#missions').tap();await page.evaluate(()=>__dockTest.openBriefing('batcave',0));await page.locator('#mission-launch').tap();await readyMusic(page,7);await page.evaluate(()=>__dockTest.finishMission(false));
+  await page.locator('#missions').tap();await page.evaluate(()=>__dockTest.openBriefing('beacon',0));await page.locator('#mission-launch').tap();await readyMusic(page,7);await page.evaluate(()=>__dockTest.finishMission(false));
   await page.locator('#mission-shop').tap();assert.equal(await page.locator('#garage-back').getAttribute('aria-label'),'Back to results');await page.locator('#garage-back').tap();assert.equal(await page.evaluate(()=>__dockTest.state),'missionResult');
-  await page.locator('#mission-shop').tap();await page.locator('[data-shop="venues"]').tap();await page.evaluate(()=>__dockTest.changeShopPage(-20));await page.locator('[data-item="venue:warehouse"]').tap();
+  await page.locator('#mission-shop').tap();await page.locator('[data-shop="venues"]').tap();await page.evaluate(()=>__dockTest.changeShopPage(-1000));await page.locator('[data-item="venue:warehouse"]').tap();
   await page.evaluate(()=>{window.__playedScenes=[];const play=HTMLMediaElement.prototype.play;HTMLMediaElement.prototype.play=function(){__playedScenes.push(__dockTest.scene);return play.call(this);};const start=AudioBufferSourceNode.prototype.start;AudioBufferSourceNode.prototype.start=function(...args){if(this.loop)__playedScenes.push(__dockTest.scene);return start.apply(this,args);};});
   await page.locator('#shop-play').tap();await readyMusic(page,0);assert.equal(await page.evaluate(()=>__dockTest.game.mission),null);assert.equal(await page.evaluate(()=>__dockTest.soundtrack.slots.filter(s=>!s.player.paused).length),1);
   const played=await page.evaluate(()=>__playedScenes);assert.ok(played.length>0);assert.ok(played.every(scene=>scene===0));

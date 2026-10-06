@@ -1,9 +1,9 @@
 /* Dock Dash mission definitions and saved-star rules. No browser dependencies. */
 (function (root, factory) {
-  const rules = factory();
+  const rules = factory(typeof module==='object'&&module.exports?require('./world-pack.js'):root.DockDashWorldPack);
   if (typeof module === 'object' && module.exports) module.exports = rules;
   else root.DockDashMissions = rules;
-})(typeof globalThis !== 'undefined' ? globalThis : this, function () {
+})(typeof globalThis !== 'undefined' ? globalThis : this, function (pack) {
   'use strict';
   const worlds = [
     { id: 'matchday', name: 'Matchday', category: 'Soccer supplies', badge: 'SOCCER',
@@ -26,12 +26,13 @@
       priority: 'FLIGHT ESSENTIALS', priorityCopy: 'Helmets · oxygen · fuel',
       stages: ['Moonbase supplies', 'Launch window', 'Orbital express'],
       cargo: 'Astronaut helmet|astronaut;Oxygen tanks|oxygen;Rocket fuel cells|fuel;Solar panel|solar;Moon rover|car;Service robot|robot;Space food packs|box;Navigation tablet|tablet;Satellite kit|satellite;Star map|book;Launch rocket|rocket;Repair tools|tools' },
-    { id:'batcave', name:'Batcave', category:'Batman gadgets', badge:'GOTHAM',
-      tag:'Keep Gotham’s night shift ready.', location:7, accent:'#ffdf72', tempo:110,
-      priority:'HERO ESSENTIALS', priorityCopy:'Batarangs · grapples · belts',
-      stages:['Gadget delivery','Gotham patrol','Dark knight express'],
-      stories:['Alfred is stocking the cave. Send the first gadget crates.', 'The Bat-Signal is on. Gear up all four patrol docks.', 'A busy night in Gotham. Fragile tech and express gadgets arrive.'],
-      cargo:'Batarang case|bat;Grappling launcher|grapple;Utility belts|utilitybelt;Batman cowl|cowl;Folded cape|cape;Bat-Signal lens|batsignal;Batcomputer parts|chip;Detective scanner|scanner;Armoured gloves|gloves;Batmobile tools|tools;Smoke capsules|capsule;Gotham city map|map' },
+    { id:'beacon', name:'Beacon Bay', category:'Beacon keeper supplies', badge:'BEACON',
+      tag:'Bring the coast its guiding light.', location:7, accent:'#ffdf9b', tempo:110,
+      priority:'KEEPER ESSENTIALS', priorityCopy:'Lamps · lenses · charts',
+      stages:['Keeper arrival','Glass workshop','Shoreline relay','Tower repairs','Tide watch','Coastal signal','Last boat home','A light for all'],
+      stories:['An apprentice named Sora inherits a lighthouse with a cracked lens.','The glassmakers can repair the lens if every dock receives its supplies.','Sora finds letters from boats the old keeper guided home.','Repair the tower before the fog returns to the bay.','Tide charts reveal a safe route around the hidden rocks.','Bring signal lamps to the four coastal stations.','One little boat is still at sea. The whole bay keeps watch.','The last boat comes home. Sora lights a beacon that belongs to everyone.'],
+      keeper:'Sora',landmark:'lighthouse',lore:{opening:'Sora inherits a lighthouse and a box of letters from the sailors it once guided home.',turn:'The cracked lens can be repaired, but only if the whole bay carries its part of the work.',ending:'The last boat returns through the fog. Sora keeps the letters beside a light that belongs to everyone.'},
+      cargo:'Signal lamps|lantern;Lighthouse lenses|lens;Tide charts|map;Glass prisms|lightprism;Keeper coats|parka;Bell fittings|bell;Solar cells|solartile;Navigation compasses|compass;Repair gloves|gloves;Tower tools|tools;Coiled ropes|rope;Keeper letters|mailbundle' },
     { id:'school', name:'School Run', category:'School supplies', badge:'SCHOOL',
       tag:'Little deliveries. Big bright ideas.', location:8, accent:'#ffd783', tempo:106,
       priority:'CLASSROOM ESSENTIALS', priorityCopy:'Books · pencils · backpacks',
@@ -150,7 +151,6 @@
     festival:['Backstage switch','Sunset headliner','Festival marathon','Last-stage legends','Grand finale'],
     rescue:['Storm preparations','Coastline relay','Emergency flotilla','Rescue command','Ocean guardian'],
     space:['Satellite service','Meteor watch','Deep-space convoy','Mission control','Galaxy express'],
-    batcave:['Rooftop relay','Arkham alerts','Gotham lockdown','Signal scramble','Gotham guardian'],
     school:['Library deliveries','Sports-day supplies','Exam-week rush','Graduation prep','Campus champion'],
     dino:['Fossil expedition','Feeding frenzy','Raptor rounds','Park-wide rush','Jurassic master'],
     candy:['Caramel convoy','Candy carnival','Sweet-shop scramble','Golden recipe','Confection champion'],
@@ -162,8 +162,9 @@
     if(!w.stories)w.stories=[w.tag,w.tag,w.tag];
     while(w.stories.length<tiers.length)w.stories.push(`${w.name} needs your best deliveries. ${tiers[w.stories.length].detail}`);
   }
+  worlds.push(...pack.worlds);
   const worldPages=[];
-  const chapters={adventures:'ADVENTURES',history:'HISTORY',city:'CITY LIFE',makers:'HEROES & MAKERS',prism:'PRISM FORGE'};
+  const chapters={adventures:'ADVENTURES',history:'HISTORY',city:'CITY LIFE',makers:'HEROES & MAKERS',prism:'PRISM FORGE',...Object.fromEntries(Object.entries(pack.chapters).map(([id,c])=>[id,c.name]))};
   for(const chapter of Object.keys(chapters)) {
     const group=worlds.filter(w=>(w.chapter || w.era || 'adventures')===chapter);
     for(let i=0;i<group.length;i+=4)worldPages.push(group.slice(i,i+4));
@@ -184,7 +185,8 @@
     const records = {};
     if (!saved || typeof saved !== 'object' || Array.isArray(saved)) return records;
     for (const mission of missions) {
-      const r = saved[mission.id];
+      // Retired content is translated once at the save boundary; playable IDs are original.
+      const r = saved[mission.id] || (mission.world.id==='beacon'?saved[`batcave-${mission.stage+1}`]:null);
       if (!r || typeof r !== 'object' || !Number.isInteger(r.stars) || r.stars < 1 || r.stars > 3) continue;
       records[mission.id] = { stars: r.stars,
         bestScore: Number.isFinite(r.bestScore) ? Math.max(0, Math.min(1e9, Math.floor(r.bestScore))) : 0,
@@ -212,5 +214,7 @@
   function totalStars(records, worldId) {
     return missions.filter(m => !worldId || m.world.id === worldId).reduce((sum, m) => sum + (records[m.id]?.stars || 0), 0);
   }
-  return { worlds, worldPages, pageLabel, tiers, levelCount:tiers.length, missions, getMission, readRecords, isUnlocked, grade, recordResult, totalStars };
+  function lanternCount(records) {return worlds.reduce((n,w)=>n+(records[`${w.id}-${tiers.length}`]?.stars>0?1:0),0);}
+  function chapterPages(chapter) {return worldPages.map((page,i)=>({page,i})).filter(({page})=>!chapter||(page[0].chapter||page[0].era||'adventures')===chapter).map(({i})=>i);}
+  return { worlds, worldPages, chapters, chapterPages, pageLabel, story:pack, lanternCount, tiers, levelCount:tiers.length, missions, getMission, readRecords, isUnlocked, grade, recordResult, totalStars };
 });

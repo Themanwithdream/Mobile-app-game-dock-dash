@@ -71,8 +71,8 @@ test('total stars count only known missions and survive a storage round trip', (
 });
 
 test('six new worlds provide distinct cargo, stories and open first missions', () => {
-  assert.equal(rules.worlds.length,23);assert.equal(rules.missions.length,184);
-  for(const id of ['batcave','school','dino','candy','forest','arctic']) {
+  assert.equal(rules.worlds.length,100);assert.equal(rules.missions.length,800);
+  for(const id of ['beacon','school','dino','candy','forest','arctic']) {
     const world=rules.worlds.find(w=>w.id===id);
     assert.equal(new Set(world.stories.slice(0,3)).size,3);assert.equal(new Set(world.cargo.split(';')).size,12);
     for(let stage=0;stage<3;stage++)assert.equal(rules.getMission(id,stage).story,world.stories[stage]);

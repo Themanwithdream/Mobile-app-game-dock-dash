@@ -1,0 +1,6360 @@
+[
+  {
+    "slug": "matchday-anthem",
+    "title": "Matchday Anthem",
+    "bpm": 112,
+    "roots": [
+      50,
+      50,
+      45,
+      45,
+      47,
+      47,
+      43,
+      45
+    ],
+    "minor": [
+      47
+    ],
+    "melody": [
+      [
+        74,
+        null,
+        78,
+        81,
+        null,
+        78,
+        76,
+        74
+      ],
+      [
+        73,
+        76,
+        null,
+        81,
+        78,
+        76,
+        73,
+        null
+      ],
+      [
+        74,
+        78,
+        81,
+        83,
+        81,
+        78,
+        76,
+        74
+      ],
+      [
+        71,
+        null,
+        74,
+        78,
+        76,
+        73,
+        69,
+        null
+      ]
+    ],
+    "voice": "brass"
+  },
+  {
+    "slug": "festival-lights",
+    "title": "Festival Lights",
+    "bpm": 104,
+    "roots": [
+      45,
+      45,
+      49,
+      49,
+      42,
+      42,
+      50,
+      50
+    ],
+    "minor": [
+      42
+    ],
+    "melody": [
+      [
+        76,
+        null,
+        73,
+        71,
+        69,
+        null,
+        73,
+        76
+      ],
+      [
+        80,
+        76,
+        null,
+        73,
+        71,
+        73,
+        76,
+        null
+      ],
+      [
+        78,
+        null,
+        76,
+        73,
+        69,
+        73,
+        null,
+        76
+      ],
+      [
+        78,
+        76,
+        74,
+        null,
+        73,
+        71,
+        69,
+        null
+      ]
+    ],
+    "voice": "marimba"
+  },
+  {
+    "slug": "rescue-tide",
+    "title": "Rescue Tide",
+    "bpm": 108,
+    "roots": [
+      43,
+      43,
+      40,
+      40,
+      48,
+      48,
+      50,
+      50
+    ],
+    "minor": [
+      40
+    ],
+    "melody": [
+      [
+        74,
+        null,
+        71,
+        69,
+        67,
+        69,
+        71,
+        null
+      ],
+      [
+        71,
+        74,
+        null,
+        76,
+        74,
+        71,
+        69,
+        null
+      ],
+      [
+        72,
+        null,
+        76,
+        79,
+        76,
+        74,
+        72,
+        null
+      ],
+      [
+        74,
+        78,
+        null,
+        76,
+        74,
+        71,
+        69,
+        null
+      ]
+    ],
+    "voice": "pan"
+  },
+  {
+    "slug": "orbital-express",
+    "title": "Orbital Express",
+    "bpm": 120,
+    "roots": [
+      40,
+      40,
+      48,
+      48,
+      43,
+      43,
+      50,
+      50
+    ],
+    "minor": [
+      40
+    ],
+    "melody": [
+      [
+        76,
+        79,
+        null,
+        83,
+        81,
+        79,
+        78,
+        74
+      ],
+      [
+        76,
+        null,
+        79,
+        83,
+        86,
+        83,
+        79,
+        null
+      ],
+      [
+        79,
+        83,
+        null,
+        86,
+        83,
+        81,
+        79,
+        null
+      ],
+      [
+        78,
+        null,
+        81,
+        86,
+        84,
+        81,
+        78,
+        74
+      ]
+    ],
+    "voice": "chip"
+  },
+  {
+    "slug": "beacon-homecoming",
+    "title": "Beacon Homecoming",
+    "bpm": 110,
+    "roots": [
+      48,
+      48,
+      53,
+      53,
+      45,
+      45,
+      43,
+      43
+    ],
+    "minor": [
+      45
+    ],
+    "melody": [
+      [
+        72,
+        null,
+        76,
+        79,
+        81,
+        79,
+        76,
+        null
+      ],
+      [
+        77,
+        81,
+        null,
+        84,
+        81,
+        79,
+        77,
+        null
+      ],
+      [
+        76,
+        null,
+        81,
+        84,
+        81,
+        79,
+        76,
+        72
+      ],
+      [
+        74,
+        null,
+        79,
+        77,
+        76,
+        74,
+        72,
+        null
+      ]
+    ],
+    "voice": "pan",
+    "gentle": true
+  },
+  {
+    "slug": "first-bell",
+    "title": "First Bell",
+    "bpm": 106,
+    "roots": [
+      48,
+      48,
+      53,
+      53,
+      45,
+      45,
+      43,
+      43
+    ],
+    "minor": [
+      45
+    ],
+    "melody": [
+      [
+        72,
+        76,
+        79,
+        null,
+        81,
+        79,
+        76,
+        null
+      ],
+      [
+        77,
+        null,
+        81,
+        84,
+        81,
+        79,
+        77,
+        76
+      ],
+      [
+        76,
+        81,
+        null,
+        84,
+        81,
+        79,
+        76,
+        72
+      ],
+      [
+        74,
+        79,
+        77,
+        null,
+        76,
+        74,
+        72,
+        null
+      ]
+    ],
+    "voice": "bell"
+  },
+  {
+    "slug": "jurassic-trail",
+    "title": "Jurassic Trail",
+    "bpm": 114,
+    "roots": [
+      50,
+      50,
+      43,
+      43,
+      47,
+      47,
+      45,
+      45
+    ],
+    "minor": [
+      47
+    ],
+    "melody": [
+      [
+        74,
+        null,
+        78,
+        81,
+        78,
+        74,
+        76,
+        null
+      ],
+      [
+        79,
+        78,
+        null,
+        74,
+        71,
+        74,
+        79,
+        null
+      ],
+      [
+        78,
+        81,
+        83,
+        null,
+        81,
+        78,
+        74,
+        null
+      ],
+      [
+        76,
+        null,
+        73,
+        69,
+        73,
+        76,
+        78,
+        null
+      ]
+    ],
+    "voice": "marimba",
+    "tropical": true
+  },
+  {
+    "slug": "sugar-rush",
+    "title": "Sugar Rush",
+    "bpm": 118,
+    "roots": [
+      53,
+      53,
+      48,
+      48,
+      50,
+      50,
+      46,
+      48
+    ],
+    "minor": [
+      50
+    ],
+    "melody": [
+      [
+        77,
+        81,
+        84,
+        81,
+        86,
+        null,
+        84,
+        81
+      ],
+      [
+        79,
+        null,
+        76,
+        72,
+        76,
+        79,
+        84,
+        null
+      ],
+      [
+        81,
+        86,
+        89,
+        null,
+        86,
+        84,
+        81,
+        77
+      ],
+      [
+        82,
+        null,
+        79,
+        77,
+        79,
+        84,
+        81,
+        null
+      ]
+    ],
+    "voice": "bell",
+    "pulse": true
+  },
+  {
+    "slug": "moonleaf-lullaby",
+    "title": "Moonleaf Lullaby",
+    "bpm": 100,
+    "roots": [
+      45,
+      45,
+      53,
+      53,
+      48,
+      48,
+      43,
+      40
+    ],
+    "minor": [
+      40,
+      45
+    ],
+    "melody": [
+      [
+        76,
+        null,
+        81,
+        null,
+        79,
+        76,
+        72,
+        null
+      ],
+      [
+        77,
+        null,
+        81,
+        84,
+        null,
+        81,
+        79,
+        null
+      ],
+      [
+        79,
+        76,
+        null,
+        72,
+        76,
+        null,
+        79,
+        83
+      ],
+      [
+        74,
+        null,
+        71,
+        67,
+        68,
+        null,
+        71,
+        76
+      ]
+    ],
+    "voice": "pan",
+    "gentle": true
+  },
+  {
+    "slug": "aurora-rounds",
+    "title": "Aurora Rounds",
+    "bpm": 102,
+    "roots": [
+      50,
+      50,
+      47,
+      47,
+      43,
+      43,
+      45,
+      45
+    ],
+    "minor": [
+      47
+    ],
+    "melody": [
+      [
+        78,
+        null,
+        81,
+        86,
+        null,
+        83,
+        81,
+        78
+      ],
+      [
+        78,
+        83,
+        null,
+        86,
+        83,
+        81,
+        78,
+        null
+      ],
+      [
+        79,
+        null,
+        83,
+        86,
+        83,
+        79,
+        78,
+        74
+      ],
+      [
+        81,
+        null,
+        78,
+        76,
+        73,
+        76,
+        81,
+        null
+      ]
+    ],
+    "voice": "bell",
+    "gentle": true
+  },
+  {
+    "slug": "roads-of-rome",
+    "title": "Roads of Rome",
+    "bpm": 114,
+    "roots": [
+      50,
+      50,
+      46,
+      46,
+      53,
+      53,
+      48,
+      45
+    ],
+    "minor": [
+      45,
+      50
+    ],
+    "melody": [
+      [
+        74,
+        null,
+        77,
+        81,
+        79,
+        77,
+        74,
+        null
+      ],
+      [
+        70,
+        74,
+        null,
+        77,
+        79,
+        77,
+        74,
+        null
+      ],
+      [
+        77,
+        81,
+        84,
+        null,
+        81,
+        79,
+        77,
+        74
+      ],
+      [
+        76,
+        null,
+        73,
+        69,
+        73,
+        76,
+        77,
+        null
+      ]
+    ],
+    "voice": "brass"
+  },
+  {
+    "slug": "lanterns-on-the-nile",
+    "title": "Lanterns on the Nile",
+    "bpm": 108,
+    "roots": [
+      45,
+      45,
+      46,
+      46,
+      50,
+      50,
+      48,
+      45
+    ],
+    "minor": [
+      45,
+      50
+    ],
+    "melody": [
+      [
+        69,
+        null,
+        70,
+        76,
+        77,
+        76,
+        70,
+        null
+      ],
+      [
+        70,
+        74,
+        null,
+        77,
+        76,
+        74,
+        70,
+        null
+      ],
+      [
+        74,
+        null,
+        77,
+        81,
+        77,
+        76,
+        74,
+        null
+      ],
+      [
+        72,
+        76,
+        null,
+        79,
+        76,
+        70,
+        69,
+        null
+      ]
+    ],
+    "voice": "pan",
+    "gentle": true
+  },
+  {
+    "slug": "northern-trade",
+    "title": "Northern Trade",
+    "bpm": 110,
+    "roots": [
+      40,
+      40,
+      43,
+      43,
+      50,
+      50,
+      47,
+      47
+    ],
+    "minor": [
+      40,
+      47
+    ],
+    "melody": [
+      [
+        64,
+        null,
+        67,
+        71,
+        74,
+        71,
+        67,
+        null
+      ],
+      [
+        67,
+        71,
+        null,
+        74,
+        76,
+        74,
+        71,
+        67
+      ],
+      [
+        74,
+        null,
+        78,
+        81,
+        78,
+        76,
+        74,
+        null
+      ],
+      [
+        71,
+        74,
+        78,
+        null,
+        74,
+        71,
+        66,
+        null
+      ]
+    ],
+    "voice": "brass",
+    "gentle": true
+  },
+  {
+    "slug": "caravan-at-dusk",
+    "title": "Caravan at Dusk",
+    "bpm": 116,
+    "roots": [
+      50,
+      50,
+      43,
+      43,
+      48,
+      48,
+      45,
+      45
+    ],
+    "minor": [
+      45,
+      50
+    ],
+    "melody": [
+      [
+        74,
+        77,
+        null,
+        81,
+        84,
+        81,
+        77,
+        74
+      ],
+      [
+        79,
+        null,
+        83,
+        86,
+        83,
+        79,
+        77,
+        null
+      ],
+      [
+        76,
+        79,
+        84,
+        null,
+        79,
+        76,
+        74,
+        72
+      ],
+      [
+        76,
+        null,
+        81,
+        84,
+        81,
+        76,
+        73,
+        null
+      ]
+    ],
+    "voice": "plucked",
+    "tropical": true
+  },
+  {
+    "slug": "midnight-orders",
+    "title": "Midnight Orders",
+    "bpm": 112,
+    "roots": [
+      48,
+      48,
+      45,
+      45,
+      53,
+      53,
+      50,
+      43
+    ],
+    "minor": [
+      45,
+      50
+    ],
+    "melody": [
+      [
+        76,
+        null,
+        79,
+        81,
+        79,
+        76,
+        74,
+        null
+      ],
+      [
+        72,
+        76,
+        null,
+        79,
+        76,
+        72,
+        69,
+        null
+      ],
+      [
+        77,
+        81,
+        84,
+        null,
+        81,
+        79,
+        77,
+        null
+      ],
+      [
+        74,
+        null,
+        77,
+        79,
+        77,
+        74,
+        71,
+        null
+      ]
+    ],
+    "voice": "keys",
+    "gentle": true
+  },
+  {
+    "slug": "warm-first-batch",
+    "title": "Warm First Batch",
+    "bpm": 106,
+    "roots": [
+      53,
+      53,
+      48,
+      48,
+      50,
+      50,
+      46,
+      48
+    ],
+    "minor": [
+      50
+    ],
+    "melody": [
+      [
+        77,
+        null,
+        81,
+        84,
+        81,
+        79,
+        77,
+        null
+      ],
+      [
+        76,
+        79,
+        null,
+        84,
+        81,
+        79,
+        76,
+        72
+      ],
+      [
+        74,
+        77,
+        81,
+        null,
+        79,
+        77,
+        74,
+        null
+      ],
+      [
+        70,
+        null,
+        74,
+        77,
+        79,
+        77,
+        76,
+        null
+      ]
+    ],
+    "voice": "plucked",
+    "gentle": true
+  },
+  {
+    "slug": "cross-town-lights",
+    "title": "Cross-Town Lights",
+    "bpm": 116,
+    "roots": [
+      45,
+      45,
+      53,
+      53,
+      48,
+      48,
+      43,
+      40
+    ],
+    "minor": [
+      40,
+      45
+    ],
+    "melody": [
+      [
+        69,
+        72,
+        76,
+        null,
+        79,
+        76,
+        72,
+        69
+      ],
+      [
+        77,
+        null,
+        81,
+        79,
+        77,
+        76,
+        72,
+        null
+      ],
+      [
+        76,
+        79,
+        null,
+        84,
+        81,
+        79,
+        76,
+        72
+      ],
+      [
+        74,
+        null,
+        71,
+        67,
+        68,
+        71,
+        74,
+        null
+      ]
+    ],
+    "voice": "keys",
+    "pulse": true
+  },
+  {
+    "slug": "bridges-and-baskets",
+    "title": "Bridges and Baskets",
+    "bpm": 108,
+    "roots": [
+      43,
+      43,
+      48,
+      48,
+      40,
+      40,
+      50,
+      50
+    ],
+    "minor": [
+      40
+    ],
+    "melody": [
+      [
+        71,
+        null,
+        74,
+        79,
+        76,
+        74,
+        71,
+        null
+      ],
+      [
+        72,
+        76,
+        null,
+        79,
+        81,
+        79,
+        76,
+        null
+      ],
+      [
+        71,
+        null,
+        76,
+        79,
+        78,
+        76,
+        74,
+        71
+      ],
+      [
+        74,
+        78,
+        81,
+        null,
+        78,
+        76,
+        74,
+        null
+      ]
+    ],
+    "voice": "pan",
+    "tropical": true,
+    "gentle": true
+  },
+  {
+    "slug": "skyguard-assembly",
+    "title": "Skyguard Assembly",
+    "bpm": 118,
+    "roots": [
+      50,
+      50,
+      43,
+      43,
+      47,
+      47,
+      45,
+      45
+    ],
+    "minor": [
+      47
+    ],
+    "melody": [
+      [
+        74,
+        null,
+        81,
+        78,
+        83,
+        81,
+        78,
+        74
+      ],
+      [
+        79,
+        83,
+        null,
+        86,
+        83,
+        79,
+        78,
+        null
+      ],
+      [
+        78,
+        81,
+        83,
+        null,
+        86,
+        83,
+        81,
+        78
+      ],
+      [
+        73,
+        null,
+        76,
+        81,
+        78,
+        76,
+        73,
+        null
+      ]
+    ],
+    "voice": "brass",
+    "pulse": true
+  },
+  {
+    "slug": "courtside-carnival",
+    "title": "Courtside Carnival",
+    "bpm": 120,
+    "roots": [
+      48,
+      48,
+      53,
+      53,
+      45,
+      45,
+      43,
+      43
+    ],
+    "minor": [
+      45
+    ],
+    "melody": [
+      [
+        72,
+        76,
+        79,
+        null,
+        84,
+        81,
+        79,
+        76
+      ],
+      [
+        77,
+        null,
+        81,
+        84,
+        86,
+        84,
+        81,
+        77
+      ],
+      [
+        76,
+        79,
+        81,
+        null,
+        84,
+        81,
+        79,
+        76
+      ],
+      [
+        74,
+        null,
+        79,
+        77,
+        76,
+        74,
+        71,
+        null
+      ]
+    ],
+    "voice": "marimba",
+    "pulse": true
+  },
+  {
+    "slug": "brick-by-brick",
+    "title": "Brick by Brick",
+    "bpm": 114,
+    "roots": [
+      40,
+      40,
+      43,
+      43,
+      45,
+      45,
+      48,
+      47
+    ],
+    "minor": [
+      40,
+      45,
+      47
+    ],
+    "melody": [
+      [
+        64,
+        67,
+        null,
+        71,
+        74,
+        71,
+        67,
+        64
+      ],
+      [
+        67,
+        null,
+        71,
+        74,
+        76,
+        74,
+        71,
+        null
+      ],
+      [
+        69,
+        72,
+        76,
+        null,
+        79,
+        76,
+        72,
+        69
+      ],
+      [
+        72,
+        null,
+        76,
+        79,
+        78,
+        74,
+        71,
+        null
+      ]
+    ],
+    "voice": "marimba"
+  },
+  {
+    "slug": "tiny-machines",
+    "title": "Tiny Machines",
+    "bpm": 122,
+    "roots": [
+      47,
+      47,
+      43,
+      43,
+      50,
+      50,
+      45,
+      45
+    ],
+    "minor": [
+      47
+    ],
+    "melody": [
+      [
+        71,
+        74,
+        78,
+        null,
+        81,
+        78,
+        74,
+        71
+      ],
+      [
+        79,
+        null,
+        83,
+        86,
+        83,
+        81,
+        79,
+        null
+      ],
+      [
+        78,
+        81,
+        86,
+        null,
+        83,
+        81,
+        78,
+        74
+      ],
+      [
+        73,
+        null,
+        76,
+        81,
+        83,
+        81,
+        76,
+        null
+      ]
+    ],
+    "voice": "chip",
+    "pulse": true
+  },
+  {
+    "slug": "prism-workshop",
+    "title": "Prism Workshop",
+    "bpm": 116,
+    "roots": [
+      48,
+      48,
+      50,
+      50,
+      45,
+      45,
+      53,
+      43
+    ],
+    "minor": [
+      45,
+      50
+    ],
+    "melody": [
+      [
+        76,
+        null,
+        79,
+        84,
+        86,
+        84,
+        79,
+        76
+      ],
+      [
+        77,
+        81,
+        null,
+        86,
+        84,
+        81,
+        77,
+        null
+      ],
+      [
+        76,
+        null,
+        81,
+        84,
+        83,
+        81,
+        79,
+        76
+      ],
+      [
+        77,
+        81,
+        84,
+        null,
+        79,
+        76,
+        74,
+        null
+      ]
+    ],
+    "voice": "bell",
+    "pulse": true
+  },
+  {
+    "slug": "greenwood-lantern",
+    "title": "Greenwood Post \u2014 Lantern Road",
+    "bpm": 102,
+    "roots": [
+      48,
+      48,
+      53,
+      53,
+      57,
+      57,
+      55,
+      55
+    ],
+    "minor": [
+      57
+    ],
+    "melody": [
+      [
+        null,
+        76,
+        79,
+        81,
+        79,
+        76,
+        74,
+        72
+      ],
+      [
+        76,
+        72,
+        72,
+        null,
+        76,
+        79,
+        81,
+        79
+      ],
+      [
+        79,
+        76,
+        86,
+        72,
+        72,
+        88,
+        null,
+        81
+      ],
+      [
+        74,
+        null,
+        72,
+        76,
+        79,
+        81,
+        79,
+        76
+      ]
+    ],
+    "voice": "plucked",
+    "gentle": false,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "oakmarket-lantern",
+    "title": "Oakroot Market \u2014 Lantern Road",
+    "bpm": 109,
+    "roots": [
+      50,
+      50,
+      55,
+      55,
+      59,
+      59,
+      57,
+      57
+    ],
+    "minor": [
+      59
+    ],
+    "melody": [
+      [
+        74,
+        null,
+        81,
+        83,
+        81,
+        78,
+        76,
+        74
+      ],
+      [
+        78,
+        74,
+        74,
+        76,
+        null,
+        81,
+        83,
+        81
+      ],
+      [
+        81,
+        78,
+        76,
+        74,
+        74,
+        78,
+        81,
+        null
+      ],
+      [
+        76,
+        74,
+        null,
+        78,
+        81,
+        83,
+        81,
+        78
+      ]
+    ],
+    "voice": "plucked",
+    "gentle": false,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "foxbridge-lantern",
+    "title": "Foxbridge \u2014 Lantern Road",
+    "bpm": 116,
+    "roots": [
+      45,
+      45,
+      50,
+      50,
+      54,
+      54,
+      52,
+      52
+    ],
+    "minor": [
+      54
+    ],
+    "melody": [
+      [
+        69,
+        73,
+        null,
+        78,
+        76,
+        73,
+        71,
+        69
+      ],
+      [
+        73,
+        69,
+        69,
+        71,
+        73,
+        null,
+        78,
+        76
+      ],
+      [
+        null,
+        73,
+        71,
+        69,
+        69,
+        73,
+        76,
+        78
+      ],
+      [
+        71,
+        69,
+        69,
+        null,
+        76,
+        78,
+        76,
+        73
+      ]
+    ],
+    "voice": "plucked",
+    "gentle": false,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "willowkeep-lantern",
+    "title": "Willow Keep \u2014 Lantern Road",
+    "bpm": 102,
+    "roots": [
+      43,
+      43,
+      50,
+      50,
+      52,
+      52,
+      48,
+      48
+    ],
+    "minor": [
+      52
+    ],
+    "melody": [
+      [
+        67,
+        71,
+        74,
+        null,
+        74,
+        71,
+        69,
+        67
+      ],
+      [
+        71,
+        67,
+        67,
+        69,
+        71,
+        74,
+        null,
+        74
+      ],
+      [
+        74,
+        null,
+        81,
+        67,
+        67,
+        83,
+        74,
+        76
+      ],
+      [
+        69,
+        67,
+        67,
+        71,
+        null,
+        76,
+        74,
+        71
+      ]
+    ],
+    "voice": "plucked",
+    "gentle": false,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "moonarchery-lantern",
+    "title": "Moonbow Range \u2014 Lantern Road",
+    "bpm": 109,
+    "roots": [
+      53,
+      53,
+      60,
+      60,
+      62,
+      62,
+      58,
+      58
+    ],
+    "minor": [
+      62
+    ],
+    "melody": [
+      [
+        77,
+        81,
+        84,
+        86,
+        null,
+        81,
+        79,
+        77
+      ],
+      [
+        81,
+        77,
+        77,
+        79,
+        81,
+        84,
+        86,
+        null
+      ],
+      [
+        84,
+        81,
+        null,
+        77,
+        77,
+        81,
+        84,
+        86
+      ],
+      [
+        79,
+        77,
+        77,
+        81,
+        84,
+        null,
+        84,
+        81
+      ]
+    ],
+    "voice": "plucked",
+    "gentle": false,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "thistlemill-lantern",
+    "title": "Thistle Mill \u2014 Lantern Road",
+    "bpm": 116,
+    "roots": [
+      47,
+      47,
+      54,
+      54,
+      56,
+      56,
+      52,
+      52
+    ],
+    "minor": [
+      56
+    ],
+    "melody": [
+      [
+        71,
+        75,
+        78,
+        80,
+        78,
+        null,
+        73,
+        71
+      ],
+      [
+        null,
+        71,
+        71,
+        73,
+        75,
+        78,
+        80,
+        78
+      ],
+      [
+        78,
+        75,
+        73,
+        null,
+        71,
+        75,
+        78,
+        80
+      ],
+      [
+        73,
+        71,
+        71,
+        75,
+        78,
+        80,
+        null,
+        75
+      ]
+    ],
+    "voice": "plucked",
+    "gentle": false,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "fernhollow-lantern",
+    "title": "Fern Hollow \u2014 Lantern Road",
+    "bpm": 102,
+    "roots": [
+      40,
+      40,
+      49,
+      49,
+      45,
+      45,
+      47,
+      47
+    ],
+    "minor": [
+      49
+    ],
+    "melody": [
+      [
+        64,
+        68,
+        71,
+        73,
+        71,
+        68,
+        null,
+        64
+      ],
+      [
+        68,
+        null,
+        64,
+        66,
+        68,
+        71,
+        73,
+        71
+      ],
+      [
+        71,
+        68,
+        78,
+        64,
+        null,
+        80,
+        71,
+        73
+      ],
+      [
+        66,
+        64,
+        64,
+        68,
+        71,
+        73,
+        71,
+        null
+      ]
+    ],
+    "voice": "plucked",
+    "gentle": false,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "dawnwood-lantern",
+    "title": "Dawnwood Fair \u2014 Lantern Road",
+    "bpm": 109,
+    "roots": [
+      48,
+      48,
+      57,
+      57,
+      53,
+      53,
+      55,
+      55
+    ],
+    "minor": [
+      57
+    ],
+    "melody": [
+      [
+        76,
+        79,
+        81,
+        79,
+        76,
+        74,
+        72,
+        null
+      ],
+      [
+        79,
+        76,
+        null,
+        72,
+        74,
+        76,
+        79,
+        81
+      ],
+      [
+        76,
+        74,
+        72,
+        72,
+        76,
+        null,
+        81,
+        79
+      ],
+      [
+        null,
+        72,
+        76,
+        79,
+        81,
+        79,
+        76,
+        74
+      ]
+    ],
+    "voice": "plucked",
+    "gentle": false,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "coralhaven-lantern",
+    "title": "Coral Haven \u2014 Lantern Road",
+    "bpm": 116,
+    "roots": [
+      50,
+      50,
+      59,
+      59,
+      55,
+      55,
+      57,
+      57
+    ],
+    "minor": [
+      59
+    ],
+    "melody": [
+      [
+        null,
+        76,
+        74,
+        76,
+        78,
+        81,
+        85,
+        81
+      ],
+      [
+        76,
+        78,
+        81,
+        null,
+        81,
+        78,
+        76,
+        74
+      ],
+      [
+        78,
+        81,
+        85,
+        81,
+        78,
+        76,
+        null,
+        76
+      ],
+      [
+        85,
+        null,
+        78,
+        76,
+        74,
+        76,
+        78,
+        81
+      ]
+    ],
+    "voice": "pan",
+    "gentle": true,
+    "pulse": false,
+    "tropical": true
+  },
+  {
+    "slug": "pearlquay-lantern",
+    "title": "Pearl Quay \u2014 Lantern Road",
+    "bpm": 102,
+    "roots": [
+      45,
+      45,
+      50,
+      50,
+      54,
+      54,
+      52,
+      52
+    ],
+    "minor": [
+      54
+    ],
+    "melody": [
+      [
+        73,
+        null,
+        69,
+        71,
+        73,
+        76,
+        80,
+        76
+      ],
+      [
+        71,
+        73,
+        76,
+        80,
+        null,
+        73,
+        71,
+        69
+      ],
+      [
+        73,
+        76,
+        92,
+        76,
+        73,
+        83,
+        69,
+        null
+      ],
+      [
+        80,
+        76,
+        null,
+        71,
+        69,
+        71,
+        73,
+        76
+      ]
+    ],
+    "voice": "pan",
+    "gentle": true,
+    "pulse": false,
+    "tropical": true
+  },
+  {
+    "slug": "kelpforest-lantern",
+    "title": "Kelp Forest \u2014 Lantern Road",
+    "bpm": 109,
+    "roots": [
+      43,
+      43,
+      48,
+      48,
+      52,
+      52,
+      50,
+      50
+    ],
+    "minor": [
+      52
+    ],
+    "melody": [
+      [
+        71,
+        69,
+        null,
+        69,
+        71,
+        74,
+        78,
+        74
+      ],
+      [
+        69,
+        71,
+        74,
+        78,
+        74,
+        null,
+        69,
+        67
+      ],
+      [
+        null,
+        74,
+        78,
+        74,
+        71,
+        69,
+        67,
+        69
+      ],
+      [
+        78,
+        74,
+        71,
+        null,
+        67,
+        69,
+        71,
+        74
+      ]
+    ],
+    "voice": "pan",
+    "gentle": true,
+    "pulse": false,
+    "tropical": true
+  },
+  {
+    "slug": "saltwind-lantern",
+    "title": "Saltwind Port \u2014 Lantern Road",
+    "bpm": 116,
+    "roots": [
+      53,
+      53,
+      58,
+      58,
+      62,
+      62,
+      60,
+      60
+    ],
+    "minor": [
+      62
+    ],
+    "melody": [
+      [
+        81,
+        79,
+        77,
+        null,
+        81,
+        84,
+        88,
+        84
+      ],
+      [
+        79,
+        81,
+        84,
+        88,
+        84,
+        81,
+        null,
+        77
+      ],
+      [
+        81,
+        null,
+        88,
+        84,
+        81,
+        79,
+        77,
+        79
+      ],
+      [
+        88,
+        84,
+        81,
+        79,
+        null,
+        79,
+        81,
+        84
+      ]
+    ],
+    "voice": "pan",
+    "gentle": true,
+    "pulse": false,
+    "tropical": true
+  },
+  {
+    "slug": "turtlebay-lantern",
+    "title": "Turtle Bay \u2014 Lantern Road",
+    "bpm": 102,
+    "roots": [
+      47,
+      47,
+      54,
+      54,
+      56,
+      56,
+      52,
+      52
+    ],
+    "minor": [
+      56
+    ],
+    "melody": [
+      [
+        75,
+        73,
+        71,
+        73,
+        null,
+        78,
+        82,
+        78
+      ],
+      [
+        73,
+        75,
+        78,
+        82,
+        78,
+        75,
+        73,
+        null
+      ],
+      [
+        75,
+        78,
+        null,
+        78,
+        75,
+        85,
+        71,
+        73
+      ],
+      [
+        82,
+        78,
+        75,
+        73,
+        71,
+        null,
+        75,
+        78
+      ]
+    ],
+    "voice": "pan",
+    "gentle": true,
+    "pulse": false,
+    "tropical": true
+  },
+  {
+    "slug": "stormharbour-lantern",
+    "title": "Storm Harbour \u2014 Lantern Road",
+    "bpm": 109,
+    "roots": [
+      40,
+      40,
+      47,
+      47,
+      49,
+      49,
+      45,
+      45
+    ],
+    "minor": [
+      49
+    ],
+    "melody": [
+      [
+        68,
+        66,
+        64,
+        66,
+        68,
+        null,
+        75,
+        71
+      ],
+      [
+        null,
+        68,
+        71,
+        75,
+        71,
+        68,
+        66,
+        64
+      ],
+      [
+        68,
+        71,
+        75,
+        null,
+        68,
+        66,
+        64,
+        66
+      ],
+      [
+        75,
+        71,
+        68,
+        66,
+        64,
+        66,
+        null,
+        71
+      ]
+    ],
+    "voice": "pan",
+    "gentle": true,
+    "pulse": false,
+    "tropical": true
+  },
+  {
+    "slug": "glasslagoon-lantern",
+    "title": "Glass Lagoon \u2014 Lantern Road",
+    "bpm": 116,
+    "roots": [
+      48,
+      48,
+      55,
+      55,
+      57,
+      57,
+      53,
+      53
+    ],
+    "minor": [
+      57
+    ],
+    "melody": [
+      [
+        74,
+        72,
+        74,
+        76,
+        79,
+        83,
+        null,
+        76
+      ],
+      [
+        72,
+        null,
+        76,
+        79,
+        83,
+        79,
+        76,
+        74
+      ],
+      [
+        79,
+        83,
+        79,
+        76,
+        null,
+        72,
+        74,
+        76
+      ],
+      [
+        79,
+        76,
+        74,
+        72,
+        74,
+        76,
+        79,
+        null
+      ]
+    ],
+    "voice": "pan",
+    "gentle": true,
+    "pulse": false,
+    "tropical": true
+  },
+  {
+    "slug": "mangroveroot-lantern",
+    "title": "Mangrove Reach \u2014 Lantern Road",
+    "bpm": 102,
+    "roots": [
+      50,
+      50,
+      59,
+      59,
+      55,
+      55,
+      57,
+      57
+    ],
+    "minor": [
+      59
+    ],
+    "melody": [
+      [
+        76,
+        74,
+        76,
+        78,
+        81,
+        85,
+        81,
+        null
+      ],
+      [
+        74,
+        76,
+        null,
+        81,
+        85,
+        81,
+        78,
+        76
+      ],
+      [
+        81,
+        85,
+        93,
+        78,
+        76,
+        null,
+        76,
+        78
+      ],
+      [
+        null,
+        78,
+        76,
+        74,
+        76,
+        78,
+        81,
+        85
+      ]
+    ],
+    "voice": "pan",
+    "gentle": true,
+    "pulse": false,
+    "tropical": true
+  },
+  {
+    "slug": "whalesong-lantern",
+    "title": "Whalesong Pier \u2014 Lantern Road",
+    "bpm": 109,
+    "roots": [
+      45,
+      45,
+      54,
+      54,
+      50,
+      50,
+      52,
+      52
+    ],
+    "minor": [
+      54
+    ],
+    "melody": [
+      [
+        null,
+        69,
+        71,
+        73,
+        76,
+        80,
+        76,
+        73
+      ],
+      [
+        69,
+        71,
+        73,
+        null,
+        80,
+        76,
+        73,
+        71
+      ],
+      [
+        76,
+        80,
+        76,
+        73,
+        71,
+        69,
+        null,
+        73
+      ],
+      [
+        76,
+        null,
+        71,
+        69,
+        71,
+        73,
+        76,
+        80
+      ]
+    ],
+    "voice": "pan",
+    "gentle": true,
+    "pulse": false,
+    "tropical": true
+  },
+  {
+    "slug": "horizonlight-lantern",
+    "title": "Horizon Light \u2014 Lantern Road",
+    "bpm": 116,
+    "roots": [
+      43,
+      43,
+      52,
+      52,
+      48,
+      48,
+      50,
+      50
+    ],
+    "minor": [
+      52
+    ],
+    "melody": [
+      [
+        69,
+        null,
+        69,
+        71,
+        74,
+        78,
+        74,
+        71
+      ],
+      [
+        67,
+        69,
+        71,
+        74,
+        null,
+        74,
+        71,
+        69
+      ],
+      [
+        74,
+        78,
+        74,
+        71,
+        69,
+        67,
+        69,
+        null
+      ],
+      [
+        74,
+        71,
+        null,
+        67,
+        69,
+        71,
+        74,
+        78
+      ]
+    ],
+    "voice": "pan",
+    "gentle": true,
+    "pulse": false,
+    "tropical": true
+  },
+  {
+    "slug": "cloudpost-lantern",
+    "title": "Cloud Post \u2014 Lantern Road",
+    "bpm": 102,
+    "roots": [
+      53,
+      53,
+      58,
+      58,
+      62,
+      62,
+      60,
+      60
+    ],
+    "minor": [
+      62
+    ],
+    "melody": [
+      [
+        88,
+        91,
+        null,
+        86,
+        84,
+        81,
+        77,
+        84
+      ],
+      [
+        91,
+        88,
+        84,
+        77,
+        81,
+        null,
+        86,
+        88
+      ],
+      [
+        null,
+        81,
+        89,
+        84,
+        88,
+        103,
+        88,
+        86
+      ],
+      [
+        77,
+        84,
+        88,
+        null,
+        88,
+        86,
+        84,
+        81
+      ]
+    ],
+    "voice": "bell",
+    "gentle": false,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "kitefestival-lantern",
+    "title": "Kite Meadow \u2014 Lantern Road",
+    "bpm": 109,
+    "roots": [
+      47,
+      47,
+      52,
+      52,
+      56,
+      56,
+      54,
+      54
+    ],
+    "minor": [
+      56
+    ],
+    "melody": [
+      [
+        82,
+        85,
+        82,
+        null,
+        78,
+        75,
+        71,
+        78
+      ],
+      [
+        85,
+        82,
+        78,
+        71,
+        75,
+        78,
+        null,
+        82
+      ],
+      [
+        78,
+        null,
+        71,
+        78,
+        82,
+        85,
+        82,
+        80
+      ],
+      [
+        71,
+        78,
+        82,
+        85,
+        null,
+        80,
+        78,
+        75
+      ]
+    ],
+    "voice": "bell",
+    "gentle": false,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "snowpass-lantern",
+    "title": "Snowbell Pass \u2014 Lantern Road",
+    "bpm": 116,
+    "roots": [
+      40,
+      40,
+      45,
+      45,
+      49,
+      49,
+      47,
+      47
+    ],
+    "minor": [
+      49
+    ],
+    "melody": [
+      [
+        75,
+        78,
+        75,
+        73,
+        null,
+        68,
+        64,
+        71
+      ],
+      [
+        78,
+        75,
+        71,
+        64,
+        68,
+        71,
+        73,
+        null
+      ],
+      [
+        71,
+        68,
+        null,
+        71,
+        75,
+        78,
+        75,
+        73
+      ],
+      [
+        64,
+        71,
+        75,
+        78,
+        75,
+        null,
+        71,
+        68
+      ]
+    ],
+    "voice": "bell",
+    "gentle": false,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "windmillridge-lantern",
+    "title": "Windmill Ridge \u2014 Lantern Road",
+    "bpm": 102,
+    "roots": [
+      48,
+      48,
+      55,
+      55,
+      57,
+      57,
+      53,
+      53
+    ],
+    "minor": [
+      57
+    ],
+    "melody": [
+      [
+        86,
+        83,
+        81,
+        79,
+        76,
+        null,
+        79,
+        83
+      ],
+      [
+        null,
+        86,
+        83,
+        79,
+        72,
+        76,
+        79,
+        81
+      ],
+      [
+        76,
+        72,
+        91,
+        null,
+        86,
+        95,
+        81,
+        79
+      ],
+      [
+        79,
+        83,
+        86,
+        83,
+        81,
+        79,
+        null,
+        72
+      ]
+    ],
+    "voice": "bell",
+    "gentle": false,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "eaglenest-lantern",
+    "title": "Eagle Watch \u2014 Lantern Road",
+    "bpm": 109,
+    "roots": [
+      50,
+      50,
+      57,
+      57,
+      59,
+      59,
+      55,
+      55
+    ],
+    "minor": [
+      59
+    ],
+    "melody": [
+      [
+        88,
+        85,
+        83,
+        81,
+        78,
+        74,
+        null,
+        85
+      ],
+      [
+        85,
+        null,
+        85,
+        81,
+        74,
+        78,
+        81,
+        83
+      ],
+      [
+        78,
+        74,
+        81,
+        85,
+        null,
+        85,
+        83,
+        81
+      ],
+      [
+        81,
+        85,
+        88,
+        85,
+        83,
+        81,
+        78,
+        null
+      ]
+    ],
+    "voice": "bell",
+    "gentle": false,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "floatinggarden-lantern",
+    "title": "Hanging Garden \u2014 Lantern Road",
+    "bpm": 116,
+    "roots": [
+      45,
+      45,
+      52,
+      52,
+      54,
+      54,
+      50,
+      50
+    ],
+    "minor": [
+      54
+    ],
+    "melody": [
+      [
+        83,
+        80,
+        78,
+        76,
+        73,
+        69,
+        76,
+        null
+      ],
+      [
+        80,
+        83,
+        null,
+        76,
+        69,
+        73,
+        76,
+        78
+      ],
+      [
+        73,
+        69,
+        76,
+        80,
+        83,
+        null,
+        78,
+        76
+      ],
+      [
+        null,
+        80,
+        83,
+        80,
+        78,
+        76,
+        73,
+        69
+      ]
+    ],
+    "voice": "bell",
+    "gentle": false,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "thunderpeak-lantern",
+    "title": "Thunder Peak \u2014 Lantern Road",
+    "bpm": 102,
+    "roots": [
+      43,
+      43,
+      52,
+      52,
+      48,
+      48,
+      50,
+      50
+    ],
+    "minor": [
+      52
+    ],
+    "melody": [
+      [
+        null,
+        78,
+        76,
+        74,
+        71,
+        67,
+        74,
+        78
+      ],
+      [
+        78,
+        81,
+        78,
+        null,
+        67,
+        71,
+        74,
+        76
+      ],
+      [
+        71,
+        67,
+        86,
+        78,
+        81,
+        90,
+        null,
+        74
+      ],
+      [
+        74,
+        null,
+        81,
+        78,
+        76,
+        74,
+        71,
+        67
+      ]
+    ],
+    "voice": "bell",
+    "gentle": false,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "airshipquay-lantern",
+    "title": "Airship Quay \u2014 Lantern Road",
+    "bpm": 109,
+    "roots": [
+      53,
+      53,
+      62,
+      62,
+      58,
+      58,
+      60,
+      60
+    ],
+    "minor": [
+      62
+    ],
+    "melody": [
+      [
+        91,
+        null,
+        86,
+        84,
+        81,
+        77,
+        84,
+        88
+      ],
+      [
+        88,
+        91,
+        88,
+        84,
+        null,
+        81,
+        84,
+        86
+      ],
+      [
+        81,
+        77,
+        84,
+        88,
+        91,
+        88,
+        86,
+        null
+      ],
+      [
+        84,
+        88,
+        null,
+        88,
+        86,
+        84,
+        81,
+        77
+      ]
+    ],
+    "voice": "bell",
+    "gentle": false,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "sunforge-lantern",
+    "title": "Sunforge \u2014 Lantern Road",
+    "bpm": 116,
+    "roots": [
+      47,
+      47,
+      56,
+      56,
+      52,
+      52,
+      54,
+      54
+    ],
+    "minor": [
+      56
+    ],
+    "melody": [
+      [
+        85,
+        82,
+        null,
+        78,
+        75,
+        71,
+        78,
+        82
+      ],
+      [
+        82,
+        85,
+        82,
+        78,
+        71,
+        null,
+        78,
+        80
+      ],
+      [
+        null,
+        71,
+        78,
+        82,
+        85,
+        82,
+        80,
+        78
+      ],
+      [
+        78,
+        82,
+        85,
+        null,
+        80,
+        78,
+        75,
+        71
+      ]
+    ],
+    "voice": "bell",
+    "gentle": false,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "firstflight-lantern",
+    "title": "First Flight \u2014 Lantern Road",
+    "bpm": 102,
+    "roots": [
+      40,
+      40,
+      45,
+      45,
+      49,
+      49,
+      47,
+      47
+    ],
+    "minor": [
+      49
+    ],
+    "melody": [
+      [
+        78,
+        75,
+        73,
+        null,
+        68,
+        64,
+        71,
+        75
+      ],
+      [
+        75,
+        78,
+        75,
+        71,
+        64,
+        68,
+        null,
+        73
+      ],
+      [
+        68,
+        null,
+        83,
+        75,
+        78,
+        87,
+        73,
+        71
+      ],
+      [
+        71,
+        75,
+        78,
+        75,
+        null,
+        71,
+        68,
+        64
+      ]
+    ],
+    "voice": "bell",
+    "gentle": false,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "junglecanopy-lantern",
+    "title": "Canopy Camp \u2014 Lantern Road",
+    "bpm": 109,
+    "roots": [
+      48,
+      48,
+      53,
+      53,
+      57,
+      57,
+      55,
+      55
+    ],
+    "minor": [
+      57
+    ],
+    "melody": [
+      [
+        79,
+        74,
+        76,
+        72,
+        null,
+        74,
+        79,
+        81
+      ],
+      [
+        74,
+        79,
+        81,
+        79,
+        74,
+        72,
+        72,
+        null
+      ],
+      [
+        72,
+        74,
+        null,
+        81,
+        79,
+        74,
+        76,
+        72
+      ],
+      [
+        79,
+        81,
+        79,
+        74,
+        76,
+        null,
+        72,
+        74
+      ]
+    ],
+    "voice": "marimba",
+    "gentle": false,
+    "pulse": false,
+    "tropical": true
+  },
+  {
+    "slug": "orchidriver-lantern",
+    "title": "Orchid River \u2014 Lantern Road",
+    "bpm": 116,
+    "roots": [
+      50,
+      50,
+      55,
+      55,
+      59,
+      59,
+      57,
+      57
+    ],
+    "minor": [
+      59
+    ],
+    "melody": [
+      [
+        81,
+        76,
+        78,
+        74,
+        74,
+        null,
+        81,
+        83
+      ],
+      [
+        null,
+        81,
+        83,
+        81,
+        76,
+        74,
+        74,
+        78
+      ],
+      [
+        74,
+        76,
+        81,
+        null,
+        81,
+        76,
+        78,
+        74
+      ],
+      [
+        81,
+        83,
+        81,
+        76,
+        78,
+        74,
+        null,
+        76
+      ]
+    ],
+    "voice": "marimba",
+    "gentle": false,
+    "pulse": false,
+    "tropical": true
+  },
+  {
+    "slug": "bamboovillage-lantern",
+    "title": "Bamboo Village \u2014 Lantern Road",
+    "bpm": 102,
+    "roots": [
+      45,
+      45,
+      52,
+      52,
+      54,
+      54,
+      50,
+      50
+    ],
+    "minor": [
+      54
+    ],
+    "melody": [
+      [
+        76,
+        71,
+        73,
+        69,
+        69,
+        71,
+        null,
+        78
+      ],
+      [
+        71,
+        null,
+        78,
+        76,
+        71,
+        69,
+        69,
+        73
+      ],
+      [
+        69,
+        71,
+        88,
+        78,
+        null,
+        83,
+        73,
+        69
+      ],
+      [
+        76,
+        78,
+        76,
+        71,
+        73,
+        69,
+        69,
+        null
+      ]
+    ],
+    "voice": "marimba",
+    "gentle": false,
+    "pulse": false,
+    "tropical": true
+  },
+  {
+    "slug": "savannastation-lantern",
+    "title": "Savanna Station \u2014 Lantern Road",
+    "bpm": 109,
+    "roots": [
+      43,
+      43,
+      50,
+      50,
+      52,
+      52,
+      48,
+      48
+    ],
+    "minor": [
+      52
+    ],
+    "melody": [
+      [
+        74,
+        69,
+        71,
+        67,
+        67,
+        69,
+        74,
+        null
+      ],
+      [
+        69,
+        74,
+        null,
+        74,
+        69,
+        67,
+        67,
+        71
+      ],
+      [
+        67,
+        69,
+        74,
+        76,
+        74,
+        null,
+        71,
+        67
+      ],
+      [
+        null,
+        76,
+        74,
+        69,
+        71,
+        67,
+        67,
+        69
+      ]
+    ],
+    "voice": "marimba",
+    "gentle": false,
+    "pulse": false,
+    "tropical": true
+  },
+  {
+    "slug": "desertbloom-lantern",
+    "title": "Desert Bloom \u2014 Lantern Road",
+    "bpm": 116,
+    "roots": [
+      53,
+      53,
+      60,
+      60,
+      62,
+      62,
+      58,
+      58
+    ],
+    "minor": [
+      62
+    ],
+    "melody": [
+      [
+        null,
+        79,
+        81,
+        77,
+        77,
+        79,
+        84,
+        86
+      ],
+      [
+        79,
+        84,
+        86,
+        null,
+        79,
+        77,
+        77,
+        81
+      ],
+      [
+        77,
+        79,
+        84,
+        86,
+        84,
+        79,
+        null,
+        77
+      ],
+      [
+        84,
+        null,
+        84,
+        79,
+        81,
+        77,
+        77,
+        79
+      ]
+    ],
+    "voice": "marimba",
+    "gentle": false,
+    "pulse": false,
+    "tropical": true
+  },
+  {
+    "slug": "fireflyfen-lantern",
+    "title": "Firefly Fen \u2014 Lantern Road",
+    "bpm": 102,
+    "roots": [
+      47,
+      47,
+      56,
+      56,
+      52,
+      52,
+      54,
+      54
+    ],
+    "minor": [
+      56
+    ],
+    "melody": [
+      [
+        78,
+        null,
+        75,
+        71,
+        71,
+        73,
+        78,
+        80
+      ],
+      [
+        73,
+        78,
+        80,
+        78,
+        null,
+        71,
+        71,
+        75
+      ],
+      [
+        71,
+        73,
+        90,
+        80,
+        78,
+        85,
+        75,
+        null
+      ],
+      [
+        78,
+        80,
+        null,
+        73,
+        75,
+        71,
+        71,
+        73
+      ]
+    ],
+    "voice": "marimba",
+    "gentle": false,
+    "pulse": false,
+    "tropical": true
+  },
+  {
+    "slug": "redwoodtrail-lantern",
+    "title": "Redwood Trail \u2014 Lantern Road",
+    "bpm": 109,
+    "roots": [
+      40,
+      40,
+      49,
+      49,
+      45,
+      45,
+      47,
+      47
+    ],
+    "minor": [
+      49
+    ],
+    "melody": [
+      [
+        71,
+        66,
+        null,
+        64,
+        64,
+        66,
+        71,
+        73
+      ],
+      [
+        66,
+        71,
+        73,
+        71,
+        66,
+        null,
+        64,
+        68
+      ],
+      [
+        null,
+        66,
+        71,
+        73,
+        71,
+        66,
+        68,
+        64
+      ],
+      [
+        71,
+        73,
+        71,
+        null,
+        68,
+        64,
+        64,
+        66
+      ]
+    ],
+    "voice": "marimba",
+    "gentle": false,
+    "pulse": false,
+    "tropical": true
+  },
+  {
+    "slug": "glaciergarden-lantern",
+    "title": "Glacier Garden \u2014 Lantern Road",
+    "bpm": 116,
+    "roots": [
+      48,
+      48,
+      57,
+      57,
+      53,
+      53,
+      55,
+      55
+    ],
+    "minor": [
+      57
+    ],
+    "melody": [
+      [
+        74,
+        76,
+        72,
+        null,
+        74,
+        79,
+        81,
+        79
+      ],
+      [
+        76,
+        74,
+        79,
+        81,
+        79,
+        74,
+        null,
+        72
+      ],
+      [
+        74,
+        null,
+        81,
+        79,
+        74,
+        76,
+        72,
+        72
+      ],
+      [
+        81,
+        79,
+        74,
+        76,
+        null,
+        72,
+        74,
+        79
+      ]
+    ],
+    "voice": "marimba",
+    "gentle": false,
+    "pulse": false,
+    "tropical": true
+  },
+  {
+    "slug": "monsooncamp-lantern",
+    "title": "Monsoon Camp \u2014 Lantern Road",
+    "bpm": 102,
+    "roots": [
+      50,
+      50,
+      55,
+      55,
+      59,
+      59,
+      57,
+      57
+    ],
+    "minor": [
+      59
+    ],
+    "melody": [
+      [
+        76,
+        78,
+        74,
+        74,
+        null,
+        81,
+        83,
+        81
+      ],
+      [
+        78,
+        76,
+        81,
+        83,
+        81,
+        76,
+        74,
+        null
+      ],
+      [
+        76,
+        81,
+        null,
+        81,
+        76,
+        90,
+        74,
+        74
+      ],
+      [
+        83,
+        81,
+        76,
+        78,
+        74,
+        null,
+        76,
+        81
+      ]
+    ],
+    "voice": "marimba",
+    "gentle": false,
+    "pulse": false,
+    "tropical": true
+  },
+  {
+    "slug": "wildheart-lantern",
+    "title": "Wildheart Gate \u2014 Lantern Road",
+    "bpm": 109,
+    "roots": [
+      45,
+      45,
+      50,
+      50,
+      54,
+      54,
+      52,
+      52
+    ],
+    "minor": [
+      54
+    ],
+    "melody": [
+      [
+        71,
+        73,
+        69,
+        69,
+        71,
+        null,
+        78,
+        76
+      ],
+      [
+        null,
+        71,
+        76,
+        78,
+        76,
+        71,
+        69,
+        69
+      ],
+      [
+        71,
+        76,
+        78,
+        null,
+        71,
+        73,
+        69,
+        69
+      ],
+      [
+        78,
+        76,
+        71,
+        73,
+        69,
+        69,
+        null,
+        76
+      ]
+    ],
+    "voice": "marimba",
+    "gentle": false,
+    "pulse": false,
+    "tropical": true
+  },
+  {
+    "slug": "copperclock-lantern",
+    "title": "Copper Clock \u2014 Lantern Road",
+    "bpm": 116,
+    "roots": [
+      43,
+      43,
+      48,
+      48,
+      52,
+      52,
+      50,
+      50
+    ],
+    "minor": [
+      52
+    ],
+    "melody": [
+      [
+        72,
+        70,
+        67,
+        67,
+        70,
+        74,
+        null,
+        74
+      ],
+      [
+        70,
+        null,
+        74,
+        77,
+        74,
+        70,
+        67,
+        67
+      ],
+      [
+        70,
+        74,
+        77,
+        74,
+        null,
+        70,
+        67,
+        67
+      ],
+      [
+        77,
+        74,
+        72,
+        70,
+        67,
+        67,
+        70,
+        null
+      ]
+    ],
+    "voice": "chip",
+    "gentle": false,
+    "pulse": true,
+    "tropical": false
+  },
+  {
+    "slug": "automatonalley-lantern",
+    "title": "Automaton Lane \u2014 Lantern Road",
+    "bpm": 102,
+    "roots": [
+      53,
+      53,
+      60,
+      60,
+      62,
+      62,
+      58,
+      58
+    ],
+    "minor": [
+      62
+    ],
+    "melody": [
+      [
+        82,
+        80,
+        77,
+        77,
+        80,
+        84,
+        87,
+        null
+      ],
+      [
+        80,
+        82,
+        null,
+        87,
+        84,
+        80,
+        77,
+        77
+      ],
+      [
+        80,
+        84,
+        99,
+        84,
+        82,
+        null,
+        77,
+        77
+      ],
+      [
+        null,
+        84,
+        82,
+        80,
+        77,
+        77,
+        80,
+        84
+      ]
+    ],
+    "voice": "chip",
+    "gentle": false,
+    "pulse": true,
+    "tropical": false
+  },
+  {
+    "slug": "glasslab-lantern",
+    "title": "Glass Lab \u2014 Lantern Road",
+    "bpm": 109,
+    "roots": [
+      47,
+      47,
+      54,
+      54,
+      56,
+      56,
+      52,
+      52
+    ],
+    "minor": [
+      56
+    ],
+    "melody": [
+      [
+        null,
+        74,
+        71,
+        71,
+        74,
+        78,
+        81,
+        78
+      ],
+      [
+        74,
+        76,
+        78,
+        null,
+        78,
+        74,
+        71,
+        71
+      ],
+      [
+        74,
+        78,
+        81,
+        78,
+        76,
+        74,
+        null,
+        71
+      ],
+      [
+        81,
+        null,
+        76,
+        74,
+        71,
+        71,
+        74,
+        78
+      ]
+    ],
+    "voice": "chip",
+    "gentle": false,
+    "pulse": true,
+    "tropical": false
+  },
+  {
+    "slug": "railworkshop-lantern",
+    "title": "Rail Workshop \u2014 Lantern Road",
+    "bpm": 116,
+    "roots": [
+      40,
+      40,
+      47,
+      47,
+      49,
+      49,
+      45,
+      45
+    ],
+    "minor": [
+      49
+    ],
+    "melody": [
+      [
+        69,
+        null,
+        64,
+        64,
+        67,
+        71,
+        74,
+        71
+      ],
+      [
+        67,
+        69,
+        71,
+        74,
+        null,
+        67,
+        64,
+        64
+      ],
+      [
+        67,
+        71,
+        74,
+        71,
+        69,
+        67,
+        64,
+        null
+      ],
+      [
+        74,
+        71,
+        null,
+        67,
+        64,
+        64,
+        67,
+        71
+      ]
+    ],
+    "voice": "chip",
+    "gentle": false,
+    "pulse": true,
+    "tropical": false
+  },
+  {
+    "slug": "neonnetwork-lantern",
+    "title": "Neon Network \u2014 Lantern Road",
+    "bpm": 102,
+    "roots": [
+      48,
+      48,
+      57,
+      57,
+      53,
+      53,
+      55,
+      55
+    ],
+    "minor": [
+      57
+    ],
+    "melody": [
+      [
+        75,
+        72,
+        null,
+        75,
+        79,
+        82,
+        79,
+        77
+      ],
+      [
+        72,
+        75,
+        77,
+        79,
+        82,
+        null,
+        75,
+        72
+      ],
+      [
+        null,
+        82,
+        91,
+        77,
+        75,
+        84,
+        72,
+        75
+      ],
+      [
+        79,
+        77,
+        75,
+        null,
+        72,
+        75,
+        79,
+        82
+      ]
+    ],
+    "voice": "chip",
+    "gentle": false,
+    "pulse": true,
+    "tropical": false
+  },
+  {
+    "slug": "solarvillage-lantern",
+    "title": "Solar Village \u2014 Lantern Road",
+    "bpm": 109,
+    "roots": [
+      50,
+      50,
+      59,
+      59,
+      55,
+      55,
+      57,
+      57
+    ],
+    "minor": [
+      59
+    ],
+    "melody": [
+      [
+        77,
+        74,
+        74,
+        null,
+        81,
+        84,
+        81,
+        79
+      ],
+      [
+        74,
+        77,
+        79,
+        81,
+        84,
+        81,
+        null,
+        74
+      ],
+      [
+        81,
+        null,
+        81,
+        79,
+        77,
+        74,
+        74,
+        77
+      ],
+      [
+        81,
+        79,
+        77,
+        74,
+        null,
+        77,
+        81,
+        84
+      ]
+    ],
+    "voice": "chip",
+    "gentle": false,
+    "pulse": true,
+    "tropical": false
+  },
+  {
+    "slug": "maglevyard-lantern",
+    "title": "Maglev Yard \u2014 Lantern Road",
+    "bpm": 116,
+    "roots": [
+      45,
+      45,
+      54,
+      54,
+      50,
+      50,
+      52,
+      52
+    ],
+    "minor": [
+      54
+    ],
+    "melody": [
+      [
+        72,
+        69,
+        69,
+        72,
+        null,
+        79,
+        76,
+        74
+      ],
+      [
+        69,
+        72,
+        74,
+        76,
+        79,
+        76,
+        72,
+        null
+      ],
+      [
+        76,
+        79,
+        null,
+        74,
+        72,
+        69,
+        69,
+        72
+      ],
+      [
+        76,
+        74,
+        72,
+        69,
+        69,
+        null,
+        76,
+        79
+      ]
+    ],
+    "voice": "chip",
+    "gentle": false,
+    "pulse": true,
+    "tropical": false
+  },
+  {
+    "slug": "musicfactory-lantern",
+    "title": "Melody Works \u2014 Lantern Road",
+    "bpm": 102,
+    "roots": [
+      43,
+      43,
+      48,
+      48,
+      52,
+      52,
+      50,
+      50
+    ],
+    "minor": [
+      52
+    ],
+    "melody": [
+      [
+        70,
+        67,
+        67,
+        70,
+        74,
+        null,
+        74,
+        72
+      ],
+      [
+        null,
+        70,
+        72,
+        74,
+        77,
+        74,
+        70,
+        67
+      ],
+      [
+        74,
+        77,
+        86,
+        null,
+        70,
+        79,
+        67,
+        70
+      ],
+      [
+        74,
+        72,
+        70,
+        67,
+        67,
+        70,
+        null,
+        77
+      ]
+    ],
+    "voice": "chip",
+    "gentle": false,
+    "pulse": true,
+    "tropical": false
+  },
+  {
+    "slug": "tinyfoundry-lantern",
+    "title": "Tiny Foundry \u2014 Lantern Road",
+    "bpm": 109,
+    "roots": [
+      53,
+      53,
+      58,
+      58,
+      62,
+      62,
+      60,
+      60
+    ],
+    "minor": [
+      62
+    ],
+    "melody": [
+      [
+        80,
+        77,
+        77,
+        80,
+        84,
+        87,
+        null,
+        82
+      ],
+      [
+        77,
+        null,
+        82,
+        84,
+        87,
+        84,
+        80,
+        77
+      ],
+      [
+        84,
+        87,
+        84,
+        82,
+        null,
+        77,
+        77,
+        80
+      ],
+      [
+        84,
+        82,
+        80,
+        77,
+        77,
+        80,
+        84,
+        null
+      ]
+    ],
+    "voice": "chip",
+    "gentle": false,
+    "pulse": true,
+    "tropical": false
+  },
+  {
+    "slug": "tomorrowfair-lantern",
+    "title": "Tomorrow Fair \u2014 Lantern Road",
+    "bpm": 116,
+    "roots": [
+      47,
+      47,
+      52,
+      52,
+      56,
+      56,
+      54,
+      54
+    ],
+    "minor": [
+      56
+    ],
+    "melody": [
+      [
+        74,
+        71,
+        71,
+        74,
+        78,
+        81,
+        78,
+        null
+      ],
+      [
+        71,
+        74,
+        null,
+        78,
+        81,
+        78,
+        74,
+        71
+      ],
+      [
+        78,
+        81,
+        78,
+        76,
+        74,
+        null,
+        71,
+        74
+      ],
+      [
+        null,
+        76,
+        74,
+        71,
+        71,
+        74,
+        78,
+        81
+      ]
+    ],
+    "voice": "chip",
+    "gentle": false,
+    "pulse": true,
+    "tropical": false
+  },
+  {
+    "slug": "teacourtyard-lantern",
+    "title": "Tea Courtyard \u2014 Lantern Road",
+    "bpm": 102,
+    "roots": [
+      40,
+      40,
+      47,
+      47,
+      49,
+      49,
+      45,
+      45
+    ],
+    "minor": [
+      49
+    ],
+    "melody": [
+      [
+        null,
+        66,
+        68,
+        71,
+        73,
+        71,
+        68,
+        66
+      ],
+      [
+        66,
+        64,
+        66,
+        null,
+        71,
+        73,
+        71,
+        68
+      ],
+      [
+        73,
+        71,
+        80,
+        66,
+        64,
+        78,
+        null,
+        71
+      ],
+      [
+        68,
+        null,
+        64,
+        66,
+        68,
+        71,
+        73,
+        71
+      ]
+    ],
+    "voice": "keys",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "noodlequarter-lantern",
+    "title": "Noodle Quarter \u2014 Lantern Road",
+    "bpm": 109,
+    "roots": [
+      48,
+      48,
+      55,
+      55,
+      57,
+      57,
+      53,
+      53
+    ],
+    "minor": [
+      57
+    ],
+    "melody": [
+      [
+        74,
+        null,
+        79,
+        81,
+        79,
+        76,
+        74,
+        72
+      ],
+      [
+        76,
+        74,
+        72,
+        74,
+        null,
+        79,
+        81,
+        79
+      ],
+      [
+        79,
+        76,
+        74,
+        72,
+        74,
+        76,
+        79,
+        null
+      ],
+      [
+        74,
+        72,
+        null,
+        76,
+        79,
+        81,
+        79,
+        76
+      ]
+    ],
+    "voice": "keys",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "pizzapiazza-lantern",
+    "title": "Pizza Piazza \u2014 Lantern Road",
+    "bpm": 116,
+    "roots": [
+      50,
+      50,
+      57,
+      57,
+      59,
+      59,
+      55,
+      55
+    ],
+    "minor": [
+      59
+    ],
+    "melody": [
+      [
+        76,
+        78,
+        null,
+        83,
+        81,
+        78,
+        76,
+        74
+      ],
+      [
+        78,
+        76,
+        74,
+        76,
+        78,
+        null,
+        83,
+        81
+      ],
+      [
+        null,
+        78,
+        76,
+        74,
+        76,
+        78,
+        81,
+        83
+      ],
+      [
+        76,
+        74,
+        76,
+        null,
+        81,
+        83,
+        81,
+        78
+      ]
+    ],
+    "voice": "keys",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "spicegarden-lantern",
+    "title": "Spice Garden \u2014 Lantern Road",
+    "bpm": 102,
+    "roots": [
+      45,
+      45,
+      54,
+      54,
+      50,
+      50,
+      52,
+      52
+    ],
+    "minor": [
+      54
+    ],
+    "melody": [
+      [
+        71,
+        73,
+        76,
+        null,
+        76,
+        73,
+        71,
+        69
+      ],
+      [
+        73,
+        71,
+        69,
+        71,
+        73,
+        76,
+        null,
+        76
+      ],
+      [
+        76,
+        null,
+        83,
+        69,
+        71,
+        85,
+        76,
+        78
+      ],
+      [
+        71,
+        69,
+        71,
+        73,
+        null,
+        78,
+        76,
+        73
+      ]
+    ],
+    "voice": "keys",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "harvesthill-lantern",
+    "title": "Harvest Hill \u2014 Lantern Road",
+    "bpm": 109,
+    "roots": [
+      43,
+      43,
+      52,
+      52,
+      48,
+      48,
+      50,
+      50
+    ],
+    "minor": [
+      52
+    ],
+    "melody": [
+      [
+        69,
+        71,
+        74,
+        76,
+        null,
+        71,
+        69,
+        67
+      ],
+      [
+        71,
+        69,
+        67,
+        69,
+        71,
+        74,
+        76,
+        null
+      ],
+      [
+        74,
+        71,
+        null,
+        67,
+        69,
+        71,
+        74,
+        76
+      ],
+      [
+        69,
+        67,
+        69,
+        71,
+        74,
+        null,
+        74,
+        71
+      ]
+    ],
+    "voice": "keys",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "orchardlane-lantern",
+    "title": "Orchard Lane \u2014 Lantern Road",
+    "bpm": 116,
+    "roots": [
+      53,
+      53,
+      62,
+      62,
+      58,
+      58,
+      60,
+      60
+    ],
+    "minor": [
+      62
+    ],
+    "melody": [
+      [
+        79,
+        81,
+        84,
+        86,
+        84,
+        null,
+        79,
+        77
+      ],
+      [
+        null,
+        79,
+        77,
+        79,
+        81,
+        84,
+        86,
+        84
+      ],
+      [
+        84,
+        81,
+        79,
+        null,
+        79,
+        81,
+        84,
+        86
+      ],
+      [
+        79,
+        77,
+        79,
+        81,
+        84,
+        86,
+        null,
+        81
+      ]
+    ],
+    "voice": "keys",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "snowcafe-lantern",
+    "title": "Snowflake Cafe \u2014 Lantern Road",
+    "bpm": 102,
+    "roots": [
+      47,
+      47,
+      52,
+      52,
+      56,
+      56,
+      54,
+      54
+    ],
+    "minor": [
+      56
+    ],
+    "melody": [
+      [
+        73,
+        75,
+        78,
+        80,
+        78,
+        75,
+        null,
+        71
+      ],
+      [
+        75,
+        null,
+        71,
+        73,
+        75,
+        78,
+        80,
+        78
+      ],
+      [
+        78,
+        75,
+        85,
+        71,
+        null,
+        87,
+        78,
+        80
+      ],
+      [
+        73,
+        71,
+        73,
+        75,
+        78,
+        80,
+        78,
+        null
+      ]
+    ],
+    "voice": "keys",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "paperstreet-lantern",
+    "title": "Paper Street \u2014 Lantern Road",
+    "bpm": 109,
+    "roots": [
+      40,
+      40,
+      45,
+      45,
+      49,
+      49,
+      47,
+      47
+    ],
+    "minor": [
+      49
+    ],
+    "melody": [
+      [
+        66,
+        68,
+        71,
+        73,
+        71,
+        68,
+        66,
+        null
+      ],
+      [
+        68,
+        66,
+        null,
+        66,
+        68,
+        71,
+        73,
+        71
+      ],
+      [
+        71,
+        68,
+        66,
+        64,
+        66,
+        null,
+        71,
+        73
+      ],
+      [
+        null,
+        64,
+        66,
+        68,
+        71,
+        73,
+        71,
+        68
+      ]
+    ],
+    "voice": "keys",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "carnivalcamp-lantern",
+    "title": "Carnival Camp \u2014 Lantern Road",
+    "bpm": 116,
+    "roots": [
+      48,
+      48,
+      53,
+      53,
+      57,
+      57,
+      55,
+      55
+    ],
+    "minor": [
+      57
+    ],
+    "melody": [
+      [
+        null,
+        79,
+        81,
+        79,
+        76,
+        74,
+        72,
+        74
+      ],
+      [
+        79,
+        76,
+        74,
+        null,
+        74,
+        76,
+        79,
+        81
+      ],
+      [
+        76,
+        74,
+        72,
+        74,
+        76,
+        79,
+        null,
+        79
+      ],
+      [
+        72,
+        null,
+        76,
+        79,
+        81,
+        79,
+        76,
+        74
+      ]
+    ],
+    "voice": "keys",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "grandfeast-lantern",
+    "title": "Grand Feast \u2014 Lantern Road",
+    "bpm": 102,
+    "roots": [
+      50,
+      50,
+      57,
+      57,
+      59,
+      59,
+      55,
+      55
+    ],
+    "minor": [
+      59
+    ],
+    "melody": [
+      [
+        78,
+        null,
+        83,
+        81,
+        78,
+        76,
+        74,
+        76
+      ],
+      [
+        81,
+        78,
+        76,
+        74,
+        null,
+        78,
+        81,
+        83
+      ],
+      [
+        78,
+        76,
+        86,
+        76,
+        78,
+        93,
+        83,
+        null
+      ],
+      [
+        74,
+        76,
+        null,
+        81,
+        83,
+        81,
+        78,
+        76
+      ]
+    ],
+    "voice": "keys",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "riverclay-lantern",
+    "title": "River Clay \u2014 Lantern Road",
+    "bpm": 109,
+    "roots": [
+      45,
+      45,
+      52,
+      52,
+      54,
+      54,
+      50,
+      50
+    ],
+    "minor": [
+      54
+    ],
+    "melody": [
+      [
+        69,
+        72,
+        null,
+        77,
+        76,
+        72,
+        71,
+        69
+      ],
+      [
+        72,
+        69,
+        69,
+        71,
+        72,
+        null,
+        77,
+        76
+      ],
+      [
+        null,
+        72,
+        71,
+        69,
+        69,
+        72,
+        76,
+        77
+      ],
+      [
+        71,
+        69,
+        69,
+        null,
+        76,
+        77,
+        76,
+        72
+      ]
+    ],
+    "voice": "plucked",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "hillcitadel-lantern",
+    "title": "Hill Citadel \u2014 Lantern Road",
+    "bpm": 116,
+    "roots": [
+      43,
+      43,
+      50,
+      50,
+      52,
+      52,
+      48,
+      48
+    ],
+    "minor": [
+      52
+    ],
+    "melody": [
+      [
+        67,
+        70,
+        74,
+        null,
+        74,
+        70,
+        69,
+        67
+      ],
+      [
+        70,
+        67,
+        67,
+        69,
+        70,
+        74,
+        null,
+        74
+      ],
+      [
+        74,
+        null,
+        69,
+        67,
+        67,
+        70,
+        74,
+        75
+      ],
+      [
+        69,
+        67,
+        67,
+        70,
+        null,
+        75,
+        74,
+        70
+      ]
+    ],
+    "voice": "plucked",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "reedlibrary-lantern",
+    "title": "Reed Library \u2014 Lantern Road",
+    "bpm": 102,
+    "roots": [
+      53,
+      53,
+      62,
+      62,
+      58,
+      58,
+      60,
+      60
+    ],
+    "minor": [
+      62
+    ],
+    "melody": [
+      [
+        77,
+        80,
+        84,
+        85,
+        null,
+        80,
+        79,
+        77
+      ],
+      [
+        80,
+        77,
+        77,
+        79,
+        80,
+        84,
+        85,
+        null
+      ],
+      [
+        84,
+        80,
+        null,
+        77,
+        77,
+        92,
+        84,
+        85
+      ],
+      [
+        79,
+        77,
+        77,
+        80,
+        84,
+        null,
+        84,
+        80
+      ]
+    ],
+    "voice": "plucked",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "bronzesmith-lantern",
+    "title": "Bronze Smithy \u2014 Lantern Road",
+    "bpm": 109,
+    "roots": [
+      47,
+      47,
+      56,
+      56,
+      52,
+      52,
+      54,
+      54
+    ],
+    "minor": [
+      56
+    ],
+    "melody": [
+      [
+        71,
+        74,
+        78,
+        79,
+        78,
+        null,
+        73,
+        71
+      ],
+      [
+        null,
+        71,
+        71,
+        73,
+        74,
+        78,
+        79,
+        78
+      ],
+      [
+        78,
+        74,
+        73,
+        null,
+        71,
+        74,
+        78,
+        79
+      ],
+      [
+        73,
+        71,
+        71,
+        74,
+        78,
+        79,
+        null,
+        74
+      ]
+    ],
+    "voice": "plucked",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "oasiscaravan-lantern",
+    "title": "Oasis Caravan \u2014 Lantern Road",
+    "bpm": 116,
+    "roots": [
+      40,
+      40,
+      49,
+      49,
+      45,
+      45,
+      47,
+      47
+    ],
+    "minor": [
+      49
+    ],
+    "melody": [
+      [
+        64,
+        67,
+        71,
+        72,
+        71,
+        67,
+        null,
+        64
+      ],
+      [
+        67,
+        null,
+        64,
+        66,
+        67,
+        71,
+        72,
+        71
+      ],
+      [
+        71,
+        67,
+        66,
+        64,
+        null,
+        67,
+        71,
+        72
+      ],
+      [
+        66,
+        64,
+        64,
+        67,
+        71,
+        72,
+        71,
+        null
+      ]
+    ],
+    "voice": "plucked",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "mountainloom-lantern",
+    "title": "Mountain Loom \u2014 Lantern Road",
+    "bpm": 102,
+    "roots": [
+      48,
+      48,
+      53,
+      53,
+      57,
+      57,
+      55,
+      55
+    ],
+    "minor": [
+      57
+    ],
+    "melody": [
+      [
+        75,
+        79,
+        80,
+        79,
+        75,
+        74,
+        72,
+        null
+      ],
+      [
+        79,
+        75,
+        null,
+        72,
+        74,
+        75,
+        79,
+        80
+      ],
+      [
+        75,
+        74,
+        84,
+        72,
+        75,
+        null,
+        80,
+        79
+      ],
+      [
+        null,
+        72,
+        75,
+        79,
+        80,
+        79,
+        75,
+        74
+      ]
+    ],
+    "voice": "plucked",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "seafarerhall-lantern",
+    "title": "Seafarer Hall \u2014 Lantern Road",
+    "bpm": 109,
+    "roots": [
+      50,
+      50,
+      55,
+      55,
+      59,
+      59,
+      57,
+      57
+    ],
+    "minor": [
+      59
+    ],
+    "melody": [
+      [
+        null,
+        81,
+        82,
+        81,
+        77,
+        76,
+        74,
+        74
+      ],
+      [
+        81,
+        77,
+        74,
+        null,
+        76,
+        77,
+        81,
+        82
+      ],
+      [
+        77,
+        76,
+        74,
+        74,
+        77,
+        81,
+        null,
+        81
+      ],
+      [
+        74,
+        null,
+        77,
+        81,
+        82,
+        81,
+        77,
+        76
+      ]
+    ],
+    "voice": "plucked",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "mosaiccourt-lantern",
+    "title": "Mosaic Court \u2014 Lantern Road",
+    "bpm": 116,
+    "roots": [
+      45,
+      45,
+      50,
+      50,
+      54,
+      54,
+      52,
+      52
+    ],
+    "minor": [
+      54
+    ],
+    "melody": [
+      [
+        72,
+        null,
+        77,
+        76,
+        72,
+        71,
+        69,
+        69
+      ],
+      [
+        76,
+        72,
+        69,
+        69,
+        null,
+        72,
+        76,
+        77
+      ],
+      [
+        72,
+        71,
+        69,
+        69,
+        72,
+        76,
+        77,
+        null
+      ],
+      [
+        69,
+        69,
+        null,
+        76,
+        77,
+        76,
+        72,
+        71
+      ]
+    ],
+    "voice": "plucked",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "starobservatory-lantern",
+    "title": "Old Star Dome \u2014 Lantern Road",
+    "bpm": 102,
+    "roots": [
+      43,
+      43,
+      50,
+      50,
+      52,
+      52,
+      48,
+      48
+    ],
+    "minor": [
+      52
+    ],
+    "melody": [
+      [
+        70,
+        74,
+        null,
+        74,
+        70,
+        69,
+        67,
+        67
+      ],
+      [
+        74,
+        70,
+        67,
+        67,
+        69,
+        null,
+        74,
+        75
+      ],
+      [
+        null,
+        69,
+        79,
+        67,
+        70,
+        86,
+        75,
+        74
+      ],
+      [
+        67,
+        67,
+        70,
+        null,
+        75,
+        74,
+        70,
+        69
+      ]
+    ],
+    "voice": "plucked",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "memorygate-lantern",
+    "title": "Memory Gate \u2014 Lantern Road",
+    "bpm": 109,
+    "roots": [
+      53,
+      53,
+      60,
+      60,
+      62,
+      62,
+      58,
+      58
+    ],
+    "minor": [
+      62
+    ],
+    "melody": [
+      [
+        80,
+        84,
+        85,
+        null,
+        80,
+        79,
+        77,
+        77
+      ],
+      [
+        84,
+        80,
+        77,
+        77,
+        79,
+        80,
+        null,
+        85
+      ],
+      [
+        80,
+        null,
+        77,
+        77,
+        80,
+        84,
+        85,
+        84
+      ],
+      [
+        77,
+        77,
+        80,
+        84,
+        null,
+        84,
+        80,
+        79
+      ]
+    ],
+    "voice": "plucked",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "cometcamp-lantern",
+    "title": "Comet Camp \u2014 Lantern Road",
+    "bpm": 116,
+    "roots": [
+      47,
+      47,
+      54,
+      54,
+      56,
+      56,
+      52,
+      52
+    ],
+    "minor": [
+      56
+    ],
+    "melody": [
+      [
+        78,
+        80,
+        83,
+        85,
+        null,
+        78,
+        75,
+        71
+      ],
+      [
+        80,
+        78,
+        71,
+        75,
+        78,
+        83,
+        85,
+        null
+      ],
+      [
+        83,
+        78,
+        null,
+        71,
+        78,
+        80,
+        83,
+        85
+      ],
+      [
+        75,
+        71,
+        78,
+        80,
+        83,
+        null,
+        83,
+        78
+      ]
+    ],
+    "voice": "bell",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "moonorchard-lantern",
+    "title": "Moon Orchard \u2014 Lantern Road",
+    "bpm": 102,
+    "roots": [
+      40,
+      40,
+      49,
+      49,
+      45,
+      45,
+      47,
+      47
+    ],
+    "minor": [
+      49
+    ],
+    "melody": [
+      [
+        71,
+        73,
+        76,
+        78,
+        76,
+        null,
+        68,
+        64
+      ],
+      [
+        null,
+        71,
+        64,
+        68,
+        71,
+        76,
+        78,
+        76
+      ],
+      [
+        76,
+        71,
+        80,
+        null,
+        71,
+        85,
+        76,
+        78
+      ],
+      [
+        68,
+        64,
+        71,
+        73,
+        76,
+        78,
+        null,
+        71
+      ]
+    ],
+    "voice": "bell",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "aurorabazaar-lantern",
+    "title": "Aurora Bazaar \u2014 Lantern Road",
+    "bpm": 109,
+    "roots": [
+      48,
+      48,
+      57,
+      57,
+      53,
+      53,
+      55,
+      55
+    ],
+    "minor": [
+      57
+    ],
+    "melody": [
+      [
+        81,
+        84,
+        86,
+        84,
+        79,
+        76,
+        null,
+        79
+      ],
+      [
+        84,
+        null,
+        79,
+        72,
+        76,
+        79,
+        84,
+        86
+      ],
+      [
+        79,
+        76,
+        72,
+        79,
+        null,
+        84,
+        86,
+        84
+      ],
+      [
+        72,
+        79,
+        81,
+        84,
+        86,
+        84,
+        79,
+        null
+      ]
+    ],
+    "voice": "bell",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "dreamstation-lantern",
+    "title": "Dream Station \u2014 Lantern Road",
+    "bpm": 116,
+    "roots": [
+      50,
+      50,
+      59,
+      59,
+      55,
+      55,
+      57,
+      57
+    ],
+    "minor": [
+      59
+    ],
+    "melody": [
+      [
+        83,
+        86,
+        88,
+        86,
+        81,
+        78,
+        74,
+        null
+      ],
+      [
+        86,
+        83,
+        null,
+        74,
+        78,
+        81,
+        86,
+        88
+      ],
+      [
+        81,
+        78,
+        74,
+        81,
+        83,
+        null,
+        88,
+        86
+      ],
+      [
+        null,
+        81,
+        83,
+        86,
+        88,
+        86,
+        81,
+        78
+      ]
+    ],
+    "voice": "bell",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "crystalchoir-lantern",
+    "title": "Crystal Choir \u2014 Lantern Road",
+    "bpm": 102,
+    "roots": [
+      45,
+      45,
+      50,
+      50,
+      54,
+      54,
+      52,
+      52
+    ],
+    "minor": [
+      54
+    ],
+    "melody": [
+      [
+        null,
+        81,
+        83,
+        81,
+        76,
+        73,
+        69,
+        76
+      ],
+      [
+        81,
+        78,
+        76,
+        null,
+        73,
+        76,
+        81,
+        83
+      ],
+      [
+        76,
+        73,
+        81,
+        76,
+        78,
+        93,
+        null,
+        81
+      ],
+      [
+        69,
+        null,
+        78,
+        81,
+        83,
+        81,
+        76,
+        73
+      ]
+    ],
+    "voice": "bell",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "planetarium-lantern",
+    "title": "Little Planets \u2014 Lantern Road",
+    "bpm": 109,
+    "roots": [
+      43,
+      43,
+      48,
+      48,
+      52,
+      52,
+      50,
+      50
+    ],
+    "minor": [
+      52
+    ],
+    "melody": [
+      [
+        76,
+        null,
+        81,
+        79,
+        74,
+        71,
+        67,
+        74
+      ],
+      [
+        79,
+        76,
+        74,
+        67,
+        null,
+        74,
+        79,
+        81
+      ],
+      [
+        74,
+        71,
+        67,
+        74,
+        76,
+        79,
+        81,
+        null
+      ],
+      [
+        67,
+        74,
+        null,
+        79,
+        81,
+        79,
+        74,
+        71
+      ]
+    ],
+    "voice": "bell",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "wishharbour-lantern",
+    "title": "Wish Harbour \u2014 Lantern Road",
+    "bpm": 116,
+    "roots": [
+      53,
+      53,
+      58,
+      58,
+      62,
+      62,
+      60,
+      60
+    ],
+    "minor": [
+      62
+    ],
+    "melody": [
+      [
+        86,
+        89,
+        null,
+        89,
+        84,
+        81,
+        77,
+        84
+      ],
+      [
+        89,
+        86,
+        84,
+        77,
+        81,
+        null,
+        89,
+        91
+      ],
+      [
+        null,
+        81,
+        77,
+        84,
+        86,
+        89,
+        91,
+        89
+      ],
+      [
+        77,
+        84,
+        86,
+        null,
+        91,
+        89,
+        84,
+        81
+      ]
+    ],
+    "voice": "bell",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "lanternlibrary-lantern",
+    "title": "Lantern Library \u2014 Lantern Road",
+    "bpm": 102,
+    "roots": [
+      47,
+      47,
+      54,
+      54,
+      56,
+      56,
+      52,
+      52
+    ],
+    "minor": [
+      56
+    ],
+    "melody": [
+      [
+        80,
+        83,
+        85,
+        null,
+        78,
+        75,
+        71,
+        78
+      ],
+      [
+        83,
+        80,
+        78,
+        71,
+        75,
+        78,
+        null,
+        85
+      ],
+      [
+        78,
+        null,
+        83,
+        78,
+        80,
+        95,
+        85,
+        83
+      ],
+      [
+        71,
+        78,
+        80,
+        83,
+        null,
+        83,
+        78,
+        75
+      ]
+    ],
+    "voice": "bell",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  },
+  {
+    "slug": "hundreddawn-lantern",
+    "title": "Hundred Dawn \u2014 Lantern Road",
+    "bpm": 109,
+    "roots": [
+      40,
+      40,
+      47,
+      47,
+      49,
+      49,
+      45,
+      45
+    ],
+    "minor": [
+      49
+    ],
+    "melody": [
+      [
+        73,
+        76,
+        78,
+        76,
+        null,
+        68,
+        64,
+        71
+      ],
+      [
+        76,
+        73,
+        71,
+        64,
+        68,
+        71,
+        76,
+        null
+      ],
+      [
+        71,
+        68,
+        null,
+        71,
+        73,
+        76,
+        78,
+        76
+      ],
+      [
+        64,
+        71,
+        73,
+        76,
+        78,
+        null,
+        71,
+        68
+      ]
+    ],
+    "voice": "bell",
+    "gentle": true,
+    "pulse": false,
+    "tropical": false
+  }
+]
