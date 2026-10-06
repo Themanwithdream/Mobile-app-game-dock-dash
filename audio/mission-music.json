@@ -58,5 +58,29 @@
     "bpm": 102,
     "duration_seconds": 75.294,
     "bytes": 904557
+  },
+  {
+    "file": "roads-of-rome.mp3",
+    "bpm": 114,
+    "duration_seconds": 67.368,
+    "bytes": 809262
+  },
+  {
+    "file": "lanterns-on-the-nile.mp3",
+    "bpm": 108,
+    "duration_seconds": 71.111,
+    "bytes": 854409
+  },
+  {
+    "file": "northern-trade.mp3",
+    "bpm": 110,
+    "duration_seconds": 69.818,
+    "bytes": 838729
+  },
+  {
+    "file": "caravan-at-dusk.mp3",
+    "bpm": 116,
+    "duration_seconds": 66.207,
+    "bytes": 795471
   }
 ]

@@ -58,7 +58,7 @@ test('mission product IDs extend existing cargo without collisions or cross-worl
   assert.equal(all.size, rules.worlds.length * 12);
   for (const [i,id] of ['matchday','festival','rescue','space'].entries()) assert.equal(rules.getMission(id,0).products[0],300+i*12);
   assert.equal(rules.getMission('unknown', 0), null);
-  assert.equal(rules.getMission('space', 3), null);
+  assert.equal(rules.getMission('space', rules.levelCount), null);
   assert.equal(rules.isUnlocked(null, {}), false);
 });
 
@@ -67,14 +67,49 @@ test('total stars count only known missions and survive a storage round trip', (
   for (const m of rules.missions) records = rules.recordResult(records, m, { ...clear, delivered: m.loads, priorityLoaded: m.priority, perfects: m.perfects });
   records = rules.readRecords(JSON.stringify(records));
   assert.equal(rules.totalStars(records), rules.missions.length * 3);
-  assert.equal(rules.totalStars(records, 'space'), 9);
+  assert.equal(rules.totalStars(records, 'space'), rules.levelCount*3);
 });
 
 test('six new worlds provide distinct cargo, stories and open first missions', () => {
-  assert.equal(rules.worlds.length,10);assert.equal(rules.missions.length,30);
+  assert.equal(rules.worlds.length,14);assert.equal(rules.missions.length,112);
   for(const id of ['batcave','school','dino','candy','forest','arctic']) {
     const world=rules.worlds.find(w=>w.id===id);
-    assert.equal(new Set(world.stories).size,3);assert.equal(new Set(world.cargo.split(';')).size,12);
+    assert.equal(new Set(world.stories.slice(0,3)).size,3);assert.equal(new Set(world.cargo.split(';')).size,12);
     for(let stage=0;stage<3;stage++)assert.equal(rules.getMission(id,stage).story,world.stories[stage]);
   }
+});
+
+test('eight tiers raise speed, density, special cargo, timing requirements and dock changes',()=>{
+  assert.equal(rules.levelCount,8);
+  for(const world of rules.worlds){
+    assert.equal(new Set(world.stages).size,8);assert.equal(world.stories.length,8);
+    for(let stage=1;stage<rules.levelCount;stage++){
+      const old=rules.getMission(world.id,stage-1),next=rules.getMission(world.id,stage);
+      assert.ok(next.speed>old.speed);assert.ok(next.gap<old.gap);assert.ok(next.loads>old.loads);
+      assert.ok(next.seconds/next.loads<old.seconds/old.loads);
+      assert.ok(next.perfects/next.loads>=old.perfects/old.loads);
+      assert.ok(next.fragile+next.express>=old.fragile+old.express);
+      assert.ok(next.shuffleAt.length>=old.shuffleAt.length);
+      assert.ok(next.shuffleAt.every(at=>at>0 && at<next.loads));
+      assert.equal(rules.isUnlocked(next,{[old.id]:{stars:1}}),true);
+      assert.equal(rules.isUnlocked(next,{}),false);
+    }
+  }
+  assert.equal(rules.tiers[7].shuffleAt.length,6);
+});
+
+test('returning players keep all thirty original records and can continue at level four',()=>{
+  const old={};
+  for(const world of rules.worlds.slice(0,10))for(let stage=0;stage<3;stage++)old[`${world.id}-${stage+1}`]={stars:3,bestScore:900,bestTime:30};
+  const restored=rules.readRecords(JSON.stringify(old));assert.deepEqual(restored,old);
+  assert.equal(rules.totalStars(restored),90);
+  for(const world of rules.worlds.slice(0,10)){assert.equal(rules.isUnlocked(rules.getMission(world.id,3),restored),true);assert.equal(rules.isUnlocked(rules.getMission(world.id,4),restored),false);}
+});
+
+test('four historical routes have distinct cargo, stories and a single map page',()=>{
+  const historical=rules.worlds.filter(w=>w.era==='history');
+  assert.deepEqual(historical.map(w=>w.id),['rome','egypt','viking','silkroad']);
+  assert.deepEqual(rules.worldPages.at(-1),historical);
+  assert.deepEqual(rules.worldPages.flat(),rules.worlds);
+  for(const w of historical){assert.equal(new Set(w.stories).size,8);assert.equal(new Set(w.cargo.split(';')).size,12);assert.equal(rules.isUnlocked(rules.getMission(w.id,0),{}),true);}
 });

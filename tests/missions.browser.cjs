@@ -88,9 +88,9 @@ async function advance(page, seconds) {
       }
       await ac.close(); return tracks;
     });
-    assert.equal(decoded.length, 13);
+    assert.equal(decoded.length, 17);
     for (const t of decoded) { assert.ok(t.duration > 60);if(t.expectedDuration)assert.ok(Math.abs(t.duration-t.expectedDuration)<.1,t.src+' complete loop');assert.equal(t.channels, 2); assert.ok(t.rms > .04); assert.ok(t.peak < .99); }
-    pass('all thirteen stereo soundtracks decode, contain music, and stay below clipping', decoded.map(t => ({ src: t.src, seconds: +t.duration.toFixed(2) })));
+    pass('all seventeen stereo soundtracks decode, contain music, and stay below clipping', decoded.map(t => ({ src: t.src, seconds: +t.duration.toFixed(2) })));
     const settingsTimer = await page.evaluate(() => __dockTest.game.missionElapsed);
     await page.locator('.settings-button:visible').tap(); await page.locator('[data-location="1"]').tap(); await page.locator('#settings-back').tap();
     assert.equal(await page.evaluate(() => __dockTest.scene), 3);
@@ -126,10 +126,10 @@ async function advance(page, seconds) {
     await sim.evaluate(() => __dockTest.openMissionMap());
     const results = await sim.evaluate(() => {
       const d = __dockTest, results = [];
-      for (const world of d.MR.worlds) for (let stage = 0; stage < 3; stage++) {
+      for (const world of d.MR.worlds) for (let stage = 0; stage < d.MR.levelCount; stage++) {
         d.openBriefing(world.id, stage); d.launchMission();
         const m = d.game.mission;
-        for (let frame = 0; frame < 7200 && d.state === 'play'; frame++) {
+        for (let frame = 0; frame < Math.ceil((m.seconds+4)*120) && d.state === 'play'; frame++) {
           d.update(1/120);
           const p = d.nextParcel();
           if (d.game.readyIn === 0 && !d.game.hold && p && p.y >= 363) {
@@ -139,18 +139,18 @@ async function advance(page, seconds) {
           if (d.game.parcels.some(p => !m.products.includes(p.product))) throw new Error('Cross-world cargo');
         }
         results.push({ id: m.id, state: d.state, stars: d.records[m.id]?.stars || 0, loads: d.game.delivered,
-          priority: d.game.priorityLoaded, seconds: d.game.missionElapsed, remixed: d.game.missionRemixed, lives: d.game.lives });
+          priority: d.game.priorityLoaded, seconds: d.game.missionElapsed, remixed: d.game.missionRemixed, remixes:d.game.missionRemixes, expectedRemixes:m.shuffleAt.length, lives: d.game.lives });
         d.render();
       }
       return results;
     });
-    assert.equal(results.length, 30);
-    for (const r of results) { assert.equal(r.state, 'missionResult', r.id); assert.equal(r.stars, 3, r.id); assert.equal(r.lives, 3, r.id); if (r.id.endsWith('-3')) assert.equal(r.remixed, true, r.id); }
-    pass('all thirty missions can be completed at three stars with their own cargo and final-stage remix', results);
+    assert.equal(results.length, 112);
+    for (const r of results) { assert.equal(r.state, 'missionResult', r.id); assert.equal(r.stars, 3, r.id); assert.equal(r.lives, 3, r.id); assert.equal(r.remixes,r.expectedRemixes,r.id); }
+    pass('all 112 missions can be completed at three stars with their own cargo and every scheduled dock change', results);
     await sim.screenshot({ path: path.join(output, 'space-result.png') });
     assert.equal(await sim.evaluate(() => localStorage.getItem('dockDashBest')), '12345');
     await sim.reload(); await sim.waitForFunction(() => window.__dockTest && [3,4,5,6].every(i=>__dockTest.art[i]));
-    assert.equal(await sim.evaluate(() => __dockTest.MR.totalStars(__dockTest.records)), 90);
+    assert.equal(await sim.evaluate(() => __dockTest.MR.totalStars(__dockTest.records)), 336);
     assert.ok(await sim.evaluate(() => __dockTest.profile.totalDelivered > 180 && [3,14,29].every(id=>__dockTest.discovered.has(id))));
     pass('mission stars, fleet deliveries and cargo persist after reload; arcade best is preserved');
     await sim.evaluate(() => { __dockTest.openBriefing('matchday', 0); __dockTest.launchMission(); }); await advance(sim, 3.01);

@@ -1,7 +1,7 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const root=path.join(__dirname,'..'),metadata=require('../audio/mission-music.json');
-test('all ten composed mission loops retain their complete encoded bytes',()=>{
-  assert.equal(metadata.length,10);
+test('all fourteen composed mission loops retain their complete encoded bytes',()=>{
+  assert.equal(metadata.length,14);
   for(const m of metadata){assert.equal(fs.statSync(path.join(root,'audio',m.file)).size,m.bytes,m.file);assert.ok(m.duration_seconds>60);}
 });
 test('media has exactly one scene and track for each route and mission world',()=>{

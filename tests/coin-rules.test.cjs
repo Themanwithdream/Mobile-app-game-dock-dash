@@ -52,7 +52,8 @@ test('completion rewards separate first clears, better stars and repeat runs',()
   assert.equal(rules.missionReward(0,1),85);assert.equal(rules.missionReward(0,3),115);
   assert.equal(rules.missionReward(0,3,3),20);assert.equal(rules.missionReward(0,3,1),50);
   assert.equal(rules.missionReward(2,3),185);assert.equal(rules.missionReward(2,1,3),40);
-  for(const [stage,stars] of [[-1,3],[3,3],[0,0],[0,4],[NaN,3],[1,NaN]])assert.equal(rules.missionReward(stage,stars),0);
+  for(const [stage,stars] of [[-1,3],[8,3],[0,0],[0,4],[NaN,3],[1,NaN]])assert.equal(rules.missionReward(stage,stars),0);
+  for(let stage=3;stage<8;stage++)assert.ok(rules.missionReward(stage,3)>rules.missionReward(stage-1,3));
 });
 test('invalid awards and capped balances cannot create negative or nonfinite coins',()=>{
   const wallet=rules.readWallet({coins:1e9-2,earned:1e9-2});const next=rules.award(wallet,8);
@@ -60,8 +61,8 @@ test('invalid awards and capped balances cannot create negative or nonfinite coi
   for(const amount of [0,-5,NaN,Infinity,1.5,'10'])assert.equal(rules.award(wallet,amount),wallet);
 });
 test('the expanded catalog has unique permanent IDs and retains all fourteen original vehicles',()=>{
-  assert.equal(rules.trucks.length,20);assert.equal(rules.venues.length,13);assert.equal(rules.styles.length,9);
-  assert.equal(new Set(rules.catalog.map(i=>i.id)).size,42);
+  assert.equal(rules.trucks.length,20);assert.equal(rules.venues.length,17);assert.equal(rules.styles.length,9);
+  assert.equal(new Set(rules.catalog.map(i=>i.id)).size,46);
   assert.equal(rules.trucks[7].id,'batcave');assert.equal(rules.trucks[13].id,'space');
   assert.deepEqual(rules.trucks.slice(14).map(t=>t.body),['batmobile','tumbler','fire','icecream','monster','rover']);
   for(const item of rules.catalog)assert.equal(rules.item(item.id),item);

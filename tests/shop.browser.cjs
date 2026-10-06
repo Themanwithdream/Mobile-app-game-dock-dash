@@ -97,7 +97,7 @@ const overlap=(a,b)=>a.x<b.x+b.width && a.x+a.width>b.x && a.y<b.y+b.height && a
    pass('dock style art stays within the loading window and cannot extend into truck controls');
    const stable=await page.evaluate(()=>{const d=__dockTest;d.game.hold=100;d.game.parcels=[{type:0,product:360,kind:'normal',y:372,phase:0}];d.render();const before={...__counts};for(let i=0;i<120;i++)d.render();return {canvases:__counts.canvases-before.canvases,blur:__counts.blur-before.blur,storage:__counts.storage-before.storage};});
    assert.deepEqual(stable,{canvases:0,blur:0,storage:0});
-   const bounded=await page.evaluate(()=>{const d=__dockTest;for(const wrap of d.ER.styles.filter(s=>s.style==='wrap'))for(let product=0;product<420;product++)d.parcelSprite(product%5,'normal',product,wrap.id);for(const s of d.ER.styles.filter(s=>s.style==='zone'))d.zoneSprite(s.id);return {parcels:d.parcelSprites.entries.size,zones:d.zoneSprites.entries.size};});
+   const bounded=await page.evaluate(()=>{const d=__dockTest;for(const wrap of d.ER.styles.filter(s=>s.style==='wrap'))for(let product=0;product<300+d.MR.worlds.length*12;product++)d.parcelSprite(product%5,'normal',product,wrap.id);for(const s of d.ER.styles.filter(s=>s.style==='zone'))d.zoneSprite(s.id);return {parcels:d.parcelSprites.entries.size,zones:d.zoneSprites.entries.size};});
    assert.deepEqual(bounded,{parcels:96,zones:4});
    pass('equipped styles add no canvas allocation, blur or storage work over 120 frames and caches stay bounded');
    await page.evaluate(()=>{const d=__dockTest;d.backToTitle();d.openBriefing('matchday',0);d.launchMission();d.pauseGame(true);d.openOverlay('settings');});
@@ -105,7 +105,7 @@ const overlap=(a,b)=>a.x<b.x+b.width && a.x+a.width>b.x && a.y<b.y+b.height && a
    pass('changing the future arcade place during a paused mission preserves its scene and mission route');
    const themed=await page.evaluate(()=>{const d=__dockTest;d.backToTitle();d.openGarage();return d.ER.venues.filter(v=>v.world).map(v=>{d.selectShopItem(v.id);d.closeGarage();d.startGame({skipTutorial:true});const ids=Array.from({length:36},()=>d.pickProduct()),expected=d.MR.getMission(v.world,0).products;const out={name:v.name,location:d.location,expected:v.location,valid:ids.every(id=>expected.includes(id)),unique:new Set(ids).size,mission:d.game.mission};d.backToTitle();d.openGarage();return out;});});
    for(const v of themed){assert.equal(v.location,v.expected);assert.equal(v.valid,true);assert.equal(v.unique,12);assert.equal(v.mission,null);}
-   pass('all ten purchasable places produce their own endless arcade cargo pools');
+   pass('all fourteen purchasable places produce their own endless arcade cargo pools');
    await page.locator('[data-shop="styles"]').tap();await page.locator('#shop-next').tap();await page.locator('#shop-next').tap();assert.equal(await page.locator('.skin-choice:visible').count(),1);assert.equal(await page.locator('#shop-next').isDisabled(),true);
    pass('short final pages hide unused cards and prevent advancing past the catalog');
    for(const size of [{width:320,height:568},{width:390,height:844},{width:414,height:896},{width:844,height:390}]){

@@ -55,6 +55,22 @@ SCORES = [
          roots=[50,50,47,47,43,43,45,45],minor={47},
          melody=[[78,None,81,86,None,83,81,78],[78,83,None,86,83,81,78,None],
                  [79,None,83,86,83,79,78,74],[81,None,78,76,73,76,81,None]],voice='bell',gentle=True),
+    dict(slug='roads-of-rome',title='Roads of Rome',bpm=114,
+         roots=[50,50,46,46,53,53,48,45],minor={50,45},
+         melody=[[74,None,77,81,79,77,74,None],[70,74,None,77,79,77,74,None],
+                 [77,81,84,None,81,79,77,74],[76,None,73,69,73,76,77,None]],voice='brass'),
+    dict(slug='lanterns-on-the-nile',title='Lanterns on the Nile',bpm=108,
+         roots=[45,45,46,46,50,50,48,45],minor={45,50},
+         melody=[[69,None,70,76,77,76,70,None],[70,74,None,77,76,74,70,None],
+                 [74,None,77,81,77,76,74,None],[72,76,None,79,76,70,69,None]],voice='pan',gentle=True),
+    dict(slug='northern-trade',title='Northern Trade',bpm=110,
+         roots=[40,40,43,43,50,50,47,47],minor={40,47},
+         melody=[[64,None,67,71,74,71,67,None],[67,71,None,74,76,74,71,67],
+                 [74,None,78,81,78,76,74,None],[71,74,78,None,74,71,66,None]],voice='brass',gentle=True),
+    dict(slug='caravan-at-dusk',title='Caravan at Dusk',bpm=116,
+         roots=[50,50,43,43,48,48,45,45],minor={50,45},
+         melody=[[74,77,None,81,84,81,77,74],[79,None,83,86,83,79,77,None],
+                 [76,79,84,None,79,76,74,72],[76,None,81,84,81,76,73,None]],voice='plucked',tropical=True),
 ]
 
 def tone(midi, seconds, voice):
@@ -81,6 +97,9 @@ def tone(midi, seconds, voice):
     elif voice == 'brass':
         wave = sum(np.sin(phase * h) / h for h in range(1, 7)) / 1.5
         env = np.exp(-t * 2.8) * np.minimum(1, t / .025) * release
+    elif voice == 'plucked':
+        wave = sum(np.sin(phase * h) / h ** 1.5 * np.exp(-t * h * 1.2) for h in range(1, 7))
+        env = np.exp(-t * 5) * attack * release
     else:
         wave = sum(np.sin(phase * h) / h ** 1.65 for h in [1, 3, 5, 7])
         env = np.exp(-t * 3.8) * attack * release
@@ -168,11 +187,12 @@ def render(score, index):
     return dict(file=target.name, bpm=score['bpm'], duration_seconds=round(length / SR, 3), bytes=target.stat().st_size)
 
 if __name__ == '__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('--new-only',action='store_true');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--new-only',action='store_true');parser.add_argument('--history-only',action='store_true');args=parser.parse_args()
     metadata=OUT / 'mission-music.json'
-    report=json.loads(metadata.read_text())[:4] if args.new_only else []
+    first=10 if args.history_only else 4 if args.new_only else 0
+    report=json.loads(metadata.read_text())[:first] if first else []
     for index, score in enumerate(SCORES):
-        if args.new_only and index<4: continue
+        if index<first: continue
         result = render(score, index)
         report.append(result)
         print(json.dumps(result), flush=True)

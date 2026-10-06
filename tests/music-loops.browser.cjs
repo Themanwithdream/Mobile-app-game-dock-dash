@@ -52,7 +52,7 @@ async function ready(page,track){await page.waitForFunction(track=>__dockTest.so
    return results;
   });
   for(const s of seams){assert.equal(s.rendered,s.frames*2+360);assert.equal(s.jump,0);assert.ok(s.error<.0001,JSON.stringify(s));assert.ok(s.quiet<12,JSON.stringify(s));assert.ok(s.peak<1,JSON.stringify(s));}
-  pass('all thirteen tracks render two complete repeats with continuous samples, no silent gap and no clipping',seams);
+  pass('all seventeen tracks render two complete repeats with continuous samples, no silent gap and no clipping',seams);
   await page.evaluate(async()=>{const p=__dockTest.soundtrack.active.player;p.currentTime=p.buffer.duration-.06;await p.play();window.__repeatSource=p.source;window.__beforeRepeat={...__audioCounts,decodes:__dockTest.soundtrack.pool.decodes};});
   await page.waitForTimeout(180);
   const repeat=await page.evaluate(()=>{const s=__dockTest.soundtrack,p=s.active.player;return {position:p.currentTime,same:p.source===__repeatSource,sources:__audioCounts.sources-__beforeRepeat.sources,native:__audioCounts.nativePlays-__beforeRepeat.nativePlays,decodes:s.pool.decodes-__beforeRepeat.decodes};});
@@ -70,7 +70,7 @@ async function ready(page,track){await page.waitForFunction(track=>__dockTest.so
   await page.waitForFunction(()=>__dockTest.soundtrack.blocked,null,{polling:50});await page.locator('#game').tap({position:{x:18,y:120}});await ready(page,0);
   assert.equal(await page.evaluate(()=>__dockTest.soundtrack.active.player.source===__interruptedSource),true);
   pass('a suspended audio context recovers in the next touch gesture without replacing the loop source');
-  for(const world of ['matchday','batcave','school','arctic']){await page.evaluate(world=>__dockTest.openBriefing(world,0),world);const track=await page.evaluate(()=>__dockTest.location);await ready(page,track);assert.equal(await page.evaluate(()=>__dockTest.soundtrack.pool.entries.size),1);assert.equal(await page.evaluate(()=>__dockTest.soundtrack.slots.filter(s=>!s.player.paused).length),1);assert.equal(await page.evaluate(()=>__audioCounts.nativePlays),0);}
+  for(const world of ['matchday','batcave','school','arctic','rome','egypt','viking','silkroad']){await page.evaluate(world=>__dockTest.openBriefing(world,0),world);const track=await page.evaluate(()=>__dockTest.location);await ready(page,track);assert.equal(await page.evaluate(()=>__dockTest.soundtrack.pool.entries.size),1);assert.equal(await page.evaluate(()=>__dockTest.soundtrack.slots.filter(s=>!s.player.paused).length),1);assert.equal(await page.evaluate(()=>__audioCounts.nativePlays),0);}
   pass('theme changes keep one phone voice and one cached decoded theme');
   await page.evaluate(()=>__dockTest.backToTitle());await ready(page,0);await page.locator('.sound:visible').tap();assert.equal(await page.evaluate(()=>__dockTest.soundtrack.active.player.paused),true);
   pass('mute stops the looping source immediately');

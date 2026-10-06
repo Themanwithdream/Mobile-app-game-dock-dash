@@ -41,7 +41,11 @@
     { id:'venue:dino', name:'Dino Park', world:'dino', location:9, price:450, accent:'#c3e89e', copy:'Endless ranger deliveries: eggs, fossils and dinosaur feed.' },
     { id:'venue:candy', name:'Candy Factory', world:'candy', location:10, price:350, accent:'#ffc1df', copy:'Endless sweet deliveries: chocolate, sugar and sprinkles.' },
     { id:'venue:forest', name:'Magic Forest', world:'forest', location:11, price:650, accent:'#d2bdff', copy:'Endless magical deliveries: potions, crystals and spellbooks.' },
-    { id:'venue:arctic', name:'Arctic Station', world:'arctic', location:12, price:550, accent:'#bdeaff', copy:'Endless polar deliveries: warm kits and expedition supplies.' }
+    { id:'venue:arctic', name:'Arctic Station', world:'arctic', location:12, price:550, accent:'#bdeaff', copy:'Endless polar deliveries: warm kits and expedition supplies.' },
+    { id:'venue:rome', name:'Roman Forum', world:'rome', location:13, price:600, accent:'#f2d08c', copy:'Roman scenery, music and endless amphorae, scrolls and shields.' },
+    { id:'venue:egypt', name:'Nile Court', world:'egypt', location:14, price:650, accent:'#91dfe5', copy:'Nile scenery, music and endless papyrus, pottery and linen.' },
+    { id:'venue:viking', name:'Viking Harbour', world:'viking', location:15, price:700, accent:'#b8dbe9', copy:'Northern scenery, music and endless shields, barrels and wool.' },
+    { id:'venue:silkroad', name:'Silk Road Bazaar', world:'silkroad', location:16, price:750, accent:'#bddea8', copy:'Caravan scenery, music and endless silk, tea and spices.' }
   ].map(item=>({...item,type:'venue'}));
   const styles = [
     { id:'wrap:classic', name:'Classic Wrap', style:'wrap', pattern:'classic', need:0, accent:'#e8c58a', copy:'The original parcel look.' },
@@ -87,7 +91,7 @@
   }
   function deliveryReward({perfect=false,special=false,practice=false}={}) {return practice?0:2+(perfect?1:0)+(special?1:0);}
   function missionReward(stage, stars, previousStars = 0) {
-    if(!Number.isInteger(stage) || stage<0 || stage>2 || !Number.isInteger(stars) || stars<1 || stars>3)return 0;
+    if(!Number.isInteger(stage) || stage<0 || stage>7 || !Number.isInteger(stars) || stars<1 || stars>3)return 0;
     previousStars=Math.min(3,integer(previousStars));
     return 20+stage*10+(previousStars===0?50+stage*25:0)+Math.max(0,stars-previousStars)*15;
   }

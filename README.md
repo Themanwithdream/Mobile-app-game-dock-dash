@@ -1,8 +1,44 @@
 # Dock Dash — Your Fleet, Your World
 
-A mobile-first parcel sorting arcade with 420 products, 30 missions in 10 worlds,
-20 collectible vehicles, 13 arcade places, nine parcel/dock styles, earned coins
-and 13 original soundtracks.
+A mobile-first parcel sorting arcade with 468 products, 112 missions in 14 worlds,
+20 collectible vehicles, 17 arcade places, nine parcel/dock styles, earned coins
+and 17 original soundtracks.
+
+## Historical Routes and Eight-Level Progression
+
+Every world now has eight sequential levels, from Easy through Legend. Existing
+mission IDs, stars, records, cargo IDs and purchases carry over; clearing the
+original third level opens level four. The briefing shows all eight levels in
+two rows, and Next continues the route until the eighth level is complete.
+
+| Level | Packages | Speed | Gap | Fragile + express | Dock changes | Perfects for 3 stars |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 1 | 12 | 82 | 90 | 0% | 0 | 4 |
+| 2 | 20 | 102 | 84 | 0% | 0 | 7 |
+| 3 | 28 | 124 | 78 | 24% | 1 | 10 |
+| 4 | 36 | 142 | 76 | 30% | 2 | 15 |
+| 5 | 44 | 156 | 74 | 34% | 3 | 20 |
+| 6 | 52 | 170 | 72 | 38% | 4 | 25 |
+| 7 | 60 | 184 | 69 | 42% | 5 | 30 |
+| 8 | 68 | 196 | 66 | 46% | 6 | 36 |
+
+Speed and gap are logical canvas pixels. Special percentages apply to nongolden
+random arrivals. Deadlines rise from 45 to 76 seconds while time per required
+delivery falls at every level. Each dock change warns three deliveries ahead,
+then holds the belt for one second so players can read the new symbols.
+
+The dedicated History map page adds Roman Empire, Ancient Egypt, Viking Harbour
+and Silk Road. Each route has eight named missions, 12 cargo identities, its own
+pixel scene and an original 32-bar soundtrack. First missions remain free; the
+matching endless Arcade places cost 600, 650, 700 and 750 earned coins. These are
+playful historical settings rather than historical simulations.
+
+The soccer ball, cleats, goalkeeper gloves, kit bag, trophy and dinosaur have
+clearer silhouettes. Historical items add amphorae, scrolls, shields, papyrus,
+longships, amber, silk, tea, spices and more. All cargo art is built once by
+`art/cargo-art.js` into the existing sprite caches; no generation, rendering of
+new sprites or audio decoding runs at repeat points or steady input. New scene
+assets are 360×640 indexed PNGs and load only when their route is opened.
 
 ## Play
 
@@ -87,8 +123,8 @@ and ownership together; if saving fails, the purchase leaves your coins intact.
 | Golden, fragile or express cargo | +1 |
 | Full truck dispatched | 8 |
 | Arcade goal / next shift | 15 / 10 |
-| Mission completion | 20 / 30 / 40 by stage |
-| First clear | +50 / +75 / +100 by stage |
+| Mission completion | 20 + 10 × stage index (20–90) |
+| First clear | +50 + 25 × stage index (50–225) |
 | Each newly earned mission star | +15 |
 
 New players receive a one-time 100-coin welcome gift. Returning players also
@@ -111,10 +147,11 @@ previous stars, cargo, records and settings. Coins are earned by playing.
 
 The earlier soccer, festival, rescue and space worlds also have their own shop
 trucks: Goal Getter (220), Tour Bus (280), Rescue Runner (360) and Star Hauler
-(800). The paged mission map now has 30 missions and 90 stars; every world's first
-mission starts open. Three stages per world add a fourth dock, then fragile and
-express cargo with a safe pause for the dock shuffle. The 72 new cargo identities
-append to the existing IDs, bringing the collection to 420 in 35 categories.
+(800). The paged mission map now has 112 missions and 336 stars; every world's
+first mission starts open. Eight stages add a fourth dock, then progressively
+faster arrivals, fragile and express cargo, and repeated safe dock changes.
+All new cargo identities append to the existing IDs, bringing the collection to
+468 in 39 categories.
 
 Six matching pixel-art scenes are in `assets/missions/`; final generation prompts
 are in [the artwork notes](assets/missions/ARTWORK.md). Six original synthesized
@@ -156,7 +193,7 @@ test responses.
 - Unchanged viewport resize events avoid canvas allocation and drawing. Rotation
   still fits both layers and rebuilds the static scene at the new size.
 
-The browser regression suites cover touch phones, desktop, all thirty missions,
+The browser regression suites cover touch phones, desktop, all 112 missions,
 countdown and pause handling, saved progress, native music and rendering budgets.
 Performance measurements use mobile-sized Chromium emulation; physical iPhone
 hardware was not available.
@@ -254,7 +291,7 @@ mission unlocks the next challenge in that world.
 
 ## Seamless soundtrack repeats
 
-All thirteen themes now repeat with `AudioBufferSourceNode.loop` on the shared
+All seventeen themes repeat with `AudioBufferSourceNode.loop` on the shared
 audio context. The audio clock handles the end-to-start join without a media
 seek, a new decoder, a new source or a game-frame timer. On decode, an eight
 millisecond correction removes the small sample discontinuity left by MP3
@@ -363,13 +400,20 @@ The warehouse and airport artwork remains embedded in the HTML. Music generation
 is a development step; the installed game never contacts a generation service.
 
 The mission browser suite, `node tests/missions.browser.cjs`, additionally checks
-all thirty missions through three-star completion, real touch countdowns,
+all 112 missions through three-star completion, real touch countdowns,
 arcade/replay/tutorial starts, pause/tab handling, scene/music selection,
 decoded MP3s, storage reloads, failed missions, retries and existing progress.
 It requires Playwright and Chromium; set `DOCK_CHROME` to the browser executable
 and `DOCK_TEST_OUTPUT` to a directory for screenshots and the JSON report.
 Test hooks are injected into the local test response and are absent from the
 published game.
+
+`node tests/history.browser.cjs` covers the original thirty-record save migration,
+eight-level controls at four viewport sizes, the historical map, free mission
+access, progression beyond level three, all six final-level shuffle warnings,
+historical place purchases and reloads, and all 48 historical cargo drawings.
+The art generation prompts and exported filenames are documented in
+`assets/missions/HISTORY-ARTWORK.md`.
 
 The phone regression suite, `node tests/mobile.browser.cjs`, checks real MP3
 playback with one player, steady tempo under repeated touches, interruption
