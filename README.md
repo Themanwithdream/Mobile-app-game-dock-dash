@@ -19,6 +19,21 @@ are permanent and also equip the item. Vehicles, arcade places, parcel wraps and
 loading-zone styles are independent choices. Existing balances, ownership and
 delivery rewards retain their original IDs and prices.
 
+Use **Owned** to browse included, earned and purchased items and equip them for
+free. Each category remembers its page separately for the full shop and your
+collection. Larger previews and a single header back control keep the shop easy
+to scan on a phone. **Play Arcade** starts with your equipped fleet, place and
+styles, retaining the three-second countdown and first-time tutorial.
+
+The mission map also has one Home control. Its bottom action suggests an unlocked
+mission from the visible worlds and opens the briefing. Clear those missions to
+get suggestions for missing stars, then replays. The sorting rules, stage locks,
+prices and saved progress remain the same.
+
+`node tests/design.browser.cjs` checks collection navigation, quick play, mission
+suggestions, single Home controls, text bounds, four phone layouts, saved equipment
+and native music handoff when shopping from mission results.
+
 | New special edition | Coins | Native canvas details |
 |---|---:|---|
 | Batmobile | 900 | Swept wings, rear jet and an angular nose |

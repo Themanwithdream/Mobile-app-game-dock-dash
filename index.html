@@ -11,7 +11,7 @@
 <meta name="apple-mobile-web-app-title" content="Dock Dash">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="description" content="Earn coins for twenty vehicle designs, thirteen arcade places and collectible parcel wraps and docks. Drive the Batmobile, stock the Batcave and explore thirty pixel-art missions.">
-<meta name="dock-dash-version" content="5.1-expanded-shop">
+<meta name="dock-dash-version" content="5.2-menu-polish">
 <title>Dock Dash — Your Fleet, Your World</title>
 <style>
   :root { color-scheme: light dark; --page-bg: #e5e8e2; --page-dot: #cdd5cc; --page-fg: #23342e; }
@@ -45,12 +45,7 @@
   .title-menu .fleet-button { top: 88.75%; }
   .end-menu .fleet-button { top: 80.625%; }
   .learn-link { left: 7.7778%; width: 84.4444%; height: 3.4375%; top: 95.9375%; color: #aabda5; background: transparent; font-size: calc(10px * var(--s)); font-weight: 600; }
-  .garage-back { top: 81.875%; }
-  .skin-choice { width: 41.9444%; height: 23.4375%; border-radius: calc(12px * var(--s)); background: transparent; }
-  .skin-choice:nth-of-type(1) { left: 6.1111%; top: 25.15625%; }
-  .skin-choice:nth-of-type(2) { left: 51.9444%; top: 25.15625%; }
-  .skin-choice:nth-of-type(3) { left: 6.1111%; top: 50.9375%; }
-  .skin-choice:nth-of-type(4) { left: 51.9444%; top: 50.9375%; }
+  .skin-choice { width: 41.9444%; border-radius: calc(12px * var(--s)); background: transparent; }
   .tutorial-ui { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
   .skip-tutorial { position: absolute; pointer-events: auto; top: 2.5%; right: 4.4444%; width: 16.6667%; height: 4.6875%; border: 0; border-radius: calc(7px * var(--s)); background: #263a40; color: #e3ead7; font-size: calc(10px * var(--s)); font-weight: 700; }
   .pause-menu .sound { top: 73.125%; }
@@ -93,10 +88,9 @@
   .cargo-choice { width:28.3333%; height:11.71875%; background:transparent; border-radius:calc(9px * var(--s)); }
   .title-menu .start { width:41.1111%; padding:0 calc(15px * var(--s)); font-size:calc(16px * var(--s)); }
   .mission-entry { left:51.1111%; width:41.1111%; top:75%; height:7.5%; padding:0 calc(15px * var(--s)); font-size:calc(16px * var(--s)); background:linear-gradient(180deg,#d4e9a0,#a8cf85); box-shadow:0 calc(5px * var(--s)) 0 #5b804b; }
-  .mission-card { width:43.3333%; height:27.1875%; border-radius:calc(12px * var(--s)); background:transparent; }
+  .mission-card { width:43.3333%; height:28.75%; border-radius:calc(12px * var(--s)); background:transparent; }
   .mission-card:nth-of-type(odd) { left:5.5556%; } .mission-card:nth-of-type(even) { left:51.1111%; }
-  .mission-card:nth-of-type(-n+2) { top:22.1875%; } .mission-card:nth-of-type(n+3) { top:51.875%; }
-  .mission-back { top:88.4375%; height:7.5%; }
+  .mission-card:nth-of-type(-n+2) { top:22.8125%; } .mission-card:nth-of-type(n+3) { top:53.125%; }
   .mission-stage { top:44.6875%; width:27.7778%; height:5.625%; border-radius:calc(8px * var(--s)); background:transparent; }
   .mission-stage:nth-of-type(1) { left:6.1111%; } .mission-stage:nth-of-type(2) { left:36.1111%; } .mission-stage:nth-of-type(3) { left:66.1111%; }
   .mission-stage:disabled { cursor:default; }
@@ -110,21 +104,25 @@
   @media (pointer:coarse) { .pause-hint { display:none; } }
   .end-home { left:7.7778%; top:93.125%; width:84.4444%; height:5.625%; border-radius:calc(10px * var(--s)); background:#344a50; color:#edf0dd; font-size:calc(13px * var(--s)); font-weight:800; }
   .end-home:disabled { opacity:.5; cursor:default; }
-  .mission-home { position:absolute; border:1px solid #ffffff15; z-index:6; left:5.5556%; top:1.5625%; width:32.2222%; height:5.625%; border-radius:calc(8px * var(--s)); background:#29414cee; color:#e9edda; font-size:calc(11px * var(--s)); font-weight:800; box-shadow:0 calc(2px * var(--s)) 0 #101f28; }
-  .mission-home.during-play { left:39.7222%; top:9.0625%; width:21.6667%; }
-  .page-control { top:81.25%; width:22.2222%; height:5.625%; border-radius:calc(8px * var(--s)); background:#30474f; color:#e5ebd6; font-size:calc(11px * var(--s)); font-weight:800; }
+  .mission-home, .menu .menu-home { position:absolute; border:1px solid #ffffff15; z-index:6; left:5.5556%; top:1.5625%; width:26.6667%; height:6.25%; border-radius:calc(8px * var(--s)); background:#29414cee; color:#e9edda; font-size:calc(11px * var(--s)); font-weight:800; box-shadow:0 calc(2px * var(--s)) 0 #101f28; }
+  .mission-home.during-play { left:39.7222%; top:9.0625%; width:21.6667%; height:5.625%; }
+  .page-control { top:90.625%; width:20%; height:6.875%; border-radius:calc(9px * var(--s)); background:#30474f; color:#e5ebd6; font-size:calc(11px * var(--s)); font-weight:800; }
   .page-control.prev { left:6.1111%; } .page-control.next { right:6.1111%; }
   .page-control:disabled { opacity:.3; cursor:default; }
-  .garage-back { top:89.375%; height:6.875%; font-size:calc(16px * var(--s)); }
-  .skin-choice { height:25%; }
-  .skin-choice[data-slot="0"], .skin-choice[data-slot="1"] { top:25.625%; }
-  .skin-choice[data-slot="2"], .skin-choice[data-slot="3"] { top:51.875%; }
+  .menu .menu-play { left:27.7778%; top:90.625%; width:44.4444%; height:6.875%; padding:0 calc(12px * var(--s)); font-size:calc(12.5px * var(--s)); gap:calc(5px * var(--s)); }
+  .menu-play .arrow { font-size:calc(20px * var(--s)); }
+  .menu-play span:first-child { white-space:nowrap; }
+  .skin-choice { height:26.25%; }
+  .skin-choice[data-slot="0"], .skin-choice[data-slot="1"] { top:27.8125%; }
+  .skin-choice[data-slot="2"], .skin-choice[data-slot="3"] { top:55.3125%; }
   .skin-choice[data-slot="0"], .skin-choice[data-slot="2"] { left:6.1111%; }
   .skin-choice[data-slot="1"], .skin-choice[data-slot="3"] { left:51.9444%; }
-  .shop-tab { top:19.6875%; width:27.7778%; height:4.375%; border-radius:calc(8px * var(--s)); background:#293e49; color:#d0ddcd; font-size:calc(11px * var(--s)); font-weight:800; }
+  .shop-tab { top:20.78125%; width:27.7778%; height:4.6875%; border-radius:calc(8px * var(--s)); background:#293e49; color:#d0ddcd; font-size:calc(11px * var(--s)); font-weight:800; }
   .shop-tab[data-shop="trucks"] { left:6.1111%; } .shop-tab[data-shop="venues"] { left:36.1111%; } .shop-tab[data-shop="styles"] { left:66.1111%; }
   .shop-tab[aria-pressed="true"] { background:#e9bc6d; color:#352716; }
-  .shop-message { position:absolute; margin:0; left:6.1111%; top:78.125%; width:87.7778%; text-align:center; color:#ffe3a4; font-size:calc(9px * var(--s)); font-weight:700; }
+  .shop-owned { right:6.1111%; top:1.5625%; width:20%; height:6.25%; border-radius:calc(8px * var(--s)); background:#29414c; color:#cfddcc; font-size:calc(10.5px * var(--s)); font-weight:800; }
+  .shop-owned[aria-pressed="true"] { background:#4a6246; color:#e5f5c9; }
+  .shop-message { position:absolute; margin:0; left:6.1111%; top:83.59375%; width:87.7778%; text-align:center; color:#ffe3a4; font-size:calc(9px * var(--s)); line-height:1.4; font-weight:700; }
   .mission-shop { left:7.7778%; top:92.1875%; width:84.4444%; height:4.375%; border-radius:calc(8px * var(--s)); background:#3b4834; color:#ffdf9c; font-size:calc(11px * var(--s)); font-weight:800; }
 </style>
 </head>
@@ -163,6 +161,8 @@
     </section>
     <section class="menu garage-menu" id="garage-menu" aria-label="Dock shop. Buy trucks, arcade places, parcel wraps and loading-zone styles with earned coins." hidden>
       <h2 class="sr-only">Dock shop</h2>
+      <button class="menu-home garage-back" id="garage-back" type="button"><span aria-hidden="true">←</span> <span class="back-label">Home</span></button>
+      <button class="shop-owned" id="shop-owned" type="button" aria-pressed="false" aria-label="Show owned items only">Owned</button>
       <button class="shop-tab" data-shop="trucks" type="button" aria-pressed="true">Trucks</button>
       <button class="shop-tab" data-shop="venues" type="button" aria-pressed="false">Arcade Places</button>
       <button class="shop-tab" data-shop="styles" type="button" aria-pressed="false">Style</button>
@@ -171,9 +171,9 @@
       <button class="skin-choice" type="button" data-slot="2" data-skin="2" aria-label="Nightline truck design" aria-pressed="false"></button>
       <button class="skin-choice" type="button" data-slot="3" data-skin="3" aria-label="Gold trim truck design" aria-pressed="false"></button>
       <p class="shop-message" id="shop-message" role="status" aria-live="polite"></p>
-      <button class="page-control prev" id="shop-prev" type="button">← Previous</button>
+      <button class="page-control prev" id="shop-prev" type="button" aria-label="Previous shop page">← Prev</button>
       <button class="page-control next" id="shop-next" type="button">Next →</button>
-      <button class="action garage-back" id="garage-back" type="button"><span>Back to menu</span><span class="arrow" aria-hidden="true">→</span></button>
+      <button class="action menu-play" id="shop-play" type="button"><span>Play Arcade</span><span class="arrow" aria-hidden="true">→</span></button>
     </section>
     <div class="tutorial-ui" id="tutorial-ui" hidden><button class="skip-tutorial" id="skip-tutorial" type="button">Skip →</button></div>
     <section class="menu pause-menu" id="pause-menu" aria-label="Game paused" hidden>
@@ -205,9 +205,9 @@
       <button class="mission-card" type="button" data-world="festival" aria-label="Festival Rush missions"></button>
       <button class="mission-card" type="button" data-world="rescue" aria-label="Ocean Rescue missions"></button>
       <button class="mission-card" type="button" data-world="space" aria-label="Space Launch missions"></button>
-      <button class="page-control prev" id="missions-prev" type="button">← Previous</button>
+      <button class="page-control prev" id="missions-prev" type="button" aria-label="Previous mission map page">← Prev</button>
       <button class="page-control next" id="missions-next" type="button">Next →</button>
-      <button class="action mission-back" id="missions-back" type="button"><span>Main menu</span><span class="arrow" aria-hidden="true">→</span></button>
+      <button class="action menu-play" id="missions-continue" type="button"><span>Start mission</span><span class="arrow" aria-hidden="true">→</span></button>
     </section>
     <section class="menu" id="briefing-menu" aria-label="Mission briefing" hidden>
       <h2 class="sr-only" id="mission-briefing-title">Mission briefing</h2><p class="sr-only" id="mission-briefing-copy"></p>
@@ -353,8 +353,9 @@
     if(Array.isArray(seen)) for(const id of seen) if(Number.isInteger(id) && id>=0 && id<PRODUCTS.length) discovered.add(id);
   } catch(_) {}
   let overlayReturn='title', catalogPage=0, catalogGroup=-1, selectedCargo=-1, productDeck=[];
-  let missionPage=0, shopPage=1, shopCategory='trucks', routePage=0;
+  let missionPage=0, shopPage=1, shopCategory='trucks', shopOwnedOnly=false, routePage=0;
   const shopPages={trucks:1,venues:0,styles:0};
+  const ownedShopPages={trucks:0,venues:0,styles:0};
   let missionRecords = {}, selectedMission = MR.getMission('matchday',0), missionResult = null;
   try { missionRecords = MR.readRecords(localStorage.getItem('dockDashMissionsV1')); } catch (_) {}
   let productCache=[], locationFloors=[], activeLocation=settings.location;
@@ -1074,9 +1075,14 @@
     if (!['title', 'over', 'missionResult'].includes(state) || (state === 'over' && performance.now() - endedAt < 500)) return;
     progress.flush();garageReturn = state; state = 'garage';$('shop-message').textContent='Earn coins on every delivery. Own your favourites forever.';syncControls();
     announce(`Dock shop. ${num(wallet.coins)} coins. Trucks, arcade places, parcel wraps and dock styles.`);
+    $('garage-back').focus({preventScroll:true});
   }
   function closeGarage() { state = garageReturn;if(state==='title')useLocation(settings.location);syncControls(); (state === 'over' ? $('replay') : state==='missionResult'?$('mission-next'):$('start')).focus({ preventScroll: true }); }
-  function shopItems() {return shopCategory==='venues'?ER.venues:shopCategory==='styles'?ER.styles:SKINS;}
+  function shopItems() {
+    const items=shopCategory==='venues'?ER.venues:shopCategory==='styles'?ER.styles:SKINS;
+    return shopOwnedOnly?items.filter(item=>ER.isOwned(wallet,item,profile)):items;
+  }
+  function shopPageMemory() {return shopOwnedOnly?ownedShopPages:shopPages;}
   function itemEquipped(item) {return item.type==='truck'?SKINS[profile.selectedSkin].id===item.id:item.type==='venue'?settings.location===item.location:item.style==='wrap'?profile.selectedWrap===item.id:profile.selectedZone===item.id;}
   function selectSkin(index) {
     if (state !== 'garage' || !Number.isInteger(index) || !SKINS[index]) return;
@@ -1104,14 +1110,28 @@
     wakeAudio();beep(660,.1,0,'sine',.3);announce($('shop-message').textContent);
   }
   function changeShopPage(delta) {
-    if(state!=='garage')return;shopPage=clamp(shopPage+delta,0,Math.ceil(shopItems().length/4)-1);shopPages[shopCategory]=shopPage;
-    $('shop-message').textContent=shopCategory==='venues'?'Places unlock endless arcade with themed cargo and music.':shopCategory==='styles'?'Mix one parcel wrap with one dock style.':shopPage===0?'Classic rewards still unlock with total deliveries.':'Own each vehicle forever. Tap an owned one to equip.';
+    if(state!=='garage')return;shopPage=clamp(shopPage+delta,0,Math.max(1,Math.ceil(shopItems().length/4))-1);shopPageMemory()[shopCategory]=shopPage;
+    $('shop-message').textContent=shopOwnedOnly?'Your collection. Tap any item to equip it for free.':shopCategory==='venues'?'Places include themed cargo, scenery and music.':shopCategory==='styles'?'Mix one parcel wrap with one dock style.':shopPage===0?'Classic rewards unlock with total deliveries.':'Own each vehicle forever. Tap an owned one to equip.';
     syncControls();skinButtons.find(b=>!b.hidden)?.focus({preventScroll:true});
   }
   function changeShopCategory(category) {
     if(state!=='garage' || !Object.prototype.hasOwnProperty.call(shopPages,category))return;
-    shopPages[shopCategory]=shopPage;shopCategory=category;shopPage=shopPages[category];
+    const pages=shopPageMemory();pages[shopCategory]=shopPage;shopCategory=category;shopPage=pages[category];
     changeShopPage(0);announce(`${category==='venues'?'Arcade places':category==='styles'?'Parcel and dock styles':'Vehicle designs'}. ${shopItems().length} choices.`);
+  }
+  function toggleShopOwned() {
+    if(state!=='garage')return;
+    shopPageMemory()[shopCategory]=shopPage;shopOwnedOnly=!shopOwnedOnly;shopPage=shopPageMemory()[shopCategory];
+    changeShopPage(0);$('shop-owned').focus({preventScroll:true});announce(shopOwnedOnly?'Showing your owned and included items.':'Showing the full shop.');
+  }
+  function suggestedMission() {
+    const worlds=MR.worlds.slice(missionPage*4,missionPage*4+4);
+    const candidates=MR.missions.filter(m=>worlds.includes(m.world) && MR.isUnlocked(m,missionRecords));
+    return candidates.find(m=>!missionRecords[m.id]?.stars) || candidates.find(m=>missionRecords[m.id].stars<3) || candidates.find(m=>m.id===selectedMission.id) || candidates[0];
+  }
+  function continueMissions() {
+    if(state!=='missions')return;
+    const m=suggestedMission();if(m)openBriefing(m.world.id,m.stage);
   }
   function changeMissionPage(delta) {
     if(state!=='missions')return;missionPage=clamp(missionPage+delta,0,Math.ceil(MR.worlds.length/4)-1);
@@ -1178,9 +1198,13 @@
     $('arcade-home').disabled=state==='over' && performance.now()-endedAt<500;
     const missionHome=$('mission-home');
     missionHome.hidden=!(['missions','briefing','missionResult'].includes(state) || (state==='play' && game && game.mission));
-    missionHome.classList.toggle('during-play',playing);missionHome.textContent=playing?'← Menu':'← Main menu';
+    missionHome.classList.toggle('during-play',playing);missionHome.textContent=playing?'← Menu':state==='play'?'← Main menu':'← Home';
     document.querySelectorAll('.mission-card').forEach((b,i)=>{const w=MR.worlds[missionPage*4+i];b.hidden=!w;if(!w)return;b.dataset.world=w.id;b.setAttribute('aria-label',`${w.name}. ${w.tag} Three missions. ${MR.totalStars(missionRecords,w.id)} of nine stars.`);});
     $('missions-prev').disabled=missionPage===0;$('missions-next').disabled=(missionPage+1)*4>=MR.worlds.length;
+    const suggested=suggestedMission(),stars=suggested?missionRecords[suggested.id]?.stars||0:0;
+    $('missions-continue').disabled=!suggested;
+    $('missions-continue').querySelector('span').textContent=stars===3?'Replay mission':stars?'Chase 3 stars':MR.totalStars(missionRecords)?'Continue missions':'Start mission';
+    $('missions-continue').setAttribute('aria-label',suggested?`${stars?'Replay':'Open'} ${suggested.world.name}: ${suggested.title}. Mission ${suggested.stage+1}. ${stars} of three stars. View briefing.`:'No mission available.');
     if(state==='briefing') {
       const m=selectedMission; $('mission-briefing-title').textContent=`${m.world.name}: ${m.title}`;
       $('mission-briefing-copy').textContent=`${m.title}. ${m.story} Deliver ${m.loads} packages and ${m.priority} priority supplies in ${m.seconds} seconds. ${m.world.priorityCopy}. ${m.detail} Match the colour and shape sticker. Three stars: no mistakes and ${m.perfects} perfect loads. Earn ${ER.missionReward(m.stage,3,missionRecords[m.id]?.stars||0)} completion coins for three stars, plus delivery coins.`;
@@ -1189,12 +1213,16 @@
     if(state==='missionResult')$('mission-next').querySelector('span').textContent=!missionResult.won?'Try this mission again':missionResult.mission.stage<2?'Next mission':'Explore the mission map';
     fleetButtons.forEach(b => { b.textContent = `Shop · ${num(wallet.coins)} coins`;b.setAttribute('aria-label',`Dock shop. ${num(wallet.coins)} coins. Equipped ${SKINS[profile.selectedSkin].name}.`); });
     document.querySelectorAll('.shop-tab').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.shop===shopCategory)));
+    $('shop-owned').setAttribute('aria-pressed',String(shopOwnedOnly));$('shop-owned').textContent=shopOwnedOnly?'Owned ✓':'Owned';
+    $('shop-owned').setAttribute('aria-label',shopOwnedOnly?'Show all shop items':'Show owned and included items only');
     const items=shopItems();
     skinButtons.forEach((b,slot)=>{const item=items[shopPage*4+slot];b.hidden=!item;if(!item){delete b.dataset.item;delete b.dataset.skin;return;}const owned=ER.isOwned(wallet,item,profile),selected=itemEquipped(item);b.dataset.item=item.id;if(item.type==='truck')b.dataset.skin=SKINS.indexOf(item);else delete b.dataset.skin;b.setAttribute('aria-pressed',String(selected));b.setAttribute('aria-disabled',String(!owned && !item.price));b.setAttribute('aria-label',`${item.name}. ${item.copy} ${owned?selected?'Equipped.':item.price?'Owned. Tap to equip.':'Included. Tap to equip.':item.price?`${item.price} coins. Tap to buy and equip.${wallet.coins<item.price?` Need ${item.price-wallet.coins} more coins.`:''}`:`Delivery reward. ${item.need-profile.totalDelivered} more total deliveries needed.`}`);});
     $('shop-prev').disabled=shopPage===0;$('shop-next').disabled=(shopPage+1)*4>=items.length;
-    $('garage-back').querySelector('span').textContent=garageReturn==='title'?'Back to menu':'Back to results';
+    $('garage-back').querySelector('.back-label').textContent=garageReturn==='title'?'Home':'Results';
+    $('garage-back').setAttribute('aria-label',garageReturn==='title'?'Back to home':'Back to results');
     $('mission-shop').textContent=`Dock shop · ${num(wallet.coins)} coins →`;
     $('start').setAttribute('aria-label',`Start arcade at ${ER.venues.find(v=>v.location===settings.location).name}. Equipped ${SKINS[profile.selectedSkin].name}. Three-second countdown.`);
+    $('shop-play').setAttribute('aria-label',$('start').getAttribute('aria-label'));
     $('learn').textContent = `BEST ${num(best)} · HOW TO PLAY`;
     extraButtons.forEach(b => { b.disabled = state === 'over' && performance.now() - endedAt < 500; if (b.classList.contains('catalog-button')) b.textContent = `Cargo · ${discovered.size} / ${PRODUCTS.length}`; });
     if (state === 'catalog') syncCatalog();
@@ -1227,7 +1255,7 @@
     if (state === 'over' && performance.now() - endedAt < 500) return;
     const mission=options.mission ? MR.getMission(options.mission.world.id,options.mission.stage) : null;
     if(mission && !MR.isUnlocked(mission,missionRecords))return;
-    wakeAudio(); state = 'play'; paused = false; newBest = false; shake = bump = 0; tutorial = null; unlockToast = null; missionResult=null;engine.reset();frameBudget.reset();
+    state = 'play'; paused = false; newBest = false; shake = bump = 0; tutorial = null; unlockToast = null; missionResult=null;engine.reset();frameBudget.reset();
     soundButtons.forEach(b => { b.disabled = false; }); fleetButtons.forEach(b => { b.disabled = false; });
     particles.length = popups.length = flights.length = ghosts.length = 0;presentedParcel=null;panels.clear();
     game = { score: 0, streak: 0, shift: 1, lives: 3, delivered: 0, perfects: 0, dispatched: 0, goalsCompleted: 0, cleanWithinShift: 0, hot: 0, slow: 0, travel: 14, gap: rand(72, 94), roller: 0, hold: 0, earlyHint: 0, specialDue: null, parcels: [], flashes: [0, 0, 0, 0], trucks: COLORS.map((_, type) => ({ type, fill: 0, x: type * 90 + 45, fromX: type * 90 + 45, toX: type * 90 + 45, slide: 0, enter: 0 })) };
@@ -1241,7 +1269,7 @@
     banner = mission?null:{ title: 'SHIFT 01', sub: 'WAIT FOR GREEN · PERFECT TIMING PAYS', life: false, time: 1.35, total: 1.35 };
     if (!mission && (options.tutorial === true || (!profile.tutorialDone && !options.skipTutorial))) { tutorial = { step: 0, done: 0 };useLocation(0);setupTutorialStep(); }
     for(const p of game.parcels)parcelSprite(p.type,p.kind,p.product);
-    beep(420,.08,0,'triangle',.25);syncControls();announce(`${mission?mission.title:tutorial?'Practice':'Arcade'}. Get ready. Three.`);
+    wakeAudio();beep(420,.08,0,'triangle',.25);syncControls();announce(`${mission?mission.title:tutorial?'Practice':'Arcade'}. Get ready. Three.`);
   }
   function setupTutorialStep() {
     banner = null;
@@ -1637,8 +1665,8 @@
     rect(ctx, 281, y - 9, 57, 18, '#bedc9514', 5); text(ctx, `${PRODUCTS.length} ITEMS`, 309.5, y, 8, '#c2d4ac', 700, 'center');
   }
   function missionBrand() {
-    text(ctx,'DOCK DASH',204,27,9,'#c5cfbd',800,'center');
-    rect(ctx,281,18,57,18,'#bedc9514',5);text(ctx,`${PRODUCTS.length} ITEMS`,309.5,27,8,'#c2d4ac',700,'center');
+    text(ctx,'DOCK DASH',180,30,9,'#c5cfbd',800,'center');
+    rect(ctx,273,14,65,32,'#bedc9514',7);text(ctx,`${MR.totalStars(missionRecords)} / ${MR.missions.length*3} ★`,305.5,30,9,'#e6dc9d',800,'center');
   }
   function drawTitle() {
     warehouseBrand();
@@ -1680,37 +1708,39 @@
     coin(ctx,122,441,5);text(ctx,`+${num(game.coinsEarned)} COINS EARNED`,135,441,9,'#ffdf96',850);
   }
   function drawGarage() {
-    rect(ctx,0,0,W,H,'#0b1922ed');warehouseBrand();text(ctx,'DOCK SHOP',180,75,31,'#f3eed7',900,'center');
-    rect(ctx,105,98,150,28,'#4a422b',8);coin(ctx,124,112,7);text(ctx,`${num(wallet.coins)} COINS`,145,112,wallet.coins>99999?10:13,'#ffe1a1',850);
+    rect(ctx,0,0,W,H,'#0b1922ed');text(ctx,'DOCK DASH',180,30,9,'#c5cfbd',800,'center');text(ctx,'DOCK SHOP',180,75,31,'#f3eed7',900,'center');
+    rect(ctx,88,98,184,28,'#4a422b',8);
+    const balance=`${num(wallet.coins)} COINS`,size=wallet.coins>99999?11:13;
+    ctx.font=`850 ${size}px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif`;
+    const balanceX=180-(ctx.measureText(balance).width+23)/2;coin(ctx,balanceX+7,112,7);text(ctx,balance,balanceX+23,112,size,'#ffe1a1',850);
     const items=shopItems();
     items.slice(shopPage*4,shopPage*4+4).forEach((item,slot)=>{
-      const x=slot%2?187:22,y=slot<2?164:332,owned=ER.isOwned(wallet,item,profile),selected=itemEquipped(item),affordable=item.price && wallet.coins>=item.price;
-      rect(ctx,x,y,151,160,selected?'#394b3b':'#23353d',12);
+      const x=slot%2?187:22,y=slot<2?178:354,owned=ER.isOwned(wallet,item,profile),selected=itemEquipped(item),affordable=item.price && wallet.coins>=item.price;
+      rect(ctx,x,y,151,168,selected?'#394b3b':'#23353d',12);
       line(ctx,x+11,y+2,x+140,y+2,item.accent+'70',2);
-      if(selected){ctx.strokeStyle=item.accent;ctx.lineWidth=1.5;rr(ctx,x+1,y+1,149,158,11);ctx.stroke();}
+      if(selected){ctx.strokeStyle=item.accent;ctx.lineWidth=1.5;rr(ctx,x+1,y+1,149,166,11);ctx.stroke();}
       let detail;
       if(item.type==='truck') {
         const art=trucksForSkin(SKINS.indexOf(item));ctx.save();ctx.globalAlpha=owned || item.price?1:.35;
-        ctx.drawImage(art[0],x+17,y+16,32,50);ctx.drawImage(art[2],x+102,y+16,32,50);ctx.drawImage(art[1],x+47,y+6,57,89);ctx.restore();
+        ctx.drawImage(art[0],x+12,y+20,36,56);ctx.drawImage(art[2],x+103,y+20,36,56);ctx.drawImage(art[1],x+43.5,y+7,64,100);ctx.restore();
         detail=item.body?'SPECIAL EDITION':item.price?'THEMED FLEET':'DELIVERY REWARD';
       } else if(item.type==='venue') {
-        scenePreview(item.location,x+7,y+8,137,83);detail=item.world?'ARCADE · CARGO + MUSIC':'ARCADE · INCLUDED';
+        scenePreview(item.location,x+7,y+8,137,94);detail=item.world?'CARGO + SCENERY + MUSIC':'ARCADE · INCLUDED';
       } else if(item.style==='wrap') {
-        for(let i=0;i<3;i++){ctx.save();ctx.translate(x+37+i*38,y+50);ctx.rotate((i-1)*.12);ctx.drawImage(parcelSprite(i,'normal',-1,item.id),-29,-29,58,58);ctx.restore();}
+        for(let i=0;i<3;i++){ctx.save();ctx.translate(x+37+i*38,y+56);ctx.rotate((i-1)*.12);ctx.drawImage(parcelSprite(i,'normal',-1,item.id),-33,-33,66,66);ctx.restore();}
         detail='PARCEL WRAP';
       } else {
-        rect(ctx,x+42,y+9,67,81,'#112632',5);rect(ctx,x+54,y+16,43,68,'#91d4a130');rect(ctx,x+54,y+37,43,23,'#c7fcae4c');
-        ctx.drawImage(zoneSprite(item.id),x+42,y+9,67,81);line(ctx,x+53,y+17,x+98,y+17,'#b8e6b7',1.5);
+        rect(ctx,x+40,y+9,71,94,'#112632',5);rect(ctx,x+53,y+17,45,79,'#91d4a130');rect(ctx,x+53,y+40,45,26,'#c7fcae4c');
+        ctx.drawImage(zoneSprite(item.id),x+40,y+9,71,94);line(ctx,x+52,y+18,x+99,y+18,'#b8e6b7',1.5);
         detail='LOADING-ZONE STYLE';
       }
-      cargoText(ctx,item.name.toUpperCase(),x+75.5,y+104,139,11,'#f0efd9');
-      text(ctx,detail,x+75.5,y+120,7.5,item.accent,750,'center');
-      rect(ctx,x+10,y+130,131,22,selected?'#506247':owned?'#34514f':affordable?'#e9bc6d':'#36464b',6);
+      text(ctx,item.name.toUpperCase(),x+75.5,y+117,item.name.length>13?10.5:12,'#f0efd9',800,'center');
+      text(ctx,detail,x+75.5,y+133,8,item.accent,750,'center');
+      rect(ctx,x+10,y+144,131,22,selected?'#506247':owned?'#34514f':affordable?'#e9bc6d':'#36464b',6);
       const label=selected?'EQUIPPED ✓':owned?item.price?'OWNED · EQUIP':'INCLUDED · EQUIP':item.price?`BUY · ${item.price} COINS`:`${item.need} TOTAL LOADS`;
-      text(ctx,label,x+75.5,y+141,9,affordable && !owned?'#352716':selected?'#e4f1c5':owned?'#c8ece0':'#d4dbc6',850,'center');
+      text(ctx,label,x+75.5,y+155,10,affordable && !owned?'#352716':selected?'#e4f1c5':owned?'#c8ece0':'#d4dbc6',850,'center');
     });
-    text(ctx,`${shopPage+1} / ${Math.ceil(items.length/4)}`,180,539,11,'#cbd9bf',800,'center');
-    text(ctx,shopCategory==='venues'?'Endless arcade places. Missions keep their own routes.':'Mix your vehicle, arcade place, parcel wrap and dock.',180,628,8,'#a7baa4',600,'center');
+    text(ctx,`PAGE ${shopPage+1} / ${Math.ceil(items.length/4)}`,180,566,9,'#aebfa9',800,'center');
   }
   function scenePreview(loc,x,y,w,h) {
     loadPixelArt(loc);
@@ -1719,19 +1749,20 @@
     ctx.drawImage(source,0,top*scale,W*scale,sourceHeight*scale,x,y,w,h);ctx.restore();
   }
   function drawMissionMap() {
-    rect(ctx,0,0,W,H,'#0b1922eb');missionBrand();text(ctx,'MISSION MAP',180,80,33,'#f4eedb',900,'center');
+    rect(ctx,0,0,W,H,'#0b1922eb');missionBrand();text(ctx,'MISSION MAP',180,80,31,'#f4eedb',900,'center');
     text(ctx,`${MR.worlds.length} WORLDS · ${MR.missions.length} MISSIONS · ${MR.totalStars(missionRecords)} / ${MR.missions.length*3} STARS`,180,113,9.5,'#c4d7b5',800,'center');
     MR.worlds.slice(missionPage*4,missionPage*4+4).forEach((w,i)=>{
-      const x=i%2?184:20,y=i<2?142:332,stars=MR.totalStars(missionRecords,w.id);
-      rect(ctx,x,y,156,174,'#24383f',12);scenePreview(w.location,x+7,y+7,142,77);
+      const x=i%2?184:20,y=i<2?146:340,stars=MR.totalStars(missionRecords,w.id);
+      rect(ctx,x,y,156,184,'#24383f',12);scenePreview(w.location,x+7,y+7,142,86);
       rect(ctx,x+13,y+13,54,17,'#0a1c24dc',4);text(ctx,w.badge,x+40,y+21.5,7.5,w.accent,800,'center');
-      text(ctx,w.name,x+13,y+104,w.name.length>13?13:16,'#f4ecd7',850);
-      cargoText(ctx,w.tag,x+13,y+124,132,9,'#b9cbb5','left');
-      symbol(ctx,4,x+22,y+155,7,w.accent);text(ctx,`${stars} / 9 STARS`,x+36,y+155,9,w.accent,800);
-      if(stars===9)circleCheck(ctx,x+137,y+154,w.accent);
+      text(ctx,w.name,x+13,y+109,w.name.length>13?13:16,'#f4ecd7',850);
+      cargoText(ctx,w.tag,x+13,y+130,132,9,'#b9cbb5','left');
+      symbol(ctx,4,x+22,y+165,7,w.accent);text(ctx,`${stars} / 9 STARS`,x+36,y+165,10,w.accent,800);
+      if(stars===9)circleCheck(ctx,x+137,y+164,w.accent);
     });
-    text(ctx,`${missionPage+1} / ${Math.ceil(MR.worlds.length/4)}`,180,539,11,'#bccdb4',800,'center');
-    text(ctx,'Clear missions. Earn coins. Find your next adventure.',180,625,8,'#aabfa8',500,'center');
+    const suggested=suggestedMission();
+    if(suggested)text(ctx,`${suggested.world.name} · ${suggested.title}`,180,546,9,'#e1d7ac',700,'center');
+    text(ctx,`PAGE ${missionPage+1} / ${Math.ceil(MR.worlds.length/4)}`,180,566,9,'#aebfa9',800,'center');
   }
   function drawBriefing() {
     const m=selectedMission,w=m.world;
@@ -1838,7 +1869,7 @@
     b.addEventListener('click', e => { if (e.detail === 0) loadLane(i); });
   });
   $('start').addEventListener('click', startGame); $('replay').addEventListener('click', startGame);
-  $('missions').addEventListener('click',openMissionMap);$('missions-back').addEventListener('click',backToTitle);$('mission-home').addEventListener('click',backToTitle);$('arcade-home').addEventListener('click',backToTitle);
+  $('missions').addEventListener('click',openMissionMap);$('missions-continue').addEventListener('click',continueMissions);$('mission-home').addEventListener('click',backToTitle);$('arcade-home').addEventListener('click',backToTitle);
   document.querySelectorAll('.mission-card').forEach(b=>b.addEventListener('click',()=>openBriefing(b.dataset.world)));
   document.querySelectorAll('.mission-stage').forEach(b=>b.addEventListener('click',()=>openBriefing(selectedMission.world.id,Number(b.dataset.missionStage))));
   $('mission-launch').addEventListener('click',launchMission);$('briefing-back').addEventListener('click',openMissionMap);
@@ -1850,6 +1881,7 @@
   skinButtons.forEach(b => b.addEventListener('click', () => selectShopItem(b.dataset.item)));
   document.querySelectorAll('.shop-tab').forEach(b=>b.addEventListener('click',()=>changeShopCategory(b.dataset.shop)));
   $('shop-prev').addEventListener('click',()=>changeShopPage(-1));$('shop-next').addEventListener('click',()=>changeShopPage(1));
+  $('shop-owned').addEventListener('click',toggleShopOwned);$('shop-play').addEventListener('click',()=>{if(state==='garage')startGame();});
   $('missions-prev').addEventListener('click',()=>changeMissionPage(-1));$('missions-next').addEventListener('click',()=>changeMissionPage(1));
   $('mission-shop').addEventListener('click',openGarage);
   $('garage-back').addEventListener('click', closeGarage);
@@ -1895,7 +1927,7 @@
   const wakeFromGesture=e=>{
     // Navigation handlers start their destination theme in the same gesture.
     const navigation=e.target.closest('button');
-    if(navigation && (navigation.id==='music-toggle' || ['missions','missions-back','mission-home','arcade-home','briefing-back','mission-launch','mission-next','mission-retry','mission-map','exit-run'].includes(navigation.id) || navigation.classList.contains('mission-card') || navigation.classList.contains('mission-stage')))return;
+    if(navigation && (navigation.id==='music-toggle' || ['start','replay','shop-play','missions','missions-continue','mission-home','arcade-home','briefing-back','mission-launch','mission-next','mission-retry','mission-map','exit-run'].includes(navigation.id) || navigation.classList.contains('mission-card') || navigation.classList.contains('mission-stage')))return;
     wakeAudio();
   };
   stage.addEventListener('pointerdown', wakeFromGesture, { capture:true });
