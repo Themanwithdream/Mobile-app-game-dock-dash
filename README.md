@@ -198,12 +198,12 @@ static labels retained DPR 2. Timing depends on the browser and machine.
 
 ## Phone audio and mission navigation update
 
-- Touch devices use one native music player and a steady playback rate. This
-  avoids overlapping MP3 decoders and pitch resampling during hot streaks;
+- Touch devices use one buffered music voice and a steady playback rate. This
+  avoids repeating MP3 seeks and pitch resampling during hot streaks;
   desktop route changes still crossfade.
 - The selected menu theme buffers before the first tap without autoplay. Repeated
   taps and unchanged frames no longer rewrite media volume, rate or pitch flags,
-  or schedule identical effects gain automation. Interrupted music still recovers
+  or schedule identical music/effects gain automation. Interrupted music still recovers
   from the next touch and resumes its position.
 - Duplicate viewport events and phone browser-bar changes reuse the existing
   scene bitmaps. Actual size changes, including rotation, still resize the canvas.
@@ -252,6 +252,26 @@ mission unlocks the next challenge in that world.
   lacked credits for the new request, so no ElevenLabs-generated mission audio
   is claimed or included.
 
+## Seamless soundtrack repeats
+
+All thirteen themes now repeat with `AudioBufferSourceNode.loop` on the shared
+audio context. The audio clock handles the end-to-start join without a media
+seek, a new decoder, a new source or a game-frame timer. On decode, an eight
+millisecond correction removes the small sample discontinuity left by MP3
+compression; track length and musical beats stay intact.
+
+Only the selected theme loads. Phones retain one decoded theme; desktops retain
+two for route crossfades. Decoding is serialized, stale selections cannot start,
+and music stays at its original pitch and tempo. Pause preserves the offset,
+interrupted contexts resume the same source, and mute prevents delayed loads
+from starting playback. Native looping remains the fallback when Web Audio is
+unavailable or a decoder rejects an asset.
+
+`node tests/music-loops.browser.cjs` renders two full repeats of every track and
+checks both PCM joins for gaps and clipping. It also checks an actual repeat,
+playback during a busy JavaScript thread, bounded phone memory, zero audio work
+on repeated input, pause/resume, theme switches, mute and decoder fallback.
+
 ## Route Soundtracks update
 
 - Three new instrumental themes generated with ElevenLabs Music v2, then edited
@@ -262,11 +282,11 @@ mission unlocks the next challenge in that world.
   theme, and the airport has a driving arcade synth theme.
 - Ending and opening bars are blended for smoother loop joins. All three tracks
   are mastered to consistent loudness with headroom for the game's sound effects.
-- Desktop route changes crossfade using two media players. The outgoing player stops
+- Desktop route changes crossfade using two bounded music voices. The outgoing voice stops
   after the transition; rapid route changes and delayed playback requests cannot
   restart a muted or paused soundtrack. Devices with read-only media volume use
   one player and a direct handoff instead of overlapping songs.
-- Native media playback and transition timers remain independent of canvas
+- Audio playback and transition timers remain independent of canvas
   animation. Existing touch/keyboard activation, pause/resume, hidden-page
   handling, retry after blocked playback, music toggles and saved settings remain.
 - Tracks are in `audio/`. Only the selected theme is buffered before the first tap; other themes load when selected. Ship the entire repository
@@ -283,7 +303,7 @@ mission unlocks the next challenge in that world.
 - Returning from another app waits for Resume. Any new touch recovers interrupted
   playback; blocked music shows a Tap for music button. Effects also recover from
   interrupted or closed audio contexts.
-- Music volume, music/effects switches, pause, desktop hot-streak tempo and route changes
+- Music volume, music/effects switches, pause, steady music tempo and route changes
   all work with the new playback path. Existing scores and settings are preserved.
 
 ## Cargo Worlds features
@@ -315,7 +335,7 @@ guaranteed. Browser storage may also be cleared by the device or user.
 
 ## Validation
 
-Run the 59 economy, engine, gameplay, mission and soundtrack regression tests with:
+Run the economy, engine, gameplay, mission and soundtrack regression tests with:
 
 ```sh
 node --test tests/*.test.cjs
@@ -328,12 +348,14 @@ changes, stale promises after mute, pause during transitions, resume position,
 blocked playback and retry, failed assets, read-only volume, zero volume,
 pitch-preserving desktop hot-streak tempo, hidden pages, repeated input,
 selected-theme buffering, single-player phone handoffs, steady mobile tempo,
-interruption recovery and elimination of repeated native media writes.
+interruption recovery and elimination of repeated native media writes. Buffered
+loop tests also cover repeated joins, splice continuity, decoder serialization,
+late loads after pause/mute, context replacement and native decoder fallback.
 
 Playback is also checked in touch-enabled Chromium with autoplay restrictions:
 actual MP3 decoding and nonzero stereo audio, saved progress, pause/resume,
 route transitions independent of canvas frames, volume and music/effects
-controls, native looping, hidden-page recovery, blocked playback retry, and
+controls, audio-clock looping, hidden-page recovery, blocked playback retry, and
 simulated read-only volume without WebAudio. Physical iPhone hardware was not
 available for testing.
 

@@ -1,4 +1,4 @@
-/* Native playback stays independent of the game loop; phones use one decoder. */
+/* Audio-clock loops stay independent of game frames; native playback is a fallback. */
 (function (root) {
   'use strict';
   class DockDashSoundtrack {
@@ -15,15 +15,17 @@
       this.serial = 0;
       this.timer = null;
       this.blocked = false;
+      this.pool = options.audioContext && root.DockDashLoopPlayer && (root.AudioContext || root.webkitAudioContext) ? new root.DockDashLoopPlayer.Pool(options.audioContext, this.lowPower ? 1 : 2) : null;
       this.slots = (this.lowPower ? [0] : [0, 1]).map(() => {
-        const player = document.createElement('audio');
+        const native = document.createElement('audio');
+        native.setAttribute('playsinline', '');
+        native.setAttribute('aria-hidden', 'true');
+        document.body.appendChild(native);
+        const player = this.pool ? new root.DockDashLoopPlayer(native, this.pool) : native;
         player.loop = true;
         player.preload = 'none';
         player.preservesPitch = true;
         if ('webkitPreservesPitch' in player) player.webkitPreservesPitch = true;
-        player.setAttribute('playsinline', '');
-        player.setAttribute('aria-hidden', 'true');
-        document.body.appendChild(player);
         const slot = {player, track: -1, weight: 0, intentionalPause: false};
         player.addEventListener('playing', () => {
           if (!this.canPlay()) { this.pause(); return; }
@@ -78,7 +80,7 @@
     }
     setRate(rate) {
       // Mobile pitch resampling and overlapping decoders can stutter under load.
-      const next = !this.lowPower && Number.isFinite(rate) ? Math.max(.8, Math.min(1.2, rate)) : 1;
+      const next = !this.lowPower && !this.pool && Number.isFinite(rate) ? Math.max(.8, Math.min(1.2, rate)) : 1;
       if (this.rate === next) return;
       this.rate = next;
       for (const {player} of this.slots) {

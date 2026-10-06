@@ -32,6 +32,7 @@ async function setup(page,{quiet=false,readonly=false}={}) {
     document.createElement=(name,...args)=>{if(name==='canvas')__counts.canvases++;return create(name,...args);};
     const play=HTMLMediaElement.prototype.play;
     HTMLMediaElement.prototype.play=function(){__counts.plays++;return play.call(this);};
+    if(window.AudioBufferSourceNode){const start=AudioBufferSourceNode.prototype.start;AudioBufferSourceNode.prototype.start=function(...args){if(this.loop)__counts.plays++;return start.apply(this,args);};}
     if(window.AudioParam){const target=AudioParam.prototype.setTargetAtTime;AudioParam.prototype.setTargetAtTime=function(...args){__counts.gainTargets++;return target.apply(this,args);};}
     if(readonly){Object.defineProperty(HTMLMediaElement.prototype,'volume',{configurable:true,get:()=>1,set:()=>{}});window.AudioContext=undefined;window.webkitAudioContext=undefined;}
   },{quiet,readonly});
@@ -60,7 +61,7 @@ async function assertHome(page,oldRecords) {
     assert.equal(await page.locator('audio').count(),1);
     assert.equal(await page.evaluate(()=>__dockTest.soundtrack.lowPower),true);
     assert.equal(await page.evaluate(()=>__counts.plays),0);
-    await page.waitForFunction(()=>document.querySelector('audio').readyState>=3,null,{polling:50});
+    await page.waitForFunction(()=>__dockTest.soundtrack.slots[0].player.readyState>=3,null,{polling:50});
     pass('phone buffers its selected theme with one player and no autoplay');
     await page.locator('#missions').tap();await readyMusic(page,0);
     await page.locator('[data-world="matchday"]').tap();await readyMusic(page,3);
@@ -68,9 +69,9 @@ async function assertHome(page,oldRecords) {
     await page.screenshot({path:path.join(output,'briefing-main-menu.png')});
     await page.locator('#mission-launch').tap();
     await page.evaluate(()=>{__dockTest.game.hot=10;for(let i=0;i<1000;i++){__dockTest.tickMusic();__dockTest.wakeAudio();}});
-    const steady=await page.evaluate(()=>({rate:document.querySelector('audio').playbackRate,plays:__counts.plays,gain:__counts.gainTargets,fade:__dockTest.soundtrack.timer,time:document.querySelector('audio').currentTime}));
+    const steady=await page.evaluate(()=>({rate:__dockTest.soundtrack.slots[0].player.playbackRate,plays:__counts.plays,gain:__counts.gainTargets,fade:__dockTest.soundtrack.timer,time:__dockTest.soundtrack.slots[0].player.currentTime}));
     await page.waitForTimeout(250);
-    const after=await page.evaluate(()=>({rate:document.querySelector('audio').playbackRate,plays:__counts.plays,gain:__counts.gainTargets,fade:__dockTest.soundtrack.timer,time:document.querySelector('audio').currentTime}));
+    const after=await page.evaluate(()=>({rate:__dockTest.soundtrack.slots[0].player.playbackRate,plays:__counts.plays,gain:__counts.gainTargets,fade:__dockTest.soundtrack.timer,time:__dockTest.soundtrack.slots[0].player.currentTime}));
     assert.equal(after.rate,1);assert.equal(after.fade,null);assert.equal(after.plays,steady.plays);assert.equal(after.gain,steady.gain);assert.ok(after.time>steady.time);
     pass('hot streaks and repeated touches keep the decoded song advancing at steady tempo',after);
     const beforeResize=await page.evaluate(()=>__counts.canvases);
@@ -92,30 +93,30 @@ async function assertHome(page,oldRecords) {
     assert.equal(await page.locator('#mission-home').textContent(),'← Menu');
     await page.screenshot({path:path.join(output,'play-menu.png')});
     await page.locator('#pause').tap();assert.equal(await page.locator('#mission-home').textContent(),'← Main menu');
-    assert.equal(await page.evaluate(()=>document.querySelector('audio').paused),true);
+    assert.equal(await page.evaluate(()=>__dockTest.soundtrack.slots[0].player.paused),true);
     await page.locator('#resume').tap();await readyMusic(page,3);
-    const position=await page.evaluate(()=>{const p=document.querySelector('audio');p.pause();return p.currentTime;});
+    const position=await page.evaluate(()=>{const p=__dockTest.soundtrack.slots[0].player;p.pause();return p.currentTime;});
     await page.waitForFunction(()=>__dockTest.soundtrack.blocked,null,{polling:50});
     await page.locator('#game').tap({position:{x:18,y:120}});await readyMusic(page,3);
-    assert.ok(await page.evaluate(()=>document.querySelector('audio').currentTime)>=position);
+    assert.ok(await page.evaluate(()=>__dockTest.soundtrack.slots[0].player.currentTime)>=position);
     pass('pause and an interrupted phone player recover from touch without resetting the song');
     await page.locator('#pause').tap();
     await page.locator('.settings-button:visible').tap();await readyMusic(page,3);
     await page.evaluate(()=>{const slider=document.getElementById('music-volume');slider.value='25';slider.dispatchEvent(new Event('input',{bubbles:true}));});
-    assert.ok(Math.abs(await page.evaluate(()=>document.querySelector('audio').volume)-.2)<1e-8);
+    assert.ok(Math.abs(await page.evaluate(()=>__dockTest.soundtrack.slots[0].player.volume)-.2)<1e-8);
     const mixBefore=await page.evaluate(()=>__counts.gainTargets);
     await page.locator('#sfx-toggle').tap();
     assert.equal(await page.evaluate(()=>__dockTest.settings.sfx),false);
-    assert.equal(await page.evaluate(()=>document.querySelector('audio').paused),false);
+    assert.equal(await page.evaluate(()=>__dockTest.soundtrack.slots[0].player.paused),false);
     assert.equal(await page.evaluate(()=>__counts.gainTargets),mixBefore+1);
     await page.evaluate(()=>{for(let i=0;i<100;i++)__dockTest.wakeAudio();});
     assert.equal(await page.evaluate(()=>__counts.gainTargets),mixBefore+1);
     await page.locator('#music-toggle').tap();
-    assert.equal(await page.evaluate(()=>document.querySelector('audio').paused),true);
+    assert.equal(await page.evaluate(()=>__dockTest.soundtrack.slots[0].player.paused),true);
     await page.locator('#music-toggle').tap();await readyMusic(page,3);
     await page.locator('#sfx-toggle').tap();
     await page.locator('#settings-back').tap();
-    assert.equal(await page.evaluate(()=>document.querySelector('audio').paused),true);
+    assert.equal(await page.evaluate(()=>__dockTest.soundtrack.slots[0].player.paused),true);
     await page.locator('#resume').tap();await readyMusic(page,3);
     pass('phone volume, independent effects/music switches and resumed mission audio work');
     const records=await page.evaluate(()=>__dockTest.records);
@@ -161,7 +162,7 @@ async function assertHome(page,oldRecords) {
     await pc.waitForFunction(()=>__dockTest.soundtrack.timer===null,null,{polling:50});
     await pc.locator('[data-world="festival"]').click();await readyMusic(pc,4);
     await pc.waitForFunction(()=>__dockTest.soundtrack.timer===null,null,{polling:50});
-    assert.equal(await pc.locator('audio').evaluateAll(players=>players.filter(p=>!p.paused).length),1);
+    assert.equal(await pc.evaluate(()=>__dockTest.soundtrack.slots.filter(s=>!s.player.paused).length),1);
     pass('desktop keeps crossfades and stops the outgoing player');
     await desktop.close();
     assert.deepEqual(errors,[]);pass('no browser runtime errors');
