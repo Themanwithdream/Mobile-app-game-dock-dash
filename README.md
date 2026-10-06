@@ -4,7 +4,7 @@ A phone-friendly pixel-art sorting game: wait for the loading zone, match the pa
 
 ## Play
 
-https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=6.1-unique-worlds
+https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=6.1.1-unique-worlds
 
 ## This release
 
