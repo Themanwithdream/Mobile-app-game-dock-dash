@@ -4,7 +4,7 @@ A phone-friendly pixel-art sorting game: wait for the loading zone, match the pa
 
 ## Play
 
-https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=6.0-hundred-lanterns
+https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=6.1-unique-worlds
 
 ## This release
 
@@ -19,7 +19,7 @@ https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=6.0-hun
 
 ## Original art and music
 
-Seventeen new pixel-art environment plates combine with native landmarks and cargo set dressing. The 77 appended worlds use sixteen reusable biome plates; Beacon Bay has a separate replacement plate. These are distinct authored missions, supply lists and story arcs, rather than 77 independently downloaded large backdrops. See [artwork provenance and exact prompts](assets/worlds/HUNDRED-LANTERNS-ARTWORK.md). Native icons and vehicles extend the existing canvas renderer.
+All 100 story worlds have exclusive pixel-art environment images, each with its own architecture, terrain and landmarks. The newer chapters now use 77 separate place images: 16 existing paintings assigned to one matching world each and 61 new illustrations. No two worlds share a backdrop URL or identical image bytes. See [individual artwork and exact prompts](assets/worlds/INDIVIDUAL-WORLDS-ARTWORK.md). Native icons and vehicles extend the existing canvas renderer.
 
 Every world has its own original synthesized 32-bar instrumental score. Shared chapter melodies receive distinct phrase arrangements, transpositions and answers. Circular note tails and the buffered audio player preserve continuous loop joins.
 

@@ -107,7 +107,7 @@
     });
     const c=chapters[chapter],stages=stageText.split('|'),entries=cargo.split(';');
     const priorityCopy=entries.slice(0,3).map(e=>e.split('|')[0].replace(/^(.*) bundles$/,'$1')).join(' · ');
-    return {id,name,chapter,scene,landmark,keeper,location:26+i,category:name+' supplies',badge:chapter==='greenwood'?'ARCHER':chapter==='tidebound'?'TIDES':chapter==='skyroads'?'SKY':chapter==='wildheart'?'WILD':chapter==='clockwork'?'MAKERS':chapter==='hearthside'?'HEARTH':chapter==='echoes'?'HISTORY':'STARS',
+    return {id,name,chapter,scene,landmark,keeper,backdrop:'./assets/worlds/places/'+id+'.png',location:26+i,category:name+' supplies',badge:chapter==='greenwood'?'ARCHER':chapter==='tidebound'?'TIDES':chapter==='skyroads'?'SKY':chapter==='wildheart'?'WILD':chapter==='clockwork'?'MAKERS':chapter==='hearthside'?'HEARTH':chapter==='echoes'?'HISTORY':'STARS',
       accent:c.accent,tempo:102+(i*7%21),priority:'KEEPER SUPPLIES',priorityCopy,
       tag:`${stages[0]}. ${keeper} needs a courier.`,stages,cargo,
       lore:{opening,turn,ending},

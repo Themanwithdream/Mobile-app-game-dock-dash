@@ -42,12 +42,13 @@
     return true;
   }
   const fingerprint=w=>[...w.id].reduce((n,ch)=>(n*31+ch.charCodeAt(0))>>>0,17);
-  function scene(c,w,drawCargo,lit=false){
+  function scene(c,w,drawCargo,lit=false,illustrated=false){
     if(!w.scene)return;
     const seed=fingerprint(w),col=w.accent,{cream,ink,wood,gold,green,r,line,poly,disc,ring}=brushes(c,col);
     // All additions are outside the live conveyor. This runs only when a floor is built.
     c.save();c.imageSmoothingEnabled=false;
     const side=seed%2?1:-1,x=side===1?310:50,y=235+(seed%4)*22;
+    if(!illustrated){
     c.save();c.translate(x,y);
     r(-26,-27,52,62,'#101e27b8');r(-24,-25,48,3,col);r(-24,32,48,3,wood);
     const feature=w.landmark;
@@ -81,11 +82,12 @@
       drawCargo(c,{kind:feature==='music'?'lyre':feature==='festival'?'bell':'basket',accent:col,group:0,variant:0},0,6,23);
     }
     c.restore();
-    // Four world-specific supplies turn a shared biome plate into its local depot.
+    // Local supplies also dress the procedural loading fallback.
     const entries=w.cargo.split(';'),otherX=side===1?42:318;
     for(let i=0;i<4;i++){
       const py=172+i*56+(seed%3)*3;r(otherX-19,py-17,38,36,'#342f26d9');r(otherX-18,py-17,36,3,gold);
       const entry=entries[(i*3+seed%3)%12],kind=entry.split('|')[1];drawCargo(c,{kind,accent:col,group:0,variant:i},otherX,py,25);
+    }
     }
     // A persistent little keeper lantern marks a completed eight-part story.
     const lx=side===1?316:44;r(lx-8,421,16,3,wood);r(lx-6,403,12,17,lit?'#e6b85b':'#44616b');r(lx-4,406,8,10,lit?'#fff0b0':'#1b3440');r(lx-7,400,14,3,gold);

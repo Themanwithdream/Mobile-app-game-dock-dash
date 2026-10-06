@@ -1,3 +1,5 @@
+> Historical 6.0 artwork record. Current exclusive world assignments and new prompts are documented in [Individual world scenery](INDIVIDUAL-WORLDS-ARTWORK.md).
+
 # Hundred Lanterns artwork
 
 Generated with the built-in image-generation tool. These seventeen original environment plates extend the established pixel-art game. The 77 appended worlds combine sixteen reusable biome plates with their own native landmarks and cargo set dressing; Beacon Bay has its own replacement plate. No generated environment is fetched before it is needed.
