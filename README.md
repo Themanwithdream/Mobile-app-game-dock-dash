@@ -4,7 +4,7 @@ A phone-friendly pixel-art sorting game: wait for the loading zone, match the pa
 
 ## Play
 
-https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=6.5-sound-effects
+https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=6.6-route-design
 
 ## This release
 
@@ -20,6 +20,7 @@ https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=6.5-sou
 - Auto, Reduced and Full visual-effects settings, plus portable save files with preview, restore and undo.
 - Refined guitar cargo: a wood acoustic body, electric pickups, a smaller four-string ukulele, a fitted case and a separate string pack. All five keep their existing identities and cached sorting stickers.
 - Original layered sound effects for parcels, perfect timing, golden cargo, truck departures, countdowns, purchases and mission results. Four musical delivery tiers reward longer streaks.
+- Redesigned Routes & audio: readable native place cards without decorative underlines, owned-place search, a direct place-shop shortcut, grouped audio controls and a fixed context-aware Back button.
 
 ## Original art and music
 
@@ -46,6 +47,12 @@ Run unit checks with `node --test tests/*.test.cjs`. Playwright browser suites c
 The home screen now gives Arcade and Missions their own full-width mode cards. Mission search finds world names and themes within the selected chapter, with visible star progress on every card. Shop search combines with category and Owned filters, remembers the browsing page when cleared, and shows the coin gap or remaining deliveries for locked items. Escape clears a focused search; Enter dismisses the keyboard. All 100 backgrounds, the sorting rules, countdowns, coins and saved progression remain compatible.
 
 Menu navigation and searching are covered by `tests/interface.browser.cjs` alongside the existing design, shop, mission, mobile and engine suites.
+
+## Routes and audio
+
+Route descriptions now wrap naturally beside their existing pixel-art previews, with separate cargo labels and an explicit selected state. The coloured preview underlines are removed. Search finds owned place names and themes across all 103 arcade places; a clear action recovers empty results. **Shop places** opens the arcade-place category and returns to the updated route list after a purchase. Shopping from a paused mission preserves its score, timer, parcels and mission soundtrack.
+
+The scrollable panel has 44-pixel controls, an **Audio** shortcut, independent Music and Effects switches, accessible music volume, an explanation of Tour mode and the existing Visuals & saves dialog. A fixed Back button names its destination: Home, Results or the paused game. The three native preview canvases reuse the existing bounded image cache. `tests/routes.browser.cjs` checks search, purchases, native phone scrolling, paused-run preservation and five viewport layouts. Save fields and gameplay rules stay compatible.
 
 ## Mission details and fleet artwork
 

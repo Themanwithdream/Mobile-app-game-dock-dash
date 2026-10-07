@@ -11,7 +11,7 @@
 <meta name="apple-mobile-web-app-title" content="Dock Dash">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="description" content="Sort pixel-art cargo through 100 individual worlds and 800 missions. Earn coins, collect trucks and arcade places, and explore the story of the Hundred Lanterns.">
-<meta name="dock-dash-version" content="6.5-sound-effects">
+<meta name="dock-dash-version" content="6.6-route-design">
 <title>Dock Dash — Your Fleet, Your World</title>
 <style>
   :root { color-scheme: light dark; --page-bg: #e5e8e2; --page-dot: #cdd5cc; --page-fg: #23342e; }
@@ -66,20 +66,8 @@
   .title-menu .extra-button { top:90.625%; }
   .end-menu .extra-button { top:86.5625%; }
   .pause-menu .extra-button { top:83.125%; }
-  .location-choice { left:6.1111%; width:87.7778%; height:12.1875%; background:transparent; }
-  .location-choice:nth-of-type(1) { top:20.625%; }
-  .location-choice:nth-of-type(2) { top:34.375%; }
-  .location-choice:nth-of-type(3) { top:48.125%; }
-  .route-page { top:61.5625%; width:26.6667%; height:4.375%; border-radius:calc(8px * var(--s)); background:#30474f; color:#e5ebd6; font-size:calc(10px * var(--s)); font-weight:700; }
-  #routes-prev { left:6.1111%; } #routes-next { right:6.1111%; }
   .route-page:disabled { opacity:.3; cursor:default; }
-  .settings-control, .catalog-control { height:5.625%; background:#29414c; color:#e1ebd5; border-radius:calc(9px * var(--s)); font-size:calc(12px * var(--s)); font-weight:700; }
-  #rotate-locations { left:6.1111%; top:66.40625%; width:87.7778%; }
-  #music-toggle, #sfx-toggle { top:75.9375%; width:42.7778%; }
-  #music-toggle { left:6.1111%; } #sfx-toggle { left:51.1111%; }
-  .settings-control[aria-pressed="true"] { background:#395044; color:#f2e4b5; }
-  .volume-label { position:absolute; left:6.1111%; top:82.5%; font-size:calc(10px * var(--s)); color:#cbd7bd; }
-  #music-volume { position:absolute; left:6.1111%; top:84.6875%; width:87.7778%; height:calc(25px * var(--s)); accent-color:#ffb365; pointer-events:auto; touch-action:none; }
+  .catalog-control { height:5.625%; background:#29414c; color:#e1ebd5; border-radius:calc(9px * var(--s)); font-size:calc(12px * var(--s)); font-weight:700; }
   .overlay-back { top:90.625%; height:6.5625%; font-size:calc(15px * var(--s)); }
   #catalog-filter { left:6.1111%; top:21.09375%; width:87.7778%; height:4.6875%; }
   #catalog-prev, #catalog-next { top:79.375%; width:30%; height:6.25%; }
@@ -218,8 +206,6 @@
   #briefing-menu .mission-link { height:calc(30px * var(--s)); min-height:30px; background:#29414b; font-size:max(12px,calc(12px * var(--s))); }
   .briefing-countdown-hint { margin:0; text-align:center; color:#becdbb; font-size:max(10px,calc(10px * var(--s))); line-height:1.2; }
 
-  #rotate-locations { width:42.7778%; }
-  #preferences-open { left:51.1111%; top:66.40625%; width:42.7778%; }
   .briefing-world-challenge { margin-top:12px; padding:12px; border:1px solid #91aca455; border-radius:10px; background:#112a34; }
   .briefing-world-challenge h4 { margin:0 0 5px; color:var(--world-accent); font-size:max(13px,calc(12px * var(--s))); }
   .briefing-world-challenge p { margin:0; font-size:max(12px,calc(11px * var(--s))); line-height:1.45; color:#d2dfd2; }
@@ -247,6 +233,54 @@
   #backup-restore { margin:8px 0; background:#ffb265; color:#201c14; border-color:#ffd190; }
   #preferences-close { flex-shrink:0; margin-top:12px; background:#e5c47b; color:#20281e; border-color:#ffe0a0; }
   @media (max-width:350px) { .preferences-dialog { padding:14px; } .preference-card { padding:11px; } }
+  /* Native route cards keep longer world descriptions readable on phones. */
+  .settings-header { position:absolute; left:6.1111%; right:6.1111%; top:2.5%; }
+  .settings-eyebrow { margin:0 0 calc(6px * var(--s)); color:#e8bf78; font-size:max(10px,calc(9px * var(--s))); font-weight:800; letter-spacing:.1em; }
+  .settings-heading-row { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+  .settings-header h2 { margin:0; color:#fff0d3; font-size:max(20px,calc(25px * var(--s))); line-height:1.2; letter-spacing:-.025em; }
+  .settings-header p:last-child { margin:calc(6px * var(--s)) 0 0; color:#c6d7d0; font-size:max(11px,calc(10px * var(--s))); line-height:1.35; }
+  .settings-scroll { position:absolute; left:6.1111%; right:6.1111%; top:17.1875%; bottom:max(12.5%,60px); overflow-y:auto; overscroll-behavior:contain; touch-action:pan-y; pointer-events:auto; scrollbar-width:thin; scrollbar-color:#6a8d88 transparent; padding:0 3px calc(12px * var(--s) + var(--audio-tail,0px)); margin:0 -3px; }
+  #settings-menu .settings-scroll button, #settings-menu .settings-header button { position:static; left:auto; right:auto; top:auto; width:auto; height:auto; min-height:44px; border:1px solid #75958b55; border-radius:calc(9px * var(--s)); padding:calc(9px * var(--s)) calc(11px * var(--s)); background:#29444c; color:#edf0df; font-size:max(12px,calc(12px * var(--s))); font-weight:750; touch-action:manipulation; }
+  #settings-menu button:focus-visible, #settings-menu input:focus-visible { outline:2px solid #ffdf94; outline-offset:-3px; }
+  #settings-menu #settings-sound-jump { min-height:36px; padding:7px 10px; background:#314b45; color:#f5dcac; font-size:max(11px,calc(10px * var(--s))); flex:none; }
+  .routes-toolbar { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:calc(8px * var(--s)); }
+  .routes-toolbar h3, .settings-audio h3 { margin:0; color:#f2ead4; font-size:max(14px,calc(15px * var(--s))); line-height:1.25; }
+  #settings-menu #routes-shop { padding:8px 10px; color:#f4d293; background:#3c4435; font-size:max(11px,calc(11px * var(--s))); }
+  .route-search-wrap { display:flex; align-items:center; gap:6px; margin-bottom:calc(10px * var(--s)); }
+  #settings-menu #route-search { position:static; width:100%; flex:1; min-width:0; min-height:44px; border:1px solid #5f807a; border-radius:calc(9px * var(--s)); background:#112c35; padding:0 calc(12px * var(--s)); color:#f5eed8; font-size:max(13px,calc(12px * var(--s))); pointer-events:auto; touch-action:manipulation; user-select:text; -webkit-user-select:text; }
+  #route-search::placeholder { color:#abc2bd; opacity:1; }
+  #route-search::-webkit-search-cancel-button { -webkit-appearance:none; }
+  #settings-menu #routes-clear { flex:none; min-height:44px; padding:8px; font-size:max(11px,calc(10px * var(--s))); }
+  .routes-list { display:flex; flex-direction:column; gap:calc(9px * var(--s)); }
+  #settings-menu .location-choice { display:flex; align-items:center; gap:calc(12px * var(--s)); width:100%; min-height:calc(83px * var(--s)); padding:calc(7px * var(--s)); text-align:left; background:#213945; border:1px solid #6a8b8055; border-radius:calc(12px * var(--s)); }
+  #settings-menu .location-choice[aria-pressed="true"] { background:#304a45; border-color:var(--route-accent); box-shadow:inset 0 0 0 1px var(--route-accent); }
+  .location-choice .route-preview { flex:none; width:calc(76px * var(--s)); height:calc(69px * var(--s)); border-radius:calc(7px * var(--s)); image-rendering:pixelated; }
+  .route-copy { display:flex; flex-direction:column; gap:calc(5px * var(--s)); min-width:0; flex:1; }
+  .route-name-row { display:flex; align-items:flex-start; justify-content:space-between; gap:6px; }
+  .route-name { color:#f7f0da; font-size:max(14px,calc(14px * var(--s))); font-weight:850; line-height:1.2; overflow-wrap:anywhere; }
+  .route-check { flex:none; color:var(--route-accent); font-size:max(13px,calc(14px * var(--s))); font-weight:900; }
+  .route-description { color:#c8d9d2; font-size:max(11px,calc(10px * var(--s))); font-weight:550; line-height:1.35; overflow-wrap:anywhere; }
+  .route-meta { color:var(--route-accent); font-size:max(10px,calc(9px * var(--s))); font-weight:800; line-height:1.25; }
+  .routes-pagination { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:8px; margin-top:calc(10px * var(--s)); }
+  #settings-menu .route-page { width:100%; padding:8px 5px; font-size:max(11px,calc(10px * var(--s))); }
+  #routes-page-label { color:#c1d1c7; font-size:max(11px,calc(10px * var(--s))); font-weight:700; }
+  .routes-empty { margin:0; padding:18px 10px; border-radius:10px; background:#213945; color:#d3e1d7; text-align:center; font-size:max(13px,calc(12px * var(--s))); line-height:1.5; }
+  .settings-audio { margin-top:calc(18px * var(--s)); padding:calc(14px * var(--s)); border:1px solid #718f8155; border-radius:calc(12px * var(--s)); background:#172f38; }
+  .settings-audio p { margin:calc(7px * var(--s)) 0 calc(12px * var(--s)); color:#c2d4ca; font-size:max(11px,calc(10px * var(--s))); line-height:1.45; }
+  .settings-control-row { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:calc(8px * var(--s)); }
+  #settings-menu .settings-control-row button { width:100%; font-size:max(12px,calc(11px * var(--s))); }
+  #settings-menu .settings-control[aria-pressed="true"] { background:#3a5545; border-color:#a5c59588; color:#f4eccb; }
+  #settings-menu .volume-label { position:static; display:block; font-size:max(12px,calc(11px * var(--s))); color:#e4e8d2; margin-top:calc(13px * var(--s)); line-height:1.4; }
+  #settings-menu #music-volume { position:static; display:block; width:100%; height:44px; margin:0; accent-color:#ffbd73; touch-action:pan-x; }
+  .settings-audio .route-theme-status { margin:0; color:#e7d7a9; }
+  .settings-tools { margin-top:calc(13px * var(--s)); }
+  .settings-tools p { margin:calc(8px * var(--s)) 2px 0; color:#bfd1c7; font-size:max(11px,calc(10px * var(--s))); line-height:1.45; }
+  #settings-menu .settings-footer { position:absolute; bottom:1.5625%; left:6.1111%; right:6.1111%; padding-top:calc(9px * var(--s)); background:#0d222c; }
+  #settings-menu #settings-back { position:static; width:100%; min-height:44px; height:calc(46px * var(--s)); left:auto; top:auto; font-size:max(15px,calc(16px * var(--s))); }
+  @media (max-height:450px) {
+    .settings-header .settings-eyebrow, .settings-header #route-selected-label { display:none; }
+    .settings-header h2 { font-size:16px; }
+  }
 </style>
 </head>
 <body>
@@ -313,19 +347,38 @@
       <p class="pause-hint" id="pause-hint">P / Esc to resume</p>
     </section>
     <section class="menu settings-menu" id="settings-menu" aria-label="Routes and audio settings" hidden>
-      <h2 class="sr-only">Routes and audio</h2>
-      <button class="location-choice" type="button" data-location="0" aria-label="Warehouse. Pixel art shelves, pallets and forklifts." aria-pressed="true"></button>
-      <button class="location-choice" type="button" data-location="1" aria-label="Harbour depot. Ocean and container docks." aria-pressed="false"></button>
-      <button class="location-choice" type="button" data-location="2" aria-label="Air cargo hub. Pixel art freighter, cargo loaders and runway lights." aria-pressed="false"></button>
-      <button class="route-page" id="routes-prev" type="button">← Previous</button>
-      <button class="route-page" id="routes-next" type="button">Next →</button>
-      <button class="settings-control" id="rotate-locations" type="button" aria-pressed="false">Tour mode: off</button>
-      <button class="settings-control" id="preferences-open" type="button">Visuals & saves</button>
-      <button class="settings-control" id="music-toggle" type="button" aria-pressed="true">Music on</button>
-      <button class="settings-control" id="sfx-toggle" type="button" aria-pressed="true">Effects on</button>
-      <label class="volume-label" id="volume-label" for="music-volume">Music volume · 65%</label>
-      <input id="music-volume" type="range" min="0" max="100" value="65" aria-label="Music volume">
-      <button class="action overlay-back" id="settings-back" type="button"><span>Back</span><span class="arrow" aria-hidden="true">→</span></button>
+      <header class="settings-header">
+        <p class="settings-eyebrow">DOCK DASH · MAKE IT YOURS</p>
+        <div class="settings-heading-row"><h2>Routes & audio</h2><button id="settings-sound-jump" type="button">Audio ↓</button></div>
+        <p id="route-selected-label">Arcade place · Warehouse</p>
+      </header>
+      <div class="settings-scroll" id="settings-scroll" role="region" aria-label="Arcade places and audio controls" tabindex="0">
+        <div class="routes-toolbar"><h3 id="routes-count">Your places</h3><button id="routes-shop" type="button">Shop places ↗</button></div>
+        <div class="route-search-wrap">
+          <label class="sr-only" for="route-search">Search your arcade places</label>
+          <input id="route-search" class="search-field" type="search" placeholder="Find an owned place…" maxlength="80" autocomplete="off" autocapitalize="none" spellcheck="false" enterkeyhint="search" aria-controls="routes-list" aria-describedby="routes-search-status">
+          <button id="routes-clear" type="button" hidden>Clear</button>
+        </div>
+        <p class="sr-only" id="routes-search-status" role="status" aria-live="polite"></p>
+        <div class="routes-list" id="routes-list">
+          <button class="location-choice" type="button" data-location="0" aria-pressed="true"><canvas class="route-preview" width="152" height="138" aria-hidden="true"></canvas><span class="route-copy"><span class="route-name-row"><strong class="route-name"></strong><span class="route-check" aria-hidden="true">✓</span></span><span class="route-description"></span><span class="route-meta"></span></span></button>
+          <button class="location-choice" type="button" data-location="1" aria-pressed="false"><canvas class="route-preview" width="152" height="138" aria-hidden="true"></canvas><span class="route-copy"><span class="route-name-row"><strong class="route-name"></strong><span class="route-check" aria-hidden="true">✓</span></span><span class="route-description"></span><span class="route-meta"></span></span></button>
+          <button class="location-choice" type="button" data-location="2" aria-pressed="false"><canvas class="route-preview" width="152" height="138" aria-hidden="true"></canvas><span class="route-copy"><span class="route-name-row"><strong class="route-name"></strong><span class="route-check" aria-hidden="true">✓</span></span><span class="route-description"></span><span class="route-meta"></span></span></button>
+        </div>
+        <p class="routes-empty" id="routes-empty" hidden>No owned places match. Clear your search or find a new place in the shop.</p>
+        <div class="routes-pagination" id="routes-pagination"><button class="route-page" id="routes-prev" type="button">← Previous</button><span id="routes-page-label">1 / 1</span><button class="route-page" id="routes-next" type="button">Next →</button></div>
+        <section class="settings-audio" id="settings-audio" aria-labelledby="settings-audio-title">
+          <h3 id="settings-audio-title">Your sound</h3><p>Set the soundtrack and delivery effects separately.</p>
+          <div class="settings-control-row"><button class="settings-control" id="music-toggle" type="button" aria-pressed="true">Music on</button><button class="settings-control" id="sfx-toggle" type="button" aria-pressed="true">Effects on</button></div>
+          <label class="volume-label" id="volume-label" for="music-volume">Music volume · 65%</label><input id="music-volume" type="range" min="0" max="100" value="65" aria-label="Music volume">
+          <p class="route-theme-status" id="route-theme-status"></p>
+        </section>
+        <section class="settings-tools" aria-label="Tour mode and game preferences">
+          <div class="settings-control-row"><button class="settings-control" id="rotate-locations" type="button" aria-pressed="false">Tour mode: off</button><button class="settings-control" id="preferences-open" type="button">Visuals & saves</button></div>
+          <p id="route-tour-hint">Stay at your chosen arcade place.</p>
+        </section>
+      </div>
+      <div class="settings-footer"><button class="action overlay-back" id="settings-back" type="button"><span>Back to home</span><span class="arrow" aria-hidden="true">←</span></button></div>
     </section>
     <section class="menu" id="missions-menu" aria-label="Mission map. 23 worlds, 184 missions." hidden>
       <h2 class="sr-only">Mission map</h2>
@@ -582,7 +635,7 @@
   let overlayReturn='title', catalogPage=0, catalogGroup=-1, selectedCargo=-1, productDeck=[];
   let missionPage=0, missionChapter='', shopPage=1, shopCategory='trucks', shopOwnedOnly=false, routePage=0;
   const shopPages={trucks:1,venues:0,styles:0,new:0};
-  let shopQuery='',missionQuery='',missionSearchPage=0;
+  let shopQuery='',missionQuery='',missionSearchPage=0,routeQuery='';
   const searchShopPages={trucks:0,venues:0,styles:0,new:0},ownedSearchShopPages={trucks:0,venues:0,styles:0,new:0};
   const ownedShopPages={trucks:0,venues:0,styles:0,new:0};
   let missionRecords = {}, selectedMission = MR.getMission('matchday',0), missionResult = null;
@@ -997,8 +1050,12 @@
   function openOverlay(which) {
     if(!['title','over','play'].includes(state) || (state==='play' && !paused) || (state==='over' && performance.now()-endedAt<500))return;
     overlayReturn=state;state=which;selectedCargo=-1;
-    if(which==='settings')routePage=Math.floor(ER.ownedLocations(wallet,profile).indexOf(settings.location)/3);
+    if(which==='settings'){
+      routeQuery='';$('route-search').value='';routePage=Math.floor(ER.ownedLocations(wallet,profile).indexOf(settings.location)/3);
+      $('settings-scroll').style.removeProperty('--audio-tail');$('settings-scroll').scrollTop=0;
+    }
     wakeAudio();syncControls();syncSettings();
+    if(which==='settings')$('settings-back').focus({preventScroll:true});
     announce(which==='settings'?'Routes and audio. Choose a location and music settings.':`Cargo collection. ${discovered.size} of ${PRODUCTS.length} products delivered.`);
   }
   function closeOverlay() {
@@ -1007,17 +1064,54 @@
     syncControls();syncAudioMix();
     (state==='play'?$('resume'):state==='over'?$('replay'):$('start')).focus({preventScroll:true});
   }
+  function routeMatches() {
+    return DockDashBrowse.find(ER.ownedLocations(wallet,profile),routeQuery,index=>{
+      const venue=ER.venues.find(v=>v.location===index);return [LOCATIONS[index].name,LOCATIONS[index].tag,LOCATIONS[index].short,venue?.name,venue?.copy];
+    });
+  }
+  function searchRoutes(value) {
+    routeQuery=DockDashBrowse.normalise(value);routePage=0;syncSettings();
+  }
+  function paintRoutePreviews() {
+    if(state!=='settings')return;
+    document.querySelectorAll('.location-choice:not([hidden])').forEach(b=>{
+      const index=Number(b.dataset.location),c=b.querySelector('.route-preview');loadPixelArt(index);
+      const source=previewFloors.get(index,()=>buildFloor(.5,index));
+      if(c.routeSource===source && c.routeIndex===index)return;
+      const d=c.getContext('2d');d.setTransform(2,0,0,2,0,0);d.clearRect(0,0,76,69);scenePreview(index,0,0,76,69,d);
+      c.routeSource=source;c.routeIndex=index;
+    });
+  }
+  function syncRouteTheme() {
+    const label=muted?'Sound is muted':!settings.music?'Music is off':!settings.musicVolume?'Music volume is zero':musicBlocked?'Tap Music to start the soundtrack':`${musicLive?'Now playing':'Theme'} · ${MEDIA.musicTitles[musicLive && soundtrack.active?soundtrack.active.track:activeLocation]}`;
+    if($('route-theme-status').textContent!==label)$('route-theme-status').textContent=label;
+  }
   function syncSettings() {
     engine.invalidate();
-    const locations=ER.ownedLocations(wallet,profile);routePage=clamp(routePage,0,Math.ceil(locations.length/3)-1);
-    document.querySelectorAll('.location-choice').forEach((b,i)=>{const loc=locations[routePage*3+i];b.hidden=loc===undefined;if(b.hidden)return;b.dataset.location=loc;b.setAttribute('aria-pressed',String(settings.location===loc));b.setAttribute('aria-label',`${LOCATIONS[loc].name}. ${LOCATIONS[loc].tag} ${settings.location===loc?'Selected for arcade.':'Tap to select for arcade.'}`);});
+    const owned=ER.ownedLocations(wallet,profile),locations=routeMatches(),pages=Math.max(1,Math.ceil(locations.length/3));routePage=clamp(routePage,0,pages-1);
+    document.querySelectorAll('.location-choice').forEach((b,i)=>{
+      const loc=locations[routePage*3+i];b.hidden=loc===undefined;if(b.hidden)return;
+      const place=LOCATIONS[loc],selected=settings.location===loc;b.dataset.location=loc;b.style.setProperty('--route-accent',place.accent);
+      b.setAttribute('aria-pressed',String(selected));b.setAttribute('aria-label',`${place.name}. ${place.tag} ${selected?'Selected for arcade.':'Tap to select for arcade.'}`);
+      b.querySelector('.route-name').textContent=place.name;b.querySelector('.route-description').textContent=place.tag;b.querySelector('.route-check').hidden=!selected;
+      b.querySelector('.route-meta').textContent=`${selected?'Selected · ':''}${loc<3?'All cargo':'Themed cargo + music'}`;
+    });
     $('routes-prev').disabled=routePage===0;$('routes-next').disabled=(routePage+1)*3>=locations.length;
+    $('routes-empty').hidden=locations.length>0;$('routes-pagination').hidden=!locations.length;$('routes-clear').hidden=!$('route-search').value;
+    $('routes-page-label').textContent=`${routePage+1} / ${pages}`;$('routes-count').textContent=`Your places · ${owned.length}`;
+    $('routes-search-status').textContent=routeQuery?`${locations.length} owned places found.`:`${owned.length} owned arcade places.`;
+    $('route-selected-label').textContent=`Arcade place · ${LOCATIONS[settings.location].name}`;
+    $('settings-back').querySelector('span').textContent=overlayReturn==='play'?'Back to paused game':overlayReturn==='over'?'Back to results':'Back to home';
+    $('settings-back').setAttribute('aria-label',$('settings-back').querySelector('span').textContent);
     $('rotate-locations').setAttribute('aria-pressed',String(settings.rotate));$('rotate-locations').textContent=settings.rotate?'Tour mode: on':'Tour mode: off';
-    $('rotate-locations').setAttribute('aria-label',settings.rotate?`Tour mode on. ${locations.length} owned places, every two shifts.`:'Tour mode off. Stay at the chosen arcade place.');
+    $('rotate-locations').setAttribute('aria-label',settings.rotate?`Tour mode on. ${owned.length} owned places, every two shifts.`:'Tour mode off. Stay at the chosen arcade place.');
+    $('route-tour-hint').textContent=settings.rotate?`Tour all ${owned.length} owned places, changing every two arcade shifts.`:'Stay at your chosen arcade place. Tour mode changes places every two shifts.';
     $('music-toggle').textContent=settings.music && musicBlocked && !muted?'Tap for music':`Music ${settings.music?'on':'off'}`;$('music-toggle').setAttribute('aria-pressed',String(settings.music));
     $('sfx-toggle').textContent=`Effects ${settings.sfx?'on':'off'}`;$('sfx-toggle').setAttribute('aria-pressed',String(settings.sfx));
     $('music-volume').value=String(Math.round(settings.musicVolume*100));
+    $('music-volume').setAttribute('aria-valuetext',`${Math.round(settings.musicVolume*100)} percent`);
     $('volume-label').textContent=`Music volume · ${Math.round(settings.musicVolume*100)}%${muted?' · sound muted':''}`;
+    syncRouteTheme();paintRoutePreviews();
   }
   function catalogItems() {return catalogGroup<0?PRODUCTS:PRODUCTS.filter(p=>p.group===catalogGroup);}
   function syncCatalog() {
@@ -1028,21 +1122,7 @@
     document.querySelectorAll('.cargo-choice').forEach((b,i)=>{const p=items[catalogPage*12+i];b.hidden=!p;b.setAttribute('aria-label',p?`${p.name}. ${discovered.has(p.id)?'Delivered':'Not yet delivered'}. ${p.category}.`:'');});
   }
   function drawSettings() {
-    rect(ctx,0,0,W,H,'#0b1922e8');warehouseBrand();text(ctx,'ROUTES & AUDIO',180,82,27,'#f6edda',900,'center');
-    text(ctx,'Your arcade places · find more in the shop.',180,111,10,'#c1cfbb',500,'center');
-    const locations=ER.ownedLocations(wallet,profile);
-    locations.slice(routePage*3,routePage*3+3).forEach((index,i)=>{
-      const loc=LOCATIONS[index],y=132+i*88,selected=settings.location===index;
-      rect(ctx,22,y,316,78,selected?'#324549':'#1e303b',12);
-      scenePreview(index,28,y+6,84,66);
-      line(ctx,35,y+68,104,y+68,loc.accent,2);cargoText(ctx,loc.name,125,y+23,176,14,'#f0edd8','left');
-      cargoText(ctx,loc.tag,125,y+43,180,9,'#b8cbbd','left');
-      text(ctx,index<3?'ALL CARGO': 'THEMED CARGO + MUSIC',125,y+62,8,loc.accent,750);
-      if(selected){ctx.strokeStyle=loc.accent;ctx.lineWidth=1.5;rr(ctx,23,y+1,314,76,11);ctx.stroke();circleCheck(ctx,317,y+23,loc.accent);}
-    });
-    text(ctx,`${routePage+1} / ${Math.ceil(locations.length/3)}`,180,408,10,'#cbd9bf',800,'center');
-    text(ctx,'CHOOSE YOUR SOUND',180,475,8,'#b7c8b3',800,'center');
-    text(ctx,musicBlocked?'Tap Music to start the soundtrack.':`${musicLive?'Now playing':'Theme'} · ${MEDIA.musicTitles[musicLive && soundtrack.active ? soundtrack.active.track : activeLocation]}`,180,633,8,'#aebfaf',500,'center');
+    rect(ctx,0,0,W,H,'#0d222cef');paintRoutePreviews();syncRouteTheme();
   }
   function circleCheck(c,x,y,col) {c.fillStyle=col;c.beginPath();c.arc(x,y,8,0,Math.PI*2);c.fill();line(c,x-4,y,x-1,y+3,'#142935',1.6);line(c,x-1,y+3,x+4,y-3,'#142935',1.6);}
   function drawCatalog() {
@@ -1296,12 +1376,12 @@
     }
   }
   function openGarage() {
-    if (!['title', 'over', 'missionResult'].includes(state) || (state === 'over' && performance.now() - endedAt < 500)) return;
+    if (!['title', 'over', 'missionResult', 'settings'].includes(state) || (state === 'over' && performance.now() - endedAt < 500)) return;
     progress.flush();garageReturn = state; state = 'garage';$('shop-message').textContent='Earn coins on every delivery. Own your favourites forever.';syncControls();
     announce(`Dock shop. ${num(wallet.coins)} coins. Trucks, arcade places, parcel wraps and dock styles.`);
     $('garage-back').focus({preventScroll:true});
   }
-  function closeGarage() { state = garageReturn;if(state==='title')useLocation(settings.location);syncControls(); (state === 'over' ? $('replay') : state==='missionResult'?$('mission-next'):$('start')).focus({ preventScroll: true }); }
+  function closeGarage() { state = garageReturn;if(state==='title')useLocation(settings.location);syncControls();if(state==='settings')syncSettings(); (state === 'settings'?$('routes-shop'):state === 'over' ? $('replay') : state==='missionResult'?$('mission-next'):$('start')).focus({ preventScroll: true }); }
   function shopItems() {
     const items=shopCategory==='new'?ER.newItems:shopCategory==='venues'?ER.venues:shopCategory==='styles'?ER.styles:SKINS;
     const available=shopOwnedOnly?items.filter(item=>ER.isOwned(wallet,item,profile)):items;
@@ -1353,7 +1433,7 @@
       wallet=transaction.wallet;
     }
     if(item.type==='truck') {profile.selectedSkin=SKINS.indexOf(item);truckCache=trucksForSkin(profile.selectedSkin);}
-    else if(item.type==='venue') {settings.location=item.location;saveSettings();if(garageReturn!=='missionResult')useLocation(item.location);}
+    else if(item.type==='venue') {settings.location=item.location;saveSettings();if(garageReturn!=='missionResult' && !(garageReturn==='settings' && overlayReturn==='play' && game?.mission))useLocation(item.location);}
     else if(item.style==='wrap') {profile.selectedWrap=item.id;parcelSprites.clear();}
     else profile.selectedZone=item.id;
     saveProfile();syncControls();syncSettings();
@@ -1513,8 +1593,8 @@
     $('shop-clear').hidden=!shopQuery || items.length>0;
     skinButtons.forEach((b,slot)=>{const item=items[shopPage*4+slot];b.hidden=!item;if(!item){delete b.dataset.item;delete b.dataset.skin;return;}const owned=ER.isOwned(wallet,item,profile),selected=itemEquipped(item);b.dataset.item=item.id;if(item.type==='truck')b.dataset.skin=SKINS.indexOf(item);else delete b.dataset.skin;b.setAttribute('aria-pressed',String(selected));b.setAttribute('aria-disabled',String(!owned && !item.price));b.setAttribute('aria-label',`${item.name}. ${item.copy} ${owned?selected?'Equipped.':item.price?'Owned. Tap to equip.':'Included. Tap to equip.':item.price?`${item.price} coins. Tap to buy and equip.${wallet.coins<item.price?` Need ${item.price-wallet.coins} more coins.`:''}`:`Delivery reward. ${item.need-profile.totalDelivered} more total deliveries needed.`}`);});
     $('shop-prev').disabled=shopPage===0;$('shop-next').disabled=(shopPage+1)*4>=items.length;
-    $('garage-back').querySelector('.back-label').textContent=garageReturn==='title'?'Home':'Results';
-    $('garage-back').setAttribute('aria-label',garageReturn==='title'?'Back to home':'Back to results');
+    $('garage-back').querySelector('.back-label').textContent=garageReturn==='settings'?'Routes':garageReturn==='title'?'Home':'Results';
+    $('garage-back').setAttribute('aria-label',garageReturn==='settings'?'Back to routes and audio':garageReturn==='title'?'Back to home':'Back to results');
     $('mission-shop').textContent=`Dock shop · ${num(wallet.coins)} coins →`;
     $('start').setAttribute('aria-label',`Start arcade at ${ER.venues.find(v=>v.location===settings.location).name}. Equipped ${SKINS[profile.selectedSkin].name}. Three-second countdown.`);
     $('shop-play').setAttribute('aria-label',$('start').getAttribute('aria-label'));
@@ -2273,6 +2353,16 @@
   document.querySelectorAll('.settings-button').forEach(b=>b.addEventListener('click',()=>openOverlay('settings')));
   document.querySelectorAll('.catalog-button').forEach(b=>b.addEventListener('click',()=>openOverlay('catalog')));
   $('settings-back').addEventListener('click',closeOverlay);$('catalog-back').addEventListener('click',closeOverlay);
+  $('settings-sound-jump').addEventListener('click',()=>{
+    const panel=$('settings-scroll'),section=$('settings-audio'),tools=document.querySelector('.settings-tools');
+    // Leave enough scroll room to align Audio below the fixed header, without moving the stage.
+    panel.style.setProperty('--audio-tail',`${Math.max(0,panel.clientHeight-(tools.getBoundingClientRect().bottom-section.getBoundingClientRect().top))}px`);
+    panel.scrollTop+=section.getBoundingClientRect().top-panel.getBoundingClientRect().top;
+    $('music-toggle').focus({preventScroll:true});
+  });
+  $('route-search').addEventListener('input',e=>searchRoutes(e.target.value));
+  $('routes-clear').addEventListener('click',()=>{$('route-search').value='';searchRoutes('');$('route-search').focus({preventScroll:true});});
+  $('routes-shop').addEventListener('click',()=>{openGarage();searchShop('');if(shopOwnedOnly)toggleShopOwned();changeShopCategory('venues');});
   $('preferences-open').addEventListener('click',openPreferences);
   $('preferences-close').addEventListener('click',()=>$('preferences-dialog').close());
   $('preferences-dialog').addEventListener('close',()=>{clearBackupPreview();(state==='settings'?$('preferences-open'):$('start')).focus({preventScroll:true});});
@@ -2284,7 +2374,7 @@
   $('backup-cancel').addEventListener('click',()=>{clearBackupPreview();backupStatus('Your current save is unchanged.');$('backup-import').focus();});
   $('backup-restore').addEventListener('click',()=>restoreBackup());$('backup-undo').addEventListener('click',()=>restoreBackup(true));
   document.querySelectorAll('.location-choice').forEach(b=>b.addEventListener('click',()=>{const i=Number(b.dataset.location);if(!ER.ownedLocations(wallet,profile).includes(i))return;settings.location=i;saveSettings();if(!(overlayReturn==='play' && game?.mission))useLocation(i);syncSettings();syncControls();announce(`${LOCATIONS[i].name} selected for arcade.`);}));
-  for(const [id,delta] of [['routes-prev',-1],['routes-next',1]])$(id).addEventListener('click',()=>{routePage+=delta;syncSettings();document.querySelector('.location-choice:not([hidden])')?.focus({preventScroll:true});});
+  for(const [id,delta] of [['routes-prev',-1],['routes-next',1]])$(id).addEventListener('click',()=>{routePage+=delta;syncSettings();$('settings-scroll').scrollTop=0;document.querySelector('.location-choice:not([hidden])')?.focus({preventScroll:true});});
   $('rotate-locations').addEventListener('click',()=>{settings.rotate=!settings.rotate;saveSettings();syncSettings();});
   for(const [id,key] of [['music-toggle','music'],['sfx-toggle','sfx']]) $(id).addEventListener('click',()=>{
     if(key==='music' && settings.music && musicBlocked && !muted){wakeAudio();syncSettings();return;}
@@ -2311,7 +2401,7 @@
   window.addEventListener('keydown', e => {
     if($('story-dialog').open || $('preferences-dialog').open || e.isComposing)return;
     if(e.target instanceof HTMLInputElement && e.target.classList.contains('search-field')) {
-      if(e.key==='Escape'){e.preventDefault();e.target.value='';e.target.id==='shop-search'?searchShop(''):searchWorlds('');e.target.blur();}
+      if(e.key==='Escape'){e.preventDefault();e.target.value='';e.target.id==='shop-search'?searchShop(''):e.target.id==='route-search'?searchRoutes(''):searchWorlds('');e.target.blur();}
       else if(e.key==='Enter'){e.preventDefault();e.target.blur();}
       return;
     }
