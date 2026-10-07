@@ -4,7 +4,7 @@ A phone-friendly pixel-art sorting game: wait for the loading zone, match the pa
 
 ## Play
 
-https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=6.4-world-challenges
+https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=6.4.1-guitar-cargo
 
 ## This release
 
@@ -18,6 +18,7 @@ https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=6.4-wor
 - A three-second countdown, explicit Home controls, saved progress and the existing gapless audio engine.
 - Six themed mission patterns: match rushes, merchant convoys, crane relays, tide crossings, supply sets and trail markers.
 - Auto, Reduced and Full visual-effects settings, plus portable save files with preview, restore and undo.
+- Refined guitar cargo: a wood acoustic body, electric pickups, a smaller four-string ukulele, a fitted case and a separate string pack. All five keep their existing identities and cached sorting stickers.
 
 ## Original art and music
 

@@ -1,8 +1,8 @@
 /* Small cargo silhouettes, drawn once into the game's bounded sprite caches. */
 (function(root) {
   'use strict';
-  const kinds=['soccerball','cleats','keepergloves','kitbag','trophy','dinosaur','amphora','scroll','romanshield','romanhelmet','laurel','wheat','standard','tunic','lyre','stoneblock','column','coins','linen','basket','lotus','scarab','obelisk','sundial','reedboat','roundshield','barrel','vikingaxe','rope','longship','runestone','drinkinghorn','fishbasket','amber','silkrolls','spices','rug','porcelain','paperfan','jade','seal','abacus'];
-  function draw(c,kind,col) {
+  const kinds=['guitar','soccerball','cleats','keepergloves','kitbag','trophy','dinosaur','amphora','scroll','romanshield','romanhelmet','laurel','wheat','standard','tunic','lyre','stoneblock','column','coins','linen','basket','lotus','scarab','obelisk','sundial','reedboat','roundshield','barrel','vikingaxe','rope','longship','runestone','drinkinghorn','fishbasket','amber','silkrolls','spices','rug','porcelain','paperfan','jade','seal','abacus'];
+  function draw(c,kind,col,name='') {
     if(!kinds.includes(kind))return false;
     const cream='#fff1d1',ink='#172c38',shade='#456171',gold='#eabe66',wood='#aa744b',red='#bd5e55',jade='#8ec7a0';
     const r=(x,y,w,h,color)=>{c.fillStyle=color;c.fillRect(x,y,w,h);};
@@ -12,6 +12,46 @@
     const ring=(x,y,radius,width,color)=>{c.strokeStyle=color;c.lineWidth=width;c.beginPath();c.arc(x,y,radius,0,Math.PI*2);c.stroke();};
     const woven=()=>{r(-13,-3,26,17,wood);r(-11,-1,22,13,gold);for(let y=1;y<13;y+=4)line(-11,y,11,y,wood,1);for(let x=-8;x<12;x+=5)line(x,-1,x,13,wood,1);};
     switch(kind) {
+      case 'guitar': {
+        // Stable cargo names select artwork only; IDs, pools and sorting stay the same.
+        if(name==='Guitar strings'){
+          r(-12,-16,24,33,ink);r(-11,-15,22,31,col);r(-11,-15,22,5,cream);
+          r(-8,-12,16,1,wood);for(const y of [-7,-4])r(-7,y,14,1,shade);
+          ring(0,6,8,1.5,cream);ring(0,6,5.5,1,shade);line(5,12,8,15,cream,1);
+          r(-9,-9,2,23,'#ffffff45');break;
+        }
+        const electric=name==='Electric guitar',small=name==='Ukulele',inCase=name==='Guitar case';
+        const edge=inCase?gold:'#49392f',face=inCase?'#345365':small?'#dfa564':'#edc580';
+        c.save();if(small)c.scale(.82,.92);
+        if(electric){
+          poly([[-3,-4],[-6,-8],[-9,-8],[-8,-3],[-11,1],[-13,5],[-13,12],[-9,17],[7,17],[12,13],[12,5],[9,1],[7,-2],[7,-8],[4,-6],[3,-3]],ink);
+          poly([[-3,-2],[-6,-7],[-7,-7],[-6,-2],[-10,2],[-12,5],[-12,11],[-8,16],[6,16],[11,12],[11,5],[8,2],[6,-1],[6,-6],[4,-4],[3,-1]],col);
+          poly([[3,-2],[5,-2],[5,1],[8,4],[7,11],[-5,11],[-6,4],[-3,1],[-3,-2]],cream);
+          r(-5,2,10,2,ink);r(-5,7,10,2,ink);r(-5,12,10,3,shade);r(-4,12,8,1,cream);
+          r(8,11,2,2,gold);r(7,14,2,2,gold);r(-11,6,2,5,'#ffffff55');
+        }else{
+          // Contoured bouts, a pinched waist and wood shading survive small icons.
+          poly([[-4,-4],[-7,-6],[-10,-5],[-12,-2],[-12,1],[-10,4],[-8,5],[-8,7],[-11,8],[-13,11],[-13,14],[-11,17],[-7,18],[7,18],[11,17],[13,14],[13,11],[11,8],[8,7],[8,5],[10,4],[12,1],[12,-2],[10,-5],[7,-6],[4,-4]],edge);
+          poly([[-4,-3],[-7,-5],[-9,-4],[-11,-2],[-11,1],[-9,3],[-7,4],[-7,7],[-10,9],[-12,11],[-12,14],[-10,16],[-7,17],[7,17],[10,16],[12,14],[12,11],[10,9],[7,7],[7,4],[9,3],[11,1],[11,-2],[9,-4],[7,-5],[4,-3]],face);
+          poly([[7,-5],[10,-3],[11,0],[9,3],[7,4],[7,7],[10,9],[12,11],[12,14],[10,16],[7,17],[4,17],[8,15],[10,13],[10,11],[8,8],[5,6],[5,4],[8,1],[8,-2],[5,-4]],inCase?shade:'#c68e50');
+          r(-9,-2,2,3,inCase?'#718997':'#ffe4a7');r(-10,10,2,4,inCase?'#718997':'#ffe4a7');
+          if(inCase){
+            r(-4,-15,8,17,edge);r(-3,-14,6,17,face);r(-5,-18,10,5,edge);r(-4,-17,8,4,face);
+            r(10,1,5,8,gold);r(11,3,2,4,ink);for(const y of [0,10]){r(-11,y,3,2,cream);r(8,y,3,2,cream);}
+            r(-4,6,8,5,col);r(-2,7,4,1,cream);c.restore();break;
+          }
+          disc(0,3,4.5,'#bb823e');disc(0,3,3.4,ink);
+          if(!small)poly([[4,1],[7,1],[8,3],[7,8],[3,8],[3,7],[4,5]],'#795137');
+          r(-5,12,10,3,edge);r(-4,12,8,1,cream);
+        }
+        const head=small?-15:-18,nut=head+6;
+        r(-3,nut,6,1-nut,edge);r(-2,nut+1,4,-nut-1,electric?shade:'#7c5438');
+        r(-4,head,8,6,edge);r(-3,head+1,6,4,'#b07c4c');r(-3,nut,6,1,cream);
+        for(const y of small?[head+1,head+4]:[head+1,head+3,head+5]){r(-6,y,2,1.5,cream);r(4,y,2,1.5,cream);}
+        for(let y=nut+3;y<0;y+=3)r(-2,y,4,1,'#d5b786');
+        const strings=small?4:6;for(let i=0;i<strings;i++)r(-1.9+i*3.8/(strings-1),nut+1,.35,13-nut,'#fff2c9');
+        c.restore();break;
+      }
       case 'soccerball':
         // A circular rim, connected pentagon panels and one subtle shaded edge.
         disc(0,0,16,ink);disc(0,0,14.5,cream);
