@@ -1,9 +1,10 @@
 /* Dock Dash mission definitions and saved-star rules. No browser dependencies. */
 (function (root, factory) {
-  const rules = factory(typeof module==='object'&&module.exports?require('./world-pack.js'):root.DockDashWorldPack);
+  const node=typeof module==='object'&&module.exports;
+  const rules = factory(node?require('./world-pack.js'):root.DockDashWorldPack,node?require('./world-challenges.js'):root.DockDashChallenges);
   if (typeof module === 'object' && module.exports) module.exports = rules;
   else root.DockDashMissions = rules;
-})(typeof globalThis !== 'undefined' ? globalThis : this, function (pack) {
+})(typeof globalThis !== 'undefined' ? globalThis : this, function (pack, challenges) {
   'use strict';
   const worlds = [
     { id: 'matchday', name: 'Matchday', category: 'Soccer supplies', badge: 'SOCCER',
@@ -176,7 +177,7 @@
     const world = worlds[index], base = 300 + index * 12;
     return { ...tiers[stage], id: `${worldId}-${stage + 1}`, world, stage,
       title: world.stages[stage], story:world.stories?.[stage] || world.tag, products: Array.from({ length: 12 }, (_, i) => base + i),
-      priorityProducts: [base, base + 1, base + 2] };
+      priorityProducts: [base, base + 1, base + 2], challenge:challenges.describe(world,stage) };
   }
   const missions = worlds.flatMap(w => tiers.map((_, i) => getMission(w.id, i)));
   function readRecords(raw) {

@@ -4,7 +4,7 @@ A phone-friendly pixel-art sorting game: wait for the loading zone, match the pa
 
 ## Play
 
-https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=6.3.1-mission-design
+https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=6.4-world-challenges
 
 ## This release
 
@@ -16,6 +16,8 @@ https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=6.3.1-m
 - 1,500 cargo identities, 37 trucks, 103 arcade places and 19 independent parcel/dock styles.
 - Every world's first mission is free. Earned coins buy permanent vehicles, cosmetic styles and endless arcade places; there are no real-money purchases.
 - A three-second countdown, explicit Home controls, saved progress and the existing gapless audio engine.
+- Six themed mission patterns: match rushes, merchant convoys, crane relays, tide crossings, supply sets and trail markers.
+- Auto, Reduced and Full visual-effects settings, plus portable save files with preview, restore and undo.
 
 ## Original art and music
 
@@ -46,3 +48,17 @@ Menu navigation and searching are covered by `tests/interface.browser.cjs` along
 Mission briefings use native text and a touch-scrollable panel with separate, fixed Start and Mission map controls. Package, priority and time goals come first. The Levels shortcut reaches all eight levels, showing their unlock state and earned stars; choosing a new level returns to its objectives. Supply illustrations, story text and expandable star goals remain readable on smaller screens. Completion rewards reflect the player's previous stars, and replay keeps the original countdown and equipment.
 
 All 37 fleets have detailed original pixel artwork, including passenger windows on buses, emergency equipment, larger off-road wheels and distinct space vehicles. Every fleet retains all four colour/shape sorting plates. Art is painted once into the existing lazy sprite cache; no new image downloads are needed. `tests/mission-design.browser.cjs` covers touch and keyboard scrolling, all 800 mission texts, five viewport layouts and the 148 sorting plates.
+
+## Themed mission challenges
+
+Worlds now choose an appropriate arrival pattern instead of sharing only the difficulty template. Sports alternate team deliveries and introduce gentle, announced rushes from level two. Historical merchants arrive in three-parcel convoys. Construction loads come in pairs, with short crane lifts that pause both the belt and mission timer. Water and sky routes ease between calm and faster crossings. Schools and workshops begin each cargo set with the three priority supplies. Woodland routes follow repeating colour-and-shape trails.
+
+The existing eight levels, package goals, star rules, unlocks, rewards and save IDs remain compatible. Gold still fits any open truck. Pace changes ease in gradually, and the first mission keeps a steady belt while players learn the route. All 800 missions are covered by the complete gameplay check.
+
+## Visual effects and portable saves
+
+Open **Routes & audio → Visuals & saves**. Auto simplifies decoration after sustained slow frames; Reduced removes decorative particles, sway and screen shake and caps drawing at 60 frames per second. The simulation continues at the same 120 steps per second. Full preserves the decorative effects, and every mode respects the device's Reduce Motion setting. Music and sorting rules are unchanged.
+
+**Save backup** creates a JSON file containing the current coins, purchased items, equipped truck and styles, arcade place, settings, cargo collection, mission records and arcade best. Supported phones can save through their share sheet; other browsers download the file. On another phone, choose the file, compare its progress with the current save, then press Restore. Restore returns Home and keeps the previous progress for **Undo last restore**, including after a reload. Only the latest restore has an undo copy. Keep the exported file outside the browser to recover from clearing browser data.
+
+Files are checked before any progress changes. A restore journal recovers interrupted writes before startup; failed writes roll back, and unrelated browser-storage keys are never imported. `tests/save-backup.test.cjs`, `tests/world-challenges.test.cjs` and `tests/journey-upgrade.browser.cjs` cover damaged files, storage failures, exact restores, native file selection, touch scrolling, five layouts, all challenge patterns and a twenty-minute simulated mobile session with bounded caches.

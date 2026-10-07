@@ -4,7 +4,7 @@ const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?process.
 const root=path.resolve(__dirname,'..'),output=process.env.DOCK_TEST_OUTPUT || path.join(os.tmpdir(),'dock-dash-gameplay-checks'),url='http://127.0.0.1:8844/';
 fs.mkdirSync(output,{recursive:true});
 const source=fs.readFileSync(path.join(root,'index.html'),'utf8');
-const html=source.replace('  buildBelt(); parcelCache',`  window.__dockTest={engine,frameBudget,progress,frame,render,update,startGame,loadLane,nextParcel,pauseGame,backToTitle,useLocation,fit,parcelSprite,parcelSprites,popupSprites,previewFloors,panels,burst,popup,openMissionMap,openOverlay,
+const html=source.replace('  buildBelt(); parcelCache',`  window.__dockTest={engine,frameBudget,progress,frame,render,update,startGame,loadLane,nextParcel,pauseGame,backToTitle,useLocation,fit,parcelSprite,parcelSprites,popupSprites,previewFloors,panels,burst,popup,openMissionMap,openOverlay,settings,applyEffectSettings,
  get game(){return game;},get art(){return pixelArt;},get clock(){return clock;},get floors(){return locationFloors;},get popups(){return popups;},get particles(){return particles;},get profile(){return profile;},get discovered(){return discovered;}};
   buildBelt(); parcelCache`);
 assert.notEqual(html,source);const checks=[],errors=[];
@@ -77,7 +77,7 @@ function pass(name,detail){checks.push({name,detail});console.log('PASS '+name+(
  assert.equal(cache.parcels,96);assert.equal(cache.floors,2);assert.equal(cache.cargoPanel,false);pass('long runs and route changes bound sprite memory and remove empty cargo cards',cache);
  const previews=await page.evaluate(()=>{const d=__dockTest;d.openMissionMap();d.render();d.backToTitle();d.openOverlay('settings');d.render();return {count:d.previewFloors.entries.size,widths:[...d.previewFloors.entries.values()].map(c=>c.width),floors:d.floors.filter(Boolean).length};});
  assert.equal(previews.count,7);assert.ok(previews.widths.every(w=>w===180));assert.ok(previews.floors<=2);pass('mission and route previews render small cached scenes independently of full-size floors',previews);
- await page.evaluate(()=>{const d=__dockTest;d.startGame({skipTutorial:true});Object.assign(d.game,{readyIn:0,go:0,shift:12,hold:0,streak:30,score:18055,hot:5,slow:4});for(let i=0;i<10;i++)d.burst(45+i*30,535,'#ffb365',14);for(let i=0;i<8;i++)d.popup('PERFECT +150',65+i*30,345+i*20,'#dafaaf',16);d.render();__counts.paths=__counts.shadows=0;d.render();});
+ await page.evaluate(()=>{const d=__dockTest;d.settings.effects='full';d.applyEffectSettings();d.startGame({skipTutorial:true});Object.assign(d.game,{readyIn:0,go:0,shift:12,hold:0,streak:30,score:18055,hot:5,slow:4});for(let i=0;i<10;i++)d.burst(45+i*30,535,'#ffb365',14);for(let i=0;i<8;i++)d.popup('PERFECT +150',65+i*30,345+i*20,'#dafaaf',16);d.render();__counts.paths=__counts.shadows=0;d.render();});
  const busy=await page.evaluate(()=>({paths:__counts.paths,blur:__counts.shadows,particles:__dockTest.particles.length}));
  assert.ok(busy.paths<50);assert.equal(busy.blur,0);assert.equal(busy.particles,140);pass('a full 140-particle burst uses bounded drawing paths and no per-frame blur',busy);
  await page.evaluate(()=>{const d=__dockTest;d.popups.length=d.particles.length=0;d.render();});
