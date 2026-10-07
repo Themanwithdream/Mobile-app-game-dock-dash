@@ -4,7 +4,7 @@ A phone-friendly pixel-art sorting game: wait for the loading zone, match the pa
 
 ## Play
 
-https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=6.1.1-unique-worlds
+https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=6.2-navigation
 
 ## This release
 
@@ -34,3 +34,9 @@ Cargo artwork is generated lazily in a 144-entry cache. Scenery downloads are la
 The game is static HTML, JavaScript, PNG and MP3; no bundler or server dependency is required. Run `python -m http.server` locally. Pure rules live in `missions/`, `economy/`, `engine/` and `audio/`. Browser test hooks are injected only into temporary test responses.
 
 Run unit checks with `node --test tests/*.test.cjs`. Playwright browser suites cover mission completion, native navigation, save migration, audio loops, shop transactions, canvas budgets and phone layouts. The soundtrack composer needs NumPy, SciPy, Node and FFmpeg: `python audio/compose-missions.py --lanterns-only` regenerates the new world pack and Beacon Bay score.
+
+## Finding worlds and shop items
+
+The home screen now gives Arcade and Missions their own full-width mode cards. Mission search finds world names and themes within the selected chapter, with visible star progress on every card. Shop search combines with category and Owned filters, remembers the browsing page when cleared, and shows the coin gap or remaining deliveries for locked items. Escape clears a focused search; Enter dismisses the keyboard. All 100 backgrounds, the sorting rules, countdowns, coins and saved progression remain compatible.
+
+Menu navigation and searching are covered by `tests/interface.browser.cjs` alongside the existing design, shop, mission, mobile and engine suites.
