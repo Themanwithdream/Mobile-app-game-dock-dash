@@ -4,7 +4,7 @@ A phone-friendly pixel-art sorting game: wait for the loading zone, match the pa
 
 ## Play
 
-https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=6.4.1-guitar-cargo
+https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=6.5-sound-effects
 
 ## This release
 
@@ -19,12 +19,15 @@ https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=6.4.1-g
 - Six themed mission patterns: match rushes, merchant convoys, crane relays, tide crossings, supply sets and trail markers.
 - Auto, Reduced and Full visual-effects settings, plus portable save files with preview, restore and undo.
 - Refined guitar cargo: a wood acoustic body, electric pickups, a smaller four-string ukulele, a fitted case and a separate string pack. All five keep their existing identities and cached sorting stickers.
+- Original layered sound effects for parcels, perfect timing, golden cargo, truck departures, countdowns, purchases and mission results. Four musical delivery tiers reward longer streaks.
 
 ## Original art and music
 
 All 100 story worlds have exclusive pixel-art environment images, each with its own architecture, terrain and landmarks. The newer chapters now use 77 separate place images: 16 existing paintings assigned to one matching world each and 61 new illustrations. No two worlds share a backdrop URL or identical image bytes. See [individual artwork and exact prompts](assets/worlds/INDIVIDUAL-WORLDS-ARTWORK.md). Native icons and vehicles extend the existing canvas renderer.
 
 Every world has its own original synthesized 32-bar instrumental score. Shared chapter melodies receive distinct phrase arrangements, transpositions and answers. Circular note tails and the buffered audio player preserve continuous loop joins.
+
+The sound-effect set combines rounded parcel thumps, filtered paper/engine textures and short wood/bell tones. Twenty-five cue variants prepare one at a time during idle periods, using less than 1 MB of mono PCM. Playback reuses per-context buffers on the same audio clock as music. Four active voices and two brief retiring voices have a shared gain budget; rapid duplicate taps cannot accumulate sources. Perfect hits use a single combined cue. Pause, mute, Home, page exit and phone interruptions cancel old feedback while retaining the cached samples. The existing independent Effects and Music switches remain available under Routes & audio. `tests/sound-effects.test.cjs` and `tests/sound-effects.browser.cjs` cover edge silence, mix headroom, cached playback, input bursts, native event bindings and context recovery.
 
 ## Save compatibility and performance
 

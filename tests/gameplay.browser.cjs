@@ -33,12 +33,13 @@ function pass(name,detail){checks.push({name,detail});console.log('PASS '+name+(
   return {scenePaints:__counts.scenePaints-before.scenePaints,canvases:__counts.canvases-before.canvases,shadows:__counts.shadows-before.shadows,floors:d.floors.filter(Boolean).length};
  });
  assert.deepEqual(layers,{scenePaints:0,canvases:0,shadows:0,floors:1});pass('120 unchanged frames reuse scenery, panels and truck art without allocation or runtime blur',layers);
+ const backgroundIdle=await page.evaluate(()=>__idle.size);
  const boundary=await page.evaluate(()=>{
   const d=__dockTest;d.startGame({skipTutorial:true});Object.assign(d.game,{readyIn:0,go:0});const p={type:1,product:1,kind:'normal',y:351.8,phase:0};d.game.parcels=[p];d.render(.004);
   __counts.storage=__counts.attributes=0;document.querySelector('[data-lane="1"]').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true,button:0,pointerType:'touch'}));
   return {physicalY:p.y,delivered:d.game.delivered,perfects:d.game.perfects,score:d.game.score,storage:__counts.storage,attributes:__counts.attributes,dirty:d.engine.dirty,idle:__idle.size,popup:d.popups[0].message};
  });
- assert.equal(boundary.delivered,1);assert.equal(boundary.perfects,1);assert.equal(boundary.score,15);assert.equal(boundary.storage,0);assert.equal(boundary.attributes,1);assert.equal(boundary.dirty,true);assert.equal(boundary.idle,1);
+ assert.equal(boundary.delivered,1);assert.equal(boundary.perfects,1);assert.equal(boundary.score,15);assert.equal(boundary.storage,0);assert.equal(boundary.attributes,1);assert.equal(boundary.dirty,true);assert.equal(boundary.idle,backgroundIdle+1);
  pass('touch scores the visible perfect stripe and updates one dock immediately without saving or refreshing menus',boundary);
  const wait=await page.evaluate(()=>{
   const d=__dockTest;d.startGame({skipTutorial:true});Object.assign(d.game,{readyIn:0,go:0});d.game.parcels=[{type:1,product:2,kind:'normal',y:309.7,phase:0}];d.render();d.update(1/120);d.loadLane(1);
@@ -48,12 +49,12 @@ function pass(name,detail){checks.push({name,detail});console.log('PASS '+name+(
  const preserved=await page.evaluate(()=>{
   const d=__dockTest;d.pauseGame(true);return {saved:JSON.parse(localStorage.getItem('dockDashProfileV2')).totalDelivered,current:d.profile.totalDelivered,cargo:JSON.parse(localStorage.getItem('dockDashCargoCollectionV1')),idle:__idle.size};
  });
- assert.equal(preserved.saved,preserved.current);assert.ok(preserved.cargo.includes(1)&&preserved.cargo.includes(2));assert.equal(preserved.idle,0);pass('pause flushes delivered cargo and fleet progress before cancelling the idle save',preserved);
+ assert.equal(preserved.saved,preserved.current);assert.ok(preserved.cargo.includes(1)&&preserved.cargo.includes(2));assert.equal(preserved.idle,backgroundIdle);pass('pause flushes delivered cargo and fleet progress before cancelling the idle save',preserved);
  const exit=await page.evaluate(()=>{
   const d=__dockTest;d.startGame({skipTutorial:true});d.game.readyIn=0;d.game.parcels=[{type:1,product:3,kind:'normal',y:372,phase:0}];d.render();d.loadLane(1);window.dispatchEvent(new Event('pagehide'));
   return {saved:JSON.parse(localStorage.getItem('dockDashProfileV2')).totalDelivered,current:d.profile.totalDelivered,cargo:JSON.parse(localStorage.getItem('dockDashCargoCollectionV1')),idle:__idle.size};
  });
- assert.equal(exit.saved,exit.current);assert.ok(exit.cargo.includes(3));assert.equal(exit.idle,0);pass('page exit saves the newest delivery before the tab can disappear');
+ assert.equal(exit.saved,exit.current);assert.ok(exit.cargo.includes(3));assert.equal(exit.idle,backgroundIdle);pass('page exit saves the newest delivery before the tab can disappear');
  const projection=await page.evaluate(()=>{
   const d=__dockTest;d.startGame({skipTutorial:true});Object.assign(d.game,{readyIn:0,go:0,hold:0});const before={clock:d.clock,y:d.game.parcels.map(p=>p.y),score:d.game.score,lives:d.game.lives};
   for(const fraction of [0,.001,.004,.008])d.render(fraction);
