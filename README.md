@@ -4,7 +4,7 @@ A phone-friendly pixel-art sorting game: wait for the loading zone, match the pa
 
 ## Play
 
-https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=6.2-navigation
+https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=6.3-mission-design
 
 ## This release
 
@@ -40,3 +40,9 @@ Run unit checks with `node --test tests/*.test.cjs`. Playwright browser suites c
 The home screen now gives Arcade and Missions their own full-width mode cards. Mission search finds world names and themes within the selected chapter, with visible star progress on every card. Shop search combines with category and Owned filters, remembers the browsing page when cleared, and shows the coin gap or remaining deliveries for locked items. Escape clears a focused search; Enter dismisses the keyboard. All 100 backgrounds, the sorting rules, countdowns, coins and saved progression remain compatible.
 
 Menu navigation and searching are covered by `tests/interface.browser.cjs` alongside the existing design, shop, mission, mobile and engine suites.
+
+## Mission details and fleet artwork
+
+Mission briefings use native text and a touch-scrollable panel with separate, fixed Start and Mission map controls. Package, priority and time goals come first. The Levels shortcut reaches all eight levels, showing their unlock state and earned stars; choosing a new level returns to its objectives. Supply illustrations, story text and expandable star goals remain readable on smaller screens. Completion rewards reflect the player's previous stars, and replay keeps the original countdown and equipment.
+
+All 37 fleets have detailed original pixel artwork, including passenger windows on buses, emergency equipment, larger off-road wheels and distinct space vehicles. Every fleet retains all four colour/shape sorting plates. Art is painted once into the existing lazy sprite cache; no new image downloads are needed. `tests/mission-design.browser.cjs` covers touch and keyboard scrolling, all 800 mission texts, five viewport layouts and the 148 sorting plates.

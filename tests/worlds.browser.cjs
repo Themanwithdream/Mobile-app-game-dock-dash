@@ -8,7 +8,11 @@ get state(){return state;},get wallet(){return wallet;},get game(){return game;}
 const checks=[],errors=[];const pass=(name,detail)=>{checks.push({name,detail});console.log('PASS '+name+(detail?' · '+JSON.stringify(detail):''));};
 async function paint(page){await page.evaluate(()=>__dockTest.render());}
 async function checkLayout(page,section){
- const boxes=await page.locator(section+' button:visible,'+section+' select:visible,#mission-home:visible').evaluateAll(a=>a.map(b=>{const r=b.getBoundingClientRect();return {id:b.id||b.dataset.world||b.dataset.missionStage,x:r.x,y:r.y,w:r.width,h:r.height};})),stage=await page.locator('#stage').boundingBox();
+ const boxes=await page.locator(section+' button:visible,'+section+' select:visible,#mission-home:visible').evaluateAll(a=>a.map(b=>{
+  const r=b.getBoundingClientRect(),panel=b.closest('.briefing-scroll'),clip=panel?.getBoundingClientRect();
+  const x=clip?Math.max(r.x,clip.x):r.x,y=clip?Math.max(r.y,clip.y):r.y,right=clip?Math.min(r.right,clip.right):r.right,bottom=clip?Math.min(r.bottom,clip.bottom):r.bottom;
+  return {id:b.id||b.dataset.world||b.dataset.missionStage,x,y,w:Math.max(0,right-x),h:Math.max(0,bottom-y)};
+ }).filter(r=>r.w>0&&r.h>0)),stage=await page.locator('#stage').boundingBox();
  for(let i=0;i<boxes.length;i++){const a=boxes[i];assert.ok(a.x>=stage.x-.5&&a.x+a.w<=stage.x+stage.width+.5&&a.y>=stage.y-.5&&a.y+a.h<=stage.y+stage.height+.5,JSON.stringify(a));for(let j=i+1;j<boxes.length;j++){const b=boxes[j];assert.equal(a.x<b.x+b.w-.5&&a.x+a.w>b.x+.5&&a.y<b.y+b.h-.5&&a.y+a.h>b.y+.5,false,JSON.stringify({a,b}));}}
 }
 (async()=>{

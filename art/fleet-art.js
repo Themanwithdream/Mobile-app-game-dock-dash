@@ -1,19 +1,77 @@
-/* Expansion fleet silhouettes. Rendered once per colour into the existing truck cache. */
+/* Original pixel fleet. Painted once per colour; gameplay reuses these sprites. */
 (function(root){
   'use strict';
-  const bodies=['foodtruck','breadvan','citytram','canalwagon','skyglider','arenasprinter','cementmixer','robotcarrier','prismhauler','beaconwagon','beaconrunner','tidecrawler','rangercart','reefrover','kitecarrier','canopyrunner','clockcoach','teawagon','caravancart','cometcourier'];
+  const skinBodies={classic:'delivery',rally:'delivery',nightline:'delivery',gold:'delivery',school:'schoolbus',matchday:'sportshauler',festival:'tourbus',rescue:'ambulance',candy:'sweetvan',dino:'safari',arctic:'snowrunner',forest:'moonleaf',space:'starfreighter'};
+  const bodies=['delivery','schoolbus','sportshauler','tourbus','ambulance','sweetvan','safari','snowrunner','moonleaf','starfreighter','fire','icecream','monster','rover','foodtruck','breadvan','citytram','canalwagon','skyglider','arenasprinter','cementmixer','robotcarrier','prismhauler','beaconwagon','beaconrunner','tidecrawler','rangercart','reefrover','kitecarrier','canopyrunner','clockcoach','teawagon','caravancart','cometcourier'];
   function draw(c,col,theme){
-    if(!bodies.includes(theme.body))return false;
-    const cream='#fff0d1',ink='#132936',glass='#416779',metal='#a6bcc1',wood='#a4784f',accent=theme.accent;
+    const body=theme.body||skinBodies[theme.id];
+    if(!bodies.includes(body))return false;
+    const cream='#fff0d1',ink='#132936',glass='#345369',metal='#a6bcc1',wood='#a4784f',accent=theme.accent;
     const r=(x,y,w,h,color)=>{c.fillStyle=color;c.fillRect(x,y,w,h);};
     const poly=(pts,color)=>{c.fillStyle=color;c.beginPath();pts.forEach(([x,y],i)=>i?c.lineTo(x,y):c.moveTo(x,y));c.closePath();c.fill();};
     const line=(x,y,a,b,color,w=2)=>{c.strokeStyle=color;c.lineWidth=w;c.beginPath();c.moveTo(x,y);c.lineTo(a,b);c.stroke();};
     const disc=(x,y,radius,color)=>{c.fillStyle=color;c.beginPath();c.arc(x,y,radius,0,Math.PI*2);c.fill();};
-    const wheels=(ys=[24,101])=>{for(const y of ys)for(const x of [12,67]){r(x,y,11,22,'#08151e');for(let n=3;n<21;n+=5)r(x+2,y+n,7,2,'#48606a');}};
-    const chassis=()=>{r(21,11,48,116,col.dark);r(24,14,42,70,col.mid);r(24,14,4,69,col.bright);};
-    const cab=()=>{r(24,87,42,36,col.mid);r(27,90,36,15,glass);r(29,92,12,3,'#bde7e8');r(44,90,2,15,ink);r(24,123,42,5,metal);for(const x of [25,59])r(x,115,6,5,cream);};
+    const tyre=(x,y,w=11,h=22)=>{r(x,y,w,h,'#071018');r(x+1,y+2,w-2,h-4,'#172a36');for(let n=4;n<h-3;n+=5){r(x+2,y+n,w-4,2,'#4b6470');r(x+2,y+n,2,2,'#78919a');}r(x+3,y+h/2-2,w-6,4,metal);};
+    const wheels=(ys=[24,101])=>{for(const y of ys)for(const x of [12,67])tyre(x,y);};
+    const chassis=()=>{r(23,13,47,118,'#00000055');r(20,10,50,117,ink);r(22,11,46,116,col.dark);r(24,14,42,70,col.mid);r(24,14,4,69,col.bright);r(26,13,38,2,'#fff7d660');r(63,17,3,65,col.dark);r(24,83,42,3,metal);};
+    const cab=()=>{
+      r(23,87,44,37,ink);r(25,88,40,34,col.dark);r(25,88,40,27,col.mid);r(27,88,36,3,col.bright);
+      r(27,92,36,15,ink);r(29,94,32,10,glass);poly([[29,94],[49,94],[39,103],[29,103]],'#76c6d8');r(31,95,10,2,'#ddf6ed');r(44,94,2,11,ink);
+      r(17,92,7,9,ink);r(18,93,5,5,metal);r(66,92,7,9,ink);r(67,93,5,5,metal);
+      r(29,109,32,2,col.bright);r(33,115,24,6,ink);for(const y of [116,119])r(35,y,20,1,metal);
+      for(const x of [25,59]){r(x-1,114,8,7,ink);r(x,115,6,3,cream);r(x+1,115,3,1,'#ffffff');r(x,119,6,2,accent);}
+      r(24,124,42,5,ink);r(25,124,40,2,metal);r(30,127,30,1,'#697e85');r(39,125,12,4,cream);r(41,126,8,1,ink);
+    };
     wheels();chassis();
-    switch(theme.body){
+    switch(body){
+      case 'delivery':
+        r(22,10,46,72,col.dark);r(24,12,42,69,col.mid);r(24,12,4,67,col.bright);r(28,12,34,3,col.bright);r(64,14,2,67,ink);
+        for(let y=20;y<78;y+=8){r(29,y,31,2,col.dark);r(29,y+2,31,1,'#fff7d635');}
+        for(const x of [27,61])r(x,16,2,63,metal);r(29,77,32,5,ink);
+        if(theme.id==='rally')for(const x of [32,52])r(x,13,6,64,cream);
+        if(theme.id==='nightline'){for(const x of [24,64])r(x,14,2,65,'#b5ffe2');r(25,14,39,2,'#b5ffe2');r(29,61,32,3,'#b5ffe2');}
+        if(theme.id==='gold'){for(const x of [24,63])r(x,13,3,66,'#eac172');r(27,13,36,3,'#ffe4a1');for(const x of [37,44,51])r(x,61,3,6,'#ffe4a1');r(37,67,17,3,'#eac172');}
+        cab();if(theme.id==='rally')for(const x of [34,51])r(x,108,5,5,cream);if(theme.id==='nightline')r(30,109,30,2,'#b5ffe2');if(theme.id==='gold')r(25,124,40,2,'#f9d985');break;
+      case 'schoolbus':
+        wheels([20,96]);r(20,9,50,114,ink);r(22,11,46,110,col.mid);r(24,12,4,108,col.bright);r(22,11,46,7,accent);
+        for(const x of [25,59])for(const y of [22,39,56,73]){r(x,y,7,12,ink);r(x+1,y+1,5,8,glass);r(x+1,y+1,2,2,'#b8e3e8');}
+        r(35,13,20,5,ink);r(37,14,16,2,cream);r(34,64,22,14,col.dark);for(const x of [24,62])r(x,86,4,4,accent);cab();r(28,110,34,3,accent);break;
+      case 'sportshauler':
+        poly([[28,12],[62,12],[71,80],[63,125],[27,125],[19,80]],col.dark);r(27,15,36,66,col.mid);
+        for(const x of [28,58])r(x,17,4,61,cream);r(22,11,46,5,ink);r(25,12,40,2,accent);
+        r(35,58,20,17,'#366a49');r(37,60,16,13,'#8db16c');disc(45,66,7,cream);poly([[45,61],[49,64],[47,69],[42,69],[40,64]],ink);cab();r(28,108,34,3,cream);break;
+      case 'tourbus':
+        r(20,8,50,117,ink);r(22,10,46,113,col.mid);r(24,11,42,6,accent);for(const x of [25,59])for(const y of [22,39,56,73]){r(x,y,7,13,glass);r(x+1,y+1,3,3,'#b9e6e5');}
+        r(35,16,20,7,col.dark);r(37,18,16,2,metal);r(35,63,20,16,ink);disc(41,70,5,accent);disc(52,70,5,accent);cab();r(29,109,32,3,accent);break;
+      case 'ambulance':
+        r(20,14,50,107,ink);r(22,16,46,66,cream);for(const x of [24,61])r(x,17,5,64,col.mid);r(25,17,3,63,col.bright);
+        r(35,61,20,17,'#db7569');r(42,62,6,14,cream);r(38,66,14,6,cream);cab();r(29,86,14,5,'#ee7971');r(47,86,14,5,'#99e5ff');r(30,109,30,3,cream);break;
+      case 'sweetvan':
+        poly([[25,12],[65,12],[70,23],[68,83],[22,83],[20,23]],col.dark);r(24,16,42,63,'#efc1d3');for(const x of [24,62])r(x,17,4,62,col.bright);
+        for(const [x,y] of [[33,19],[54,22],[32,66],[52,67],[45,75]]){r(x,y,4,2,accent);r(x+1,y+2,2,2,cream);}r(30,60,30,7,col.mid);cab();r(29,109,32,3,'#efc1d3');break;
+      case 'safari':
+        wheels([14,99]);r(23,13,44,70,'#8caa72');for(const x of [24,62])r(x,16,4,66,col.dark);for(const y of [16,62,79])r(25,y,40,4,metal);
+        r(31,61,28,16,col.mid);for(let x=34;x<60;x+=8)r(x,64,4,10,cream);r(16,44,6,44,wood);for(let y=49;y<86;y+=8)r(15,y,8,2,cream);cab();r(29,87,32,4,accent);break;
+      case 'snowrunner':
+        wheels([12,55,101]);r(22,11,46,72,cream);r(26,16,38,63,'#d1e4e1');for(const x of [24,62])r(x,16,4,65,col.mid);
+        r(30,60,30,16,'#6b9daa');for(const y of [62,69])r(32,y,26,2,cream);r(15,44,5,38,col.bright);r(70,44,5,38,col.bright);cab();r(30,86,30,4,accent);break;
+      case 'moonleaf':
+        poly([[26,11],[64,11],[70,27],[67,81],[23,81],[20,27]],'#405f56');for(const x of [25,61]){r(x,18,4,62,col.mid);for(const y of [21,63])poly([[x-3,y],[x+3,y-5],[x+6,y],[x+1,y+5]],accent);}
+        r(36,60,18,16,'#7a66a0');r(41,57,8,4,cream);r(39,63,12,8,col.bright);r(41,64,4,2,cream);cab();r(29,109,32,3,accent);break;
+      case 'starfreighter':
+        poly([[29,7],[61,7],[70,83],[64,126],[26,126],[20,83]],metal);r(28,16,34,65,col.dark);r(30,17,30,3,col.bright);
+        for(const x of [13,65]){r(x,15,12,66,ink);r(x+2,17,8,57,col.mid);for(const y of [23,38,62])r(x+3,y,6,3,col.bright);r(x+3,77,6,7,accent);}r(35,61,20,15,'#625b8c');r(43,63,4,11,cream);r(38,67,14,3,cream);cab();break;
+      case 'fire':
+        wheels([14,55,101]);r(23,11,44,69,col.dark);for(const x of [27,60])r(x,15,3,63,cream);for(let y=18;y<78;y+=9)r(30,y,30,2,metal);cab();for(const x of [24,61]){r(x,87,5,5,'#f78573');r(x,94,5,5,'#a1e6ff');}r(29,109,32,3,cream);break;
+      case 'icecream':
+        r(21,19,48,64,cream);for(let x=24;x<67;x+=8)r(x,20,4,57,col.bright);poly([[39,17],[51,17],[45,27]],'#c79257');disc(45,13,8,'#ffdfd2');r(43,5,4,3,accent);
+        r(26,63,38,11,ink);for(let x=27;x<64;x+=8)r(x,60,4,4,accent);cab();r(29,109,32,3,'#ffdfd2');break;
+      case 'monster':
+        for(const y of [18,91])for(const x of [3,65])tyre(x,y,22,36);r(25,12,40,69,col.dark);r(28,16,34,62,col.mid);
+        for(const x of [30,58]){line(x,20,90-x,68,metal,3);r(x-1,18,3,4,accent);}cab();poly([[28,109],[35,115],[40,109],[45,118],[50,109],[61,116],[61,124],[29,124]],accent);break;
+      case 'rover':
+        wheels([15,59,103]);r(24,17,42,66,cream);for(const x of [16,61]){r(x,59,13,29,'#526992');for(const y of [62,70,78])r(x+1,y,11,2,'#a9c9e5');r(x+6,60,1,26,cream);}
+        disc(45,12,10,metal);disc(45,12,7,cream);r(43,8,4,5,glass);r(44,18,2,8,metal);cab();r(29,109,32,3,accent);break;
       case 'beaconwagon':
         r(24,15,42,66,'#eed9ac');r(29,21,32,51,'#7b735c');r(38,51,14,26,accent);r(40,55,10,17,cream);r(36,48,18,5,ink);for(const x of [25,61])r(x,18,4,59,metal);cab();break;
       case 'beaconrunner':

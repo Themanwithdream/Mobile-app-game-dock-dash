@@ -14,7 +14,12 @@ const pass=(name,detail)=>{checks.push({name,detail});console.log('PASS '+name+(
 const overlap=(a,b)=>a.x<b.x+b.width-.5 && a.x+a.width>b.x+.5 && a.y<b.y+b.height-.5 && a.y+a.height>b.y+.5;
 async function paint(page){await page.evaluate(()=>__dockTest.render());}
 async function layout(page){
- const result=await page.locator('#briefing-menu button').evaluateAll(buttons=>buttons.filter(b=>b.getClientRects().length).map(b=>({id:b.id||b.dataset.missionStage,...Object.fromEntries(['x','y','width','height'].map(k=>[k,b.getBoundingClientRect()[k]]))})));
+ // Check the visible hit areas after clipping by the native details scroller.
+ const result=await page.locator('#briefing-menu button').evaluateAll(buttons=>buttons.filter(b=>b.getClientRects().length).map(b=>{
+   const r=b.getBoundingClientRect(),panel=b.closest('.briefing-scroll'),clip=panel?.getBoundingClientRect();
+   const x=clip?Math.max(r.x,clip.x):r.x,y=clip?Math.max(r.y,clip.y):r.y,right=clip?Math.min(r.right,clip.right):r.right,bottom=clip?Math.min(r.bottom,clip.bottom):r.bottom;
+   return {id:b.id||b.dataset.missionStage,x,y,width:Math.max(0,right-x),height:Math.max(0,bottom-y)};
+ }).filter(r=>r.width>0&&r.height>0));
  for(let a=0;a<result.length;a++)for(let b=a+1;b<result.length;b++)assert.equal(overlap(result[a],result[b]),false,result[a].id+' / '+result[b].id);
  return result;
 }
@@ -44,10 +49,14 @@ async function layout(page){
   pass('all thirty original records survive and returning players continue at level four');
   const sizes=[];
   for(const size of [{width:320,height:568},{width:390,height:844},{width:844,height:390},{width:1280,height:800}]){
-   await page.setViewportSize(size);await page.evaluate(()=>window.dispatchEvent(new Event('resize')));await paint(page);const bounds=await layout(page);assert.equal(bounds.length,11);
-   sizes.push({...size,levelWidth:bounds[0].width,levelHeight:bounds[0].height});
+   await page.setViewportSize(size);await page.evaluate(()=>window.dispatchEvent(new Event('resize')));await paint(page);assert.equal(await page.locator('.mission-stage').count(),8);
+   for(let i=0;i<8;i++){
+    const tile=page.locator(`[data-mission-stage="${i}"]`);await tile.scrollIntoViewIfNeeded();await layout(page);
+    const b=await tile.boundingBox(),panel=await page.locator('#briefing-scroll').boundingBox();assert.ok(b.y>=panel.y-.5&&b.y+b.height<=panel.y+panel.height+.5);
+   }
+   const level=await page.locator('[data-mission-stage="0"]').boundingBox();sizes.push({...size,levelWidth:level.width,levelHeight:level.height});
   }
-  await page.setViewportSize({width:390,height:844});await page.evaluate(()=>window.dispatchEvent(new Event('resize')));pass('eight level controls, launch and back stay separate on small phones, landscape and desktop',sizes);
+  await page.setViewportSize({width:390,height:844});await page.evaluate(()=>window.dispatchEvent(new Event('resize')));pass('eight levels remain reachable and fixed launch and back controls stay separate on phones, landscape and desktop',sizes);
   await page.locator('#briefing-back').tap();for(let i=0;i<3;i++)await page.locator('#missions-next').tap();
   assert.deepEqual(await page.locator('.mission-card:visible').evaluateAll(a=>a.map(b=>b.dataset.world)),['rome','egypt','viking','silkroad']);
   await paint(page);await page.waitForFunction(()=>[13,14,15,16].every(i=>__dockTest.art[i]),null,{polling:50});await paint(page);await page.screenshot({path:path.join(out,'historical-map.png')});
