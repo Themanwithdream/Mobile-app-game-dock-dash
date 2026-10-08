@@ -1,0 +1,54 @@
+{
+  "game": "Parcel Odyssey",
+  "version": 1,
+  "createdAt": "2026-10-08T14:34:32Z",
+  "data": {
+    "best": 12345,
+    "muted": false,
+    "profile": {
+      "totalDelivered": 240,
+      "totalPerfect": 80,
+      "totalTrucks": 40,
+      "totalGoals": 20,
+      "highestShift": 12,
+      "selectedSkin": 4,
+      "selectedWrap": "wrap:stars",
+      "selectedZone": "zone:gold",
+      "tutorialDone": true
+    },
+    "wallet": {
+      "version": 1,
+      "coins": 3200,
+      "earned": 5000,
+      "spent": 1800,
+      "owned": [
+        "school",
+        "venue:rome",
+        "wrap:stars",
+        "zone:gold"
+      ]
+    },
+    "settings": {
+      "location": 13,
+      "rotate": true,
+      "music": true,
+      "sfx": false,
+      "musicVolume": 0.42,
+      "effects": "auto"
+    },
+    "cargo": [
+      3,
+      14,
+      456,
+      1499
+    ],
+    "missions": {
+      "rome-1": {
+        "stars": 3,
+        "bestScore": 1600,
+        "bestTime": 23.12
+      }
+    }
+  },
+  "checksum": "15ceb1b5"
+}

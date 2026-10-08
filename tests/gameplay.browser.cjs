@@ -4,7 +4,7 @@ const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?process.
 const root=path.resolve(__dirname,'..'),output=process.env.DOCK_TEST_OUTPUT || path.join(os.tmpdir(),'dock-dash-gameplay-checks'),url='http://127.0.0.1:8844/';
 fs.mkdirSync(output,{recursive:true});
 const source=fs.readFileSync(path.join(root,'index.html'),'utf8');
-const html=source.replace('  buildBelt(); parcelCache',`  window.__dockTest={engine,frameBudget,progress,frame,render,update,startGame,loadLane,nextParcel,pauseGame,backToTitle,useLocation,fit,parcelSprite,parcelSprites,popupSprites,previewFloors,panels,burst,popup,openMissionMap,openOverlay,settings,applyEffectSettings,
+const html=source.replace('  buildBelt(); parcelCache',`  window.__dockTest={previewArt,engine,frameBudget,progress,frame,render,update,startGame,loadLane,nextParcel,pauseGame,backToTitle,useLocation,fit,parcelSprite,parcelSprites,popupSprites,previewFloors,panels,burst,popup,openMissionMap,openOverlay,settings,applyEffectSettings,
  get game(){return game;},get art(){return pixelArt;},get clock(){return clock;},get floors(){return locationFloors;},get popups(){return popups;},get particles(){return particles;},get profile(){return profile;},get discovered(){return discovered;}};
   buildBelt(); parcelCache`);
 assert.notEqual(html,source);const checks=[],errors=[];
@@ -26,7 +26,7 @@ function pass(name,detail){checks.push({name,detail});console.log('PASS '+name+(
   const set=Storage.prototype.setItem;Storage.prototype.setItem=function(...a){__counts.storage++;return set.apply(this,a);};
   const attr=Element.prototype.setAttribute;Element.prototype.setAttribute=function(...a){__counts.attributes++;return attr.apply(this,a);};
  });
- await page.goto(url);await page.waitForFunction(()=>window.__dockTest && [0,2,3,4,5,6].every(i=>__dockTest.art[i]),null,{polling:50});
+ await page.goto(url);await page.waitForFunction(()=>window.__dockTest && __dockTest.art[0],null,{polling:50});
  const layers=await page.evaluate(()=>{
   const d=__dockTest;d.startGame({skipTutorial:true});Object.assign(d.game,{readyIn:0,go:0,hold:100});d.render();const before={...__counts};
   for(let i=0;i<120;i++)d.render();

@@ -1,16 +1,19 @@
-# Parcel Odyssey — The Hundred Lanterns
+# Dock Boss — The Hundred Lanterns
 
 A phone-friendly pixel-art delivery adventure. One parcel. A hundred worlds. Wait for the loading zone, match the parcel colour and shape, and tap its truck.
 
 ## Play
 
-https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=7.0-parcel-odyssey
+https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=7.1-dock-boss
 
-Formerly Dock Dash. The repository and play URL stay in place so existing browser progress carries over.
+Previously Dock Dash and Parcel Odyssey. The repository and play URL stay in place so existing browser progress carries over.
 
 ## This release
 
-- Consistent Parcel Odyssey branding, a two-line title, current install metadata and game-link previews.
+- A gold Dock Boss badge in mission and shop headers, a larger gold home title, current install metadata and game-link previews.
+- A clearer missed-parcel alert and a combined final-miss/result cue that survives the end of a run.
+- Music attempts to start when opened, recovers on the first tap when required by the browser, and respects saved mute, music and volume preferences.
+- Small previews of all 100 original worlds warm the mission map before opening. Four concurrent preview requests, an eight-image cache and a separate four-image full-art cache keep phone browsing bounded.
 - A readable How to play & share panel, optional three-step practice, native sharing and copy-link fallback.
 - 100 playable story worlds, eight increasingly demanding missions each: 800 missions and 2,400 stars.
 - A connected original story, The Hundred Lanterns, with a readable journal and a lantern restored by each world's final mission.
@@ -32,19 +35,21 @@ All 100 story worlds have exclusive pixel-art environment images, each with its 
 
 Every world has its own original synthesized 32-bar instrumental score. Shared chapter melodies receive distinct phrase arrangements, transpositions and answers. Circular note tails and the buffered audio player preserve continuous loop joins.
 
-The sound-effect set combines rounded parcel thumps, filtered paper/engine textures and short wood/bell tones. Twenty-five cue variants prepare one at a time during idle periods, using less than 1 MB of mono PCM. Playback reuses per-context buffers on the same audio clock as music. Four active voices and two brief retiring voices have a shared gain budget; rapid duplicate taps cannot accumulate sources. Perfect hits use a single combined cue. Pause, mute, Home, page exit and phone interruptions cancel old feedback while retaining the cached samples. The existing independent Effects and Music switches remain available under Routes & audio. `tests/sound-effects.test.cjs` and `tests/sound-effects.browser.cjs` cover edge silence, mix headroom, cached playback, input bursts, native event bindings and context recovery.
+The sound-effect set combines rounded parcel thumps, filtered paper/engine textures and short wood/bell tones. Twenty-six cue variants prepare one at a time during idle periods, using less than 1 MB of mono PCM. Playback reuses per-context buffers on the same audio clock as music. Four active voices and two brief retiring voices have a shared gain budget; rapid duplicate taps cannot accumulate sources. Perfect hits use a single combined cue. Pause, mute, Home, page exit and phone interruptions cancel old feedback while retaining the cached samples. The existing independent Effects and Music switches remain available under Routes & audio. `tests/sound-effects.test.cjs` and `tests/sound-effects.browser.cjs` cover edge silence, mix headroom, cached playback, input bursts, native event bindings and context recovery.
 
 ## Save compatibility and performance
 
 Existing cargo IDs, vehicle slots and location indices stay stable. The retired world's eight star records, venue, three vehicle purchases and parcel wrap translate to their original replacements without changing coins or spending. The save keys remain unchanged.
 
-Cargo artwork is generated lazily in a 144-entry cache. Scenery downloads are lazy, deduplicated by source and bounded to twelve decoded images, with two full-resolution floors and seven small previews. Existing gameplay sprite, popup, particle and audio budgets remain bounded. A phone retains one decoded music player. Physical-device performance still depends on the browser and hardware.
+Cargo artwork is generated lazily in a 144-entry cache. Scenery downloads are lazy, deduplicated by source and bounded to four decoded full images and eight small preview images, with two full-resolution floors and seven small previews. Existing gameplay sprite, popup, particle and audio budgets remain bounded. A phone retains one decoded music player. Physical-device performance still depends on the browser and hardware.
 
 ## Development
 
 The game is static HTML, JavaScript, PNG and MP3; no bundler or server dependency is required. Run `python -m http.server` locally. Pure rules live in `missions/`, `economy/`, `engine/` and `audio/`. Browser test hooks are injected only into temporary test responses.
 
 Run unit checks with `node --test tests/*.test.cjs`. Playwright browser suites cover mission completion, native navigation, save migration, audio loops, shop transactions, canvas budgets and phone layouts. The soundtrack composer needs NumPy, SciPy, Node and FFmpeg: `python audio/compose-missions.py --lanterns-only` regenerates the new world pack and Beacon Bay score.
+
+The Dock Boss completion release passes 127 unit checks and 209 browser checks across 18 suites, including all 800 missions at three stars. Coverage includes five viewport layouts, permitted and blocked autoplay, normal and final missed parcels, slow/failed preview requests, native touch navigation and exact legacy-save restore/undo. First-page mission previews total 110,262 bytes instead of 1,834,864 bytes of original paintings (94% less); all 100 previews total 3,253,356 bytes instead of 20,757,395 bytes (84% less). Browser checks emulate phones; physical-device performance depends on the browser and hardware.
 
 ## Finding worlds and shop items
 
@@ -78,6 +83,8 @@ Open **Routes & audio → Visuals & saves**. Auto simplifies decoration after su
 
 Files are checked before any progress changes. A restore journal recovers interrupted writes before startup; failed writes roll back, and unrelated browser-storage keys are never imported. `tests/save-backup.test.cjs`, `tests/world-challenges.test.cjs` and `tests/journey-upgrade.browser.cjs` cover damaged files, storage failures, exact restores, native file selection, touch scrolling, five layouts, all challenge patterns and a twenty-minute simulated mobile session with bounded caches.
 
-New backups use `parcel-odyssey-backup-YYYY-MM-DD.json` and the Parcel Odyssey name. Previous Dock Dash backups remain readable with their original checksum, and every browser-storage key stays unchanged. Rebranding never resets coins, purchases, stars or collected cargo.
+New backups use `dock-boss-backup-YYYY-MM-DD.json` and the Dock Boss name. Previous Dock Dash and Parcel Odyssey backups remain readable with their original checksums, and every browser-storage key stays unchanged. Rebranding never resets coins, purchases, stars or collected cargo.
 
 `tests/release.browser.cjs` covers current install and sharing metadata, saved progress, touch scrolling, five help layouts, sharing cancellation and fallbacks, optional practice, and an authentic previous-version backup fixture.
+
+Mission previews retain each original painting and location ID. `tools/build-previews.py` creates 360×180 WebP crops for the existing mission-card and briefing-hero framing; `assets/previews/manifest.json` records source and preview hashes. The map fetches these crops instead of full paintings, promotes selected requests and warms only the following page during idle time. Failed previews fall back to the original artwork. Full backgrounds still load for actual missions and taller route/shop previews.

@@ -1,4 +1,4 @@
-Parcel Odyssey — The Hundred Lanterns
+Dock Boss — The Hundred Lanterns
 One parcel. A hundred worlds.
 100 worlds, 800 missions, 2,400 stars. Match colour and shape; load each parcel in the green zone.
 Open index.html through a static web server, or play the published GitHub Pages site.

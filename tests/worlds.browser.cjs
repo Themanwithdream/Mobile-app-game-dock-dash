@@ -2,7 +2,7 @@
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),assert=require('node:assert/strict'),{spawn}=require('node:child_process');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright');
 const root=path.resolve(__dirname,'..'),out=process.env.DOCK_TEST_OUTPUT||path.join(os.tmpdir(),'dock-dash-worlds'),url='http://127.0.0.1:8851/';fs.mkdirSync(out,{recursive:true});
-const source=fs.readFileSync(path.join(root,'index.html'),'utf8'),html=source.replace('  buildBelt(); parcelCache',`  window.__dockTest={MEDIA,MR,ER,PRODUCTS,profile,settings,render,update,openMissionMap,openBriefing,backToTitle,launchMission,finishMission,productCache,cargoSprites,imageSources,previewFloors,parcelSprites,zoneSprites,sceneFloor,trucksForSkin,COLORS,chooseChapter,
+const source=fs.readFileSync(path.join(root,'index.html'),'utf8'),html=source.replace('  buildBelt(); parcelCache',`  window.__dockTest={previewArt,MEDIA,MR,ER,PRODUCTS,profile,settings,render,update,openMissionMap,openBriefing,backToTitle,launchMission,finishMission,productCache,cargoSprites,imageSources,previewFloors,parcelSprites,zoneSprites,sceneFloor,trucksForSkin,COLORS,chooseChapter,
 get state(){return state;},get wallet(){return wallet;},get game(){return game;},get selected(){return selectedMission;},get records(){return missionRecords;},get art(){return pixelArt;},get floors(){return locationFloors;},setRecords(r){missionRecords=MR.readRecords(r);syncControls();}};
   buildBelt(); parcelCache`);assert.notEqual(html,source);
 const checks=[],errors=[];const pass=(name,detail)=>{checks.push({name,detail});console.log('PASS '+name+(detail?' · '+JSON.stringify(detail):''));};
@@ -39,7 +39,7 @@ async function checkLayout(page,section){
   await page.locator('[data-journal-world="greenwood"]').tap();assert.equal(await page.evaluate(()=>__dockTest.selected.id),'greenwood-1');await page.locator('#briefing-story').tap();
   assert.equal(await page.locator('#story-content details').count(),8);assert.equal(await page.locator('.locked-story').count(),7);assert.match(await page.locator('#story-content').textContent(),/apprentice archer/);assert.doesNotMatch(await page.locator('#story-content').textContent(),/Rowan sends a rope arrow/);
   await page.screenshot({path:path.join(out,'greenwood-story-journal.png')});await page.keyboard.press('Escape');assert.equal(await page.locator('#story-dialog').isVisible(),false);assert.equal(await page.evaluate(()=>__dockTest.state),'briefing');pass('the journal reaches all hundred worlds, tells the archer story and keeps future chapter endings gated');
-  await page.locator('#briefing-back').tap();await page.locator('#mission-chapter').selectOption('greenwood');await paint(page);await page.waitForFunction(()=>[26,27,28,29].every(i=>__dockTest.art[i]),null,{polling:50});await paint(page);await page.screenshot({path:path.join(out,'greenwood-chapter.png')});
+  await page.locator('#briefing-back').tap();await page.locator('#mission-chapter').selectOption('greenwood');await paint(page);await page.waitForFunction(()=>[26,27,28,29].every(i=>__dockTest.previewArt[i] || __dockTest.art[i]),null,{polling:50});await paint(page);await page.screenshot({path:path.join(out,'greenwood-chapter.png')});
   const visited=[],fingerprints=[],backdrops=[],sources=[];
   for(const chapter of ['',...await page.evaluate(()=>Object.keys(__dockTest.MR.story.chapters))]){
    if(chapter==='')continue;

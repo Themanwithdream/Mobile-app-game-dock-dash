@@ -7,7 +7,7 @@ const root=path.resolve(__dirname,'..'),output=process.env.DOCK_TEST_OUTPUT || p
 fs.mkdirSync(output,{recursive:true});
 const url='http://127.0.0.1:8842/';
 const source=fs.readFileSync(path.join(root,'index.html'),'utf8');
-const html=source.replace('  buildBelt(); parcelCache',`  window.__dockTest={engine,frame,render,settings,profile,discovered,update,startGame,gameOver,pauseGame,backToTitle,openBriefing,launchMission,
+const html=source.replace('  buildBelt(); parcelCache',`  window.__dockTest={previewArt,engine,frame,render,settings,profile,discovered,update,startGame,gameOver,pauseGame,backToTitle,openBriefing,launchMission,
     get state(){return state;},get game(){return game;},get paused(){return paused;},get records(){return missionRecords;},get scene(){return activeLocation;},get art(){return pixelArt;},get clock(){return clock;},get selectedCargo(){return selectedCargo;}};
   buildBelt(); parcelCache`);
 assert.notEqual(html,source);
@@ -28,7 +28,7 @@ async function setup(page){
     const text=CanvasRenderingContext2D.prototype.fillText;
     CanvasRenderingContext2D.prototype.fillText=function(str,x,y,...args){if(this.canvas.id==='game')__texts.push({str:String(str),x,y});return text.call(this,str,x,y,...args);};
   });
-  await page.goto(url);await page.waitForFunction(()=>window.__dockTest && [0,2,3,4,5,6].every(i=>__dockTest.art[i]),null,{polling:50});
+  await page.goto(url);await page.waitForFunction(()=>window.__dockTest && __dockTest.art[0],null,{polling:50});
 }
 async function frame(page,now){await page.evaluate(now=>__dockTest.frame(now),now);}
 (async()=>{

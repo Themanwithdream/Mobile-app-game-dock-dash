@@ -3,7 +3,7 @@ const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),asse
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright':'playwright');
 const root=path.resolve(__dirname,'..'),output=process.env.DOCK_TEST_OUTPUT || path.join(os.tmpdir(),'dock-dash-economy-checks'),url='http://127.0.0.1:8845/';
 fs.mkdirSync(output,{recursive:true});const source=fs.readFileSync(path.join(root,'index.html'),'utf8');
-const html=source.replace('  buildBelt(); parcelCache',`  window.__dockTest={ER,MR,SKINS,progress,profile,settings,discovered,openGarage,closeGarage,selectSkin,changeShopPage,changeMissionPage,openMissionMap,openBriefing,launchMission,startGame,loadLane,finishMission,finishTutorial,render,update,pauseGame,backToTitle,parcelSprites,previewFloors,trucksForSkin,
+const html=source.replace('  buildBelt(); parcelCache',`  window.__dockTest={previewArt,ER,MR,SKINS,progress,profile,settings,discovered,openGarage,closeGarage,selectSkin,changeShopPage,changeMissionPage,openMissionMap,openBriefing,launchMission,startGame,loadLane,finishMission,finishTutorial,render,update,pauseGame,backToTitle,parcelSprites,previewFloors,trucksForSkin,
  get wallet(){return wallet;},get game(){return game;},get state(){return state;},get records(){return missionRecords;},get art(){return pixelArt;},get trucks(){return skinTruckCache;},get floors(){return locationFloors;}};
   buildBelt(); parcelCache`);
 assert.notEqual(html,source);const checks=[],errors=[];
@@ -15,7 +15,7 @@ async function setup(page,profile){await page.route(url,route=>route.fulfill({co
  window.__newAssets=[];const src=Object.getOwnPropertyDescriptor(HTMLImageElement.prototype,'src');Object.defineProperty(HTMLImageElement.prototype,'src',{...src,set(value){if(/beacon|school|dino|candy|forest|arctic/.test(value))__newAssets.push(value);return src.set.call(this,value);}});
  window.__counts={canvases:0,attributes:0,storage:0};const create=document.createElement.bind(document);document.createElement=(tag,...args)=>{if(tag==='canvas')__counts.canvases++;return create(tag,...args);};
  const set=Storage.prototype.setItem;window.__setItem=set;Storage.prototype.setItem=function(...a){__counts.storage++;return set.apply(this,a);};const attr=Element.prototype.setAttribute;Element.prototype.setAttribute=function(...a){__counts.attributes++;return attr.apply(this,a);};
- },profile);page.on('pageerror',e=>errors.push(e.message));await page.goto(url);await page.waitForFunction(()=>window.__dockTest && __dockTest.art[0] && __dockTest.art[2],null,{polling:50});}
+ },profile);page.on('pageerror',e=>errors.push(e.message));await page.goto(url);await page.waitForFunction(()=>window.__dockTest && __dockTest.art[0],null,{polling:50});}
 async function clearMission(page,id,stage){return page.evaluate(({id,stage})=>{
  const d=__dockTest;d.openBriefing(id,stage);d.launchMission();d.game.readyIn=0;
  const before=d.wallet.coins,mission=d.game.mission;
@@ -56,7 +56,7 @@ function overlap(a,b){return a.x<b.x+b.width && a.x+a.width>b.x && a.y<b.y+b.hei
  await page.evaluate(()=>{Storage.prototype.setItem=__setItem;});
  pass('a failed purchase save keeps every coin and does not grant an unrecorded truck');
  await page.locator('#garage-back').tap();await page.locator('#missions').tap();await page.locator('#missions-next').tap();await paint(page);
- await page.waitForFunction(()=>[7,8,9,10].every(i=>__dockTest.art[i]),null,{polling:50});await paint(page);await page.screenshot({path:path.join(output,'new-mission-worlds.png')});
+ await page.waitForFunction(()=>[7,8,9,10].every(i=>__dockTest.previewArt[i] || __dockTest.art[i]),null,{polling:50});await paint(page);await page.screenshot({path:path.join(output,'new-mission-worlds.png')});
  assert.deepEqual(await page.locator('.mission-card:visible').evaluateAll(a=>a.map(b=>b.dataset.world)),['beacon','school','dino','candy']);
  for(const id of ['beacon','school','dino','candy']){await page.locator(`[data-world="${id}"]`).tap();assert.equal(await page.evaluate(()=>__dockTest.game),null);await page.locator('#briefing-back').tap();}
  await page.locator('#missions-next').tap();await paint(page);assert.equal(await page.locator('.mission-card:visible').count(),2);assert.equal(await page.locator('#missions-next').isDisabled(),false);

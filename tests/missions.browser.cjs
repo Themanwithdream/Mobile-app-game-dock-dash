@@ -26,7 +26,7 @@ async function setup(page, simulated = false) {
     }
   }, { simulated });
   await page.goto(url);
-  await page.waitForFunction(() => window.__dockTest && [0,2,3,4,5,6].every(i => __dockTest.art[i]));
+  await page.waitForFunction(() => window.__dockTest && __dockTest.art[0]);
 }
 async function advance(page, seconds) {
   return page.evaluate(seconds => { for (let left = seconds; left > 1e-8; left -= 1/120) __dockTest.update(Math.min(left, 1/120)); __dockTest.render(); }, seconds);
@@ -149,7 +149,7 @@ async function advance(page, seconds) {
     pass('all 800 missions can be completed at three stars with their own cargo and every scheduled dock change', results);
     await sim.screenshot({ path: path.join(output, 'space-result.png') });
     assert.equal(await sim.evaluate(() => localStorage.getItem('dockDashBest')), '12345');
-    await sim.reload(); await sim.waitForFunction(() => window.__dockTest && [3,4,5,6].every(i=>__dockTest.art[i]));
+    await sim.reload(); await sim.waitForFunction(() => window.__dockTest && __dockTest.art[0]);
     assert.equal(await sim.evaluate(() => __dockTest.MR.totalStars(__dockTest.records)), 2400);
     assert.ok(await sim.evaluate(() => __dockTest.profile.totalDelivered > 180 && [3,14,29].every(id=>__dockTest.discovered.has(id))));
     pass('mission stars, fleet deliveries and cargo persist after reload; arcade best is preserved');

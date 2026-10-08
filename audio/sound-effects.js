@@ -15,7 +15,7 @@
   Object.assign(cues,{
     gold:{layers:[tone(0,.12,160,.27,'bass',100),...phrase([659.26,987.77,1318.51],.045,.21)],level:.72,priority:20,family:'delivery',gap:.032},
     wrong:{layers:[tone(0,.21,235,.45,'wood',125),tone(.045,.17,155,.2,'bass',100)],level:.48,priority:35,family:'mistake',gap:.09},
-    miss:{layers:[tone(0,.19,293.66,.35,'wood'),tone(.085,.23,196,.3,'wood')],level:.44,priority:35,family:'mistake',gap:.09},
+    miss:{layers:[tone(0,.14,880,.36,'bell',440),air(.008,.045,.1,2200),tone(.09,.22,293.66,.34,'wood',146.83),tone(.04,.14,120,.18,'bass',75)],level:.78,priority:65,family:'miss',gap:.045},
     early:{layers:[tone(0,.075,330,.22,'wood')],level:.23,priority:5,family:'early',gap:.18},
     dispatch:{layers:[tone(0,.22,100,.32,'bass',185),air(.015,.28,.19,900),tone(.055,.18,392,.2,'wood'),tone(.12,.22,523.25,.23,'wood')],level:.64,priority:25,family:'dispatch',gap:.14},
     shift:{layers:[air(0,.17,.07,1600),...phrase([392,523.25,659.26,783.99],.075,.23,'wood')],level:.63,priority:45,family:'celebration',gap:.18},
@@ -31,6 +31,9 @@
     count1:{layers:[tone(0,.1,659.26,.32,'wood')],level:.48,priority:60,family:'count',gap:.1},
     go:{layers:[tone(0,.19,783.99,.32,'wood'),tone(.025,.24,1046.5,.22,'bell'),air(0,.06,.065,1700)],level:.62,priority:60,family:'count',gap:.1}
   });
+  // The last missed parcel and the result are one sample, so ending the run
+  // cannot cancel its warning before the phone has rendered any audio.
+  cues.missEnd={...cues.over,layers:[...cues.miss.layers,...cues.over.layers.map(p=>({...p,at:p.at+.2}))],level:.78};
   const keys=Object.freeze(Object.keys(cues));
   function resolve(kind,streak=0){
     if(kind==='load'||kind==='perfect')return kind+Math.min(3,Math.floor(Math.max(0,Number.isFinite(streak)?streak:0)/8));

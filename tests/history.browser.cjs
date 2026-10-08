@@ -4,7 +4,7 @@ const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?process.
 const root=path.resolve(__dirname,'..'),out=process.env.DOCK_TEST_OUTPUT||path.join(os.tmpdir(),'dock-dash-history-checks'),url='http://127.0.0.1:8849/';
 fs.mkdirSync(out,{recursive:true});
 const source=fs.readFileSync(path.join(root,'index.html'),'utf8');
-const html=source.replace('  buildBelt(); parcelCache',`  window.__dockTest={MR,ER,PRODUCTS,settings,profile,soundtrack,openBriefing,openMissionMap,launchMission,finishMission,nextMission,backToTitle,changeMissionPage,render,update,spawnParcel,drawDocks,drawCargoInfo,productArt,
+const html=source.replace('  buildBelt(); parcelCache',`  window.__dockTest={previewArt,MR,ER,PRODUCTS,settings,profile,soundtrack,openBriefing,openMissionMap,launchMission,finishMission,nextMission,backToTitle,changeMissionPage,render,update,spawnParcel,drawDocks,drawCargoInfo,productArt,
  get state(){return state;},get game(){return game;},get selected(){return selectedMission;},get art(){return pixelArt;},get records(){return missionRecords;},get wallet(){return wallet;},get scene(){return activeLocation;},get cache(){return productCache;},get floors(){return locationFloors;},
  setRecords(value){missionRecords=MR.readRecords(value);syncControls();},setWallet(value){wallet=ER.readWallet(value,profile);syncControls();}};
   buildBelt(); parcelCache`);
@@ -59,7 +59,7 @@ async function layout(page){
   await page.setViewportSize({width:390,height:844});await page.evaluate(()=>window.dispatchEvent(new Event('resize')));pass('eight levels remain reachable and fixed launch and back controls stay separate on phones, landscape and desktop',sizes);
   await page.locator('#briefing-back').tap();for(let i=0;i<3;i++)await page.locator('#missions-next').tap();
   assert.deepEqual(await page.locator('.mission-card:visible').evaluateAll(a=>a.map(b=>b.dataset.world)),['rome','egypt','viking','silkroad']);
-  await paint(page);await page.waitForFunction(()=>[13,14,15,16].every(i=>__dockTest.art[i]),null,{polling:50});await paint(page);await page.screenshot({path:path.join(out,'historical-map.png')});
+  await paint(page);await page.waitForFunction(()=>[13,14,15,16].every(i=>__dockTest.previewArt[i] || __dockTest.art[i]),null,{polling:50});await paint(page);await page.screenshot({path:path.join(out,'historical-map.png')});
   pass('the four historical worlds share a dedicated map page and load their own pixel scenes');
   const label=await page.locator('#missions-continue').evaluate(button=>{const [copy,arrow]=button.children,a=copy.getBoundingClientRect(),b=arrow.getBoundingClientRect();return {copyEnd:a.right,arrowStart:b.left};});
   assert.ok(label.copyEnd+3<label.arrowStart);pass('the mission continuation label leaves clear space for its arrow');

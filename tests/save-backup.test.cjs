@@ -15,8 +15,14 @@ test('the renamed game reads an authentic previous Dock Dash backup and exports 
   const fs=require('node:fs'),path=require('node:path');
   const legacy=fs.readFileSync(path.join(__dirname,'fixtures','dock-dash-v1-backup.json'),'utf8'),read=api.read(legacy);
   assert.deepEqual(read.data,snapshot());assert.equal(JSON.parse(legacy).game,'Dock Dash');
-  const exported=api.export(read.data,read.createdAt);assert.equal(JSON.parse(exported).game,'Parcel Odyssey');assert.deepEqual(api.read(exported).data,read.data);
-  assert.throws(()=>api.read(legacy.replace('Dock Dash','Parcel Odyssey')),/changed/);
+  const exported=api.export(read.data,read.createdAt);assert.equal(JSON.parse(exported).game,'Dock Boss');assert.deepEqual(api.read(exported).data,read.data);
+  assert.throws(()=>api.read(legacy.replace('Dock Dash','Dock Boss')),/changed/);
+});
+test('Dock Boss reads an authentic Parcel Odyssey backup with its original checksum',()=>{
+  const fs=require('node:fs'),path=require('node:path'),text=fs.readFileSync(path.join(__dirname,'fixtures','parcel-odyssey-v1-backup.json'),'utf8');
+  assert.equal(JSON.parse(text).game,'Parcel Odyssey');assert.deepEqual(api.read(text).data,snapshot());
+  assert.equal(JSON.parse(api.export(api.read(text).data)).game,'Dock Boss');
+  assert.throws(()=>api.read(text.replace('Parcel Odyssey','Dock Boss')),/changed/);
 });
 test('damaged, incomplete, unrelated, oversized and future-format files fail without touching any storage',()=>{
   const text=api.export(snapshot()),s=storage(),before=[...s.values];

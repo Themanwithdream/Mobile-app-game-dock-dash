@@ -3,7 +3,7 @@ const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),asse
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright':'playwright');
 const root=path.resolve(__dirname,'..'),out=process.env.DOCK_TEST_OUTPUT||path.join(os.tmpdir(),'dock-dash-expansion-checks'),url='http://127.0.0.1:8850/';
 fs.mkdirSync(out,{recursive:true});const source=fs.readFileSync(path.join(root,'index.html'),'utf8');
-const html=source.replace('  buildBelt(); parcelCache',`  window.__dockTest={MR,ER,COLORS,GOLD,PRODUCTS,profile,settings,openBriefing,launchMission,openMissionMap,backToTitle,changeMissionPage,changeShopCategory,changeShopPage,selectShopItem,parcelSprite,parcelSprites,trucksForSkin,productArt,render,update,
+const html=source.replace('  buildBelt(); parcelCache',`  window.__dockTest={previewArt,MR,ER,COLORS,GOLD,PRODUCTS,profile,settings,openBriefing,launchMission,openMissionMap,backToTitle,changeMissionPage,changeShopCategory,changeShopPage,selectShopItem,parcelSprite,parcelSprites,trucksForSkin,productArt,render,update,
  get state(){return state;},get game(){return game;},get selected(){return selectedMission;},get art(){return pixelArt;},get records(){return missionRecords;},get wallet(){return wallet;},get scene(){return activeLocation;},get cache(){return productCache;}};
   buildBelt(); parcelCache`);assert.notEqual(html,source);
 const checks=[],errors=[],requested=[];
@@ -26,11 +26,11 @@ async function layout(page,selector){const boxes=await page.locator(selector+' b
     }
     localStorage.setItem('dockDashMuted','true');
   });
-  await page.goto(url);await page.waitForFunction(()=>window.__dockTest && __dockTest.art[0],null,{polling:50});
+  await page.goto(url);await page.waitForFunction(()=>window.__dockTest && __dockTest.art[__dockTest.scene],null,{polling:50});
   assert.equal(requested.length,0);assert.equal(await page.evaluate(()=>__dockTest.PRODUCTS.length),1500);pass('nine added scenes stay lazy while the full 1500-item catalog is available');
   await page.locator('#missions').tap();for(let i=0;i<4;i++)await page.locator('#missions-next').tap();await paint(page);
   assert.deepEqual(await page.locator('.mission-card:visible').evaluateAll(a=>a.map(b=>b.dataset.world)),['diner','bakery','metro','canal']);
-  await page.waitForFunction(()=>[17,18,19,20].every(i=>__dockTest.art[i]),null,{polling:50});await paint(page);await page.screenshot({path:path.join(out,'city-life-map.png')});
+  await page.waitForFunction(()=>[17,18,19,20].every(i=>__dockTest.previewArt[i] || __dockTest.art[i]),null,{polling:50});await paint(page);await page.screenshot({path:path.join(out,'city-life-map.png')});
   const worlds=[];
   for(const group of [['diner','bakery','metro','canal'],['skyguard','arena','build','robot'],['prism']]){
     for(const id of group){
@@ -88,7 +88,7 @@ async function layout(page,selector){const boxes=await page.locator(selector+' b
     const d=__dockTest,c=document.createElement('canvas');c.width=820;c.height=9*80;const ctx=c.getContext('2d');ctx.fillStyle='#142b39';ctx.fillRect(0,0,c.width,c.height);
     d.MR.worlds.slice(14,23).forEach((w,row)=>{ctx.fillStyle=w.accent;ctx.font='12px sans-serif';ctx.fillText(w.badge,4,row*80+40);d.MR.getMission(w.id,0).products.forEach((id,i)=>{ctx.drawImage(d.cache[id],92+i*60,row*80+4,48,48);ctx.fillStyle='#e7e9d4';ctx.font='8px sans-serif';ctx.fillText(d.PRODUCTS[id].kind.slice(0,12),87+i*60,row*80+64);});});return c.toDataURL('image/png');
   });fs.writeFileSync(path.join(out,'new-cargo.png'),Buffer.from(atlas.split(',')[1],'base64'));pass('all 108 new cargo illustrations render into the collection cache');
-  await page.reload();await page.waitForFunction(()=>window.__dockTest && __dockTest.art[0],null,{polling:50});
+  await page.reload();await page.waitForFunction(()=>window.__dockTest && __dockTest.art[__dockTest.scene],null,{polling:50});
   const saved=await page.evaluate(()=>({coins:__dockTest.wallet.coins,spent:__dockTest.wallet.spent,owned:__dockTest.wallet.owned,skin:__dockTest.ER.trucks[__dockTest.profile.selectedSkin].id,wrap:__dockTest.profile.selectedWrap,zone:__dockTest.profile.selectedZone,location:__dockTest.settings.location}));
   assert.equal(saved.coins,start-spent);assert.equal(saved.spent,1000+spent);assert.ok(items.every(i=>saved.owned.includes(i.id)));assert.ok(['beacon','wrap:crest','venue:rome'].every(id=>saved.owned.includes(id)));assert.equal(saved.skin,'comet-courier');assert.equal(saved.wrap,'wrap:letter');assert.equal(saved.zone,'zone:tide');assert.equal(saved.location,102);
   pass('new purchases and equipment persist together with the previous wallet and ownership after reload',saved);

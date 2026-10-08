@@ -17,10 +17,10 @@ function setup(){
  return {e,get context(){return context;},changeContext:()=>context=new Context(),allow:v=>allowed=v};
 }
 test('every cue is finite, audible, short and bounded, with silent opening and closing edges',()=>{
- assert.equal(Effects.keys.length,25);let total=0;
+ assert.equal(Effects.keys.length,26);let total=0;
  for(const key of Effects.keys){const data=Effects.render(key);total+=data.byteLength;let peak=0,power=0;
   for(const value of data){assert.ok(Number.isFinite(value),key);peak=Math.max(peak,Math.abs(value));power+=value*value;}
-  assert.ok(peak>.2&&peak<=.751,key);assert.ok(power/data.length>.0005,key);assert.ok(data.length/Effects.sampleRate<.8,key);
+  assert.ok(peak>.2&&peak<=.781,key);assert.ok(power/data.length>.0005,key);assert.ok(data.length/Effects.sampleRate<.95,key);
   assert.deepEqual([data[0],data[1],data.at(-2),data.at(-1)],[0,0,0,0]);
  }
  assert.ok(total<1024*1024,total);
@@ -49,7 +49,7 @@ test('long sessions keep buffers, voices and retiring sources bounded and clean 
  const s=setup();let max=0;
  for(let i=0;i<2000;i++){
   s.context.advance(.041);s.e.play(Effects.keys[i%Effects.keys.length]);max=Math.max(max,s.e.voices.size+s.e.retiring.size);
-  assert.ok(s.e.voices.size<=4);assert.ok(s.e.retiring.size<=2);assert.ok(s.e.buffers.size<=25);
+  assert.ok(s.e.voices.size<=4);assert.ok(s.e.retiring.size<=2);assert.ok(s.e.buffers.size<=26);
  }
  s.context.advance(2);assert.equal(s.e.voices.size,0);assert.equal(s.e.retiring.size,0);assert.ok(s.context.sources.every(x=>x.disconnected));assert.ok(max<=6);
 });

@@ -1,0 +1,908 @@
+{
+  "width": 360,
+  "height": 180,
+  "top": 170,
+  "quality": 88,
+  "images": [
+    {
+      "location": 3,
+      "source": "./assets/missions/matchday.png",
+      "sourceBytes": 451606,
+      "sourceSHA256": "b1786403d3a733d8f6bdbff27d4074414c4068de3a30ad98a173811be0c64a63",
+      "preview": "003.webp",
+      "previewBytes": 23898,
+      "previewSHA256": "0cf8c2d408f730bd3be501e1756d5fe4c863410e9bdc5cae4eb61f1b9d98c40c"
+    },
+    {
+      "location": 4,
+      "source": "./assets/missions/festival.png",
+      "sourceBytes": 469204,
+      "sourceSHA256": "a9c099ab214598e72734a07dadf7fab129936094105e0cf0bd1681a434e80616",
+      "preview": "004.webp",
+      "previewBytes": 29546,
+      "previewSHA256": "e57aba4970b6ac87bd9d9a099e8a9c83ad0a97c8b3719b3154df4313b2818b11"
+    },
+    {
+      "location": 5,
+      "source": "./assets/missions/rescue.png",
+      "sourceBytes": 452870,
+      "sourceSHA256": "c7b50e6a8ecaa982322b8b7a7693b2fc28820eed26aada6de145beb27a556ede",
+      "preview": "005.webp",
+      "previewBytes": 28382,
+      "previewSHA256": "0587034ef5d79c48a0a6c747abbdc48e4e63d16cc1764772ae1bb1832905cf45"
+    },
+    {
+      "location": 6,
+      "source": "./assets/missions/space.png",
+      "sourceBytes": 461184,
+      "sourceSHA256": "08bfaf3548125045999c3d3a59b788522f98922822c77748e4de3781afeabf45",
+      "preview": "006.webp",
+      "previewBytes": 28436,
+      "previewSHA256": "a67c32309d2569e3039308b06ac7e1836dbffa3bc73263d861cc55b2322a3dd9"
+    },
+    {
+      "location": 7,
+      "source": "./assets/missions/beacon.png",
+      "sourceBytes": 191992,
+      "sourceSHA256": "f389b9e41a1b2a167ef5e7f40ec676b57f0c9ca941f73398545a0662cb356302",
+      "preview": "007.webp",
+      "previewBytes": 32980,
+      "previewSHA256": "d12b10e0bc7769a69705e157632c6f7f491f1114adca06445eeb700c5970ea22"
+    },
+    {
+      "location": 8,
+      "source": "./assets/missions/school.png",
+      "sourceBytes": 464289,
+      "sourceSHA256": "d5d2ef60b64720ad1605206feffc5b3a91736be3c1163a44ce3d9450a68f17ad",
+      "preview": "008.webp",
+      "previewBytes": 28398,
+      "previewSHA256": "487c444e46e1e4d46876218ec4150902432277774be89b27d09b76bb67cc1817"
+    },
+    {
+      "location": 9,
+      "source": "./assets/missions/dino.png",
+      "sourceBytes": 498227,
+      "sourceSHA256": "f67b6152e8aa1217b359a32dcbadb8aea0776338f1cac907c37cab11ffec7864",
+      "preview": "009.webp",
+      "previewBytes": 35030,
+      "previewSHA256": "f8f37fe7cf366df8852051a3a40d565298ed60611ff1694681fff6f9e5758b61"
+    },
+    {
+      "location": 10,
+      "source": "./assets/missions/candy.png",
+      "sourceBytes": 477007,
+      "sourceSHA256": "160b0856c57533c99f6efe7cca24957221c34d6c9ac8885e20879705c839360e",
+      "preview": "010.webp",
+      "previewBytes": 31378,
+      "previewSHA256": "16233c287d00c8ab53691e07f4211b17e3b1ece9b66bc9e417a6f708f2516921"
+    },
+    {
+      "location": 11,
+      "source": "./assets/missions/forest.png",
+      "sourceBytes": 511093,
+      "sourceSHA256": "196e59807cec294c91bfd1fb63a6ed7f22ac2a1769601fe8fbfa818186e7b80c",
+      "preview": "011.webp",
+      "previewBytes": 34398,
+      "previewSHA256": "d3b0c550ed791e68be20656e85b2d1d072ace3db836e9b7596c6c08297ec5b15"
+    },
+    {
+      "location": 12,
+      "source": "./assets/missions/arctic.png",
+      "sourceBytes": 468586,
+      "sourceSHA256": "afe1fbba28481adace7ab1b390e843fe21b3f7e3e063e4ac4e1ab44aab4b220e",
+      "preview": "012.webp",
+      "previewBytes": 31614,
+      "previewSHA256": "07db19c1419ae55a0f1e603da39705fcd1a20ba889cc55a53a5de22177933b3f"
+    },
+    {
+      "location": 13,
+      "source": "./assets/missions/rome.png",
+      "sourceBytes": 194897,
+      "sourceSHA256": "d98dff0056be78a0d1b4f4195999c40b80406dec35692385ecb4398e8271b62d",
+      "preview": "013.webp",
+      "previewBytes": 35140,
+      "previewSHA256": "d409526769a32545c264de4c9b233869cb08f5a6c16366f98f2acf7748a359f3"
+    },
+    {
+      "location": 14,
+      "source": "./assets/missions/egypt.png",
+      "sourceBytes": 185431,
+      "sourceSHA256": "1c98047227aab3832a4005ddbb405f7cfa19a5df271109e0e3c13cf1788b51a2",
+      "preview": "014.webp",
+      "previewBytes": 31976,
+      "previewSHA256": "114e7be1b46c1d11a7f67dc611767a6f81e73b05246c6fd43589ece5fdad9550"
+    },
+    {
+      "location": 15,
+      "source": "./assets/missions/viking.png",
+      "sourceBytes": 207874,
+      "sourceSHA256": "d1220cc4bd9c923aca1f1cea1e66dc4a9344f53f85151d074d3fc1006f7714b2",
+      "preview": "015.webp",
+      "previewBytes": 33212,
+      "previewSHA256": "6f057defcb5796c1d306e2901800f13a69e0a5bd009c88e9828614bc43526062"
+    },
+    {
+      "location": 16,
+      "source": "./assets/missions/silkroad.png",
+      "sourceBytes": 193433,
+      "sourceSHA256": "85cc5ac94894bdeb07fb6bd0573484374ed49bdba0eaa2df3647f0b30130ab3e",
+      "preview": "016.webp",
+      "previewBytes": 31814,
+      "previewSHA256": "4b3a4fd5f188ea5c30337e8d79887f6aa2aa064fb18877a2258a46b05588025d"
+    },
+    {
+      "location": 17,
+      "source": "./assets/missions/diner.png",
+      "sourceBytes": 170426,
+      "sourceSHA256": "f4592cee75fe62217cf53305baaa124d9c52d8b0071bf48097efe6db67e3a85c",
+      "preview": "017.webp",
+      "previewBytes": 25538,
+      "previewSHA256": "f34a6980fcdc6438e0290924f04156a66d95b639b5ed0b18ab858834965563e3"
+    },
+    {
+      "location": 18,
+      "source": "./assets/missions/bakery.png",
+      "sourceBytes": 172514,
+      "sourceSHA256": "e491995f9f6f63be6e80c6fa517584011c9d750e81f87beef9e5fbe79293bb30",
+      "preview": "018.webp",
+      "previewBytes": 37774,
+      "previewSHA256": "0fa0915322bdfe7882460210675ac40bd43e172736350d335a4d1fe0195d394c"
+    },
+    {
+      "location": 19,
+      "source": "./assets/missions/metro.png",
+      "sourceBytes": 187204,
+      "sourceSHA256": "9dd63dd6066ab06b37d740a8c7a939534c805f3dfd58113baf7a3d68309f5d7b",
+      "preview": "019.webp",
+      "previewBytes": 25760,
+      "previewSHA256": "46d30de9ca81cd08e333d0ae724ec422367bd76fe3226640ab3f9e76c73cd910"
+    },
+    {
+      "location": 20,
+      "source": "./assets/missions/canal.png",
+      "sourceBytes": 168201,
+      "sourceSHA256": "10324fe45fc06e1c025b5501feab168dc7cb26921a46050451a58170ee979866",
+      "preview": "020.webp",
+      "previewBytes": 28840,
+      "previewSHA256": "d1f19fb8d847a7357e1a83338e082a9d6b08da1951669ca6bbccbd6649208d96"
+    },
+    {
+      "location": 21,
+      "source": "./assets/missions/skyguard.png",
+      "sourceBytes": 184177,
+      "sourceSHA256": "53c855c9dc24f847d92bb102acdb5b2cb9629cbdda2b5315dcaf5685c7432ad9",
+      "preview": "021.webp",
+      "previewBytes": 27726,
+      "previewSHA256": "687a89c4e4061d731bec75f31d99475251757d3661e599143d9e03b04082ad5c"
+    },
+    {
+      "location": 22,
+      "source": "./assets/missions/arena.png",
+      "sourceBytes": 165559,
+      "sourceSHA256": "0ea559950200e91b5ddd80324dc0fd44523c41852707712e2387505261f68236",
+      "preview": "022.webp",
+      "previewBytes": 24890,
+      "previewSHA256": "9d5919f2618a9de2cef9ebfdb5fe68a51df4f2b2c944ab3cfcf6f46de9f153a5"
+    },
+    {
+      "location": 23,
+      "source": "./assets/missions/build.png",
+      "sourceBytes": 176198,
+      "sourceSHA256": "ce0b864b06f713e2e4521bc57479fdb973adf0dc10116fc84aee4304c47d5bc4",
+      "preview": "023.webp",
+      "previewBytes": 29626,
+      "previewSHA256": "3ed16d2dc1d8c96cb8b4d9f292d2f57ceaa3f8c8a7d718dbe16e0349fef6ac5a"
+    },
+    {
+      "location": 24,
+      "source": "./assets/missions/robot.png",
+      "sourceBytes": 168142,
+      "sourceSHA256": "6dbd64a4f9aae8764b475991c015cabf337ee0aacc75d1049e40ae155bc12657",
+      "preview": "024.webp",
+      "previewBytes": 24306,
+      "previewSHA256": "b67921f94c982422b64b07af7cd50ead1e345c35450cbe62ea2d79353d9a7f2e"
+    },
+    {
+      "location": 25,
+      "source": "./assets/missions/prism.png",
+      "sourceBytes": 187167,
+      "sourceSHA256": "9410bb40e8053304e6d79c55fc14e8dfe69523a550f8ee28a452cdb107c09659",
+      "preview": "025.webp",
+      "previewBytes": 28252,
+      "previewSHA256": "36b084985caf352d370cea54d2b321c3c165146322bff59ba7baff45f8f17d2f"
+    },
+    {
+      "location": 26,
+      "source": "./assets/worlds/places/greenwood.png",
+      "sourceBytes": 189911,
+      "sourceSHA256": "9601a5809f7739c5da938005ce6715a997911841645b9071292af3f419460333",
+      "preview": "026.webp",
+      "previewBytes": 32828,
+      "previewSHA256": "693cfbad84a33e0dec679828f85a486dce8f624a5b72a60328408ef123251ac3"
+    },
+    {
+      "location": 27,
+      "source": "./assets/worlds/places/oakmarket.png",
+      "sourceBytes": 197635,
+      "sourceSHA256": "d24f287cd32fb8426098f44e86a03a31d93ab205b816897cae893d7cabead639",
+      "preview": "027.webp",
+      "previewBytes": 38920,
+      "previewSHA256": "a3a3ee6a227668810fe937238801699e46ea46f0cb5aed6aada9c9b5487e71b9"
+    },
+    {
+      "location": 28,
+      "source": "./assets/worlds/places/foxbridge.png",
+      "sourceBytes": 194175,
+      "sourceSHA256": "4f267c49a10268ef6756354d15e51676f06d0f59cdd9e3d888e5f095de74f6ff",
+      "preview": "028.webp",
+      "previewBytes": 36976,
+      "previewSHA256": "19dc2a95fe1d75f69d48dffadffc6836f102f7ac7aa83b5bb98ad972c88a75e2"
+    },
+    {
+      "location": 29,
+      "source": "./assets/worlds/places/willowkeep.png",
+      "sourceBytes": 202211,
+      "sourceSHA256": "1f256b70edbacdbda5826c5163301f1bba0927585be25b8a91b0892d69cbe4ba",
+      "preview": "029.webp",
+      "previewBytes": 32612,
+      "previewSHA256": "e631a88184a6b317ef4cff30116a2b794d423d1c70b3e8c716071eec185dad5d"
+    },
+    {
+      "location": 30,
+      "source": "./assets/worlds/places/moonarchery.png",
+      "sourceBytes": 184791,
+      "sourceSHA256": "c9d9dca25d4492bcba40ea296292a98b7c00ee05eaf8c89b394ce001c0cd63e1",
+      "preview": "030.webp",
+      "previewBytes": 33234,
+      "previewSHA256": "b8bce40c23e9752ce3f928b0f48398b6a3afd4930694ad8cfa774a444bda5c1b"
+    },
+    {
+      "location": 31,
+      "source": "./assets/worlds/places/thistlemill.png",
+      "sourceBytes": 183788,
+      "sourceSHA256": "6cabfe4ba5b7f4a0c6ae68f3de1da30318043c873de5b2a76df8551764bf9057",
+      "preview": "031.webp",
+      "previewBytes": 37446,
+      "previewSHA256": "edca87c6332e68c20736422e6091b0296a04ba6d26ae58dacdccf1e240e93523"
+    },
+    {
+      "location": 32,
+      "source": "./assets/worlds/places/fernhollow.png",
+      "sourceBytes": 196462,
+      "sourceSHA256": "1ec0845c67b5af0d4890ef0c41d1a46e89b1727f60a8ce294408dd22172e4a2b",
+      "preview": "032.webp",
+      "previewBytes": 38660,
+      "previewSHA256": "3e4dc12dc31ea23e055f7806663dc32eee71d95103a0ce4db0556c281c5b6862"
+    },
+    {
+      "location": 33,
+      "source": "./assets/worlds/places/dawnwood.png",
+      "sourceBytes": 182493,
+      "sourceSHA256": "ed7228c5d6647191045b33f2429105f02e31ba86478006d55b5caed0fcfe596e",
+      "preview": "033.webp",
+      "previewBytes": 35032,
+      "previewSHA256": "65ec68e060aa768a0bd82f501efbc414beeca14a0cd7609652b4f473cffb264b"
+    },
+    {
+      "location": 34,
+      "source": "./assets/worlds/places/coralhaven.png",
+      "sourceBytes": 174276,
+      "sourceSHA256": "53b2d33b8fa81a1d6d0517d46f1436c3be4e74fac5ec1742c653b8e3b5ae3b2b",
+      "preview": "034.webp",
+      "previewBytes": 31976,
+      "previewSHA256": "6e2d930ad821a03388d15d6128c173f3a0ea2bc01fc1196468bd2873cc227c3b"
+    },
+    {
+      "location": 35,
+      "source": "./assets/worlds/places/pearlquay.png",
+      "sourceBytes": 175259,
+      "sourceSHA256": "d2977279b5171bce967fdbcdc1fb28b71fb1d97d960eb20b915c4120cf6c7bcd",
+      "preview": "035.webp",
+      "previewBytes": 34062,
+      "previewSHA256": "2cbbfb128b476af2d84ea9cd07a07511e95b5a3a2dcfff82cfd74315c1d8e6e3"
+    },
+    {
+      "location": 36,
+      "source": "./assets/worlds/places/kelpforest.png",
+      "sourceBytes": 177206,
+      "sourceSHA256": "49df1295b6195d657cb6eab0877f25aa110eeab23404618039280778cf1a4f88",
+      "preview": "036.webp",
+      "previewBytes": 29968,
+      "previewSHA256": "26bf938f57bad9a556002353223fa9c8b97e50554d2d2b3750d22ccaa9e848b4"
+    },
+    {
+      "location": 37,
+      "source": "./assets/worlds/places/saltwind.png",
+      "sourceBytes": 191226,
+      "sourceSHA256": "28b12e175ca8e087c3c9f916f7b2420983db7f8e8029c649b91356cc243a14f8",
+      "preview": "037.webp",
+      "previewBytes": 32316,
+      "previewSHA256": "81f8dd177757f1a5e3fbcda8744d9cd1ca4d56c110d4e5a32a921b8632c6b10c"
+    },
+    {
+      "location": 38,
+      "source": "./assets/worlds/places/turtlebay.png",
+      "sourceBytes": 174982,
+      "sourceSHA256": "9e967631426a834ecad2249e5d34e1ef8f1e2530b0c8980ccdf00a9dab68cb3e",
+      "preview": "038.webp",
+      "previewBytes": 34406,
+      "previewSHA256": "ead4df247d344f17a14f109042dda4b6a210f7be8d26da412688f88717cdbb26"
+    },
+    {
+      "location": 39,
+      "source": "./assets/worlds/places/stormharbour.png",
+      "sourceBytes": 192248,
+      "sourceSHA256": "890204dcc5a6e4179443d5b28de6bba12bb6a45598c2ad583a15e45be47566ec",
+      "preview": "039.webp",
+      "previewBytes": 32672,
+      "previewSHA256": "fc503e0ef2070d3f28dfcac8d9fdd0ac9881dc657c5fa127c92b89450f68a2af"
+    },
+    {
+      "location": 40,
+      "source": "./assets/worlds/places/glasslagoon.png",
+      "sourceBytes": 192932,
+      "sourceSHA256": "b0221c2016a3ceb9e1a77124ab2ec8cb89c6ce522a3556e37863c67499f35fee",
+      "preview": "040.webp",
+      "previewBytes": 36100,
+      "previewSHA256": "ab5b9b24684d463f3633a79b7b35ef01a6cbaa36eb4b97d1eba9f77ce20bf90c"
+    },
+    {
+      "location": 41,
+      "source": "./assets/worlds/places/mangroveroot.png",
+      "sourceBytes": 189112,
+      "sourceSHA256": "dbb69cf69173f1456f7fc39404798effff12467fc39c057b9f61dfab3a73b30c",
+      "preview": "041.webp",
+      "previewBytes": 34712,
+      "previewSHA256": "e637c2f302867dc3d70047c98d46622002c8e926c9b1b226deb21bc077222332"
+    },
+    {
+      "location": 42,
+      "source": "./assets/worlds/places/whalesong.png",
+      "sourceBytes": 163396,
+      "sourceSHA256": "6dd08bcf9608ac7b64a4a17a8b07d374945224399e824e8eee1732f4330b3495",
+      "preview": "042.webp",
+      "previewBytes": 27892,
+      "previewSHA256": "133b1be50e3f8469344251f9bef596a56d9fbb46b58bb6c6e3d21027d8e11d1c"
+    },
+    {
+      "location": 43,
+      "source": "./assets/worlds/places/horizonlight.png",
+      "sourceBytes": 172994,
+      "sourceSHA256": "35196748a8f7ed2f3c7d38b7eeebc4c08093714c6496aad55b6db6219fec4fbe",
+      "preview": "043.webp",
+      "previewBytes": 34468,
+      "previewSHA256": "f43b650b72717ecce5c7b6591d05fa791ab0d9413dd4c46055df43d8d2409ee0"
+    },
+    {
+      "location": 44,
+      "source": "./assets/worlds/places/cloudpost.png",
+      "sourceBytes": 171130,
+      "sourceSHA256": "fac2d1a08060fa2413a2937b8e7c223e9d0e914bb339a8e0779cb1eed8b3323a",
+      "preview": "044.webp",
+      "previewBytes": 32394,
+      "previewSHA256": "c5a9ee0a8b76281431012e3502d68522e69eda398eeeec1a01f1a7804c737812"
+    },
+    {
+      "location": 45,
+      "source": "./assets/worlds/places/kitefestival.png",
+      "sourceBytes": 179301,
+      "sourceSHA256": "609230dc6618411d04d8c5541870c3c2bfc675b9bb9970e0a5e1f451db0b968d",
+      "preview": "045.webp",
+      "previewBytes": 35158,
+      "previewSHA256": "b451ba911636550ce374693e49aa8cce5b2359fc9797df628f3dd84ed338888d"
+    },
+    {
+      "location": 46,
+      "source": "./assets/worlds/places/snowpass.png",
+      "sourceBytes": 174377,
+      "sourceSHA256": "d8c657717a16618f2464758e53dbb6d972960ae057d4fd954f74a54c26e6bab0",
+      "preview": "046.webp",
+      "previewBytes": 33246,
+      "previewSHA256": "1fbfd06cd9f13e53399070d16d89037416c5ed0f79297f955522241dd8cd7cf3"
+    },
+    {
+      "location": 47,
+      "source": "./assets/worlds/places/windmillridge.png",
+      "sourceBytes": 189210,
+      "sourceSHA256": "ebbf20eee238bff05d22cc1acc650db15dc7d57b9625a4b00371cb52188087b1",
+      "preview": "047.webp",
+      "previewBytes": 38684,
+      "previewSHA256": "e6362723f9e27e2ec8f5a0bd1f0bed4b3f7021d23f3bc47f5c9d6e4c7123e190"
+    },
+    {
+      "location": 48,
+      "source": "./assets/worlds/places/eaglenest.png",
+      "sourceBytes": 174995,
+      "sourceSHA256": "1119a4ec441addcba2a73d5d66469080270115d06bdeabe0674a42aac432f9b8",
+      "preview": "048.webp",
+      "previewBytes": 34646,
+      "previewSHA256": "a14cab0dd34d82676fc809b21326e3eec228975fd9572c2bdc7724b3b59f52e4"
+    },
+    {
+      "location": 49,
+      "source": "./assets/worlds/places/floatinggarden.png",
+      "sourceBytes": 171603,
+      "sourceSHA256": "a9ad1dd414fc73c6584e8c02bed1386fd320de8960fac115bcfc96c26055d3ff",
+      "preview": "049.webp",
+      "previewBytes": 35220,
+      "previewSHA256": "d9b2527470445f2e5a87debee89de235976203ea1585e645da2b3f9d4733626c"
+    },
+    {
+      "location": 50,
+      "source": "./assets/worlds/places/thunderpeak.png",
+      "sourceBytes": 188920,
+      "sourceSHA256": "240b5cbfd8a171fdd669318001c25d60591c32ab356efb22fe95d933741b8574",
+      "preview": "050.webp",
+      "previewBytes": 31884,
+      "previewSHA256": "0095540f56cfa54e392e8af0eff836f48b38a4ea5f97da2ef3d956d3c5060959"
+    },
+    {
+      "location": 51,
+      "source": "./assets/worlds/places/airshipquay.png",
+      "sourceBytes": 183425,
+      "sourceSHA256": "8f24b578f6851a08065fd713b3b548715ef2ba08dcdd30577eb377725317bcc8",
+      "preview": "051.webp",
+      "previewBytes": 32636,
+      "previewSHA256": "b2cd29b68a3b894240377e5530eb9702ef9c21db0b978d63dccacf67a8fbe548"
+    },
+    {
+      "location": 52,
+      "source": "./assets/worlds/places/sunforge.png",
+      "sourceBytes": 167662,
+      "sourceSHA256": "e7784107b54ddaa8ebc7555686d5a1b7a1b51cbe1bd52751cbc96e5edcd8095d",
+      "preview": "052.webp",
+      "previewBytes": 31014,
+      "previewSHA256": "dc05656db756376bc2b67208b72c3e9140457a785bf68458967a1257ce3b616f"
+    },
+    {
+      "location": 53,
+      "source": "./assets/worlds/places/firstflight.png",
+      "sourceBytes": 179310,
+      "sourceSHA256": "38ed4695bcb1bd0f531b8e6a5906513c2f7ca7bf124512cd3b9f99ba4f4fc882",
+      "preview": "053.webp",
+      "previewBytes": 37048,
+      "previewSHA256": "e9a555da0f6f81db65c3b5420617d5e123bdd19caa548e997d4b51811a66620f"
+    },
+    {
+      "location": 54,
+      "source": "./assets/worlds/places/junglecanopy.png",
+      "sourceBytes": 190501,
+      "sourceSHA256": "3e5be3093bec0c9d9a64de8664c23aff5b83687e2eb40138aad8657d427436cb",
+      "preview": "054.webp",
+      "previewBytes": 35696,
+      "previewSHA256": "1c58a98ad6e5f14f314a6dc100dcd163ee5be2edcab40c07b02f22e33d504a81"
+    },
+    {
+      "location": 55,
+      "source": "./assets/worlds/places/orchidriver.png",
+      "sourceBytes": 194433,
+      "sourceSHA256": "374130dca37e21057bd30e528cf65cfa93b8d581aa6b00971200a64ef9244a4e",
+      "preview": "055.webp",
+      "previewBytes": 41194,
+      "previewSHA256": "254e4aac8f1ab9a2c41f74037d59bcd3d26936499035de534260ed3270ca4505"
+    },
+    {
+      "location": 56,
+      "source": "./assets/worlds/places/bamboovillage.png",
+      "sourceBytes": 186058,
+      "sourceSHA256": "66a5a256d08130f579d172fa69e5c112a0fe07d9bf37285bf8fab713445abe8d",
+      "preview": "056.webp",
+      "previewBytes": 34790,
+      "previewSHA256": "e0d5d4ad5fe6e77aefda7910170447a8f4605d41a265452292b06f8bcc57aec8"
+    },
+    {
+      "location": 57,
+      "source": "./assets/worlds/places/savannastation.png",
+      "sourceBytes": 168575,
+      "sourceSHA256": "f7b920f22a028d63273b965c0774a541b9fa15a2b0dd3cba848348fe3ae07a1a",
+      "preview": "057.webp",
+      "previewBytes": 30648,
+      "previewSHA256": "8fe4a645cc59a83667fad0238ce95994bda5228e5409da37130554bfad6bae57"
+    },
+    {
+      "location": 58,
+      "source": "./assets/worlds/places/desertbloom.png",
+      "sourceBytes": 175748,
+      "sourceSHA256": "534ded97e02b89fb76c330790fb31510d93bf98e563a6c3e7c922cb552c4aa64",
+      "preview": "058.webp",
+      "previewBytes": 32268,
+      "previewSHA256": "db055ed24fea5697e2729717b41d9947ad2c06e30db4fd8d117e8446b264277f"
+    },
+    {
+      "location": 59,
+      "source": "./assets/worlds/places/fireflyfen.png",
+      "sourceBytes": 180368,
+      "sourceSHA256": "fd0f40e53ba9d133cf92b1fcb170bb9adbaac22da1f0935d48c8872e4e2b377c",
+      "preview": "059.webp",
+      "previewBytes": 31870,
+      "previewSHA256": "49d16fb56b2b647a6493df1d3468a80b1a01254b863ac185aac0299786c5cfaa"
+    },
+    {
+      "location": 60,
+      "source": "./assets/worlds/places/redwoodtrail.png",
+      "sourceBytes": 200412,
+      "sourceSHA256": "a24b1bce9f9042e13dce8fb5244849cbb86c5582eebac010f2f21bb35860c99c",
+      "preview": "060.webp",
+      "previewBytes": 37582,
+      "previewSHA256": "a7eedc64d158752ba47fccbe7e448194f4880ab97230e7e4417bf3fef92dec04"
+    },
+    {
+      "location": 61,
+      "source": "./assets/worlds/places/glaciergarden.png",
+      "sourceBytes": 170005,
+      "sourceSHA256": "dde08762d5582e9bb886fd993d8d29d2698031a8fbd87f925b91ac1f6d4fa334",
+      "preview": "061.webp",
+      "previewBytes": 34886,
+      "previewSHA256": "fb467d0dfe7033fb3b6fb53baa8e24d97571555811b1bdb94eb302b7831b7c60"
+    },
+    {
+      "location": 62,
+      "source": "./assets/worlds/places/monsooncamp.png",
+      "sourceBytes": 192054,
+      "sourceSHA256": "e2665f9f8f8d6d3c84e73caafb537c72b93dcd861be056bc0774ad0de1e8cf1a",
+      "preview": "062.webp",
+      "previewBytes": 35598,
+      "previewSHA256": "fd40b3225f7c3e8c764d8464a8e4ebf749f8ca5101f80241cad4846dfdfa3a84"
+    },
+    {
+      "location": 63,
+      "source": "./assets/worlds/places/wildheart.png",
+      "sourceBytes": 189124,
+      "sourceSHA256": "be3ac73e7df1ab9f59bfaa4ecb14cbb325cad1e0288eafdec322b6ada9a77067",
+      "preview": "063.webp",
+      "previewBytes": 39964,
+      "previewSHA256": "a44a6740c793a09813484d7f3d6ec1b080311b49989c6366fbef3d99c7229a0f"
+    },
+    {
+      "location": 64,
+      "source": "./assets/worlds/places/copperclock.png",
+      "sourceBytes": 195094,
+      "sourceSHA256": "17c498ddec925ced7f0ff30d52bb0ff527db6e76e256fa7ff63295fa10c10e8e",
+      "preview": "064.webp",
+      "previewBytes": 30892,
+      "previewSHA256": "a3fd04913e81b7aab13dda02744fd4347523baced47fb52fb96048b181408cb3"
+    },
+    {
+      "location": 65,
+      "source": "./assets/worlds/places/automatonalley.png",
+      "sourceBytes": 187362,
+      "sourceSHA256": "a7357e27ac9f786b80d7bb2d5384db9aa4da97aadd3ff1900c8cb50432327cec",
+      "preview": "065.webp",
+      "previewBytes": 32928,
+      "previewSHA256": "0f043ece3550630c979586ccf6a84d09b42dad5ac5d106931dbc95195b234e70"
+    },
+    {
+      "location": 66,
+      "source": "./assets/worlds/places/glasslab.png",
+      "sourceBytes": 182556,
+      "sourceSHA256": "288484809eacf9a61f8609bad2752b0658ba8644afa51ebe3a1ddf34e2c8b0c3",
+      "preview": "066.webp",
+      "previewBytes": 31994,
+      "previewSHA256": "a5619d90ffe2a6ab06e58c3e4e33625ea2a7663ebfce19acb8d1e48d3cb72b99"
+    },
+    {
+      "location": 67,
+      "source": "./assets/worlds/places/railworkshop.png",
+      "sourceBytes": 162221,
+      "sourceSHA256": "1953cb4716e9d8092409d3f804e3596d05b3289997a58476237cb434a693351b",
+      "preview": "067.webp",
+      "previewBytes": 29916,
+      "previewSHA256": "49b9a27cceb9d558b390ab7514d324a3acbc0c3941fc93bce525590e7dc11717"
+    },
+    {
+      "location": 68,
+      "source": "./assets/worlds/places/neonnetwork.png",
+      "sourceBytes": 173557,
+      "sourceSHA256": "4b04cb681f354d06335909bfbba3aab65505f4f111eb6858ed27992119b82da7",
+      "preview": "068.webp",
+      "previewBytes": 31652,
+      "previewSHA256": "a04334d6f161e726c2eaa536806610e385812c43249c087d7c494a08ef48035f"
+    },
+    {
+      "location": 69,
+      "source": "./assets/worlds/places/solarvillage.png",
+      "sourceBytes": 179722,
+      "sourceSHA256": "d19c6675a9c457aff406d9b7e511df891fc8f6bb9061945aa0fa8011fa9e85b5",
+      "preview": "069.webp",
+      "previewBytes": 33880,
+      "previewSHA256": "ddcdc482094631f21afd484e0485256ac25355e135136bf7959cb44f0d536520"
+    },
+    {
+      "location": 70,
+      "source": "./assets/worlds/places/maglevyard.png",
+      "sourceBytes": 170042,
+      "sourceSHA256": "e0cb352af97e663d0f7e89662d9550adf6943626c035d62d23173011a5205ea5",
+      "preview": "070.webp",
+      "previewBytes": 24444,
+      "previewSHA256": "6269c6f76ce0f01bf256c5a1a19aaa68704c32193d247eb802f4b4110a4cebee"
+    },
+    {
+      "location": 71,
+      "source": "./assets/worlds/places/musicfactory.png",
+      "sourceBytes": 169885,
+      "sourceSHA256": "221c04544a5a5e62a6e908503bef84708ba346f147f858d537ce03de6b4d2f62",
+      "preview": "071.webp",
+      "previewBytes": 28906,
+      "previewSHA256": "9f18daec9638a5a44b1564e0a2ccdac06f1f19b11c6944eb9ea109470f220495"
+    },
+    {
+      "location": 72,
+      "source": "./assets/worlds/places/tinyfoundry.png",
+      "sourceBytes": 199149,
+      "sourceSHA256": "28d0e825d2adeccdb5bc02d54d089a34b9de27972e36419cfda7d7181430e532",
+      "preview": "072.webp",
+      "previewBytes": 28336,
+      "previewSHA256": "4de4509903d66b7659f5d576cd77216765af13950d2a139746a248f64209afeb"
+    },
+    {
+      "location": 73,
+      "source": "./assets/worlds/places/tomorrowfair.png",
+      "sourceBytes": 169137,
+      "sourceSHA256": "079d4ed34e23c16bb2b401ad6d99db87aca7d30eb035096b3c3b99d8ea51fa7b",
+      "preview": "073.webp",
+      "previewBytes": 32664,
+      "previewSHA256": "84f6ac41b03c9a380568dd0acf024e47f37bce996ea0f42abcf5d20a0ee44b7b"
+    },
+    {
+      "location": 74,
+      "source": "./assets/worlds/places/teacourtyard.png",
+      "sourceBytes": 171412,
+      "sourceSHA256": "3ea113b0645f89f334d6822984bf4c09bec94f87207a7dcee9f354a496365d47",
+      "preview": "074.webp",
+      "previewBytes": 34030,
+      "previewSHA256": "4e6b6cac7a7c8dcdcf13b6fe251acc53a114653ddf322e7449d2fd0ab4b6e8fe"
+    },
+    {
+      "location": 75,
+      "source": "./assets/worlds/places/noodlequarter.png",
+      "sourceBytes": 188599,
+      "sourceSHA256": "dea3cf6ed4cfe8956d3e942c81bd63c4e5d4e4bee2e9f55ff0d1d4622ad7a2e8",
+      "preview": "075.webp",
+      "previewBytes": 34192,
+      "previewSHA256": "69c1b1d25dda8cee93caf1c283275187bc60fed41d31454b56ab730000aa2853"
+    },
+    {
+      "location": 76,
+      "source": "./assets/worlds/places/pizzapiazza.png",
+      "sourceBytes": 176348,
+      "sourceSHA256": "01689149aaa62bb62b82f90b83b1ba51300c17862e34570bf8ee93131eb52f28",
+      "preview": "076.webp",
+      "previewBytes": 33120,
+      "previewSHA256": "5d607933e1e610ebc42d5a686ce0e804461c25056a0cb7aa886012f7b6425d01"
+    },
+    {
+      "location": 77,
+      "source": "./assets/worlds/places/spicegarden.png",
+      "sourceBytes": 190613,
+      "sourceSHA256": "07ba35a543fadbe44f895c457e099cdea6c6b55837dcd60ee9b4fa071458f78b",
+      "preview": "077.webp",
+      "previewBytes": 38700,
+      "previewSHA256": "4ba09693e973c561e37fc6e124166144f900aa33c6f87129d0a76e7e75c935e2"
+    },
+    {
+      "location": 78,
+      "source": "./assets/worlds/places/harvesthill.png",
+      "sourceBytes": 183794,
+      "sourceSHA256": "812b544989cc05f9e56c5c155652d7ca98720c83ac4effa1fbe07d96bee93cb7",
+      "preview": "078.webp",
+      "previewBytes": 34360,
+      "previewSHA256": "e52f4ea8c83221e8ff65b2170f57c5148ff863a72f4b04bc5cb9b401a9f428c2"
+    },
+    {
+      "location": 79,
+      "source": "./assets/worlds/places/orchardlane.png",
+      "sourceBytes": 189041,
+      "sourceSHA256": "647f5bcd9287778d9ddd8c2a087e25aac1051035014296a3491bfdc460598c84",
+      "preview": "079.webp",
+      "previewBytes": 37618,
+      "previewSHA256": "12dcdf830f44eb463ebe4bf5e00cb7e3a98d89c442091510ba472672b719c257"
+    },
+    {
+      "location": 80,
+      "source": "./assets/worlds/places/snowcafe.png",
+      "sourceBytes": 181705,
+      "sourceSHA256": "7f5fd8d8d928aeeba465a9fc7a3643ac781ae797ee052952a81034e5d2180b57",
+      "preview": "080.webp",
+      "previewBytes": 28478,
+      "previewSHA256": "29e85886fe627327d604f1f27f27f9bfadb1d8a5b2497e334db2bbf8b2a3c4b9"
+    },
+    {
+      "location": 81,
+      "source": "./assets/worlds/places/paperstreet.png",
+      "sourceBytes": 184317,
+      "sourceSHA256": "447720f2020a437b679ddcbe3c9d8172242c0db4050818935b26f45ea1e7af49",
+      "preview": "081.webp",
+      "previewBytes": 32420,
+      "previewSHA256": "e583fce3615b5840189f0a26689edfc8240f57f9eb6d51685ae5888822656ce1"
+    },
+    {
+      "location": 82,
+      "source": "./assets/worlds/places/carnivalcamp.png",
+      "sourceBytes": 184802,
+      "sourceSHA256": "4474b01141cef1026e128db7be7ba9f4643f85288ed79b9b418a33ae9c9a4e35",
+      "preview": "082.webp",
+      "previewBytes": 32420,
+      "previewSHA256": "4df7432a80465ceb0cbc548fd693c4f9d6585bb1e096257f27c6100a86d5226e"
+    },
+    {
+      "location": 83,
+      "source": "./assets/worlds/places/grandfeast.png",
+      "sourceBytes": 181398,
+      "sourceSHA256": "0575bcf56766d23b7c8d8b28387e1812e3e8beb3e32bb1e65f6580d56f851c6a",
+      "preview": "083.webp",
+      "previewBytes": 34474,
+      "previewSHA256": "3bd701bba96d1247d782c6d236790f1b2c3d78dcf942feb45b446f478118105b"
+    },
+    {
+      "location": 84,
+      "source": "./assets/worlds/places/riverclay.png",
+      "sourceBytes": 178581,
+      "sourceSHA256": "8642e3026e1d38efe6d3676949905aa4ec3f45402fcee8d13fb5f0a2605d71fc",
+      "preview": "084.webp",
+      "previewBytes": 33858,
+      "previewSHA256": "0a104300fdd446464e5f95cd3e96665c8721fb02007a8b91dd042a38e0a87c8c"
+    },
+    {
+      "location": 85,
+      "source": "./assets/worlds/places/hillcitadel.png",
+      "sourceBytes": 193687,
+      "sourceSHA256": "5272e61ef0fcfe09c6c58d2c89a44096f4bafcd2c59012a487a9b67ccf27323c",
+      "preview": "085.webp",
+      "previewBytes": 35148,
+      "previewSHA256": "8d777de472e7a38617e88962f47bf88bb24f69244d5a9c518d0e0a548fdad228"
+    },
+    {
+      "location": 86,
+      "source": "./assets/worlds/places/reedlibrary.png",
+      "sourceBytes": 186129,
+      "sourceSHA256": "4f72219160844624e00f545b28b3d27969d39c0fce82c628b7fab479cef755c6",
+      "preview": "086.webp",
+      "previewBytes": 32160,
+      "previewSHA256": "3ba7c918c9e3db52daec865fbf28a2bfb97a41426d70fbaa11b012a82bb010c7"
+    },
+    {
+      "location": 87,
+      "source": "./assets/worlds/places/bronzesmith.png",
+      "sourceBytes": 192078,
+      "sourceSHA256": "c965939d595ae3a670c624bd75dc75514722cdd41d7ee93e5bce607022cd25f4",
+      "preview": "087.webp",
+      "previewBytes": 33802,
+      "previewSHA256": "97b9fa3413209151c4087b85b0cb8d519b0885f49d640be3ca6eccef41b61410"
+    },
+    {
+      "location": 88,
+      "source": "./assets/worlds/places/oasiscaravan.png",
+      "sourceBytes": 180748,
+      "sourceSHA256": "d4c732e347958dc94b2932924a983ada083c832bb35881585fbd92efdd370a7d",
+      "preview": "088.webp",
+      "previewBytes": 31234,
+      "previewSHA256": "2867af8c88047ad61c9c92a9bdf9ac54e93e6db9b38e2f6a5c0fe6d567813dad"
+    },
+    {
+      "location": 89,
+      "source": "./assets/worlds/places/mountainloom.png",
+      "sourceBytes": 190908,
+      "sourceSHA256": "a8be097344452f90c51ca0d0e457c822dacf6a6d6681c7d5b36eed2874b0a1d4",
+      "preview": "089.webp",
+      "previewBytes": 37792,
+      "previewSHA256": "0c3a2282faa51ecfce6a196251e59dfbc7cc9d6e479aa2060a26b25df3c50453"
+    },
+    {
+      "location": 90,
+      "source": "./assets/worlds/places/seafarerhall.png",
+      "sourceBytes": 170451,
+      "sourceSHA256": "6860af673b15b42d0e6d871e74fe62a91c7d313462f84e1d6ac237c5816e8490",
+      "preview": "090.webp",
+      "previewBytes": 27420,
+      "previewSHA256": "e8d36232f4085c1fb8fa6d89f26be2f157ce47f3fb37f10b5d6defdc35a02261"
+    },
+    {
+      "location": 91,
+      "source": "./assets/worlds/places/mosaiccourt.png",
+      "sourceBytes": 185352,
+      "sourceSHA256": "ffa851ba62ecdf93198aa861b82f39e12f04cce1fa8d5e0a0c9ca5aa5e9ab22a",
+      "preview": "091.webp",
+      "previewBytes": 31508,
+      "previewSHA256": "5c8dc56e33e6922af75f3af3475ac0a27d88ae306abb36db720a50a7768c0f81"
+    },
+    {
+      "location": 92,
+      "source": "./assets/worlds/places/starobservatory.png",
+      "sourceBytes": 178788,
+      "sourceSHA256": "c4a6901329238a123988778dca95bb7cd69b8285ab4ea78b951e44534616417a",
+      "preview": "092.webp",
+      "previewBytes": 34028,
+      "previewSHA256": "93203fc732815602bb3ed04ddc29280a78115c5711b0fdce1fcf3488f5531ee9"
+    },
+    {
+      "location": 93,
+      "source": "./assets/worlds/places/memorygate.png",
+      "sourceBytes": 185674,
+      "sourceSHA256": "a90bc9fce95f553066152724c6d0f346a3e95e6a7e3304dfb7e99e022d398d5f",
+      "preview": "093.webp",
+      "previewBytes": 32928,
+      "previewSHA256": "1a2f64d1adedbd3a289a8f1cc7d6c27d8d6f4c5151a48acf2ad7d41ef984f938"
+    },
+    {
+      "location": 94,
+      "source": "./assets/worlds/places/cometcamp.png",
+      "sourceBytes": 161913,
+      "sourceSHA256": "464187b940b983633231777f3097dd4e62c09c8791e0743d6003a807adeb8f62",
+      "preview": "094.webp",
+      "previewBytes": 29430,
+      "previewSHA256": "740f521e006bd0b60beb1aff309ba602d9abcffe1642e4233036f4c327b38ddc"
+    },
+    {
+      "location": 95,
+      "source": "./assets/worlds/places/moonorchard.png",
+      "sourceBytes": 191084,
+      "sourceSHA256": "d46d37ed2ad1833bb1a4b5a7873d010e287afaf915e7211914b6fddc45090cb0",
+      "preview": "095.webp",
+      "previewBytes": 33028,
+      "previewSHA256": "920a750c52811d442a9d6e7e39e338f1775d74f14471c06605d412477647053d"
+    },
+    {
+      "location": 96,
+      "source": "./assets/worlds/places/aurorabazaar.png",
+      "sourceBytes": 169726,
+      "sourceSHA256": "848face89e981a44e4f03d884f99be920b5ec0e674cd10d627d57f4eb21b9c92",
+      "preview": "096.webp",
+      "previewBytes": 31140,
+      "previewSHA256": "45464da09b4287aa0aab5c077907fc62b5dd8fddaa19683de36b3ebff66f040b"
+    },
+    {
+      "location": 97,
+      "source": "./assets/worlds/places/dreamstation.png",
+      "sourceBytes": 157065,
+      "sourceSHA256": "64215d4e7145aba40edcf966dea2d4b07085e956643efbea9121439a3611c8f3",
+      "preview": "097.webp",
+      "previewBytes": 31514,
+      "previewSHA256": "57095307ba0ba2b838076394eadfffa9006d3d9d95eb39578345699a9856f68e"
+    },
+    {
+      "location": 98,
+      "source": "./assets/worlds/places/crystalchoir.png",
+      "sourceBytes": 167474,
+      "sourceSHA256": "a2c8985453d5bfc35710fc7a88e22e3866a670b11996ae2cf7360d6f28dc4e26",
+      "preview": "098.webp",
+      "previewBytes": 30054,
+      "previewSHA256": "278999cd9765a2039b16713004d7583fbd855e99e3c2cf9ba1e7071d5756fe83"
+    },
+    {
+      "location": 99,
+      "source": "./assets/worlds/places/planetarium.png",
+      "sourceBytes": 182996,
+      "sourceSHA256": "c1f2ca7760b9bc6c27307b5e8f6a78d0e7982cbf3b4550abd5226691f91306aa",
+      "preview": "099.webp",
+      "previewBytes": 31074,
+      "previewSHA256": "c830f375a2f4056a3daff54ef2b9629d33c9c4f5791da125e96843dfeb60ce6a"
+    },
+    {
+      "location": 100,
+      "source": "./assets/worlds/places/wishharbour.png",
+      "sourceBytes": 153202,
+      "sourceSHA256": "92ce782c58fc7e7925eeed7886e74ae77b69269d1c381318b85d6f7707a79612",
+      "preview": "100.webp",
+      "previewBytes": 29838,
+      "previewSHA256": "44539b5e0dec0149c6880b059778bee4ec3026bdda2c6bcc17ddcf51a2a4eca4"
+    },
+    {
+      "location": 101,
+      "source": "./assets/worlds/places/lanternlibrary.png",
+      "sourceBytes": 177283,
+      "sourceSHA256": "f5568c6a3d73f62b1eff9ac3377a9c16d16aa7d89e89097cfec2343ccf4abf01",
+      "preview": "101.webp",
+      "previewBytes": 28696,
+      "previewSHA256": "788dbd4bb0be18747fce580564ac8e1ea4d8f316aa66a9bed66b1c0e4bef4a67"
+    },
+    {
+      "location": 102,
+      "source": "./assets/worlds/places/hundreddawn.png",
+      "sourceBytes": 163913,
+      "sourceSHA256": "49090a0c411fc96bd4173db95f2afd8dd40385d7fc27bc040bb98aa01ba13f69",
+      "preview": "102.webp",
+      "previewBytes": 33660,
+      "previewSHA256": "3babfbfc8c2bf843ba471592ee9ac6c626b683d5b26813b93206ea5083e71693"
+    }
+  ]
+}

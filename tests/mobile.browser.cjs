@@ -10,7 +10,7 @@ const output = process.env.DOCK_TEST_OUTPUT || path.join(os.tmpdir(), 'dock-dash
 fs.mkdirSync(output, {recursive:true});
 const url = 'http://127.0.0.1:8841/';
 const source = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-const html = source.replace('  buildBelt(); parcelCache', `  window.__dockTest={soundtrack,settings,profile,fit,wakeAudio,tickMusic,update,render,openMissionMap,openBriefing,launchMission,backToTitle,startGame,finishMission,
+const html = source.replace('  buildBelt(); parcelCache', `  window.__dockTest={previewArt,soundtrack,settings,profile,fit,wakeAudio,tickMusic,update,render,openMissionMap,openBriefing,launchMission,backToTitle,startGame,finishMission,
     get state(){return state;},get game(){return game;},get paused(){return paused;},get records(){return missionRecords;},get scene(){return activeLocation;},get art(){return pixelArt;}};
   buildBelt(); parcelCache`);
 assert.notEqual(html,source);
@@ -36,7 +36,7 @@ async function setup(page,{quiet=false,readonly=false}={}) {
     if(window.AudioParam){const target=AudioParam.prototype.setTargetAtTime;AudioParam.prototype.setTargetAtTime=function(...args){__counts.gainTargets++;return target.apply(this,args);};}
     if(readonly){Object.defineProperty(HTMLMediaElement.prototype,'volume',{configurable:true,get:()=>1,set:()=>{}});window.AudioContext=undefined;window.webkitAudioContext=undefined;}
   },{quiet,readonly});
-  await page.goto(url);await page.waitForFunction(()=>window.__dockTest && [0,2,3,4,5,6].every(i=>__dockTest.art[i]),null,{polling:50});
+  await page.goto(url);await page.waitForFunction(()=>window.__dockTest && __dockTest.art[0],null,{polling:50});
 }
 async function assertHome(page,oldRecords) {
   assert.equal(await page.evaluate(()=>__dockTest.state),'title');

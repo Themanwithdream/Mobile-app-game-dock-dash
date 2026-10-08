@@ -53,13 +53,13 @@
         cargo:data.cargo.slice(),missions:this.MR.readRecords(data.missions)};
     }
     export(data,createdAt=new Date().toISOString()){
-      const payload={game:'Parcel Odyssey',version:1,createdAt,data:this.validate(data)};
+      const payload={game:'Dock Boss',version:1,createdAt,data:this.validate(data)};
       return JSON.stringify({...payload,checksum:checksum(JSON.stringify(payload))},null,2);
     }
     read(text){
       requireValid(typeof text==='string'&&text.length<=MAX_BYTES,'Choose a game backup smaller than 1 MB.');
       let saved;try{saved=JSON.parse(text);}catch(_){throw Error('This file is not a readable game backup.');}
-      requireValid(object(saved)&&['Parcel Odyssey','Dock Dash'].includes(saved.game)&&saved.version===1,'Choose a Parcel Odyssey or previous Dock Dash backup.');
+      requireValid(object(saved)&&['Dock Boss','Parcel Odyssey','Dock Dash'].includes(saved.game)&&saved.version===1,'Choose a Dock Boss or previous game backup.');
       requireValid(typeof saved.createdAt==='string'&&Number.isFinite(Date.parse(saved.createdAt)),'The backup date is invalid.');
       const payload={game:saved.game,version:saved.version,createdAt:saved.createdAt,data:saved.data};
       requireValid(saved.checksum===checksum(JSON.stringify(payload)),'This backup is incomplete or has been changed.');
