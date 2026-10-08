@@ -80,7 +80,7 @@ async function advance(page, seconds) {
     const decoded = await page.evaluate(async () => {
       const media = JSON.parse(document.getElementById('bundled-media').textContent), ac = new AudioContext(), tracks = [];
       const metadata=await (await fetch('./audio/mission-music.json')).json();
-      for (const src of media.music) {
+      for (const src of new Set(media.music)) {
         const buffer = await ac.decodeAudioData(await (await fetch(src)).arrayBuffer()), data = buffer.getChannelData(0);
         let sum = 0, peak = 0; for (const sample of data) { sum += sample * sample; peak = Math.max(peak, Math.abs(sample)); }
         const expected=metadata.find(m=>src.endsWith('/'+m.file));
@@ -90,7 +90,7 @@ async function advance(page, seconds) {
     });
     assert.equal(decoded.length, 103);
     for (const t of decoded) { assert.ok(t.duration > 60);if(t.expectedDuration)assert.ok(Math.abs(t.duration-t.expectedDuration)<.1,t.src+' complete loop');assert.equal(t.channels, 2); assert.ok(t.rms > .04); assert.ok(t.peak < .99); }
-    pass('all twenty-six stereo soundtracks decode, contain music, and stay below clipping', decoded.map(t => ({ src: t.src, seconds: +t.duration.toFixed(2) })));
+    pass('all 103 original stereo soundtracks decode, contain music, and stay below clipping', decoded.map(t => ({ src: t.src, seconds: +t.duration.toFixed(2) })));
     const settingsTimer = await page.evaluate(() => __dockTest.game.missionElapsed);
     await page.locator('.settings-button:visible').tap(); await page.locator('[data-location="1"]').tap(); await page.locator('#settings-back').tap();
     assert.equal(await page.evaluate(() => __dockTest.scene), 3);
@@ -144,13 +144,13 @@ async function advance(page, seconds) {
       }
       return results;
     });
-    assert.equal(results.length, 800);
+    assert.equal(results.length, 1416);
     for (const r of results) { assert.equal(r.state, 'missionResult', r.id); assert.equal(r.stars, 3, r.id); assert.equal(r.lives, 3, r.id); assert.equal(r.remixes,r.expectedRemixes,r.id); }
-    pass('all 800 missions can be completed at three stars with their own cargo and every scheduled dock change', results);
+    pass('all 1,416 missions can be completed at three stars with their own cargo and every scheduled dock change', results);
     await sim.screenshot({ path: path.join(output, 'space-result.png') });
     assert.equal(await sim.evaluate(() => localStorage.getItem('dockDashBest')), '12345');
     await sim.reload(); await sim.waitForFunction(() => window.__dockTest && __dockTest.art[0]);
-    assert.equal(await sim.evaluate(() => __dockTest.MR.totalStars(__dockTest.records)), 2400);
+    assert.equal(await sim.evaluate(() => __dockTest.MR.totalStars(__dockTest.records)), 4248);
     assert.ok(await sim.evaluate(() => __dockTest.profile.totalDelivered > 180 && [3,14,29].every(id=>__dockTest.discovered.has(id))));
     pass('mission stars, fleet deliveries and cargo persist after reload; arcade best is preserved');
     await sim.evaluate(() => { __dockTest.openBriefing('matchday', 0); __dockTest.launchMission(); }); await advance(sim, 3.01);

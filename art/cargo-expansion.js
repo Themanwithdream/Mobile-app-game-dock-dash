@@ -2,6 +2,7 @@
 (function(root){
   'use strict';
   const kinds=['burger','fries','milkshake','pizzaslice','soupbowl','chefhat','coffeepot','menu','cutlery','saucebottle','takeaway','plate','croissant','breadloaf','layercake','donut','rollingpin','floursack','whisk','baguette','butter','transitticket','mailbundle','toolbox','trafficlight','bikehelmet','coffeecup','newspaper','bouquet','fruitcrate','paintcan','umbrella','wateringcan','flightvisor','heroshield','jetboots','wingpack','beacon','drone','target','powercell','herobadge','basketball','tennisracket','baseballmitt','volleyball','shuttlecock','medal','scoreboard','hockeystick','goggles','hardhat','brickstack','cementsack','blueprint','steelbeam','tapemeasure','workboot','drill','safetyvest','microchip','sensor','robotarm','circuitboard','vrheadset','serverdrive','solartile','cablereel','robotkit','prismring','facetedgem','prismbracelet','jewellertool','crystalingot','ringbox','gemscale','lightprism','ringmould','colourchart'];
+  kinds.push('pipe','icecream','wafercone');
   const colourKinds=['prismring','facetedgem','prismbracelet','crystalingot','ringbox','lightprism'];
   function draw(c,kind,col){
     if(!kinds.includes(kind))return false;
@@ -15,6 +16,12 @@
     const handle=()=>{ring(0,-8,6,3,shade);};
     const sack=(label)=>{poly([[-11,-15],[11,-15],[9,-8],[15,12],[11,16],[-11,16],[-15,12],[-9,-8]],cream);r(-10,-13,20,3,wood);r(-9,-3,18,13,col);if(label)line(-5,2,5,2,cream,2);};
     switch(kind){
+      case 'pipe':
+        poly([[-14,-13],[0,-13],[0,2],[14,2],[14,14],[-12,14],[-14,12]],shade);r(-11,-11,8,20,cream);r(-11,5,22,6,cream);r(-17,-16,20,5,col);r(12,-1,5,18,col);break;
+      case 'icecream':
+        r(-15,-5,30,21,col);r(-17,-7,34,5,cream);disc(-8,-10,7,'#e5aab7');disc(7,-11,7,gold);disc(0,-16,7,cream);r(-9,1,18,9,cream);disc(0,5,3,col);break;
+      case 'wafercone':
+        poly([[-11,-3],[11,-3],[0,19]],gold);line(-7,1,4,10,wood,1);line(7,1,-4,10,wood,1);disc(0,-8,12,cream);disc(-4,-11,3,'#ffffff');r(-13,-4,26,4,col);break;
       case 'burger':
         poly([[-15,-6],[-13,-12],[-7,-16],[7,-16],[13,-12],[15,-6]],gold);for(const [x,y] of [[-7,-11],[1,-13],[8,-10]])r(x,y,3,1,cream);
         r(-16,-5,32,4,mint);poly([[-15,-1],[15,-1],[11,5],[0,3],[-10,5]],gold);r(-15,3,30,6,wood);r(-14,10,28,5,gold);break;

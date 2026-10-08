@@ -65,7 +65,7 @@
       requireValid(saved.checksum===checksum(JSON.stringify(payload)),'This backup is incomplete or has been changed.');
       const data=this.validate(saved.data);return {data,createdAt:saved.createdAt,summary:this.summary(data)};
     }
-    summary(data){return {coins:data.wallet.coins,stars:this.MR.totalStars(data.missions),lanterns:this.MR.lanternCount(data.missions),purchases:data.wallet.owned.length,cargo:data.cargo.length,best:data.best};}
+    summary(data){return {coins:data.wallet.coins,stars:this.MR.totalStars(data.missions),lanterns:this.MR.lanternCount(data.missions),routes:this.MR.routeCount(data.missions),purchases:data.wallet.owned.length,cargo:data.cargo.length,best:data.best};}
     restore(storage,data,current,keepUndo=true){
       const incoming=encode(this.validate(data)),previous=encode(this.validate(current)),oldJournal=storage.getItem(JOURNAL);
       // The checkpoint must fit before any progress is replaced.

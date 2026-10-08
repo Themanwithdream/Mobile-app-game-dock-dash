@@ -1,9 +1,9 @@
 /* The Hundred Lanterns: original settings, keepers and a connected courier story. */
 (function(root,factory){
-  const pack=factory();
+  const pack=factory(typeof module==='object'&&module.exports?require('./open-roads.js'):root.DockBossOpenRoads);
   if(typeof module==='object'&&module.exports)module.exports=pack;
   else root.DockDashWorldPack=pack;
-})(typeof globalThis!=='undefined'?globalThis:this,function(){
+})(typeof globalThis!=='undefined'?globalThis:this,function(expansion){
   'use strict';
   const title='The Hundred Lanterns';
   const prologue='Once, a hundred lanterns joined distant places into one bright road. A quiet storm scattered their light. You inherit a little delivery dock and a map of the missing keepers. Carry what each community needs, listen to its story, and help its lantern shine again. Every world has eight chapters; every final delivery brings another light home.';
@@ -119,5 +119,5 @@
       music:{file:id+'-lantern.mp3',title:name+' — Lantern Road',voice:c.voice,key:[48,50,45,43,53,47,40][i%7],motif:i,chapter}
     };
   });
-  return {title,prologue,chapters,worlds};
+  return {title,prologue,chapters:{...chapters,...expansion.chapters},worlds:[...worlds,...expansion.worlds],expansion};
 });

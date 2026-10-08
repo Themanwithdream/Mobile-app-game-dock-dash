@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "Dock Boss — The Hundred Lanterns",
+  "name": "Dock Boss \u2014 Open Roads",
   "short_name": "Dock Boss",
-  "description": "One parcel. A hundred worlds. Sort pixel-art cargo through 800 missions, restore the Hundred Lanterns, collect 37 trucks and 103 arcade places, and play endless shifts. Spend earned game coins in the shop.",
+  "description": "One parcel. 177 places. Sort pixel-art cargo through 1,416 story missions, explore 77 grounded Open Roads places and the original Hundred Lanterns, collect 37 trucks and 180 arcade places, and play endless shifts.",
   "lang": "en",
   "dir": "ltr",
   "start_url": "./index.html",
@@ -11,7 +11,10 @@
   "orientation": "portrait",
   "background_color": "#101c23",
   "theme_color": "#101c23",
-  "categories": ["games", "entertainment"],
+  "categories": [
+    "games",
+    "entertainment"
+  ],
   "icons": [
     {
       "src": "./icons/icon-192.png",

@@ -16,11 +16,11 @@ test('all 112 previous records survive and cannot unlock the new second levels',
   const restored=M.readRecords(JSON.stringify(saved));assert.deepEqual(restored,saved);assert.equal(M.totalStars(restored),336);
   for(const id of ids)assert.equal(M.isUnlocked(M.getMission(id,1),restored),false);
 });
-test('113 new purchases retain existing ownership, spend exactly their prices and never charge an owned item',()=>{
-  assert.equal(E.newItems.length,113);assert.equal(E.newItems.filter(i=>i.type==='truck').length,17);assert.equal(E.newItems.filter(i=>i.type==='venue').length,86);assert.equal(E.newItems.filter(i=>i.type==='style').length,10);
-  let wallet=E.readWallet({version:1,coins:100000,earned:101000,spent:1000,owned:['beacon','wrap:crest','venue:rome']});
+test('190 new purchases retain existing ownership, spend exactly their prices and never charge an owned item',()=>{
+  assert.equal(E.newItems.length,190);assert.equal(E.newItems.filter(i=>i.type==='truck').length,17);assert.equal(E.newItems.filter(i=>i.type==='venue').length,163);assert.equal(E.newItems.filter(i=>i.type==='style').length,10);
+  let wallet=E.readWallet({version:1,coins:200000,earned:201000,spent:1000,owned:['beacon','wrap:crest','venue:rome']});
   const cost=E.newItems.reduce((sum,i)=>sum+i.price,0);
   for(const item of E.newItems){const previous=wallet,tx=E.purchase(wallet,item.id);assert.equal(tx.reason,'bought');wallet=tx.wallet;assert.equal(wallet.coins,previous.coins-item.price);assert.equal(E.purchase(wallet,item.id).wallet,wallet);}
-  assert.equal(wallet.coins,100000-cost);assert.equal(wallet.spent,1000+cost);assert.ok(['beacon','wrap:crest','venue:rome'].every(id=>wallet.owned.includes(id)));assert.deepEqual(E.readWallet(JSON.stringify(wallet)),wallet);
+  assert.equal(wallet.coins,200000-cost);assert.equal(wallet.spent,1000+cost);assert.ok(['beacon','wrap:crest','venue:rome'].every(id=>wallet.owned.includes(id)));assert.deepEqual(E.readWallet(JSON.stringify(wallet)),wallet);
   assert.deepEqual(E.trucks.slice(20,29).map(t=>t.world),ids);assert.equal(new Set(E.trucks.slice(20,29).map(t=>t.body)).size,9);
 });

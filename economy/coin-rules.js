@@ -93,7 +93,7 @@
     ['comet-courier','Comet Courier','cometcamp','cometcourier','facetedgem',1200]
   ];
   for(const [id,name,world,body,emblem,price] of chapterTrucks){const w=pack.worlds.find(w=>w.id===world);trucks.push({id,name,world,body,emblem,price,accent:w.accent,type:'truck',new:true,copy:`An original ${pack.chapters[w.chapter].name.toLowerCase()} fleet with a distinct silhouette.`});}
-  for(const w of pack.worlds)venues.push({id:'venue:'+w.id,name:w.name,world:w.id,location:w.location,price:350+50*(pack.worlds.indexOf(w)%10),accent:w.accent,type:'venue',new:true,copy:`Own ${w.name} for endless arcade deliveries, its supplies, scenery and original music.`});
+  for(const w of pack.worlds)venues.push({id:'venue:'+w.id,name:w.name,world:w.id,location:w.location,price:350+50*(pack.worlds.indexOf(w)%10),accent:w.accent,type:'venue',new:true,copy:`Own ${w.name} for endless arcade deliveries, its supplies, scenery and original music.${w.keywords?' '+w.keywords+'.':''}`});
   styles.push(
     {id:'wrap:woodland',name:'Woodland Wrap',style:'wrap',pattern:'woodland',price:160,accent:'#bddd95',new:true,type:'style',copy:'Little leaf borders and an archer feather seal.'},
     {id:'wrap:tide',name:'Tide Wrap',style:'wrap',pattern:'tide',price:180,accent:'#95e4df',new:true,type:'style',copy:'Sea-blue waves and a shell at the lower corner.'},

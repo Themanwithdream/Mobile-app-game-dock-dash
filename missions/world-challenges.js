@@ -15,6 +15,7 @@
   };
   const fixed={matchday:'rally',arena:'rally',festival:'rally',rome:'convoy',egypt:'convoy',viking:'convoy',silkroad:'convoy',build:'crane',robot:'workshop',prism:'workshop',school:'workshop',candy:'workshop',diner:'rally',bakery:'workshop',rescue:'tide',beacon:'tide',arctic:'tide',canal:'tide',space:'tide',metro:'convoy',skyguard:'rally',dino:'trail',forest:'trail'};
   function family(world){
+    if(world.pattern&&profiles[world.pattern])return world.pattern;
     if(fixed[world.id])return fixed[world.id];
     if(world.chapter==='echoes')return 'convoy';
     if(world.chapter==='clockwork')return /repair|quarry|iron|workshop|clock|gear/.test(world.id)?'crane':'workshop';

@@ -31,7 +31,7 @@ for index, url in enumerate(media["floors"]):
     rows.append({"location": index, "source": url, "sourceBytes": len(original),
                  "sourceSHA256": hashlib.sha256(original).hexdigest(), "preview": name,
                  "previewBytes": len(data), "previewSHA256": hashlib.sha256(data).hexdigest()})
-assert len(rows) == 100
+assert len(rows) == len(media['floors']) - 3
 assert len({r["previewSHA256"] for r in rows}) == len(rows)
 (target / "manifest.json").write_text(json.dumps({"width": 360, "height": 180, "top": 170, "quality": 88, "images": rows}, indent=2) + "\n")
 print(json.dumps({"worlds": len(rows), "originalBytes": sum(r["sourceBytes"] for r in rows),

@@ -215,7 +215,11 @@
   function totalStars(records, worldId) {
     return missions.filter(m => !worldId || m.world.id === worldId).reduce((sum, m) => sum + (records[m.id]?.stars || 0), 0);
   }
-  function lanternCount(records) {return worlds.reduce((n,w)=>n+(records[`${w.id}-${tiers.length}`]?.stars>0?1:0),0);}
-  function chapterPages(chapter) {return worldPages.map((page,i)=>({page,i})).filter(({page})=>!chapter||(page[0].chapter||page[0].era||'adventures')===chapter).map(({i})=>i);}
-  return { worlds, worldPages, chapters, chapterPages, pageLabel, story:pack, lanternCount, tiers, levelCount:tiers.length, missions, getMission, readRecords, isUnlocked, grade, recordResult, totalStars };
+  const lanternWorlds=worlds.filter(w=>w.campaign!=='openroads'),routeWorlds=worlds.filter(w=>w.campaign==='openroads');
+  const filters={openroads:'NEW PLACES',...chapters};
+  function completed(records,list=worlds) {return list.reduce((n,w)=>n+(records[`${w.id}-${tiers.length}`]?.stars>0?1:0),0);}
+  function lanternCount(records) {return completed(records,lanternWorlds);}
+  function routeCount(records) {return completed(records,routeWorlds);}
+  function chapterPages(chapter) {return worldPages.map((page,i)=>({page,i})).filter(({page})=>!chapter||(chapter==='openroads'?page[0].campaign==='openroads':(page[0].chapter||page[0].era||'adventures')===chapter)).map(({i})=>i);}
+  return { worlds, worldPages, chapters, filters, chapterPages, pageLabel, story:pack, lanternWorlds, routeWorlds, completedPlaces:completed, lanternCount, routeCount, tiers, levelCount:tiers.length, missions, getMission, readRecords, isUnlocked, grade, recordResult, totalStars };
 });

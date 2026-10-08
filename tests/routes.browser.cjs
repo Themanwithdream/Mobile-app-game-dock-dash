@@ -41,8 +41,8 @@ try{
    rows.push({index,found:cards.some(b=>Number(b.dataset.location)===index),fits:cards.every(b=>b.scrollWidth<=b.clientWidth+1)});
   }
   d.setWallet(old);d.searchRoutes('');return rows;
- });assert.equal(all.length,103);for(const row of all){assert.equal(row.found,true,JSON.stringify(row));assert.equal(row.fits,true,JSON.stringify(row));}
- pass('all 103 arcade places remain searchable when owned, including every story world');
+ });assert.equal(all.length,180);for(const row of all){assert.equal(row.found,true,JSON.stringify(row));assert.equal(row.fits,true,JSON.stringify(row));}
+ pass('all 180 arcade places remain searchable when owned, including every story world');
 
  const footer=await p.locator('#settings-back').boundingBox(),scroll=await p.locator('#settings-scroll').boundingBox(),cdp=await context.newCDPSession(p),x=scroll.x+scroll.width*.65,y=scroll.y+scroll.height*.8;
  await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y}]});for(let i=1;i<=8;i++){await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x,y:y-scroll.height*.65*i/8}]});await new Promise(r=>setTimeout(r,20));}await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await cdp.detach();

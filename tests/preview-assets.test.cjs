@@ -9,5 +9,5 @@ test('every world has a distinct, compact preview from its unchanged original pa
   assert.equal(preview.toString('ascii',0,4),'RIFF');assert.equal(preview.toString('ascii',8,12),'WEBP');assert.equal(preview.toString('ascii',12,16),'VP8 ');assert.deepEqual([preview.readUInt16LE(26)&0x3fff,preview.readUInt16LE(28)&0x3fff],[360,180]);
   assert.ok(preview.length<64*1024,world.id);previews.add(row.previewSHA256);originalBytes+=original.length;previewBytes+=preview.length;
  }
- assert.equal(previews.size,100);assert.ok(previewBytes<originalBytes*.2,{originalBytes,previewBytes});
+ assert.equal(previews.size,177);assert.ok(previewBytes<originalBytes*.2,{originalBytes,previewBytes});
 });

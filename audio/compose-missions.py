@@ -122,6 +122,7 @@ def lantern_scores():
     progressions=[[0,0,5,5,9,9,7,7],[0,0,7,7,9,9,5,5],[0,0,9,9,5,5,7,7]]
     scores=[]
     for w in data:
+      if w.get('campaign') == 'openroads': continue  # These routes reuse the original score library.
       m=w['music'];i=m['motif'];key=m['key'];base=motifs[m['chapter']]
       phrases=[]
       for phrase in range(4):

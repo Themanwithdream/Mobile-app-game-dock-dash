@@ -90,7 +90,11 @@
     }
     }
     // A persistent little keeper lantern marks a completed eight-part story.
-    const lx=side===1?316:44;r(lx-8,421,16,3,wood);r(lx-6,403,12,17,lit?'#e6b85b':'#44616b');r(lx-4,406,8,10,lit?'#fff0b0':'#1b3440');r(lx-7,400,14,3,gold);
+    const lx=side===1?316:44;
+    if(w.campaign==='openroads'){
+      r(lx-9,401,18,22,ink);r(lx-7,403,14,18,lit?gold:'#44616b');
+      if(lit){line(lx-4,412,lx-1,416,ink,2);line(lx-1,416,lx+5,407,ink,2);}else{r(lx-4,408,8,2,'#9eb4b5');r(lx-4,413,6,2,'#9eb4b5');}
+    }else{r(lx-8,421,16,3,wood);r(lx-6,403,12,17,lit?'#e6b85b':'#44616b');r(lx-4,406,8,10,lit?'#fff0b0':'#1b3440');r(lx-7,400,14,3,gold);}
     c.restore();
   }
   root.DockDashWorldArt={kinds,draw,scene,fingerprint};

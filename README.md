@@ -1,14 +1,26 @@
-# Dock Boss — The Hundred Lanterns
+# Dock Boss — Open Roads
 
-A phone-friendly pixel-art delivery adventure. One parcel. A hundred worlds. Wait for the loading zone, match the parcel colour and shape, and tap its truck.
+A phone-friendly pixel-art delivery adventure. One parcel. 177 places. Wait for the loading zone, match the parcel colour and shape, and tap its truck.
 
 ## Play
 
-https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=7.1-dock-boss
+https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=8.0-open-roads
 
 Previously Dock Dash and Parcel Odyssey. The repository and play URL stay in place so existing browser progress carries over.
 
-## This release
+## Open Roads expansion — 8.0
+
+77 grounded places extend the original 100 to **177 places, 1,416 missions and 4,248 stars**. All twenty requested subjects are included, from Asgard’s restored heritage citadel to the hospital supply rooms. There are no magical characters, powers or surreal settings in the additions. Asgard, World Tree, Frost Giant Fortress, Dwarven Forge and Atlantis retain their requested names as ordinary heritage, conservation, workshop and coastal research places.
+
+Each new place has eight authored delivery chapters, twelve named cargo items and an exclusive 360 × 640 pixel scene. A **New Places** mission filter reaches all 77 routes; eight local chapters organise them. First missions are free, and arcade versions are optional coin purchases. The original 100-place story and its ending remain independent of the new route log. See [all 77 places and story hooks](missions/OPEN-ROADS.md).
+
+The additions bring the cargo catalogue to **2,424 items** and the arcade list to **180 places**. Existing mission IDs, cargo IDs 0–1499, locations 0–102, vehicle slots, purchase prices, wallet balances and storage keys are preserved. Existing Dock Boss, Parcel Odyssey and Dock Dash backups remain readable; new backups keep the same portable format and include old and new progress together. Backup previews show restored lanterns and completed new routes separately.
+
+New artwork is painted offline by `tools/build-open-roads-art.py`, using individually authored terrain, architecture and workshop plans. No old images are changed. All 77 full scenes total about 1 MB and use the existing four-image decode budget. Card previews remain bounded to four requests and eight cached images. The new places reuse matching complete recordings from the original soundtrack library, retaining the first-tap autoplay recovery and sound effects. Music titles now cover every route, including the previously missing original-world labels.
+
+Open Roads verification: **134 unit checks and 218 browser checks across 19 suites** pass, including all 1,416 missions at three stars, native browsing of all 77 additions, five viewport layouts, original and new completion logs, saved purchases, 20-minute phone simulation, sound and autoplay recovery, and exact older-backup restore/undo. The 77 additional full scenes total 1,015,441 bytes; their card previews total 767,880 bytes. No existing artwork or music recording is replaced.
+
+## Dock Boss foundation — 7.1
 
 - A gold Dock Boss badge in mission and shop headers, a larger gold home title, current install metadata and game-link previews.
 - A clearer missed-parcel alert and a combined final-miss/result cue that survives the end of a run.
@@ -33,7 +45,7 @@ Previously Dock Dash and Parcel Odyssey. The repository and play URL stay in pla
 
 All 100 story worlds have exclusive pixel-art environment images, each with its own architecture, terrain and landmarks. The newer chapters now use 77 separate place images: 16 existing paintings assigned to one matching world each and 61 new illustrations. No two worlds share a backdrop URL or identical image bytes. See [individual artwork and exact prompts](assets/worlds/INDIVIDUAL-WORLDS-ARTWORK.md). Native icons and vehicles extend the existing canvas renderer.
 
-Every world has its own original synthesized 32-bar instrumental score. Shared chapter melodies receive distinct phrase arrangements, transpositions and answers. Circular note tails and the buffered audio player preserve continuous loop joins.
+The original 100 worlds each have an original synthesized 32-bar instrumental score; Open Roads reuses matching recordings from this library. Shared chapter melodies receive distinct phrase arrangements, transpositions and answers. Circular note tails and the buffered audio player preserve continuous loop joins.
 
 The sound-effect set combines rounded parcel thumps, filtered paper/engine textures and short wood/bell tones. Twenty-six cue variants prepare one at a time during idle periods, using less than 1 MB of mono PCM. Playback reuses per-context buffers on the same audio clock as music. Four active voices and two brief retiring voices have a shared gain budget; rapid duplicate taps cannot accumulate sources. Perfect hits use a single combined cue. Pause, mute, Home, page exit and phone interruptions cancel old feedback while retaining the cached samples. The existing independent Effects and Music switches remain available under Routes & audio. `tests/sound-effects.test.cjs` and `tests/sound-effects.browser.cjs` cover edge silence, mix headroom, cached playback, input bursts, native event bindings and context recovery.
 
@@ -59,7 +71,7 @@ Menu navigation and searching are covered by `tests/interface.browser.cjs` along
 
 ## Routes and audio
 
-Route descriptions now wrap naturally beside their existing pixel-art previews, with separate cargo labels and an explicit selected state. The coloured preview underlines are removed. Search finds owned place names and themes across all 103 arcade places; a clear action recovers empty results. **Shop places** opens the arcade-place category and returns to the updated route list after a purchase. Shopping from a paused mission preserves its score, timer, parcels and mission soundtrack.
+Route descriptions now wrap naturally beside their existing pixel-art previews, with separate cargo labels and an explicit selected state. The coloured preview underlines are removed. Search finds owned place names and themes across all 180 arcade places; a clear action recovers empty results. **Shop places** opens the arcade-place category and returns to the updated route list after a purchase. Shopping from a paused mission preserves its score, timer, parcels and mission soundtrack.
 
 The scrollable panel has 44-pixel controls, an **Audio** shortcut, independent Music and Effects switches, accessible music volume, an explanation of Tour mode and the existing Visuals & saves dialog. A fixed Back button names its destination: Home, Results or the paused game. The three native preview canvases reuse the existing bounded image cache. `tests/routes.browser.cjs` checks search, purchases, native phone scrolling, paused-run preservation and five viewport layouts. Save fields and gameplay rules stay compatible.
 
@@ -67,13 +79,13 @@ The scrollable panel has 44-pixel controls, an **Audio** shortcut, independent M
 
 Mission briefings use native text and a touch-scrollable panel with separate, fixed Start and Mission map controls. Package, priority and time goals come first. The Levels shortcut reaches all eight levels, showing their unlock state and earned stars; choosing a new level returns to its objectives. Supply illustrations, story text and expandable star goals remain readable on smaller screens. Completion rewards reflect the player's previous stars, and replay keeps the original countdown and equipment.
 
-All 37 fleets have detailed original pixel artwork, including passenger windows on buses, emergency equipment, larger off-road wheels and distinct space vehicles. Every fleet retains all four colour/shape sorting plates. Art is painted once into the existing lazy sprite cache; no new image downloads are needed. `tests/mission-design.browser.cjs` covers touch and keyboard scrolling, all 800 mission texts, five viewport layouts and the 148 sorting plates.
+All 37 fleets have detailed original pixel artwork, including passenger windows on buses, emergency equipment, larger off-road wheels and distinct space vehicles. Every fleet retains all four colour/shape sorting plates. Art is painted once into the existing lazy sprite cache; no new image downloads are needed. `tests/mission-design.browser.cjs` covers touch and keyboard scrolling, all 1,416 mission texts, five viewport layouts and the 148 sorting plates.
 
 ## Themed mission challenges
 
 Worlds now choose an appropriate arrival pattern instead of sharing only the difficulty template. Sports alternate team deliveries and introduce gentle, announced rushes from level two. Historical merchants arrive in three-parcel convoys. Construction loads come in pairs, with short crane lifts that pause both the belt and mission timer. Water and sky routes ease between calm and faster crossings. Schools and workshops begin each cargo set with the three priority supplies. Woodland routes follow repeating colour-and-shape trails.
 
-The existing eight levels, package goals, star rules, unlocks, rewards and save IDs remain compatible. Gold still fits any open truck. Pace changes ease in gradually, and the first mission keeps a steady belt while players learn the route. All 800 missions are covered by the complete gameplay check.
+The existing eight levels, package goals, star rules, unlocks, rewards and save IDs remain compatible. Gold still fits any open truck. Pace changes ease in gradually, and the first mission keeps a steady belt while players learn the route. All 1,416 missions are covered by the complete gameplay check.
 
 ## Visual effects and portable saves
 

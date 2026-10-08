@@ -1,7 +1,7 @@
 const test=require('node:test'),assert=require('node:assert/strict');
 const WC=require('../missions/world-challenges.js'),MR=require('../missions/mission-rules.js');
-test('all 800 missions carry an explained theme and the existing goals, unlocks and IDs',()=>{
-  assert.equal(MR.missions.length,800);const kinds=new Set();
+test('all 1,416 missions carry an explained theme and the existing goals, unlocks and IDs',()=>{
+  assert.equal(MR.missions.length,1416);const kinds=new Set();
   for(const m of MR.missions){kinds.add(m.challenge.kind);assert.ok(m.challenge.copy.length>25);assert.ok(m.challenge.name.length>4);assert.equal(m.id,`${m.world.id}-${m.stage+1}`);assert.equal(m.loads,MR.tiers[m.stage].loads);assert.equal(m.seconds,MR.tiers[m.stage].seconds);}
   assert.deepEqual([...kinds].sort(),Object.keys(WC.profiles).sort());
 });
