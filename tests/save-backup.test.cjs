@@ -11,6 +11,13 @@ test('a portable backup round-trips coins, ownership, equipment, settings, all s
   const original=snapshot();for(const m of MR.missions)original.missions[m.id]={stars:3,bestScore:12345,bestTime:m.seconds/2};original.cargo=Array.from({length:1500},(_,i)=>i);
   const text=api.export(original,'2026-10-07T14:00:00Z'),read=api.read(text);assert.deepEqual(read.data,original);assert.equal(read.summary.stars,2400);assert.equal(read.summary.lanterns,100);assert.ok(text.length<Backups.maxBytes);
 });
+test('the renamed game reads an authentic previous Dock Dash backup and exports the new name without changing progress',()=>{
+  const fs=require('node:fs'),path=require('node:path');
+  const legacy=fs.readFileSync(path.join(__dirname,'fixtures','dock-dash-v1-backup.json'),'utf8'),read=api.read(legacy);
+  assert.deepEqual(read.data,snapshot());assert.equal(JSON.parse(legacy).game,'Dock Dash');
+  const exported=api.export(read.data,read.createdAt);assert.equal(JSON.parse(exported).game,'Parcel Odyssey');assert.deepEqual(api.read(exported).data,read.data);
+  assert.throws(()=>api.read(legacy.replace('Dock Dash','Parcel Odyssey')),/changed/);
+});
 test('damaged, incomplete, unrelated, oversized and future-format files fail without touching any storage',()=>{
   const text=api.export(snapshot()),s=storage(),before=[...s.values];
   for(const bad of ['{broken','null','[]','{}',text.replace('3200','0'),'x'.repeat(Backups.maxBytes+1),text.replace('"version": 1','"version": 2')])assert.throws(()=>api.read(bad));

@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "Dock Dash",
-  "short_name": "Dock Dash",
-  "description": "Earn coins for twenty vehicles, thirteen arcade places and collectible parcel wraps and docks. Drive the Batmobile, stock the Batcave and explore thirty pixel-art missions. Get ready in 3, 2, 1.",
+  "name": "Parcel Odyssey — The Hundred Lanterns",
+  "short_name": "Parcel Odyssey",
+  "description": "One parcel. A hundred worlds. Sort pixel-art cargo through 800 missions, restore the Hundred Lanterns, collect 37 trucks and 103 arcade places, and play endless shifts. Spend earned game coins in the shop.",
   "lang": "en",
   "dir": "ltr",
   "start_url": "./index.html",

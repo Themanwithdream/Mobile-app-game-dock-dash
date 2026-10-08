@@ -3,16 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<link rel="manifest" href="./manifest.webmanifest">
+<link rel="manifest" href="./manifest.webmanifest?v=7.0-parcel-odyssey">
 <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
 <meta name="theme-color" content="#101c23">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Dock Dash">
+<meta name="apple-mobile-web-app-title" content="Parcel Odyssey">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="description" content="Sort pixel-art cargo through 100 individual worlds and 800 missions. Earn coins, collect trucks and arcade places, and explore the story of the Hundred Lanterns.">
-<meta name="dock-dash-version" content="6.6-route-design">
-<title>Dock Dash — Your Fleet, Your World</title>
+<meta name="description" content="One parcel. A hundred worlds. Match pixel-art cargo, build your fleet and restore the Hundred Lanterns through 800 missions. Play endless arcade shifts and spend earned coins in the shop.">
+<meta name="application-name" content="Parcel Odyssey">
+<meta name="dock-dash-version" content="7.0-parcel-odyssey">
+<link rel="canonical" href="https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Parcel Odyssey — The Hundred Lanterns">
+<meta property="og:description" content="One parcel. A hundred worlds. Sort cargo, collect trucks and restore the Hundred Lanterns in this pixel-art delivery adventure.">
+<meta property="og:url" content="https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html">
+<meta property="og:image" content="https://themanwithdream.github.io/Mobile-app-game-dock-dash/icons/icon-512.png">
+<meta property="og:image:alt" content="A golden parcel with a lightning bolt">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Parcel Odyssey — The Hundred Lanterns">
+<meta name="twitter:description" content="One parcel. A hundred worlds. A pixel-art delivery adventure with 800 missions and endless arcade shifts.">
+<meta name="twitter:image" content="https://themanwithdream.github.io/Mobile-app-game-dock-dash/icons/icon-512.png">
+<title>Parcel Odyssey — The Hundred Lanterns</title>
 <style>
   :root { color-scheme: light dark; --page-bg: #e5e8e2; --page-dot: #cdd5cc; --page-fg: #23342e; }
   @media (prefers-color-scheme: dark) { :root { --page-bg: #080f14; --page-dot: #17242b; --page-fg: #e5ebe8; } }
@@ -281,13 +293,41 @@
     .settings-header .settings-eyebrow, .settings-header #route-selected-label { display:none; }
     .settings-header h2 { font-size:16px; }
   }
+  .help-dialog { width:min(92vw,460px); max-height:calc(100dvh - 28px); padding:20px; border:1px solid #8fa593; border-radius:18px; background:#102731; color:#f4ecd6; font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; box-shadow:0 14px 70px #0008; overflow:hidden; }
+  .help-dialog[open] { display:flex; flex-direction:column; }
+  .help-dialog::backdrop { background:#031019d9; }
+  .help-dialog > header, .help-actions { flex:none; }
+  .help-dialog h2 { margin:0; font-size:28px; line-height:1.2; letter-spacing:-.02em; color:#ffe4ac; }
+  .help-dialog header p { margin:5px 0 14px; color:#c5d8cb; font-size:13px; }
+  .help-content { overflow-y:auto; min-height:0; overscroll-behavior:contain; touch-action:pan-y; padding:0 3px 8px; margin:0 -3px; scrollbar-width:thin; }
+  .help-content h3 { margin:16px 0 7px; font-size:17px; color:#f4e9cf; }
+  .help-content h3:first-child { margin-top:0; }
+  .help-content p { margin:7px 0 12px; color:#cadbd1; }
+  .help-steps { padding:0; margin:0; list-style:none; display:flex; flex-direction:column; gap:9px; counter-reset:lesson; }
+  .help-steps li { counter-increment:lesson; position:relative; border:1px solid #8ca18a44; border-radius:10px; padding:12px 12px 12px 49px; background:#203c43; }
+  .help-steps li::before { content:counter(lesson); position:absolute; top:12px; left:12px; display:grid; place-items:center; width:26px; height:26px; background:#d3ba77; border-radius:7px; color:#192e31; font-weight:900; }
+  .help-steps strong { color:#fff0cf; } .help-steps p { margin:4px 0 0; font-size:13px; line-height:1.45; }
+  .help-modes { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; }
+  .help-modes article { padding:12px; border:1px solid #819f8655; border-radius:10px; background:#19343e; }
+  .help-modes h4 { margin:0; color:#e6dfae; font-size:15px; } .help-modes p { margin:5px 0 0; font-size:13px; }
+  .help-dialog button { position:static; width:100%; min-height:44px; border:1px solid #819c89; border-radius:10px; background:#304a50; color:#f4efd9; padding:10px 12px; font:800 14px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; touch-action:manipulation; }
+  .help-dialog button:focus-visible, .help-dialog input:focus-visible { outline:3px solid #ffdd93; outline-offset:-3px; }
+  .help-dialog button:disabled { opacity:.6; }
+  .help-share { border-radius:10px; background:#19333a; padding:12px; margin-top:16px; }
+  .help-share label { display:block; font-size:12px; color:#bcd2c6; margin:7px 0 4px; }
+  #help-link { display:block; width:100%; min-height:44px; border:1px solid #76988c; border-radius:7px; padding:8px; background:#102630; color:#d5e1d6; font-size:16px; touch-action:manipulation; user-select:text; -webkit-user-select:text; }
+  #help-share-status { margin:7px 0 0; min-height:1.5em; font-size:12px; }
+  .help-actions { display:flex; flex-direction:column; gap:8px; padding-top:12px; }
+  .help-dialog #help-practice { background:linear-gradient(180deg,#ffba6b,#ff9955); border-color:#ffd799; color:#271d12; }
+  .help-release { flex:none; margin:8px 0 0; font-size:11px; color:#a9c3b6; text-align:center; }
+  @media (max-width:350px), (max-height:450px) { .help-dialog { padding:14px; } .help-dialog h2 { font-size:24px; } }
 </style>
 </head>
 <body>
 <main class="viewport" id="viewport">
   <div class="stage" id="stage">
     <canvas id="scenery" class="scenery" width="360" height="640" aria-hidden="true"></canvas>
-    <canvas id="game" width="360" height="640" role="img" aria-label="Dock Dash. Wait for the ringed parcel to reach the green loading zone, then tap its matching truck. The bright centre stripe gives a perfect bonus. Red circle, blue square, green triangle, yellow diamond. Golden stars fit any unlocked truck.">Your browser needs canvas support to play Dock Dash.</canvas>
+    <canvas id="game" width="360" height="640" role="img" aria-label="Parcel Odyssey. Wait for the ringed parcel to reach the green loading zone, then tap its matching truck. The bright centre stripe gives a perfect bonus. Red circle, blue square, green triangle, yellow diamond. Golden stars fit any unlocked truck.">Your browser needs canvas support to play Parcel Odyssey.</canvas>
     <div class="lanes" id="lanes" hidden aria-label="Truck docks">
       <button class="lane-input" type="button" data-lane="0" aria-label="Dock 1: red circle. Keyboard 1."></button>
       <button class="lane-input" type="button" data-lane="1" aria-label="Dock 2: blue square. Keyboard 2."></button>
@@ -296,14 +336,14 @@
     </div>
     <button class="mission-home" id="mission-home" type="button" aria-label="Return to main menu" hidden>← Main menu</button>
     <button class="pause-trigger" id="pause" type="button" aria-label="Pause game. Keyboard P or Escape." hidden>Ⅱ</button>
-    <section class="menu title-menu" id="title-menu" aria-label="Dock Dash menu">
-      <h1 class="sr-only">Dock Dash</h1>
+    <section class="menu title-menu" id="title-menu" aria-label="Parcel Odyssey menu">
+      <h1 class="sr-only">Parcel Odyssey — The Hundred Lanterns</h1>
       <p class="sr-only">Let the lowest parcel reach the green loading zone, then tap the dock matching its colour and symbol. The bright stripe earns a perfect bonus. Early taps are safe. Fill a truck with five parcels for double points. Each shift has a bonus objective. Keys 1 through 4 also work.</p>
       <button class="action start" id="start" type="button"><span class="mode-copy"><strong>Arcade</strong><small>Endless shifts · chase your best</small></span><span class="arrow" aria-hidden="true">→</span></button>
       <button class="action mission-entry" id="missions" type="button"><span class="mode-copy"><strong>Missions</strong><small>100 worlds · a story to discover</small></span><span class="arrow" aria-hidden="true">★</span></button>
       <button class="fleet-button" type="button">Truck shop</button>
       <button class="sound" type="button" aria-pressed="true"><span class="note" aria-hidden="true">♪</span><span class="sound-label">Sound on</span></button>
-      <button class="learn-link" id="learn" type="button">How to play · 3 quick steps</button>
+      <button class="learn-link" id="learn" type="button">How to play &amp; share</button>
       <button class="extra-button settings-button" type="button">Settings</button>
       <button class="extra-button catalog-button" type="button">Cargo · 0 / 576</button>
     </section>
@@ -348,7 +388,7 @@
     </section>
     <section class="menu settings-menu" id="settings-menu" aria-label="Routes and audio settings" hidden>
       <header class="settings-header">
-        <p class="settings-eyebrow">DOCK DASH · MAKE IT YOURS</p>
+        <p class="settings-eyebrow">PARCEL ODYSSEY · MAKE IT YOURS</p>
         <div class="settings-heading-row"><h2>Routes & audio</h2><button id="settings-sound-jump" type="button">Audio ↓</button></div>
         <p id="route-selected-label">Arcade place · Warehouse</p>
       </header>
@@ -494,6 +534,24 @@
       </div>
       <button id="preferences-close" type="button">Back to the game</button>
     </dialog>
+    <dialog class="help-dialog" id="help-dialog" aria-labelledby="help-title">
+      <header><h2 id="help-title">Parcel Odyssey</h2><p>One parcel. A hundred worlds.</p></header>
+      <div class="help-content" id="help-content" role="region" aria-label="How to play, game modes and sharing" tabindex="0">
+        <h3>Three steps to a great delivery</h3>
+        <ol class="help-steps">
+          <li><strong>Wait for green</strong><p>Watch the lowest, ringed parcel. Tap once it enters the green loading zone. Early taps are safe.</p></li>
+          <li><strong>Match the sticker</strong><p>Match both its colour and shape to a truck. A golden parcel fits any open truck.</p></li>
+          <li><strong>Make it perfect</strong><p>The bright centre stripe gives a +5 bonus. Fill a truck with five parcels to dispatch it for double points.</p></li>
+        </ol>
+        <h3>Choose your journey</h3>
+        <div class="help-modes"><article><h4>Arcade</h4><p>Endless shifts, faster belts and bonus goals. Keep the dock moving and beat your best.</p></article><article><h4>Missions</h4><p>100 worlds and 800 missions. Earn stars to unlock each world’s next level. The briefing shows your goals.</p></article></div>
+        <h3>Build your fleet</h3><p>Deliveries earn coins. Spend them on trucks, arcade places, parcel wraps and dock styles. The shop uses earned game coins.</p>
+        <h3>Keep your journey</h3><p>Progress saves in this browser. Open <strong>Routes & audio → Visuals & saves</strong> to keep a backup or bring it to another phone. Your previous Dock Dash progress and backups still work.</p>
+        <section class="help-share" aria-label="Share Parcel Odyssey"><button id="help-share" type="button">Share game ↗</button><label for="help-link">Game link</label><input id="help-link" type="url" readonly aria-label="Parcel Odyssey game link"><p id="help-share-status" role="status" aria-live="polite">Send a friend on their first delivery.</p></section>
+      </div>
+      <footer class="help-actions"><button id="help-practice" type="button">Try the three-step practice →</button><button id="help-close" type="button">Back to home</button></footer>
+      <p class="help-release">Version 7.0 · The Hundred Lanterns</p>
+    </dialog>
     <div class="sr-only" id="announcer" role="status" aria-live="polite"></div>
   </div>
 </main>
@@ -512,10 +570,11 @@
 <script src="./economy/coin-rules.js?v=6.5-sound-effects"></script>
 <script src="./engine/game-loop.js?v=4.3-smooth-gameplay"></script>
 <script src="./engine/gameplay-tools.js?v=4.3-smooth-gameplay"></script>
-<script src="./engine/save-backup.js?v=6.5-sound-effects"></script>
+<script src="./engine/save-backup.js?v=7.0-parcel-odyssey"></script>
 <script>
 (() => {
   'use strict';
+  const BRAND={name:'Parcel Odyssey',caps:'PARCEL ODYSSEY',subtitle:'The Hundred Lanterns',url:'https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html'};
   const W = 360, H = 640, BELT_TOP = 142, SPAWN_Y = 154, BELT_END = 445, LANE_TOP = 474;
   const LOAD_START = 310, PERFECT_START = 352, PERFECT_END = 392;
   const $ = id => document.getElementById(id);
@@ -723,9 +782,9 @@
   }
   async function exportBackup() {
     try {
-      const text=backups.export(saveSnapshot()),name=`dock-dash-backup-${new Date().toISOString().slice(0,10)}.json`,file=new File([text],name,{type:'application/json'});
+      const text=backups.export(saveSnapshot()),name=`parcel-odyssey-backup-${new Date().toISOString().slice(0,10)}.json`,file=new File([text],name,{type:'application/json'});
       if(navigator.canShare?.({files:[file]})) {
-        await navigator.share({files:[file],title:'Dock Dash save backup'});
+        await navigator.share({files:[file],title:`${BRAND.name} save backup`});
         backupStatus('Backup shared. Keep a copy in Files so you can restore it later.');
       }else{
         const url=URL.createObjectURL(file),link=document.createElement('a');link.href=url;link.download=name;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),5000);
@@ -736,7 +795,7 @@
   async function previewBackup(file) {
     if(!file)return;
     clearBackupPreview(false);const token=backupReadToken;
-    if(file.size>DockDashBackups.maxBytes){backupStatus('Choose a Dock Dash backup smaller than 1 MB.',true);return;}
+    if(file.size>DockDashBackups.maxBytes){backupStatus('Choose a game backup smaller than 1 MB.',true);return;}
     backupStatus('Reading your backup…');
     try {
       const text=await file.text();if(token!==backupReadToken||!$('preferences-dialog').open)return;
@@ -1329,6 +1388,26 @@
   }
   function syncSound() { engine.invalidate();soundButtons.forEach(b => { b.setAttribute('aria-pressed', String(!muted)); b.querySelector('.sound-label').textContent = muted ? 'Sound off' : 'Sound on'; }); }
   function announce(message) { announcer.textContent = message; }
+  let sharingGame=false;
+  function openHelp() {
+    if(state!=='title')return;
+    $('help-link').value=BRAND.url;$('help-share-status').textContent='Send a friend on their first delivery.';
+    $('help-share').textContent=typeof navigator.share==='function'?'Share game ↗':'Copy game link';
+    $('help-dialog').showModal();$('help-content').scrollTop=0;$('help-practice').focus({preventScroll:true});
+  }
+  async function shareGame() {
+    if(sharingGame)return;sharingGame=true;$('help-share').disabled=true;
+    const data={title:`${BRAND.name} — ${BRAND.subtitle}`,text:'One parcel. A hundred worlds. Play this pixel-art delivery adventure.',url:BRAND.url};
+    try {
+      if(typeof navigator.share==='function' && (!navigator.canShare || navigator.canShare(data))) {
+        try {await navigator.share(data);$('help-share-status').textContent='Your game link is ready to share.';return;}
+        catch(error){if(error.name==='AbortError'){$('help-share-status').textContent='Sharing cancelled.';return;}}
+      }
+      try {await navigator.clipboard.writeText(BRAND.url);$('help-share-status').textContent='Game link copied. Send it to a friend.';}
+      catch(_) {$('help-share-status').textContent='Copy the game link above.';$('help-link').focus({preventScroll:true});$('help-link').select();}
+    }catch(_) {$('help-share-status').textContent='Copy the game link above.';}
+    finally {sharingGame=false;$('help-share').disabled=false;}
+  }
   function saveProfile() { progress.mark('dockDashProfileV2');progress.mark('dockDashWalletV1');progress.flush(); }
   function earnCoins(amount) {
     if(tutorial || !game || state!=='play')return;
@@ -1598,7 +1677,7 @@
     $('mission-shop').textContent=`Dock shop · ${num(wallet.coins)} coins →`;
     $('start').setAttribute('aria-label',`Start arcade at ${ER.venues.find(v=>v.location===settings.location).name}. Equipped ${SKINS[profile.selectedSkin].name}. Three-second countdown.`);
     $('shop-play').setAttribute('aria-label',$('start').getAttribute('aria-label'));
-    $('learn').textContent = `BEST ${num(best)} · HOW TO PLAY`;
+    $('learn').textContent = 'How to play & share';$('learn').setAttribute('aria-label',`How to play ${BRAND.name} and share the game. Best score ${num(best)}.`);
     extraButtons.forEach(b => { b.disabled = state === 'over' && performance.now() - endedAt < 500; if (b.classList.contains('catalog-button')) { b.textContent = b.closest('#title-menu')?'Collection':`Cargo · ${discovered.size} / ${PRODUCTS.length}`;b.setAttribute('aria-label',`Cargo collection. ${discovered.size} of ${PRODUCTS.length} cargo types collected.`); } });
     if (state === 'catalog') syncCatalog();
     laneButtons.forEach((_,i)=>syncLane(i));
@@ -2075,21 +2154,22 @@
   }
   function warehouseBrand(y = 27, collection = true) {
     ctx.save(); ctx.translate(23, y); ctx.strokeStyle = '#e8c58a'; ctx.lineWidth = 1.5; rr(ctx, 0, -8, 16, 16, 3); ctx.stroke(); line(ctx, 8, -7, 8, 7, '#e8c58a', 1); line(ctx, 1, -1, 15, -1, '#e8c58a', 1); ctx.restore();
-    text(ctx, 'DOCKSIDE ARCADE', 49, y, 9, '#c5cfbd', 800);
+    text(ctx, BRAND.caps, 49, y, 9, '#c5cfbd', 800);
     if(collection){rect(ctx, 281, y - 9, 57, 18, '#bedc9514', 5); text(ctx, `${PRODUCTS.length} ITEMS`, 309.5, y, 8, '#c2d4ac', 700, 'center');}
   }
   function missionBrand() {
-    text(ctx,'DOCK DASH',180,30,9,'#c5cfbd',800,'center');
+    text(ctx,BRAND.caps,180,30,9,'#c5cfbd',800,'center');
     if(state==='missions')return;
     rect(ctx,273,14,65,32,'#bedc9514',7);text(ctx,`${MR.totalStars(missionRecords)} / ${MR.missions.length*3} ★`,305.5,30,9,'#e6dc9d',800,'center');
   }
   function drawTitle() {
     rect(ctx,0,0,W,H,'#081a24b8');warehouseBrand(28,false);drawWallet(28);
-    fitText(ctx,'DOCK DASH',180,84,316,45,'#f4eedb',900);
-    text(ctx,'YOUR FLEET. YOUR WORLD.',180,119,11,'#c9dcc6',750,'center');
+    fitText(ctx,'PARCEL',180,71,316,36,'#f4eedb',900);
+    fitText(ctx,'ODYSSEY',180,107,316,36,'#ffda92',900);
+    text(ctx,'THE HUNDRED LANTERNS',180,135,9,'#d2dfc9',800,'center');
     const venue=ER.venues.find(v=>v.location===settings.location);
-    rect(ctx,21,142,318,174,'#253c43',12);scenePreview(settings.location,23,144,314,170);
-    ctx.save();rr(ctx,23,144,314,170,10);ctx.clip();
+    rect(ctx,21,154,318,162,'#253c43',12);scenePreview(settings.location,23,156,314,158);
+    ctx.save();rr(ctx,23,156,314,158,10);ctx.clip();
     ctx.drawImage(beltCache,129,158,103,256);
     const bob=n=>reducedMotion?0:Math.sin(clock*1.8+n)*3;
     drawParcel(0,180,184+bob(0),-.06,.72,'normal',0);
@@ -2121,7 +2201,7 @@
     coin(ctx,122,441,5);text(ctx,`+${num(game.coinsEarned)} COINS EARNED`,135,441,9,'#ffdf96',850);
   }
   function drawGarage() {
-    rect(ctx,0,0,W,H,'#0b1922ed');text(ctx,'DOCK DASH',180,30,9,'#c5cfbd',800,'center');text(ctx,'DOCK SHOP',180,75,31,'#f3eed7',900,'center');
+    rect(ctx,0,0,W,H,'#0b1922ed');text(ctx,BRAND.caps,180,30,9,'#c5cfbd',800,'center');text(ctx,'DOCK SHOP',180,75,31,'#f3eed7',900,'center');
     rect(ctx,88,98,184,28,'#4a422b',8);
     const balance=`${num(wallet.coins)} COINS`,size=wallet.coins>99999?11:13;
     ctx.font=`850 ${size}px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif`;
@@ -2338,7 +2418,11 @@
   $('mission-launch').addEventListener('click',launchMission);$('briefing-back').addEventListener('click',openMissionMap);
   $('mission-next').addEventListener('click',nextMission);$('mission-retry').addEventListener('click',launchMission);$('mission-map').addEventListener('click',openMissionMap);
   $('exit-run').addEventListener('click',()=>{if(game && game.mission)openMissionMap();else backToTitle();});
-  $('learn').addEventListener('click', () => startGame({ tutorial: true }));
+  $('learn').addEventListener('click',openHelp);
+  $('help-close').addEventListener('click',()=>$('help-dialog').close());
+  $('help-dialog').addEventListener('close',()=>{if(state==='title')$('learn').focus({preventScroll:true});});
+  $('help-practice').addEventListener('click',()=>{$('help-dialog').close();startGame({tutorial:true});});
+  $('help-share').addEventListener('click',shareGame);
   $('skip-tutorial').addEventListener('click', finishTutorial);
   fleetButtons.forEach(b => b.addEventListener('click', openGarage));
   skinButtons.forEach(b => b.addEventListener('click', () => selectShopItem(b.dataset.item)));
@@ -2399,7 +2483,7 @@
     if (muted) resetMusic(); wakeAudio(); syncAudioMix(); syncSound(); syncSettings(); if (!muted) sound('select');
   }));
   window.addEventListener('keydown', e => {
-    if($('story-dialog').open || $('preferences-dialog').open || e.isComposing)return;
+    if($('story-dialog').open || $('preferences-dialog').open || $('help-dialog').open || e.isComposing)return;
     if(e.target instanceof HTMLInputElement && e.target.classList.contains('search-field')) {
       if(e.key==='Escape'){e.preventDefault();e.target.value='';e.target.id==='shop-search'?searchShop(''):e.target.id==='route-search'?searchRoutes(''):searchWorlds('');e.target.blur();}
       else if(e.key==='Enter'){e.preventDefault();e.target.blur();}

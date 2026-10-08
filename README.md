@@ -1,13 +1,17 @@
-# Dock Dash — The Hundred Lanterns
+# Parcel Odyssey — The Hundred Lanterns
 
-A phone-friendly pixel-art sorting game: wait for the loading zone, match the parcel colour and shape, and tap its truck.
+A phone-friendly pixel-art delivery adventure. One parcel. A hundred worlds. Wait for the loading zone, match the parcel colour and shape, and tap its truck.
 
 ## Play
 
-https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=6.6-route-design
+https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=7.0-parcel-odyssey
+
+Formerly Dock Dash. The repository and play URL stay in place so existing browser progress carries over.
 
 ## This release
 
+- Consistent Parcel Odyssey branding, a two-line title, current install metadata and game-link previews.
+- A readable How to play & share panel, optional three-step practice, native sharing and copy-link fallback.
 - 100 playable story worlds, eight increasingly demanding missions each: 800 missions and 2,400 stars.
 - A connected original story, The Hundred Lanterns, with a readable journal and a lantern restored by each world's final mission.
 - Eight new chapters: Greenwood, Tidebound, Sky Roads, Wild Heart, Clockwork, Hearthside, Echoes and Starlight.
@@ -73,3 +77,7 @@ Open **Routes & audio → Visuals & saves**. Auto simplifies decoration after su
 **Save backup** creates a JSON file containing the current coins, purchased items, equipped truck and styles, arcade place, settings, cargo collection, mission records and arcade best. Supported phones can save through their share sheet; other browsers download the file. On another phone, choose the file, compare its progress with the current save, then press Restore. Restore returns Home and keeps the previous progress for **Undo last restore**, including after a reload. Only the latest restore has an undo copy. Keep the exported file outside the browser to recover from clearing browser data.
 
 Files are checked before any progress changes. A restore journal recovers interrupted writes before startup; failed writes roll back, and unrelated browser-storage keys are never imported. `tests/save-backup.test.cjs`, `tests/world-challenges.test.cjs` and `tests/journey-upgrade.browser.cjs` cover damaged files, storage failures, exact restores, native file selection, touch scrolling, five layouts, all challenge patterns and a twenty-minute simulated mobile session with bounded caches.
+
+New backups use `parcel-odyssey-backup-YYYY-MM-DD.json` and the Parcel Odyssey name. Previous Dock Dash backups remain readable with their original checksum, and every browser-storage key stays unchanged. Rebranding never resets coins, purchases, stars or collected cargo.
+
+`tests/release.browser.cjs` covers current install and sharing metadata, saved progress, touch scrolling, five help layouts, sharing cancellation and fallbacks, optional practice, and an authentic previous-version backup fixture.
