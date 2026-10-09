@@ -54,9 +54,12 @@ test('all new scenery and previews are distinct phone-sized assets and music use
   assert.equal(manifest.images.length,77);assert.equal(new Set(manifest.images.map(r=>r.sha256)).size,77);
   let artBytes=0,previewBytes=0;
   for(const w of R.worlds){const row=manifest.images.find(r=>r.id===w.id),bytes=fs.readFileSync(path.join(root,w.backdrop)),preview=previews.images.find(p=>p.location===w.location);
-    assert.equal(hash(bytes),row.sha256);assert.deepEqual([bytes.readUInt32BE(16),bytes.readUInt32BE(20)],[360,640]);assert.ok(bytes.length<32000,w.id);
-    assert.equal(preview.source,w.backdrop);assert.ok(preview.previewBytes<16000,w.id);artBytes+=bytes.length;previewBytes+=preview.previewBytes;
+    // Detailed paintings use the same download budget as the original worlds;
+    // decoded dimensions and the lazy image/cache limits remain unchanged.
+    assert.equal(hash(bytes),row.sha256);assert.deepEqual([bytes.readUInt32BE(16),bytes.readUInt32BE(20)],[360,640]);assert.ok(bytes.length<240000,w.id);
+    assert.equal(row.method,'imagegen');assert.ok(row.sourceSHA256);
+    assert.equal(preview.source,w.backdrop);assert.ok(preview.previewBytes<64*1024,w.id);artBytes+=bytes.length;previewBytes+=preview.previewBytes;
     assert.ok(fs.statSync(path.join(root,'audio',w.music.file)).size>100000);assert.equal(w.music.reused,true);
   }
-  assert.ok(artBytes<2*1024*1024);assert.ok(previewBytes<1024*1024);
+  assert.ok(artBytes<18*1024*1024);assert.ok(previewBytes<4*1024*1024);assert.ok(previewBytes<artBytes*.25);
 });

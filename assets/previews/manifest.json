@@ -907,695 +907,695 @@
     {
       "location": 103,
       "source": "./assets/worlds/open-roads/asgard.png",
-      "sourceBytes": 13508,
-      "sourceSHA256": "f82e55f2b13f715525e900458fe8d04d44f234a356413ce20316d721dd1e1b97",
+      "sourceBytes": 199596,
+      "sourceSHA256": "3cb3295af31aa841ee08a38550eda8f2bebb5a48b1824a2e49729fad34ee3649",
       "preview": "103.webp",
-      "previewBytes": 10098,
-      "previewSHA256": "378425623ef5e4d4fc050c5c7369a79b15e2a68551e48befecc13ff0cb55b9bc"
+      "previewBytes": 39312,
+      "previewSHA256": "cdfc62fb26a3d392f4185ac4610204b47fb8d6cf964953023fad59b68e8a8426"
     },
     {
       "location": 104,
       "source": "./assets/worlds/open-roads/worldtree.png",
-      "sourceBytes": 16404,
-      "sourceSHA256": "537ee3b0523f9da097cfdd1b391c9226de8496574b588657ee69a81fff1f9db8",
+      "sourceBytes": 200594,
+      "sourceSHA256": "988ffcbfd8744fd3530314fc01a71d485628fce86c683a6f7ea866c0e04d9137",
       "preview": "104.webp",
-      "previewBytes": 9918,
-      "previewSHA256": "7089fb3f5ce96c95c41692c3bffb95ea15fdfb75c7e06bfbe4db2aac26e4e286"
+      "previewBytes": 43586,
+      "previewSHA256": "7cc7e8dca537ca5d8a2a32c3f03eafcb2962caf353acd0f4cb02e7815278efaa"
     },
     {
       "location": 105,
       "source": "./assets/worlds/open-roads/frostfortress.png",
-      "sourceBytes": 13475,
-      "sourceSHA256": "8ffc506201d32ab654758040a3f70eb76b390c4fdab2667c9a5ecf11b8f636ee",
+      "sourceBytes": 195900,
+      "sourceSHA256": "0eb172f0bbcf259b98f9688bccaefdcc721f9c781a3269f44adcaabd709d2781",
       "preview": "105.webp",
-      "previewBytes": 8356,
-      "previewSHA256": "14023fc4a7d6cbfbf2e67939dac5c93ce79d9550b1001488ea3d783432128c43"
+      "previewBytes": 40884,
+      "previewSHA256": "c47cd3a0134264781ead4bbb42d4f7371978bf1e9d0928e411e5b2eeccc6cbe0"
     },
     {
       "location": 106,
       "source": "./assets/worlds/open-roads/dwarvenforge.png",
-      "sourceBytes": 12698,
-      "sourceSHA256": "abb6bf1c4e0fd428f76dd52d9918e2193dd2c0e2044869e9edc975536b2de201",
+      "sourceBytes": 200770,
+      "sourceSHA256": "ebbeb4f3ec95280bab5aa2990c7818785ada53ab0971fae4e2327cf2bee5da21",
       "preview": "106.webp",
-      "previewBytes": 10220,
-      "previewSHA256": "ac7e8be629c3278692ccee2527f1e6c3b463fa841e326fd59c79bee4726012be"
+      "previewBytes": 37844,
+      "previewSHA256": "0b32a0241ccee6a81f4c00bca1528d33ea568b499649fcdab05475a2d90e371d"
     },
     {
       "location": 107,
       "source": "./assets/worlds/open-roads/atlantis.png",
-      "sourceBytes": 12818,
-      "sourceSHA256": "f0e6b610250035864b50888dd9fd05b0d27a12c817c314e2f8c7d6edd6588469",
+      "sourceBytes": 173256,
+      "sourceSHA256": "b8a4f0fa4e1bf05b75acd9b187e4e5b549ef9125af0584427b75ec6a65ad126a",
       "preview": "107.webp",
-      "previewBytes": 9222,
-      "previewSHA256": "67ffc3ae517cc2d0ff627b7dc905155e55428f9427e4a0275a4ff63b2af3068b"
+      "previewBytes": 35916,
+      "previewSHA256": "ef3ad2692855b325336b36d13330e11d74187d53d349337d0a29c2b6bd2901ec"
     },
     {
       "location": 108,
       "source": "./assets/worlds/open-roads/cornerburger.png",
-      "sourceBytes": 12563,
-      "sourceSHA256": "9ac1519eafaf47e7723320324c9fd8e3ca7b635108793e6ef61c793ce62663c4",
+      "sourceBytes": 175678,
+      "sourceSHA256": "3414ef9e501e4191d764e673a8058bf7645b2c5ffabd27e66a01240204b59989",
       "preview": "108.webp",
-      "previewBytes": 10774,
-      "previewSHA256": "0ce68a7e2d8308770db27e9367ad3ee1f33511b21eb165083cf7d28bbff4f1a9"
+      "previewBytes": 32072,
+      "previewSHA256": "6b0d3ec04ec028537d01e037be3e037d31688a18f246ceb051fb6b578064c44f"
     },
     {
       "location": 109,
       "source": "./assets/worlds/open-roads/seasideicecream.png",
-      "sourceBytes": 13207,
-      "sourceSHA256": "f090136c19d851a64174645df97442ff18ca29720e7a83031c788b64d14d48bd",
+      "sourceBytes": 171369,
+      "sourceSHA256": "0a6951944137ab83098d441175c441ad4e5672f958b32a1f5fab59b700fa1233",
       "preview": "109.webp",
-      "previewBytes": 9972,
-      "previewSHA256": "8540d5e05960071ceed30a4b5f5481f1b37b4ea142c47a33943ead8e6f07c841"
+      "previewBytes": 36484,
+      "previewSHA256": "205784f58fbae993678e7777a53196a1fa92fc08eb425c22b674ba9bc871899f"
     },
     {
       "location": 110,
       "source": "./assets/worlds/open-roads/marketbasket.png",
-      "sourceBytes": 12357,
-      "sourceSHA256": "ab59ce0069bc55878d747c01db4cf6c199609a1658389760682d1183a3f52b0e",
+      "sourceBytes": 173764,
+      "sourceSHA256": "d72de8e5befcc6e4d775882e105bb23388af320eef8c1afcda2d6fc1d83b9f53",
       "preview": "110.webp",
-      "previewBytes": 10726,
-      "previewSHA256": "86d6310dc6a7744f957ec99449c8eb9163f680c8efc4e89b37b873399e8081dd"
+      "previewBytes": 32816,
+      "previewSHA256": "e89ba782323e2b5c8666d8c3972f5d4ca92a3ebf6af06bf2f7d572b445023e0f"
     },
     {
       "location": 111,
       "source": "./assets/worlds/open-roads/civicexchange.png",
-      "sourceBytes": 12393,
-      "sourceSHA256": "fb0f521bf4033a45a65e79bcfa6d51ac8b24ea5fe9dc138d57974308abadce2a",
+      "sourceBytes": 179155,
+      "sourceSHA256": "15bb40441b026fdd3fc803a7780f7b7f38fd47b32ec93f10ecf71ed8f7ba5243",
       "preview": "111.webp",
-      "previewBytes": 9866,
-      "previewSHA256": "9881892774cd0fc33be7993b5bdc6f4c353745a59e789587ff505f79a8917c23"
+      "previewBytes": 32904,
+      "previewSHA256": "0be179cad8d64fda7c776544c3e748090e07ffdd4dd915229c68e7fe7aa489fe"
     },
     {
       "location": 112,
       "source": "./assets/worlds/open-roads/union1954.png",
-      "sourceBytes": 12911,
-      "sourceSHA256": "ae2579999bb6926550319b1de76e532861e58ba8a24818af491be27a2b6f8e16",
+      "sourceBytes": 177896,
+      "sourceSHA256": "e918c9f882e8ea916520ac51f75e1b8b38f6a2bb5b844d482e7e5fcd9e38d7a4",
       "preview": "112.webp",
-      "previewBytes": 10442,
-      "previewSHA256": "b6b3345381200c979c9018621112b560f16513c7968666ec77bccba267f1ffe8"
+      "previewBytes": 31718,
+      "previewSHA256": "533eff97efcae8ef056d692ce8ef43d712f4256fcf02ff56994697256c2e7f27"
     },
     {
       "location": 113,
       "source": "./assets/worlds/open-roads/palacecinema.png",
-      "sourceBytes": 12450,
-      "sourceSHA256": "e94fa1656f0c62413f1b1ec7d874fe55bf252956508ade9c6ff23ab3b9a61e62",
+      "sourceBytes": 179709,
+      "sourceSHA256": "f6b516bdc0114df961913500ab1c8c334e64dbc8f24cfec04ea73a57e4abbc91",
       "preview": "113.webp",
-      "previewBytes": 10578,
-      "previewSHA256": "7a050786131a57f01ca99f2ee6621453ee9690d60306eb3d823c899ab1ac8ecb"
+      "previewBytes": 28096,
+      "previewSHA256": "e6d149ac70dfd2b0faff26620ba58d656a3e7de05cad73c05dbab3630fcc67b5"
     },
     {
       "location": 114,
       "source": "./assets/worlds/open-roads/fieldcamp.png",
-      "sourceBytes": 14331,
-      "sourceSHA256": "64bbec0f3cb9a9d2da7a4b6f153f0d040acd2b75455d7f471d1ab02df4c945d7",
+      "sourceBytes": 189977,
+      "sourceSHA256": "8999add014ef874efdf46397baca2d88c9a7ebac13e3581a10575424257a54f7",
       "preview": "114.webp",
-      "previewBytes": 8742,
-      "previewSHA256": "a3caebae9a71bf7995b7fea116f5e310a1eee6f0bd04452537272055c830261b"
+      "previewBytes": 36424,
+      "previewSHA256": "49e8b0a2451883c07d77882c7e7ba19d4e91fd03f19424e1ba89b7df384d19c6"
     },
     {
       "location": 115,
       "source": "./assets/worlds/open-roads/threadavenue.png",
-      "sourceBytes": 12486,
-      "sourceSHA256": "fae0e060ba3dda9ed401fa35e99254bebe8a6512a667c03a1ef06a452dca4ce7",
+      "sourceBytes": 191457,
+      "sourceSHA256": "635d88a259af65ede3b9b1c8722227cd624b5e989d001cf4d8c3f8a634a18803",
       "preview": "115.webp",
-      "previewBytes": 10058,
-      "previewSHA256": "bb0dc5518732976e73b763f1104b8456c5dcd8d27ecac2eea2966a5cdc2eefa0"
+      "previewBytes": 41108,
+      "previewSHA256": "c081fb032af8ff1fe4d88f6154e4f2d392baeebbd54993261e15cd4e5bf0868f"
     },
     {
       "location": 116,
       "source": "./assets/worlds/open-roads/marketfloor.png",
-      "sourceBytes": 12420,
-      "sourceSHA256": "b9ee294889c733c16004d710834979572b8f457abe05e250b0525a7ea55dc7a2",
+      "sourceBytes": 185327,
+      "sourceSHA256": "48646be6168a385960de9c724b9b459ed03157d6e5f9d2a15b14270ba1ce629c",
       "preview": "116.webp",
-      "previewBytes": 10578,
-      "previewSHA256": "9c4456c1530cea832eb196a0b64093cbac3bc82d1897d6deae9a5ac4ca36d040"
+      "previewBytes": 32512,
+      "previewSHA256": "bf6163187e615c4e013f0a5178b54909f52457ec9db219097d482312582bd035"
     },
     {
       "location": 117,
       "source": "./assets/worlds/open-roads/accracoast.png",
-      "sourceBytes": 13486,
-      "sourceSHA256": "3a37e8c8331537d7c2aa19aa7e9661ad3bf99cf9fba6b47d6ca92fd383c36755",
+      "sourceBytes": 173763,
+      "sourceSHA256": "ec14a0079ec05729f41e53ff91c3d7d45f3237f2a4c790eb1e3b10c4d1a23a83",
       "preview": "117.webp",
-      "previewBytes": 10666,
-      "previewSHA256": "06a9b9ea6b862b98dbf5d30991a52dff69bd5976c9ee9dc6cb48b45423b26015"
+      "previewBytes": 35820,
+      "previewSHA256": "1794ee1e6cf59bffe7ccff2fd169bf70e1941c331630d251987b8e5322c95717"
     },
     {
       "location": 118,
       "source": "./assets/worlds/open-roads/riversidecollege.png",
-      "sourceBytes": 14028,
-      "sourceSHA256": "e415d15af43aa480b6f2e7620068263ef14261ebcfd7170e9d1b222d68b7d77f",
+      "sourceBytes": 184406,
+      "sourceSHA256": "c6714f064e431ce29733821590bf9965d8aeb132ca222a453dddc3dd5dd1148c",
       "preview": "118.webp",
-      "previewBytes": 9640,
-      "previewSHA256": "0fa99622b19f97425bef0d7e700baae4d1a10ef624fd36b2887524d7601d03cb"
+      "previewBytes": 33476,
+      "previewSHA256": "3f69b098cfeaeeb5455cd6929f8ef6fc9110ae36bf2eacb3806742511679361c"
     },
     {
       "location": 119,
       "source": "./assets/worlds/open-roads/fourfieldfarm.png",
-      "sourceBytes": 15505,
-      "sourceSHA256": "a7a724f459fda237420b88ae174b66aa6ea812d6d84c0d2406289e3ec2dffc96",
+      "sourceBytes": 192963,
+      "sourceSHA256": "ffb42e017d055695d1bcc6101e9d6a75d87bbf40f3f8b814c37af47ae1b890a7",
       "preview": "119.webp",
-      "previewBytes": 10258,
-      "previewSHA256": "347afe3c6dfd36cd19a98a4da336e67be3177e32cada171251361ee161205fd9"
+      "previewBytes": 41188,
+      "previewSHA256": "38c0c4f483d8d2ff5df82cfb566803bd040b877a968cc244ed67fc5176a31781"
     },
     {
       "location": 120,
       "source": "./assets/worlds/open-roads/motorcourt.png",
-      "sourceBytes": 12540,
-      "sourceSHA256": "f100fbd220078fe46213413a469ade7a1aeb8c7f2c035b7ab8f2f91511ad578a",
+      "sourceBytes": 181027,
+      "sourceSHA256": "ce01d43cd9a94ddf06c03f51df35ce9f1a296b5b33f080ace26dc53246d5726d",
       "preview": "120.webp",
-      "previewBytes": 8814,
-      "previewSHA256": "c7f5423eaa88d4e58c01f2a21d461e7098b97eb0edc1db4066ed37b15272572f"
+      "previewBytes": 35068,
+      "previewSHA256": "1ba13b48fd8450a846c0676c3465b0f52a5cc22ea6b7bcc1e82078f16fbe025c"
     },
     {
       "location": 121,
       "source": "./assets/worlds/open-roads/pitstopauto.png",
-      "sourceBytes": 13041,
-      "sourceSHA256": "d409f5a03ca304880ee8226cdeb42a8f23dc21cd23f728ff8480be5046466492",
+      "sourceBytes": 177911,
+      "sourceSHA256": "33ac5ab4d80ea6c22054bab66fabccb10b3bdf7393a865dacf2ab8135d1d4fe6",
       "preview": "121.webp",
-      "previewBytes": 10228,
-      "previewSHA256": "dc30700cb9c975d335ff57fd2c3097929d0065688f129c584d80488308361701"
+      "previewBytes": 32012,
+      "previewSHA256": "d484a675e43ff993771f22e577dfb541624638c76286f474a920a91eec076b2f"
     },
     {
       "location": 122,
       "source": "./assets/worlds/open-roads/harbourhospital.png",
-      "sourceBytes": 12148,
-      "sourceSHA256": "a334fb485c5ea2fc6206bc7a669d922e19a2ab045fbdcd666cf03d08a6684dfa",
+      "sourceBytes": 171982,
+      "sourceSHA256": "c1447401014ff653584c9194d887a27a3992300dea4252f21021184a9cce708a",
       "preview": "122.webp",
-      "previewBytes": 9136,
-      "previewSHA256": "10ac7fc181b2c5a56d2e175e12086e5500f13fab541d8d67c87a0df6c09275c0"
+      "previewBytes": 31132,
+      "previewSHA256": "1a609ce59402d8c8188bb5a322a9a57a8ddc1c3721916c75273c630ca28bac5d"
     },
     {
       "location": 123,
       "source": "./assets/worlds/open-roads/silverfishmarket.png",
-      "sourceBytes": 13144,
-      "sourceSHA256": "96c5ebb7f7e5e0383b854f78f173d327e061f5f5647d77870f68da76354b7373",
+      "sourceBytes": 181493,
+      "sourceSHA256": "71e3d1702741a757b8012fa8d4a62e3906112dd155661a92a6cac3145e60d955",
       "preview": "123.webp",
-      "previewBytes": 11634,
-      "previewSHA256": "54fde08ce97684f22eae9e9dfeda5df250af74d39fc9ab4c31864e6257a4071b"
+      "previewBytes": 36506,
+      "previewSHA256": "e8bb64b397d2342aabb27afde8b213f9757244dd32beae10c6340ba389ae93ff"
     },
     {
       "location": 124,
       "source": "./assets/worlds/open-roads/terracevineyard.png",
-      "sourceBytes": 16146,
-      "sourceSHA256": "4cd0392bba3393d566bc50227a83c7dfac20fb55151fec32109c7e5175f411e9",
+      "sourceBytes": 197735,
+      "sourceSHA256": "eb289797a92aa16230a305fd84b7580f8edab7a69a29395019ae008197a3bae5",
       "preview": "124.webp",
-      "previewBytes": 12542,
-      "previewSHA256": "8f15c799b335ed0d65154554d1992d7265deef27c0a01c884c4d141da0135c14"
+      "previewBytes": 42310,
+      "previewSHA256": "dadb4e8a48bb0cc0d46d93efeee3db82c629f2c20fead307fc8783264be14184"
     },
     {
       "location": 125,
       "source": "./assets/worlds/open-roads/olivecooperative.png",
-      "sourceBytes": 15239,
-      "sourceSHA256": "f19f3c16365e86a83fd0a97a5ba8eb57868c26eba7013c52ecbe06f5cab2bd0b",
+      "sourceBytes": 198094,
+      "sourceSHA256": "02b389b689a0780ffade717880262099f8b99029531c9a39b3c8387abb7e0211",
       "preview": "125.webp",
-      "previewBytes": 10886,
-      "previewSHA256": "a6735d2ec0f6bcd928ca0e1297bb8095f1df556e6427e230a2d01057e61fbe2a"
+      "previewBytes": 38586,
+      "previewSHA256": "58f0e10f6589dd1bf740d39d6cd93caf011320fa09ee090fa6fcb80dc639509f"
     },
     {
       "location": 126,
       "source": "./assets/worlds/open-roads/roofgreenhouse.png",
-      "sourceBytes": 12530,
-      "sourceSHA256": "1a5bf97848989f9e7e4601f6a00f15c74351d5de4006dff2ecbe4f19eae2b391",
+      "sourceBytes": 183203,
+      "sourceSHA256": "999902201ac9a2501980519ef29b7cd7c19ebbad3dccfdc629fd7d7940847d5c",
       "preview": "126.webp",
-      "previewBytes": 9390,
-      "previewSHA256": "937d140553a74192d4fcfcc7221f7f5bc3119c36d142506fef1220b2f8361574"
+      "previewBytes": 36116,
+      "previewSHA256": "1fc1e82e2eb30f9808250c9752f78039707c59dc43b6e7d234ec3745ea270d39"
     },
     {
       "location": 127,
       "source": "./assets/worlds/open-roads/valleycheesery.png",
-      "sourceBytes": 13760,
-      "sourceSHA256": "abd79a94b85faf208e52e4148f50457b0390e9b38295d3cc6f5731a5cb665307",
+      "sourceBytes": 194319,
+      "sourceSHA256": "dc1a6db34c1a6acda1390be1715ff8eb152dcfa5bad044817798feb5f564a002",
       "preview": "127.webp",
-      "previewBytes": 10692,
-      "previewSHA256": "1aa3b82b2e6fa7159a9568d0f415935f38356348d4b78d1fc2324d075343cb86"
+      "previewBytes": 39020,
+      "previewSHA256": "b4fc420b82053e2b3d430ac4e070226afb864af08e2fdfe30c1294e65a910348"
     },
     {
       "location": 128,
       "source": "./assets/worlds/open-roads/saltpanworks.png",
-      "sourceBytes": 12651,
-      "sourceSHA256": "c4364bb78e2fc5e708987809589447fe5fdd7f4fead157c4d1396fe8726017fc",
+      "sourceBytes": 179871,
+      "sourceSHA256": "e0132a3529585bc3ffe8fad7de5d1f4183b2b6481e99b266d138e8143367ceb3",
       "preview": "128.webp",
-      "previewBytes": 8706,
-      "previewSHA256": "17328564daf3e9cf3ef77d833c18e574c36202856427644796c19b43dd77f7f3"
+      "previewBytes": 37758,
+      "previewSHA256": "42c66acb4a01fd87b8ac835ce0e866187f3ffd2abb1101915a471a7afc42caff"
     },
     {
       "location": 129,
       "source": "./assets/worlds/open-roads/hilltearooms.png",
-      "sourceBytes": 15025,
-      "sourceSHA256": "3c40e8bed782edd5427f3b9d7092099e491bdd5247797a6697a511cec5371431",
+      "sourceBytes": 195276,
+      "sourceSHA256": "e3832e37f6ba102f555e27a2957c38e6b13d7f895bdd7b59615ac2287bf60ab5",
       "preview": "129.webp",
-      "previewBytes": 10782,
-      "previewSHA256": "454075bee20feaaefaedfa1292f917e31282e9751198ff01f295337d4626c0b6"
+      "previewBytes": 41282,
+      "previewSHA256": "d3d3c8e6f5fd5093989431c42b1e15b4ce5b467fee0d5d7143f7ca9c21ea628f"
     },
     {
       "location": 130,
       "source": "./assets/worlds/open-roads/riceterracedepot.png",
-      "sourceBytes": 14790,
-      "sourceSHA256": "de7c8cab8dfbeec1a17cd283a157fe4e96571032aaba369cc465d92813ca2635",
+      "sourceBytes": 192823,
+      "sourceSHA256": "8f4b62a130210db733ee15b57b119850b7c7e15bce8e75f6fce11ff6c075bfb3",
       "preview": "130.webp",
-      "previewBytes": 10198,
-      "previewSHA256": "d83a72b5c9689d089778833777393b99dcdc7a29cb572a1ce5368d43a61cc378"
+      "previewBytes": 40990,
+      "previewSHA256": "fab984decd89773ec5a95af22a7e7bbeda21d758d323a9a11bc0cc1026e5491c"
     },
     {
       "location": 131,
       "source": "./assets/worlds/open-roads/tilemakerscourt.png",
-      "sourceBytes": 12721,
-      "sourceSHA256": "d46d19058a2dac81f8ef2b8ec54c9489f3b9a415bac60c5d8d3ce02f5f668e7e",
+      "sourceBytes": 196670,
+      "sourceSHA256": "f4059be6cfd5e35f261c42bb1a37ce45d192f6664a667d7fddafee1a1ab3d6bb",
       "preview": "131.webp",
-      "previewBytes": 10492,
-      "previewSHA256": "8c357ca60513f59a868316baad85f5aaf412dfdc7570a29cd6ff90d34b22de28"
+      "previewBytes": 37630,
+      "previewSHA256": "4d2defe600493ae4fd6509bc9558af3296a0a1d2b3c29890cc65aa15e9e19f24"
     },
     {
       "location": 132,
       "source": "./assets/worlds/open-roads/binderylane.png",
-      "sourceBytes": 12197,
-      "sourceSHA256": "773cf17aa5649a680183cdb2a2612a99a9a1ecdda9da542ad821b84f9985e70c",
+      "sourceBytes": 178227,
+      "sourceSHA256": "c5d5e445ecc2f43af74d97b3e8bc6929df1c82e115711d7fbdb489b88a39c518",
       "preview": "132.webp",
-      "previewBytes": 9518,
-      "previewSHA256": "fd4055162dde09140b50c9f1a40d831e9cbed104973f62188eb27aed9e2e3cd0"
+      "previewBytes": 30786,
+      "previewSHA256": "8725616c9ed0a84733c31151b6da0b3722e2c911f7a63ebbb99c7d72594f7254"
     },
     {
       "location": 133,
       "source": "./assets/worlds/open-roads/brassbench.png",
-      "sourceBytes": 12640,
-      "sourceSHA256": "c62c6d9204bc2bbabfc52dedff81708fec0674416327e500ab914935d3f7cf61",
+      "sourceBytes": 197419,
+      "sourceSHA256": "9cfd9b19474db077b7a9f510dd6d1c3429be084840de2ee77702d8eae556a301",
       "preview": "133.webp",
-      "previewBytes": 10750,
-      "previewSHA256": "610bbc2ca293c35068d01ba3168e182732af0969c699b1731bc23b5493ab9d01"
+      "previewBytes": 39102,
+      "previewSHA256": "121d978f398f3f750218b5004714e32d438121a99a59669f388953dfc98d910d"
     },
     {
       "location": 134,
       "source": "./assets/worlds/open-roads/framearchive.png",
-      "sourceBytes": 12314,
-      "sourceSHA256": "74531bfcb75f4407e33220eddb7dbacab96b804c9f5141ce2bdd138a22bd0694",
+      "sourceBytes": 183240,
+      "sourceSHA256": "e6ba7acc04ddac2f20a13a718ea9a7f752e246eae4f32bf7e54a9be338b9bb4c",
       "preview": "134.webp",
-      "previewBytes": 10338,
-      "previewSHA256": "864fc7f69f8ce45e822031151e1c289b75bac63934c8eb5a2313e0072de7b99e"
+      "previewBytes": 30822,
+      "previewSHA256": "d77cbfd15398c802d56d1c6f20d0a748441a24ff1e9a7641566281d676974cde"
     },
     {
       "location": 135,
       "source": "./assets/worlds/open-roads/clearglassyard.png",
-      "sourceBytes": 12363,
-      "sourceSHA256": "c17c825399c563f1d95cfb3103345b9675cf37891149e2426fce19d1114ebb3d",
+      "sourceBytes": 171142,
+      "sourceSHA256": "837d5004f88ec4bb622699e4574c1de776224969098ad518fb56c71edacaec90",
       "preview": "135.webp",
-      "previewBytes": 10380,
-      "previewSHA256": "81780dca249e134e0ae28a3bdcf3c0139dc9fdad0a1bde019b089e5c9137c9d4"
+      "previewBytes": 34750,
+      "previewSHA256": "2e1f6ca319f5b2d58e1535b0ad006636c2ac996afa4a6a9f12b7ec32cf01ec1d"
     },
     {
       "location": 136,
       "source": "./assets/worlds/open-roads/silverprintstudio.png",
-      "sourceBytes": 11927,
-      "sourceSHA256": "c842bd7155d0fc185fd161169c38df6cdc4452665b7ab9b26d85784aeb9f15df",
+      "sourceBytes": 178948,
+      "sourceSHA256": "c3590f768c6c033ad345417befcca9c4fe300718ed7f458555e4455bbbdcc922",
       "preview": "136.webp",
-      "previewBytes": 9680,
-      "previewSHA256": "ceaf016d2b5dc7581ec40f1ac3b8783fb0b49c11be6aaa262b7c56927baa1e8f"
+      "previewBytes": 29810,
+      "previewSHA256": "a9b48e5807f96792333bbfb46d07db1cd613aacfb6cdc66d599a92d018ae14c6"
     },
     {
       "location": 137,
       "source": "./assets/worlds/open-roads/sailmakersloft.png",
-      "sourceBytes": 13056,
-      "sourceSHA256": "2ec524e51d13096b3c60b2b490c75fab34a6a0bec12d7dc9bb59b40455762b67",
+      "sourceBytes": 177420,
+      "sourceSHA256": "14ec64620b1d84bcd8b52bade488d4550425726ca491292753c5b8732760c34e",
       "preview": "137.webp",
-      "previewBytes": 10008,
-      "previewSHA256": "ea6c761574b130fa566a3681a86ac7b89d8911703c570a31010bf73ecdc4815e"
+      "previewBytes": 37082,
+      "previewSHA256": "c5b20763436885b694a0fc75be475d27abd1db0951f643d827055f941d478ea0"
     },
     {
       "location": 138,
       "source": "./assets/worlds/open-roads/loomhall.png",
-      "sourceBytes": 12315,
-      "sourceSHA256": "1d530ea8226ffaaa9d2644efe84a8bc814f77b5570a466a237c131edc2efd6e8",
+      "sourceBytes": 195326,
+      "sourceSHA256": "32b4569ab78e0968b865ab11427bd4ee264c6b81dabf11a68431965713350d28",
       "preview": "138.webp",
-      "previewBytes": 9824,
-      "previewSHA256": "413e5b8009544a84da8ab50c1276a5f7f003b82334e5a404baf146d08e74b7ae"
+      "previewBytes": 41264,
+      "previewSHA256": "4a30f30058c39e7a167923dd6f834498566fce8267c6278177033b12151b3136"
     },
     {
       "location": 139,
       "source": "./assets/worlds/open-roads/summitcabledepot.png",
-      "sourceBytes": 14354,
-      "sourceSHA256": "3db25527ce753c69fda55005cd1774bee77947d5d37e228b57bd9976f4c8d140",
+      "sourceBytes": 172369,
+      "sourceSHA256": "030759928dada0a450496f4c8c1ba74de0a515223869c2f54b5eeb253b0a6f41",
       "preview": "139.webp",
-      "previewBytes": 9272,
-      "previewSHA256": "9305f2c7727dac51cf0649ad754e8d8d80dd4b61178c31c16b14b530891ce9d1"
+      "previewBytes": 34556,
+      "previewSHA256": "36a7703a1da5229f62168db791d4dae1453afab1ff5e24b2364dcfe59dfa729a"
     },
     {
       "location": 140,
       "source": "./assets/worlds/open-roads/boxharbour.png",
-      "sourceBytes": 13438,
-      "sourceSHA256": "6ef632fc99a2747ec36ba183ce12e82408cb5ec541b8d2624ac4fa5ed879e4b4",
+      "sourceBytes": 177396,
+      "sourceSHA256": "5d32c6a36c6687938fc9080de0c72aa3a910583e8ef470b8c3b85552573b05ea",
       "preview": "140.webp",
-      "previewBytes": 9146,
-      "previewSHA256": "1c810bf1a2b1ed0551294cbe1a85e1fada05d73e3cb42eb2414c1a7e85764102"
+      "previewBytes": 33990,
+      "previewSHA256": "9efcb4b07395213ba1d170ad77f4ba2af3c596a152c759f90c65cb70478efc17"
     },
     {
       "location": 141,
       "source": "./assets/worlds/open-roads/pedalpostyard.png",
-      "sourceBytes": 13447,
-      "sourceSHA256": "1b6dd79ea333076a596d144c708357d526e123203e9d27cf45b5974bbe74324c",
+      "sourceBytes": 179151,
+      "sourceSHA256": "c63e0ab353efdb9b12e6d71bf1b99220465ec9911e6afe043d0ea0838aaa6732",
       "preview": "141.webp",
-      "previewBytes": 11444,
-      "previewSHA256": "2f191bd69fb44f7c245e8ac2f16195dce3d546922ae325e52d19d0afd05783f1"
+      "previewBytes": 35206,
+      "previewSHA256": "c7aca75186fb8e9c0d519f5dc98308729eff78f91a148d77482400fddc7f500b"
     },
     {
       "location": 142,
       "source": "./assets/worlds/open-roads/crossriverferry.png",
-      "sourceBytes": 13390,
-      "sourceSHA256": "626476680923f816627014f8ef9cbd5e9bb9e2fa752bd6faf600acc160033c5f",
+      "sourceBytes": 179409,
+      "sourceSHA256": "0a9cd43b46144a9f7e157034ae3e6565086e34421502e39e6da800c772bace03",
       "preview": "142.webp",
-      "previewBytes": 10146,
-      "previewSHA256": "c2d44d8f5a994dc69be944e97c317b06f8f7ec899f25a72ac90d075957030d28"
+      "previewBytes": 36258,
+      "previewSHA256": "aee5c614829284b9e37f8aa94abf49a982c650353b476bb8b78973f8d64e5bee"
     },
     {
       "location": 143,
       "source": "./assets/worlds/open-roads/medlifthangar.png",
-      "sourceBytes": 12380,
-      "sourceSHA256": "7a3f1163197220e64ae64c5a56753670606780d186fafe35cd7f92fe015d5fe2",
+      "sourceBytes": 176167,
+      "sourceSHA256": "ea2bbf839a835d291bd1605786056af22c302a5e3d962d376e6154e9077e7692",
       "preview": "143.webp",
-      "previewBytes": 9070,
-      "previewSHA256": "f837999a9a0d828372414241ec87a8f9023bfa9d9eae1d30e16700d5ed64a854"
+      "previewBytes": 34372,
+      "previewSHA256": "a9a20d38dd590cef918357e342c1466f73b8b7796dff216c7bfb2b429d007598"
     },
     {
       "location": 144,
       "source": "./assets/worlds/open-roads/centralmailworks.png",
-      "sourceBytes": 12477,
-      "sourceSHA256": "c3acb419d565748f34ffaaebe2a15793baae74748faca93a44ac46c02b1bdf07",
+      "sourceBytes": 175441,
+      "sourceSHA256": "834e4ea2ba114ebba7811868c20940ec96ea49e20f1acbb81eda9662ec332ae5",
       "preview": "144.webp",
-      "previewBytes": 9970,
-      "previewSHA256": "8d0aef9ea7e1906b4a21bca714c3e94e060e107dcbfd84281c3b6ac60f4bed43"
+      "previewBytes": 34232,
+      "previewSHA256": "4e172a8262f2d00fe462f4160a6733c9d56994a4cee815e93bc71bd3b4855b07"
     },
     {
       "location": 145,
       "source": "./assets/worlds/open-roads/lockkeepersyard.png",
-      "sourceBytes": 12942,
-      "sourceSHA256": "0eb4906d64d8aa263e0dce9d0611bd4b9f66e425a09bdf0402d18bc81e117399",
+      "sourceBytes": 183067,
+      "sourceSHA256": "21675839f3dfa3531dcc6fdede04750661f35dc01e1060a41ce916b6b5c87233",
       "preview": "145.webp",
-      "previewBytes": 9602,
-      "previewSHA256": "079d99b1d20a9deed9b76d1650354719b317605ad623ed2b96eb24dda2623ef6"
+      "previewBytes": 37374,
+      "previewSHA256": "076f317a76104bd09ddf8e87c944c8443d9b2d0c8eed7abcb3be0b74467e5b05"
     },
     {
       "location": 146,
       "source": "./assets/worlds/open-roads/oldtowntramworks.png",
-      "sourceBytes": 12984,
-      "sourceSHA256": "d48cc0fae59b52b3434bdbb4cbf29da945b9998deff710bbbf65a685c9b5824a",
+      "sourceBytes": 173097,
+      "sourceSHA256": "34bfdb2e74174fd749b2fa30f2333e05cf57833916934dfa4de16fb6d0d2a592",
       "preview": "146.webp",
-      "previewBytes": 10380,
-      "previewSHA256": "ac2419c3688cefaf8e6be9b03a9658a5b5e0a52050e1b30743e554ecbe7de5b9"
+      "previewBytes": 34882,
+      "previewSHA256": "4fd2a8002195788350d669b04418df955a978196df88d02dd400464e170add1f"
     },
     {
       "location": 147,
       "source": "./assets/worlds/open-roads/reedbedstation.png",
-      "sourceBytes": 14052,
-      "sourceSHA256": "027e19ad0c952130a93235b940ea35bec6bf0fc39cd7f131ed00fdac70949cee",
+      "sourceBytes": 200280,
+      "sourceSHA256": "39fa23c1b071fcf7844e4b520d2447bb4e01b42b8593bc767984e54fe82e052f",
       "preview": "147.webp",
-      "previewBytes": 10516,
-      "previewSHA256": "4daf9224f7832607c5a691692ba35721d51654629c8185d4e9c86c0a768afdb0"
+      "previewBytes": 40748,
+      "previewSHA256": "768658916906b7d84e534ceb66f4ef720ec09729bc26025363019de63c0f8c4b"
     },
     {
       "location": 148,
       "source": "./assets/worlds/open-roads/ridgewindworks.png",
-      "sourceBytes": 14689,
-      "sourceSHA256": "879d893fcde91cc7f5e6eff71e24dc5f347dc86be40ae8a2f4881e318b33b722",
+      "sourceBytes": 187736,
+      "sourceSHA256": "0182189e3dd31e11d2c930d35f39b8630abdc3a8ce5f96f77ad0f3c144e3c2ac",
       "preview": "148.webp",
-      "previewBytes": 8182,
-      "previewSHA256": "060ea7e801c990cf2a48ce8e65a545ae8635a636590180f21dd89308f6b27d8a"
+      "previewBytes": 39872,
+      "previewSHA256": "a76657c33b23d09ce8f60d3fdb0e64d629f0808526a8fe0820aad704b4f02c16"
     },
     {
       "location": 149,
       "source": "./assets/worlds/open-roads/sunpanelrepair.png",
-      "sourceBytes": 12067,
-      "sourceSHA256": "64476ea6b61836f877f02ac874b0f6393e0f6bc59c953c4cf74ee6f1eb97c2af",
+      "sourceBytes": 171022,
+      "sourceSHA256": "bba338bb628b63957485884d72c3ee9855e72661012098a47ea087c111f1f2d0",
       "preview": "149.webp",
-      "previewBytes": 9944,
-      "previewSHA256": "7258faf45b67aef3e65ea457e7deeebe1a6fe0730861f4a947260dd9503c16d3"
+      "previewBytes": 33962,
+      "previewSHA256": "9ac3e66fe3fbb3efb3298f1a78e15d748353629ae2d4318bc06e6a563cf941c9"
     },
     {
       "location": 150,
       "source": "./assets/worlds/open-roads/riverpowerhouse.png",
-      "sourceBytes": 12516,
-      "sourceSHA256": "543344c0b4336f4b177d68607cd57b4cc789e792d35ad55cd7cc673e870138d8",
+      "sourceBytes": 181305,
+      "sourceSHA256": "9d79ae5e8510924a5d0c060f3e19507b148318a6f874e9f8b71339ec90a8e4f2",
       "preview": "150.webp",
-      "previewBytes": 8992,
-      "previewSHA256": "03a1d182a38ed215707a9a913fb527ba5d9c19f56d9dbf522847ae171485d9f3"
+      "previewBytes": 37272,
+      "previewSHA256": "4b3a0f5c34976bf37d8b5af59d67bcd60270ae624c4962bb3414ed14203306b5"
     },
     {
       "location": 151,
       "source": "./assets/worlds/open-roads/clearwaterplant.png",
-      "sourceBytes": 12347,
-      "sourceSHA256": "edf28fa13a2045356ecb5e3b40e462ef7e0082b6a8761cf9504f09a8455ac783",
+      "sourceBytes": 167126,
+      "sourceSHA256": "d7a2b774603acc0584f955e6913bdeee41b394fe489b4b3fe005d0f54ac24343",
       "preview": "151.webp",
-      "previewBytes": 8816,
-      "previewSHA256": "32f853623e26e1b1d66fa283881173f9c45d1fe9adcca81c97f6b7f0932f9ab0"
+      "previewBytes": 35830,
+      "previewSHA256": "352117e4c22131c3f7c9d8a7ce1c1cfac961ac2ab07c4485433210372daab3f1"
     },
     {
       "location": 152,
       "source": "./assets/worlds/open-roads/desertweatherpost.png",
-      "sourceBytes": 13033,
-      "sourceSHA256": "3fd8c71d6d7168f20ca43f7d5e96d7bc80eda3f85014714703bd3e2a7f300f4a",
+      "sourceBytes": 187548,
+      "sourceSHA256": "4e83bdae0a7f1753e8e369225e86d05c6519dcf15052772456a9f82c00728bf7",
       "preview": "152.webp",
-      "previewBytes": 8668,
-      "previewSHA256": "1c680ef9682e81c897500d7f3d212e776cea007f0f607d9ff60ffc399687a765"
+      "previewBytes": 38450,
+      "previewSHA256": "7eadce9610f98fb47bc52b0d9ba341781ebb5ca1656baa8fe7cbf61c595f5dbd"
     },
     {
       "location": 153,
       "source": "./assets/worlds/open-roads/dunecoastproject.png",
-      "sourceBytes": 14546,
-      "sourceSHA256": "af85c3e7d87ff4fd38c01e4c4fd8a38413d9333e8d1d9559a41af5c4e6e7e9a5",
+      "sourceBytes": 188460,
+      "sourceSHA256": "bae062799210660c93a8ebbcafd34712dda94fe5936e9828783bf806e418b571",
       "preview": "153.webp",
-      "previewBytes": 11104,
-      "previewSHA256": "20fdf71574b2bf9ff5e5b47965d640d415c7d8e45f87f3c3eff996f0d20972c8"
+      "previewBytes": 36988,
+      "previewSHA256": "0c2b2cdcfb33ee5acb1f4d2fefc260aef1886e6f68690bd99c6fe6614de422a6"
     },
     {
       "location": 154,
       "source": "./assets/worlds/open-roads/pineforestrydepot.png",
-      "sourceBytes": 15194,
-      "sourceSHA256": "a137cc7b2cddd225af444c243e3fe69b6b6b8601cfb571a2a24c9ac49b288ef3",
+      "sourceBytes": 209948,
+      "sourceSHA256": "113b07ff004a112b5b60a60cce55a60f444c428a0c5b55cc87e8c2c6aa40380a",
       "preview": "154.webp",
-      "previewBytes": 9904,
-      "previewSHA256": "1e3cbfec0a3f1e1d94cab985c7e88133c6d10dd9925a2c7e437551f1b8d63bc1"
+      "previewBytes": 43056,
+      "previewSHA256": "b3e17c4aa2fa3de9f3b8da9994de4c2a877637bf62ea272165c85cfa8562493e"
     },
     {
       "location": 155,
       "source": "./assets/worlds/open-roads/wildlifecareyard.png",
-      "sourceBytes": 13955,
-      "sourceSHA256": "cb68573b438445b5341d40a028ecfdd053c6a1d8b12482af3d92c4c4f977eb81",
+      "sourceBytes": 202097,
+      "sourceSHA256": "1b904ecf2de50ac0150f8e19c2866d7945d1c4da0a533109691fdc7d1a7600c0",
       "preview": "155.webp",
-      "previewBytes": 9608,
-      "previewSHA256": "a314ecf5a09ed152236c2fa6cfbf31abf4b3b606c5f861e4c8c9f900d2e8a632"
+      "previewBytes": 40188,
+      "previewSHA256": "0300a2f45ba31b5f8e5d8585a025078835abd95df2413d1d6b4ed01b8a02410b"
     },
     {
       "location": 156,
       "source": "./assets/worlds/open-roads/accessworkshop.png",
-      "sourceBytes": 12042,
-      "sourceSHA256": "191e46dbadfa960c481c5a1394657b617e27dd4bdde5e03faf18fe480b6fd4b9",
+      "sourceBytes": 179536,
+      "sourceSHA256": "c0df679a1788276ad865eeb99a1f23152cec2f1005299f810c04825249f2f248",
       "preview": "156.webp",
-      "previewBytes": 10012,
-      "previewSHA256": "9c1b3f2fa7e5cc7e334b5f5414463dc7dd95e9d2c345bb0f76fff3eb35ef25bf"
+      "previewBytes": 34804,
+      "previewSHA256": "387a070ff41d7bf65af9a41c4796ea59dcaa2a0615dacb4188f969c79c073e2d"
     },
     {
       "location": 157,
       "source": "./assets/worlds/open-roads/cedarfirestation.png",
-      "sourceBytes": 12679,
-      "sourceSHA256": "70872cc9c3bd7a4eb80c2a4b7929c10eacf694107c5f8942023a2fdef17361c3",
+      "sourceBytes": 176011,
+      "sourceSHA256": "dbe635384f84333094ff209148a9b53c35291946b9355d6596d30b38ecbfabda",
       "preview": "157.webp",
-      "previewBytes": 9846,
-      "previewSHA256": "61d7c6be32339bde15d4487338b93c5d443c2d0050cc42ad4318a812f28f9238"
+      "previewBytes": 33612,
+      "previewSHA256": "6802c97ef13403b257bd0ce5ee7521a1b4307cdaf741a259c37558293aaaed7d"
     },
     {
       "location": 158,
       "source": "./assets/worlds/open-roads/givebloodcentre.png",
-      "sourceBytes": 14164,
-      "sourceSHA256": "0f34d1012c1bc96ae030ca24555499b6e97166b9d003883745f38db39b0ec102",
+      "sourceBytes": 169019,
+      "sourceSHA256": "df5902a70bff25e5e883f02df572dc1bceb04d5d933b5c7370748f75e573dfb4",
       "preview": "158.webp",
-      "previewBytes": 9800,
-      "previewSHA256": "bc853628897010f8f726d5acacb370e3aa2fd5e6bd97c45745d9a3698b0b71db"
+      "previewBytes": 31286,
+      "previewSHA256": "8769576652e0ba56d9db01e6e5b4a7d15d35c4f06d343641a87d9018a4f2cbfc"
     },
     {
       "location": 159,
       "source": "./assets/worlds/open-roads/smilecourtyard.png",
-      "sourceBytes": 12593,
-      "sourceSHA256": "06aaedeee652492539f6ad91cefef648d2ee4a63710bb53556a1b9c483a548db",
+      "sourceBytes": 168588,
+      "sourceSHA256": "58806e79c5f620bfa51e41cf649437084d58539a77261b68bf7dc7b7b63a34c2",
       "preview": "159.webp",
-      "previewBytes": 9816,
-      "previewSHA256": "cbcb0b3c52309ba855787fd5d86db7c5a476804bc332c7cce740f40c05e43375"
+      "previewBytes": 31312,
+      "previewSHA256": "687641187d38084e0bff733cff3e1d6b7cb0a28eb6bcaea219c1a8d33d6760ed"
     },
     {
       "location": 160,
       "source": "./assets/worlds/open-roads/mapleseniorcentre.png",
-      "sourceBytes": 14650,
-      "sourceSHA256": "1e712f1922d42bfd79bf772f3516f458bbe11f5abcceb7e7da30002f00233701",
+      "sourceBytes": 181696,
+      "sourceSHA256": "01b6c572b76ab2c18ed5552bc9a46167c12d79880be2215b7867a527ae72ba92",
       "preview": "160.webp",
-      "previewBytes": 10046,
-      "previewSHA256": "0311301370a9dd7a26603fa4fc8f48998f75925190bb55a37039796e0d9ae82e"
+      "previewBytes": 38502,
+      "previewSHA256": "8f6c700462d420fa22ce7ad1bfb76ea617a5d62f959ad6be0065ec5373345dd5"
     },
     {
       "location": 161,
       "source": "./assets/worlds/open-roads/lanepublicpool.png",
-      "sourceBytes": 12175,
-      "sourceSHA256": "81bee3f05b192bc4b3f25796b5f7192fd6c02271c162d9cb9e3413016492c85d",
+      "sourceBytes": 169471,
+      "sourceSHA256": "494af7e235cc615de13a060e85697bd3b46c40c70f3b0ce2622c7155d84db99d",
       "preview": "161.webp",
-      "previewBytes": 10124,
-      "previewSHA256": "20aedaf2efa8a379346e9b602eb7c63207fd2b590c177299f1ddafa220d9cd55"
+      "previewBytes": 32240,
+      "previewSHA256": "18f81be286788a4c1dc0222b686e899f5fe19c9d91e8d17bfb3ca4d8501604fe"
     },
     {
       "location": 162,
       "source": "./assets/worlds/open-roads/roundhousegym.png",
-      "sourceBytes": 12108,
-      "sourceSHA256": "cef92823d396b578861a09dafe20595254fd0cc436e6b490bb409d614ccc0cd8",
+      "sourceBytes": 172142,
+      "sourceSHA256": "8ee500b40a1e293c22f06eb29308bf43a65529895c3f82133304b1cacd2ce0d3",
       "preview": "162.webp",
-      "previewBytes": 8622,
-      "previewSHA256": "5af45b927fcdd9f8a5dfebd0915761d92add7dfa34949971edab6ea53de96d0f"
+      "previewBytes": 30124,
+      "previewSHA256": "b215bee123662aa58475a0b6c3cdd62b99ba7912e384082c7da11c06631f32ab"
     },
     {
       "location": 163,
       "source": "./assets/worlds/open-roads/marrakechroofcourt.png",
-      "sourceBytes": 13262,
-      "sourceSHA256": "c92ecd1cd7831f15fb8b07c26b01ec673113a46be5a00277ec05754c40e5758e",
+      "sourceBytes": 196682,
+      "sourceSHA256": "60a4e5b4b8a35184435ca52904dab944d5fe674d3afe2be59ae4f3d7b2931efd",
       "preview": "163.webp",
-      "previewBytes": 10634,
-      "previewSHA256": "6f8c485addc9da9468f5885606193c35eee79a526bcfe433063234948c6ca76d"
+      "previewBytes": 38234,
+      "previewSHA256": "ee8a594c3603e2cafd2e30ffdee25eee79a639235f1a33b30d55a002b61192f4"
     },
     {
       "location": 164,
       "source": "./assets/worlds/open-roads/nairobibusworks.png",
-      "sourceBytes": 12872,
-      "sourceSHA256": "2c0e591a0bb3ca6ab7a980392d66817b763a370295b82e2129c4fb149bbc092a",
+      "sourceBytes": 170269,
+      "sourceSHA256": "9132e739bbf1bf3652b1edae194c67669f5b0d760af438e4a7ce4e6df9e7f23b",
       "preview": "164.webp",
-      "previewBytes": 9548,
-      "previewSHA256": "62641992273eeab6bb2053b7083dc9d831bac4ee8cd0f28b211cefce25b7de61"
+      "previewBytes": 35620,
+      "previewSHA256": "ec194f3691c8f59b1293cd8271c4a74954f66fefcebb2ffb250721923b01d3e1"
     },
     {
       "location": 165,
       "source": "./assets/worlds/open-roads/dakarrecordcourt.png",
-      "sourceBytes": 12269,
-      "sourceSHA256": "cb4b148fe0adc8209098525219026b2d94b42d67e63aa190cb6483b966cf72fc",
+      "sourceBytes": 181445,
+      "sourceSHA256": "5c15ebd103875a2ea38fd308e7c7a12c1ec5be29e6ba287fe15568d4b6f6f7bc",
       "preview": "165.webp",
-      "previewBytes": 10154,
-      "previewSHA256": "6db34a033bda3d34e1dc6a93932963b9c618e1a98c41f6e6bce31215459e67c2"
+      "previewBytes": 34812,
+      "previewSHA256": "8afadea59d4b685f290a3db476a763c80fc7799e4e0626b5426c2e0644b51848"
     },
     {
       "location": 166,
       "source": "./assets/worlds/open-roads/kyotopaperworks.png",
-      "sourceBytes": 13250,
-      "sourceSHA256": "e2fd45bec28d4d2809164f53b46623be5e4fa956013767a037c12f39bc8084bc",
+      "sourceBytes": 196894,
+      "sourceSHA256": "eb622baf8dd897301bde3f65f81824caba2730875542d69627904b380e95d918",
       "preview": "166.webp",
-      "previewBytes": 9822,
-      "previewSHA256": "7196ca3e2bab82e3fa679ccfc9d10a64a62ffb1ef45964c4e9466aaf84e21d8e"
+      "previewBytes": 39860,
+      "previewSHA256": "85b4d61c534c6dc743babba6b298b921a3be04b7bf7aaf0a8f46d6002741b31e"
     },
     {
       "location": 167,
       "source": "./assets/worlds/open-roads/lisbontilequay.png",
-      "sourceBytes": 13723,
-      "sourceSHA256": "4dee4f852d8983dc9d09db0ec444d6e1fa853cd802fd79db960a35086c3e5d7b",
+      "sourceBytes": 185839,
+      "sourceSHA256": "90f159d730530b7056d9f0a95dd7b59d69ce4812208f63b80639ab95254dd9fc",
       "preview": "167.webp",
-      "previewBytes": 11498,
-      "previewSHA256": "195d49429bc4fa9f8005a49f3c14870330f438e836c20283c247a6e764aee0fa"
+      "previewBytes": 37374,
+      "previewSHA256": "6a2267aeb5db61f0590ad0f04d39e926ef8fd1c7e4fb4dce28709ef1176eb18d"
     },
     {
       "location": 168,
       "source": "./assets/worlds/open-roads/valparaisolift.png",
-      "sourceBytes": 14872,
-      "sourceSHA256": "8b458ea18963cdff0247032a35a10665bc3c4b669751fe3aae3cddf5beffd0f4",
+      "sourceBytes": 169142,
+      "sourceSHA256": "5ce40d06c3311ef554aea06246f4f9871f1588de7d0fb4b695e8ff61fce5564b",
       "preview": "168.webp",
-      "previewBytes": 9960,
-      "previewSHA256": "440a4ed7b2e87e490eff0efe45db21327e7a82f5ecae8f8f76aa5422194e2b70"
+      "previewBytes": 36502,
+      "previewSHA256": "67d9af1b261d424b35216da8cc76104fda525c5c755f8df731d4b43d98df75eb"
     },
     {
       "location": 169,
       "source": "./assets/worlds/open-roads/keralaboatyard.png",
-      "sourceBytes": 12859,
-      "sourceSHA256": "b665360b409ae921dddc4b357c497d464515b2ec18f88069f95a71f1d455d065",
+      "sourceBytes": 190433,
+      "sourceSHA256": "ee9428d5e19511192f690cb5dc9c5333ea47130648f848b94f18de118e428f73",
       "preview": "169.webp",
-      "previewBytes": 9670,
-      "previewSHA256": "47a2cd2a19b8f9ed247d6ab11b1f13ed233710d022c2a52bae3e8cadfd0f2909"
+      "previewBytes": 37734,
+      "previewSHA256": "23ae6a5a7e4598458f8bc5fef5380f3f32c3870e955511d0da369673c4f84abd"
     },
     {
       "location": 170,
       "source": "./assets/worlds/open-roads/montrealwinterhall.png",
-      "sourceBytes": 12998,
-      "sourceSHA256": "b6e9410c9312ee296486421505a285e75f4c92c0689c5866e27d9a3ae8d132ff",
+      "sourceBytes": 180194,
+      "sourceSHA256": "9cf152d47a729ba1bacf817e64c858e96c6f10661e4343a8ad5809a1cf7e259a",
       "preview": "170.webp",
-      "previewBytes": 10106,
-      "previewSHA256": "57b219f6b38d20f84e072d8fabb242a15bffc394f5d251d80bdbb0b3ed5b28a5"
+      "previewBytes": 41452,
+      "previewSHA256": "2ce9d0e95be903204bfcf1a134d1511e1c849eac7e2699d19f5ec50520705b71"
     },
     {
       "location": 171,
       "source": "./assets/worlds/open-roads/courthousearchive.png",
-      "sourceBytes": 12173,
-      "sourceSHA256": "b696694f6573777a1dd32b927464cad0c5a1b2dea6d3dff93ed8c8197b3af816",
+      "sourceBytes": 179698,
+      "sourceSHA256": "63fb23313a59406b5ff81bb307111c34d29fc0e08bb5c0e06f59cd6cfa101299",
       "preview": "171.webp",
-      "previewBytes": 10286,
-      "previewSHA256": "06c59b931d13d270cbd0666bb8c7f77c0cd66dc9a9432675175516efbfcf81b0"
+      "previewBytes": 31070,
+      "previewSHA256": "ce26b54ed092f679c93300198ba510727dfbb8b3d4feda0b99e846a502b4324f"
     },
     {
       "location": 172,
       "source": "./assets/worlds/open-roads/communitycredit.png",
-      "sourceBytes": 12395,
-      "sourceSHA256": "b8030d12e1ea437a61526bc286572216451d07bdde5eb93ee6e116f92eed9601",
+      "sourceBytes": 164438,
+      "sourceSHA256": "dfb39b91a36a49b674139a3aac168e0dd82334625adb24892728748885ec753d",
       "preview": "172.webp",
-      "previewBytes": 9322,
-      "previewSHA256": "a359d89dbe792b6ebdecc4629669cf5762a375b7fd13bae105c0d0751b0e9bb1"
+      "previewBytes": 28720,
+      "previewSHA256": "961bdcdadef6dfabe268fae4d3501971b6eccd4557d41e745ab3b9aa72966d13"
     },
     {
       "location": 173,
       "source": "./assets/worlds/open-roads/morningedition.png",
-      "sourceBytes": 12132,
-      "sourceSHA256": "2eb13f5f5cc322a44c29205495cbca36796bcdfdf536e66589a3b8cf5182ccdf",
+      "sourceBytes": 175428,
+      "sourceSHA256": "4062b76cc4e26cc473174dead0226c9ab7cd6c66c1eaea8b34d4811a18f3e93b",
       "preview": "173.webp",
-      "previewBytes": 9262,
-      "previewSHA256": "fb141c6fe98105defb0a2059e8f6b32a2ec08217f728e6f4c8b710932dfc9a0d"
+      "previewBytes": 34178,
+      "previewSHA256": "12e04002739ca02ff69117722206e7581c8b3958f174b696d68151c811edcbf7"
     },
     {
       "location": 174,
       "source": "./assets/worlds/open-roads/roadrepairdepot.png",
-      "sourceBytes": 12553,
-      "sourceSHA256": "6b052292526d67e373b2bc421029b1a8ad8695c491845608fd00ed09d7e3690d",
+      "sourceBytes": 178489,
+      "sourceSHA256": "25ef80a37130080ddee320b4dcb35704e9c042ad36716662162936f2f650ed74",
       "preview": "174.webp",
-      "previewBytes": 10372,
-      "previewSHA256": "6fb9809468a888fa6ab4f826d86bdfd60a4b1d5c2f4ca09e6bb81eac42a14ae5"
+      "previewBytes": 32666,
+      "previewSHA256": "99bcb68bd9f9d10ddc9314e0f6afb793e464c7d0f0bbd555c9e2cdb1f7a4c541"
     },
     {
       "location": 175,
       "source": "./assets/worlds/open-roads/responsecoordination.png",
-      "sourceBytes": 12186,
-      "sourceSHA256": "fc029243aaadbf4ee3efd7b93bea5088641625653cfe820070751de3c5da9517",
+      "sourceBytes": 172617,
+      "sourceSHA256": "930ec7dcad6ab120b9b5b28e42836ce3e1b4b749bb741611dc580f84b4928cc0",
       "preview": "175.webp",
-      "previewBytes": 10114,
-      "previewSHA256": "481b809f2c18d6c9aba1be5e4055444017052b166d4a88b84149b5b46f5889b7"
+      "previewBytes": 30742,
+      "previewSHA256": "c1d4c1c1fcf78c285c2e7e2ee37f4af98654e6f7b6fd797b73c1dc7f4cf586a3"
     },
     {
       "location": 176,
       "source": "./assets/worlds/open-roads/reuseexchange.png",
-      "sourceBytes": 12465,
-      "sourceSHA256": "858342cfa831faec1695fd111d8bf9adcdb9db11be4d0a2faed03e5f0fd040f7",
+      "sourceBytes": 184053,
+      "sourceSHA256": "f311c6f85e2d92854b58ed068dc2e64da6a12c639018d69bfee449920c448981",
       "preview": "176.webp",
-      "previewBytes": 10460,
-      "previewSHA256": "7ceff5b22745816a5eac20be6e6970b276f31c2666f1796f2626117ec5ba9607"
+      "previewBytes": 36010,
+      "previewSHA256": "a5ad08cf9cc1e09ee2ea47691f623a5d70e14cf4a9a1b0c7e6d5a6f09c949e05"
     },
     {
       "location": 177,
       "source": "./assets/worlds/open-roads/flowerauctionhall.png",
-      "sourceBytes": 13710,
-      "sourceSHA256": "50ecf42dcfa35852953d06b6fb8ceddb9f74b9b066d93092918e955387be1d8a",
+      "sourceBytes": 198765,
+      "sourceSHA256": "85fe8507fa477279a1cc1ad0d35b2800b1f6444f260eb95067f9b34056057fe5",
       "preview": "177.webp",
-      "previewBytes": 10890,
-      "previewSHA256": "46b594656d7915a0d31dd2ada9a72592327d01f877b5053d248ccef996efde18"
+      "previewBytes": 43080,
+      "previewSHA256": "f0072d4be1c128a7203d58ceba1a35f396cedf31b8ce43d7676ab4c1668c738e"
     },
     {
       "location": 178,
       "source": "./assets/worlds/open-roads/coldstorecommons.png",
-      "sourceBytes": 11767,
-      "sourceSHA256": "cc57b99d5b1dc7f5babec1147342f786761af05b748e16fafddc933c51cf5c84",
+      "sourceBytes": 190953,
+      "sourceSHA256": "1023facc2da88851b593309760a5ed49163d8a67de91301e871ade51f207524a",
       "preview": "178.webp",
-      "previewBytes": 8414,
-      "previewSHA256": "3730bc2aff14aacce60d7a4ae7772e93140b35d94ee0bf703b3dd8942c179f3b"
+      "previewBytes": 33366,
+      "previewSHA256": "8172e6be421009f25b047cf6fb3ff5b545a8af6e5e6318701e6d4165bd701e44"
     },
     {
       "location": 179,
       "source": "./assets/worlds/open-roads/neighbourrepairfair.png",
-      "sourceBytes": 14146,
-      "sourceSHA256": "e1ea0504bf0b0857a58c93e9318dd3ed4737e2cffcaeb52f6860436ccefeba22",
+      "sourceBytes": 193069,
+      "sourceSHA256": "71df4657f1f37bf0c0f75233b4f416a90b9eb265cc1a29e0b5c5c914bcf7bd42",
       "preview": "179.webp",
-      "previewBytes": 10226,
-      "previewSHA256": "7e6f954454a24ab60a2bc16454fd47a97b8a53414bdf609a3955719f4daf49a0"
+      "previewBytes": 42332,
+      "previewSHA256": "8fb5bc1c8bb15b4d99d69aba90a3cc7805b94c0e040962c728e8c8ac8376aee4"
     }
   ]
 }

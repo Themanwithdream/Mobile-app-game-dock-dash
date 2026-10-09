@@ -4,9 +4,17 @@ A phone-friendly pixel-art delivery adventure. One parcel. 177 places. Wait for 
 
 ## Play
 
-https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=8.0-open-roads
+https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=8.1-illustrated-places
 
 Previously Dock Dash and Parcel Odyssey. The repository and play URL stay in place so existing browser progress carries over.
+
+## Illustrated places — 8.1
+
+All 77 Open Roads places now have individually generated, detailed pixel-art paintings to match the original worlds. This release recovers 74 completed paintings from the interrupted artwork session and finishes the Flower Auction Hall, Cold Store Commons and Neighbourhood Repair Fair. Every place retains its own architecture, terrain, supplies and story; all backgrounds keep a clear central delivery lane and lower loading apron.
+
+The 360 × 640 indexed PNGs total 14,114,196 bytes, with every scene below the original 240 KB per-world budget. The 77 refreshed WebP previews total 2,777,054 bytes; cards keep the same four-request and eight-image cache limits, and gameplay keeps its four-image decode limit. Versioned requests for the replaced paintings and previews prevent returning players from retaining the earlier simple scenes. No original painting, music file, story, mission ID, cargo ID, purchase or save key changes.
+
+See [the artwork recovery record](assets/worlds/open-roads/ARTWORK.md). The earlier 8.0 artwork generator is retained for historical reference only; running it would replace these finished paintings. Regenerate previews with `python tools/build-previews.py` after an intentional artwork replacement.
 
 ## Open Roads expansion — 8.0
 
@@ -16,7 +24,7 @@ Each new place has eight authored delivery chapters, twelve named cargo items an
 
 The additions bring the cargo catalogue to **2,424 items** and the arcade list to **180 places**. Existing mission IDs, cargo IDs 0–1499, locations 0–102, vehicle slots, purchase prices, wallet balances and storage keys are preserved. Existing Dock Boss, Parcel Odyssey and Dock Dash backups remain readable; new backups keep the same portable format and include old and new progress together. Backup previews show restored lanterns and completed new routes separately.
 
-New artwork is painted offline by `tools/build-open-roads-art.py`, using individually authored terrain, architecture and workshop plans. No old images are changed. All 77 full scenes total about 1 MB and use the existing four-image decode budget. Card previews remain bounded to four requests and eight cached images. The new places reuse matching complete recordings from the original soundtrack library, retaining the first-tap autoplay recovery and sound effects. Music titles now cover every route, including the previously missing original-world labels.
+The initial 8.0 artwork was painted offline by `tools/build-open-roads-art.py`, using individually authored terrain, architecture and workshop plans. No old images are changed. Those initial 77 full scenes totalled about 1 MB and use the existing four-image decode budget. Card previews remain bounded to four requests and eight cached images. The new places reuse matching complete recordings from the original soundtrack library, retaining the first-tap autoplay recovery and sound effects. Music titles now cover every route, including the previously missing original-world labels.
 
 Open Roads verification: **134 unit checks and 218 browser checks across 19 suites** pass, including all 1,416 missions at three stars, native browsing of all 77 additions, five viewport layouts, original and new completion logs, saved purchases, 20-minute phone simulation, sound and autoplay recovery, and exact older-backup restore/undo. The 77 additional full scenes total 1,015,441 bytes; their card previews total 767,880 bytes. No existing artwork or music recording is replaced.
 
