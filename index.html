@@ -2530,7 +2530,7 @@
   $('start').addEventListener('click', startGame); $('replay').addEventListener('click', startGame);
   $('missions').addEventListener('click',openMissionMap);$('missions-continue').addEventListener('click',continueMissions);$('mission-home').addEventListener('click',backToTitle);$('arcade-home').addEventListener('click',backToTitle);
   for(const [id,name]of [['','All 177 places'],...Object.entries(MR.filters)]){
-    const option=document.createElement('option');option.value=id;const count=id?MR.chapterPages(id).flatMap(p=>MR.worldPages[p]).length:MR.worlds.length;option.textContent=id?`${name} · ${count} places`:name;$('mission-chapter').appendChild(option);
+    const option=document.createElement('option');option.value=id;const count=id?MR.chapterPages(id).flatMap(p=>MR.worldPages[p]).length:MR.worlds.length;option.textContent=id?`${name} · ${count} place${count===1?'':'s'}`:name;$('mission-chapter').appendChild(option);
   }
   $('mission-chapter').addEventListener('change',e=>chooseChapter(e.target.value));
   $('mission-search').addEventListener('input',e=>searchWorlds(e.target.value));

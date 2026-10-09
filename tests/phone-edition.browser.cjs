@@ -24,10 +24,11 @@ async function swipe(page,selector){
  await page.waitForFunction(({selector,before})=>document.querySelector(selector).scrollTop>before,{selector,before});
 }
 (async()=>{
- await new Promise(resolve=>server.listen(8852,'127.0.0.1',resolve));let browser;
+ await new Promise(resolve=>server.listen(8852,'127.0.0.1',resolve));let browser,page;
+ const output=process.env.DOCK_TEST_OUTPUT||path.join(root,'phone-test-output');fs.mkdirSync(output,{recursive:true});
  try{
   browser=await chromium.launch({executablePath:process.env.DOCK_CHROME||undefined,headless:true,args:['--no-sandbox']});
-  const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,deviceScaleFactor:2});const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
+  const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,deviceScaleFactor:2});page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
   await page.addInitScript(()=>{localStorage.setItem('dockDashMuted','true');localStorage.setItem('dockDashBest','12345');localStorage.setItem('dockDashProfileV2',JSON.stringify({tutorialDone:true,totalDelivered:180,selectedSkin:2}));localStorage.setItem('dockDashWalletV1',JSON.stringify({version:1,coins:5000,earned:5000,spent:0,owned:[]}));localStorage.setItem('dockDashMissionsV1',JSON.stringify({'rome-1':{stars:3,bestScore:1000,fastest:20}}));});
   await page.goto(url);await page.waitForFunction(()=>window.__phone&&__phone.art[0]);
   const original=await page.evaluate(()=>__phone.saveSnapshot());
@@ -45,8 +46,8 @@ async function swipe(page,selector){
   pass('Home, missions, briefing, shop and collection have contained 44px controls at five screen sizes');
   assert.deepEqual(await page.evaluate(()=>__phone.saveSnapshot()),original);pass('native browsing preserves existing coins, purchases, stars, cargo and best score');
   await page.setViewportSize({width:390,height:844});await page.locator('#missions').tap();await page.locator('#mission-chapter').selectOption('');await page.locator('#mission-search').fill('');await page.locator('#mission-journal').tap();
-  await swipe(page,'#story-content');await page.locator('#story-close').tap();pass('long story journal scrolls with a real phone swipe and keeps Close available');
-  await page.locator('#mission-search').fill('Asgard');await page.locator('.mission-card:visible').tap();await swipe(page,'#briefing-scroll');await page.locator('#mission-launch').tap();
+  await swipe(page,'#story-content');await page.locator('#story-close').tap();await page.locator('#story-dialog').waitFor({state:'hidden'});assert.equal(await page.evaluate(()=>__phone.state),'missions');pass('long story journal scrolls with a real phone swipe and keeps Close available');
+  await page.locator('#mission-search').fill('Asgard');await page.waitForFunction(()=>document.getElementById('mission-search').value==='Asgard'&&document.querySelectorAll('.mission-card:not([hidden])').length===1);await page.locator('.mission-card:visible').tap();await swipe(page,'#briefing-scroll');await page.locator('#mission-launch').tap();
   await page.waitForFunction(()=>__phone.game.readyIn===0);await page.locator('#pause').tap();const beforePause=await page.evaluate(()=>({elapsed:__phone.game.missionElapsed,lives:__phone.game.lives,parcels:__phone.game.parcels.map(p=>p.y)}));
   await page.waitForTimeout(150);assert.deepEqual(await page.evaluate(()=>({elapsed:__phone.game.missionElapsed,lives:__phone.game.lives,parcels:__phone.game.parcels.map(p=>p.y)})),beforePause);await controls(page);
   await page.locator('#resume').tap();await page.setViewportSize({width:844,height:390});await page.waitForFunction(()=>__phone.paused);await controls(page);
@@ -60,7 +61,10 @@ async function swipe(page,selector){
   await page.locator('#missions').tap();for(let i=0;i<15;i++){if(await page.locator('#missions-next').isEnabled())await page.locator('#missions-next').tap();}
   const requests=await page.evaluate(()=>({active:__phone.fullArtQueue.active.size,queued:__phone.fullArtQueue.jobs.size}));assert.ok(requests.active<=2&&requests.queued<=4);pass('fast browsing stays within the two-request full-art limit');
   assert.deepEqual(errors,[]);pass('no browser runtime errors');
-  const output=process.env.DOCK_TEST_OUTPUT||path.join(root,'phone-test-output');fs.mkdirSync(output,{recursive:true});await page.locator('#mission-home').tap();await page.screenshot({path:path.join(output,'phone-home.png')});
+  await page.locator('#mission-home').tap();await page.screenshot({path:path.join(output,'phone-home.png')});
   fs.writeFileSync(path.join(output,'report.json'),JSON.stringify({checks,errors},null,2));await context.close();
+ }catch(error){
+  if(page){await page.screenshot({path:path.join(output,'failure.png')}).catch(()=>{});const state=await page.evaluate(()=>({state:__phone.state,dialogOpen:document.getElementById('story-dialog').open,search:document.getElementById('mission-search').value,focused:document.activeElement?.id,worlds:[...document.querySelectorAll('.mission-card:not([hidden])')].map(e=>e.dataset.world)})).catch(()=>null);fs.writeFileSync(path.join(output,'failure.json'),JSON.stringify({error:error.message,checks,errors,state},null,2));console.error('Failure state: '+JSON.stringify(state));}
+  throw error;
  }finally{await browser?.close();await new Promise(resolve=>server.close(resolve));}
 })().catch(error=>{console.error(error);process.exitCode=1;});

@@ -23,20 +23,24 @@ jobs:
       - name: Install browser test dependency
         run: npm install --no-save --package-lock=false playwright@1.62.1
       - name: Install Chromium
+        id: browser-install
         run: npx playwright install --with-deps chromium
       - name: Test phone menus and touch gestures
         env:
           DOCK_TEST_OUTPUT: phone-test-output
         run: node tests/phone-edition.browser.cjs
       - name: Test gameplay timing and performance
+        if: ${{ !cancelled() && steps.browser-install.outcome == 'success' }}
         run: |
           export DOCK_CHROME="$(node -e 'console.log(require("playwright").chromium.executablePath())')"
           node tests/gameplay.browser.cjs
       - name: Test every story mission
+        if: ${{ !cancelled() && steps.browser-install.outcome == 'success' }}
         run: |
           export DOCK_CHROME="$(node -e 'console.log(require("playwright").chromium.executablePath())')"
           node tests/missions.browser.cjs
       - name: Test mission reading and fleet identity
+        if: ${{ !cancelled() && steps.browser-install.outcome == 'success' }}
         run: |
           export DOCK_CHROME="$(node -e 'console.log(require("playwright").chromium.executablePath())')"
           node tests/mission-design.browser.cjs
