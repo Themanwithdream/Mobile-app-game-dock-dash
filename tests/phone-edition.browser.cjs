@@ -18,10 +18,12 @@ async function controls(page){
 async function swipe(page,selector){
  const box=await page.locator(selector).boundingBox(),cdp=await page.context().newCDPSession(page),x=box.x+box.width*.7,y=box.y+box.height*.8;
  const before=await page.locator(selector).evaluate(e=>e.scrollTop);
+ await page.locator(selector).evaluate(e=>{window.__phoneScrollSettled=false;e.addEventListener('scrollend',()=>window.__phoneScrollSettled=true,{once:true});});
  await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y}]});
- for(let i=1;i<=8;i++)await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x,y:y-i*Math.min(25,box.height/12)}]});
+ for(let i=1;i<=8;i++){await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x,y:y-i*Math.min(25,box.height/12)}]});await page.waitForTimeout(20);}
  await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await cdp.detach();
  await page.waitForFunction(({selector,before})=>document.querySelector(selector).scrollTop>before,{selector,before});
+ await page.waitForFunction(()=>window.__phoneScrollSettled);
 }
 (async()=>{
  await new Promise(resolve=>server.listen(8852,'127.0.0.1',resolve));let browser,page;
@@ -58,7 +60,7 @@ async function swipe(page,selector){
   await page.locator('#mission-home').tap();pass('swipe briefing, pause, rotation and restored pages preserve the run and require an explicit resume');
   await page.setViewportSize({width:390,height:844});await page.locator('.title-menu .settings-button').tap();await swipe(page,'#settings-scroll');await page.locator('#settings-sound-jump').tap();await page.locator('#preferences-open').tap();
   await page.locator('#preferences-dialog').waitFor({state:'visible'});const validBackup=await page.evaluate(()=>{const data=__phone.saveSnapshot();return {data,restored:__phone.backups.read(__phone.backups.export(data)).data};});assert.deepEqual(validBackup.restored,validBackup.data);await page.locator('#preferences-close').tap();await page.locator('#preferences-dialog').waitFor({state:'hidden'});await page.locator('#settings-back').tap();pass('settings and save controls remain reachable by touch, with an exact backup round trip');
-  await page.locator('#missions').tap();for(let i=0;i<15;i++){if(await page.locator('#missions-next').isEnabled())await page.locator('#missions-next').tap();}
+  await page.locator('#missions').tap();await page.locator('#mission-search').fill('');await page.locator('#mission-chapter').selectOption('');for(let i=0;i<15;i++){if(await page.locator('#missions-next').isEnabled())await page.locator('#missions-next').tap();}
   const requests=await page.evaluate(()=>({active:__phone.fullArtQueue.active.size,queued:__phone.fullArtQueue.jobs.size}));assert.ok(requests.active<=2&&requests.queued<=4);pass('fast browsing stays within the two-request full-art limit');
   assert.deepEqual(errors,[]);pass('no browser runtime errors');
   await page.locator('#mission-home').tap();await page.screenshot({path:path.join(output,'phone-home.png')});
