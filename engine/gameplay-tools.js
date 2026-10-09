@@ -47,8 +47,32 @@
       return false;
     }
   }
+  class DockDashImageQueue {
+    constructor(limit = 2, queuedLimit = 4) {
+      this.limit = limit; this.queuedLimit = queuedLimit; this.active = new Set(); this.jobs = new Map(); this.order = 0;
+    }
+    enqueue(key, rank, start) {
+      if (this.active.has(key)) return;
+      const previous = this.jobs.get(key);
+      this.jobs.set(key, {key, rank: Math.max(rank, previous?.rank || 0), start, order: ++this.order});
+      const sorted = this.sorted();
+      while (sorted.length > this.queuedLimit) this.jobs.delete(sorted.pop().key);
+      this.pump();
+    }
+    sorted() {
+      return [...this.jobs.values()].sort((a, b) => b.rank - a.rank || (a.rank >= 3 ? b.order - a.order : a.order - b.order));
+    }
+    pump() {
+      while (this.active.size < this.limit && this.jobs.size) {
+        const job = this.sorted()[0]; this.jobs.delete(job.key); this.active.add(job.key);
+        try { job.start(); } catch (_) { this.active.delete(job.key); }
+      }
+    }
+    finish(key) { this.active.delete(key); this.pump(); }
+  }
   root.DockDashCache = DockDashCache;
   root.DockDashProgress = DockDashProgress;
   root.DockDashFrameBudget = DockDashFrameBudget;
-  if (typeof module !== 'undefined' && module.exports) module.exports = {DockDashCache, DockDashProgress, DockDashFrameBudget};
+  root.DockDashImageQueue = DockDashImageQueue;
+  if (typeof module !== 'undefined' && module.exports) module.exports = {DockDashCache, DockDashProgress, DockDashFrameBudget, DockDashImageQueue};
 })(typeof window === 'undefined' ? globalThis : window);

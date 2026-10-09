@@ -4,9 +4,19 @@ A phone-friendly pixel-art delivery adventure. One parcel. 177 places. Wait for 
 
 ## Play
 
-https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=8.1-illustrated-places
+https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=8.2-phone-edition
 
 Previously Dock Dash and Parcel Odyssey. The repository and play URL stay in place so existing browser progress carries over.
+
+## Phone Edition — 8.2
+
+Home, missions, the shop, cargo and results now use native text and flexible layouts instead of scaling their controls with the game canvas. Controls have at least 44-pixel tap targets, place names wrap, and long collections scroll. Portrait menus use the available safe area; landscape play places large matching truck controls on both sides of the delivery belt. The install manifest now allows either orientation.
+
+The visual viewport keeps searches usable above phone keyboards. Rotating, leaving the page and returning from a cached page pause the current run without consuming parcels or mission time. Stories have an independently scrolling body and an always-reachable Close button. Existing stories, artwork, music, purchases, save IDs and gameplay timing are preserved.
+
+Full artwork now has a two-request download queue with four waiting slots; a newly selected place takes priority. Native place cards reuse the existing compact previews and bounded caches. Failed artwork can retry when the connection returns.
+
+`tests/phone-layout.test.cjs` checks safe-area geometry, keyboard sizing and bounded artwork loading. The Phone quality workflow runs unit checks, real emulated phone gestures, gameplay timing/performance and mission details. [The manual phone layout check](tools/phone-preview.html) provides small, large, landscape and keyboard-space views. Browser emulation does not replace testing on physical phones.
 
 ## Illustrated places — 8.1
 

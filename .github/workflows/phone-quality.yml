@@ -1,0 +1,48 @@
+name: Phone quality
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  phone:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/node_modules
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Unit regressions
+        run: node --test tests/*.test.cjs
+      - name: Install browser test dependency
+        run: npm install --no-save --package-lock=false playwright@1.62.1
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Test phone menus and touch gestures
+        env:
+          DOCK_TEST_OUTPUT: phone-test-output
+        run: node tests/phone-edition.browser.cjs
+      - name: Test gameplay timing and performance
+        run: |
+          export DOCK_CHROME="$(node -e 'console.log(require("playwright").chromium.executablePath())')"
+          node tests/gameplay.browser.cjs
+      - name: Test every story mission
+        run: |
+          export DOCK_CHROME="$(node -e 'console.log(require("playwright").chromium.executablePath())')"
+          node tests/missions.browser.cjs
+      - name: Test mission reading and fleet identity
+        run: |
+          export DOCK_CHROME="$(node -e 'console.log(require("playwright").chromium.executablePath())')"
+          node tests/mission-design.browser.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: phone-quality-results
+          path: phone-test-output
+          retention-days: 7

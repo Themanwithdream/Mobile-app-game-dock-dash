@@ -15,7 +15,7 @@ async function layout(p){
   const scroll=box(document.getElementById('briefing-scroll')),actions=box(document.querySelector('.briefing-actions')),stage=box(document.getElementById('stage'));
   const visible=[];for(const b of document.querySelectorAll('#stage button')){if(!b.getClientRects().length)continue;const r=box(b),inScroll=b.closest('.briefing-scroll');if(inScroll&&(r.y+r.h<=scroll.y||r.y>=scroll.y+scroll.h))continue;visible.push({id:b.id||b.dataset.missionStage,...r});}return {scroll,actions,stage,visible};
  });
- assert.ok(bounds.scroll.y+bounds.scroll.h<=bounds.actions.y-1,JSON.stringify(bounds));
+ assert.ok(bounds.scroll.y+bounds.scroll.h<=bounds.actions.y-1 || bounds.scroll.x+bounds.scroll.w<=bounds.actions.x-1,JSON.stringify(bounds));
  for(const b of bounds.visible){assert.ok(b.x>=bounds.stage.x-.5&&b.x+b.w<=bounds.stage.x+bounds.stage.w+.5,JSON.stringify(b));}
  const start=await p.locator('#mission-launch').boundingBox(),back=await p.locator('#briefing-back').boundingBox();
  assert.ok(start.y+start.height<back.y);assert.ok(start.height>=44);assert.ok(back.height>=30);

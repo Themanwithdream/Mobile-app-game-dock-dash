@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<link rel="manifest" href="./manifest.webmanifest?v=8.1-illustrated-places">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<link rel="manifest" href="./manifest.webmanifest?v=8.2-phone-edition">
 <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
 <meta name="theme-color" content="#101c23">
@@ -12,7 +12,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="description" content="One parcel. 177 places. Match pixel-art cargo, build your fleet and explore unique delivery stories through 1,416 missions. Play endless arcade shifts and spend earned coins in the shop.">
 <meta name="application-name" content="Dock Boss">
-<meta name="dock-dash-version" content="8.1-illustrated-places">
+<meta name="dock-dash-version" content="8.2-phone-edition">
 <link rel="canonical" href="https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Dock Boss — Open Roads">
@@ -322,6 +322,7 @@
   .help-release { flex:none; margin:8px 0 0; font-size:11px; color:#a9c3b6; text-align:center; }
   @media (max-width:350px), (max-height:450px) { .help-dialog { padding:14px; } .help-dialog h2 { font-size:24px; } }
 </style>
+<link rel="stylesheet" href="./ui/phone.css?v=8.2-phone-edition">
 </head>
 <body>
 <main class="viewport" id="viewport">
@@ -550,7 +551,7 @@
         <section class="help-share" aria-label="Share Dock Boss"><button id="help-share" type="button">Share game ↗</button><label for="help-link">Game link</label><input id="help-link" type="url" readonly aria-label="Dock Boss game link"><p id="help-share-status" role="status" aria-live="polite">Send a friend on their first delivery.</p></section>
       </div>
       <footer class="help-actions"><button id="help-practice" type="button">Try the three-step practice →</button><button id="help-close" type="button">Back to home</button></footer>
-      <p class="help-release">Version 8.0 · Open Roads</p>
+      <p class="help-release">Version 8.2 · Phone Edition</p>
     </dialog>
     <div class="sr-only" id="announcer" role="status" aria-live="polite"></div>
   </div>
@@ -560,6 +561,8 @@
 <script src="./audio/route-music.js?v=5.3-seamless-music"></script>
 <script src="./audio/sound-effects.js?v=8.1-illustrated-places"></script>
 <script src="./ui/browse.js?v=6.5-sound-effects"></script>
+<script src="./ui/phone-layout.js?v=8.2-phone-edition"></script>
+<script src="./ui/phone-ui.js?v=8.2-phone-edition"></script>
 <script src="./missions/open-roads.js?v=8.1-illustrated-places"></script>
 <script src="./missions/world-pack.js?v=8.1-illustrated-places"></script>
 <script src="./missions/world-challenges.js?v=8.1-illustrated-places"></script>
@@ -570,7 +573,7 @@
 <script src="./art/fleet-art.js?v=6.5-sound-effects"></script>
 <script src="./economy/coin-rules.js?v=8.1-illustrated-places"></script>
 <script src="./engine/game-loop.js?v=4.3-smooth-gameplay"></script>
-<script src="./engine/gameplay-tools.js?v=4.3-smooth-gameplay"></script>
+<script src="./engine/gameplay-tools.js?v=8.2-phone-edition"></script>
 <script src="./engine/save-backup.js?v=8.1-illustrated-places"></script>
 <script>
 (() => {
@@ -705,6 +708,7 @@
   let productCache=[], locationFloors=[], activeLocation=settings.location;
   const pixelArt = LOCATIONS.map(() => null);
   const pixelRequests = new Set(), imageSources=new Map(), pendingImages=new Map();
+  const fullArtQueue=new DockDashImageQueue(2,4);
   const previewArt=LOCATIONS.map(()=>null),previewImages=new Map(),pendingPreviews=new Map(),queuedPreviews=new Map(),previewQueue=[],previewFailed=new Set();
   let previewPrimeToken=0;
   const cargoSprites=new DockDashCache(144);
@@ -719,6 +723,8 @@
 
   const engine = new DockDashEngine({update,render,onStall:()=>{if(state==='play' && !paused)pauseGame(true);}});
   const frameBudget=new DockDashFrameBudget(Math.min(2,window.devicePixelRatio || 1));
+  const phoneUI=new DockDashPhoneUI();
+  let pauseReason='',lastOrientation=null;
   const progress = new DockDashProgress({
     storage:{setItem:(key,value)=>localStorage.setItem(key,value)},
     snapshots:{dockDashProfileV2:()=>profile,dockDashCargoCollectionV1:()=>[...discovered],dockDashWalletV1:()=>wallet},
@@ -789,11 +795,12 @@
       for(const world of upcoming)loadPreview(world.location,'low');
     });
   }
-  function loadPixelArt(i) {
+  function loadPixelArt(i,priority=1) {
     const src=MEDIA.floors[i];if(!src)return;
     const cached=imageSources.get(src);
     if(cached){imageSources.delete(src);imageSources.set(src,cached);pixelArt[i]=cached;return;}
-    if(pendingImages.has(src))return;
+    if(pendingImages.has(src)){if(priority>1)pendingImages.get(src).fetchPriority='high';return;}
+    fullArtQueue.enqueue(src,priority,()=>{
     pixelRequests.add(i);
     const im=new Image();im.decoding='async';im.fetchPriority=MEDIA.floors[activeLocation]===src?'high':'low';pendingImages.set(src,im);
     im.onload=()=>{
@@ -803,8 +810,10 @@
       while(imageSources.size>4){const old=[...imageSources.keys()].find(key=>!protectedSources.has(key));if(!old)break;imageSources.delete(old);for(let j=0;j<MEDIA.floors.length;j++)if(MEDIA.floors[j]===old){pixelArt[j]=null;pixelRequests.delete(j);}}
       if(MEDIA.floors[activeLocation]===src){floorCache=sceneFloor(activeLocation);sceneDirty=true;}
       engine.invalidate();
+      fullArtQueue.finish(src);
     };
-    im.onerror=()=>{pendingImages.delete(src);pixelRequests.delete(i);};im.src=placeArtURL(src,i);
+    im.onerror=()=>{pendingImages.delete(src);pixelRequests.delete(i);fullArtQueue.finish(src);};im.src=placeArtURL(src,i);
+    });
   }
 
   function saveSettings() { try { localStorage.setItem('dockDashSettingsV3',JSON.stringify(settings)); } catch(_) {} }
@@ -1116,8 +1125,8 @@
   }
   function useLocation(index) {
     if(index!==activeLocation && game && !game.mission)productDeck=[];
-    loadPixelArt(index);
     activeLocation=index;
+    loadPixelArt(index,3);
     if(canvas.width>0 && locationFloors.length)floorCache=sceneFloor(index);
     panels.clear();sceneDirty=true;engine.invalidate();
     syncAudioMix(); if(musicUnlocked)startMusic();
@@ -1231,6 +1240,7 @@
     $('catalog-filter').textContent=catalogGroup<0?'All cargo · choose category →':CARGO_GROUPS[catalogGroup][0]+' →';
     $('catalog-prev').disabled=catalogPage===0;$('catalog-next').disabled=catalogPage===pages-1;
     document.querySelectorAll('.cargo-choice').forEach((b,i)=>{const p=items[catalogPage*12+i];b.hidden=!p;b.setAttribute('aria-label',p?`${p.name}. ${discovered.has(p.id)?'Delivered':'Not yet delivered'}. ${p.category}.`:'');});
+    syncNativeMenus();
   }
   function drawSettings() {
     rect(ctx,0,0,W,H,'#0d222cef');paintRoutePreviews();syncRouteTheme();
@@ -1387,11 +1397,18 @@
     return t;
   }
   function fit(redraw = true) {
+    const visible=DockDashPhoneLayout.visibleViewport(window.innerWidth,window.innerHeight,window.visualViewport);
+    viewport.style.width=`${visible.width}px`;viewport.style.height=`${visible.height}px`;viewport.style.left=`${visible.left}px`;viewport.style.top=`${visible.top}px`;
+    document.documentElement.style.setProperty('--visible-height',`${visible.height}px`);
     const box = viewport.getBoundingClientRect(), cs = getComputedStyle(viewport);
     const w = box.width - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
     const h = box.height - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
-    const s = Math.max(.1, Math.min(w / W, h / H));
-    stage.style.width = `${W * s}px`; stage.style.height = `${H * s}px`; stage.style.setProperty('--s', s);
+    const layout=DockDashPhoneLayout.measure(w,h),s=layout.scale;
+    stage.style.width=`${layout.width}px`;stage.style.height=`${layout.height}px`;stage.style.setProperty('--s',s);stage.classList.toggle('wide',layout.wide);
+    for(const [key,value]of Object.entries({left:layout.fieldLeft,top:layout.fieldTop,width:layout.fieldWidth,height:layout.fieldHeight}))stage.style.setProperty(`--field-${key}`,`${value}px`);
+    const orientation=layout.wide?'landscape':'portrait';
+    if(lastOrientation!==null && orientation!==lastOrientation && state==='play' && !paused){pauseGame(true,'Screen rotated. Take a moment to find your docks.');}
+    lastOrientation=orientation;
     const dpr = Math.min(frameBudget.scale, window.devicePixelRatio || 1, settings.effects==='reduced'?1.25:2);
     const width=Math.max(1,Math.round(W*s*dpr)), height=Math.max(1,Math.round(H*s*dpr));
     const sceneDpr=Math.min(2,window.devicePixelRatio || 1),sceneWidth=Math.max(1,Math.round(W*s*sceneDpr)),sceneHeight=Math.max(1,Math.round(H*s*sceneDpr));
@@ -1752,12 +1769,53 @@
     extraButtons.forEach(b => { b.disabled = state === 'over' && performance.now() - endedAt < 500; if (b.classList.contains('catalog-button')) { b.textContent = b.closest('#title-menu')?'Collection':`Cargo · ${discovered.size} / ${PRODUCTS.length}`;b.setAttribute('aria-label',`Cargo collection. ${discovered.size} of ${PRODUCTS.length} cargo types collected.`); } });
     if (state === 'catalog') syncCatalog();
     laneButtons.forEach((_,i)=>syncLane(i));
+    syncNativeMenus();
   }
   function syncLane(i) {
     const b=laneButtons[i],t=game?game.trucks[i]:null,locked=t?game.shift===1 && t.type===3:i===3;
     b.disabled=state!=='play' || paused || (game && game.readyIn>0) || locked;
     const label=`Dock ${i+1}: ${locked?game && game.mission?'closed in this mission':'locked until shift 2':`${COLORS[t?t.type:i].name} ${COLORS[t?t.type:i].symbol}, ${t?t.fill:0} of 5 parcels`}. Keyboard ${i+1}.`;
     if(b.getAttribute('aria-label')!==label)b.setAttribute('aria-label',label);
+    const type=t?t.type:i;
+    phoneUI.dock(i,{type,fill:t?t.fill:0,name:`${COLORS[type].name} ${COLORS[type].symbol}`,accent:COLORS[type].bright},locked,profile.selectedSkin,locked?lockedCache:truckCache[type]);
+  }
+  function syncNativeMenus() {
+    const pages=MR.chapterPages(missionChapter),matches=missionQuery?missionMatches():null;
+    const currentItems=shopItems(),cargo=catalogItems(),chosen=PRODUCTS[selectedCargo];
+    phoneUI.sync({state,format:num,wallet,game,result:missionResult,best,newBest,pauseReason,
+      homeName:ER.venues.find(v=>v.location===settings.location).name,
+      worlds:visibleMissionWorlds().map(w=>({...w,stars:MR.totalStars(missionRecords,w.id)})),
+      worldCount:MR.worlds.length,totalStars:MR.totalStars(missionRecords),maximumStars:MR.missions.length*3,levelCount:MR.levelCount,
+      mapPage:matches?`${matches.length} results · ${missionSearchPage+1} / ${Math.max(1,Math.ceil(matches.length/4))}`:`${MR.filters[missionChapter]||MR.pageLabel(missionPage)} · ${pages.indexOf(missionPage)+1} / ${pages.length}`,
+      items:currentItems.slice(shopPage*4,shopPage*4+4).map(item=>({...item,owned:ER.isOwned(wallet,item,profile),selected:itemEquipped(item),missing:Math.max(0,item.price-wallet.coins),deliveries:Math.max(0,item.need-profile.totalDelivered)})),
+      shopPage:`Page ${shopPage+1} / ${Math.max(1,Math.ceil(currentItems.length/4))}`,
+      catalog:cargo.slice(catalogPage*12,catalogPage*12+12).map(p=>({...p,seen:discovered.has(p.id),selected:p.id===selectedCargo})),
+      discovered:discovered.size,productCount:PRODUCTS.length,cargoPage:`${catalogPage+1} / ${Math.ceil(cargo.length/12)}`,
+      cargoDetail:chosen?`${chosen.name} · ${chosen.category} · ${discovered.has(chosen.id)?'Delivered':'Find it on the belt'}`:'Correct loads add cargo to your collection. Sort by colour and shape.'});
+  }
+  function paintNativeMenus() {
+    const paintPlace=(canvas,loc)=>phoneUI.paint(canvas,previewFloor(loc),c=>scenePreview(loc,0,0,canvas.width,canvas.height,c));
+    if(state==='title')paintPlace(phoneUI.homeCanvas,settings.location);
+    else if(state==='missions')visibleMissionWorlds().forEach((w,i)=>paintPlace(phoneUI.worlds[i].image,w.location));
+    else if(state==='garage')shopItems().slice(shopPage*4,shopPage*4+4).forEach((item,i)=>{
+      const image=phoneUI.items[i].image;
+      if(item.type==='venue'){paintPlace(image,item.location);return;}
+      phoneUI.paint(image,item.id,c=>{
+        c.imageSmoothingEnabled=false;
+        if(item.type==='truck'){
+          const art=trucksForSkin(SKINS.indexOf(item));
+          c.drawImage(art[0],28,24,50,79);c.drawImage(art[2],206,24,50,79);c.drawImage(art[1],105,4,74,116);
+        }else if(item.style==='wrap'){
+          for(let j=0;j<3;j++)c.drawImage(parcelSprite(j,'normal',-1,item.id),28+j*78,26,72,72);
+        }else{
+          rect(c,93,8,98,116,'#112632',8);rect(c,109,17,66,98,'#91d4a130');
+          c.drawImage(zoneSprite(item.id),93,8,98,116);
+        }
+      });
+    });
+    else if(state==='catalog')catalogItems().slice(catalogPage*12,catalogPage*12+12).forEach((p,i)=>{
+      const image=phoneUI.cargo[i]?.image;if(image)phoneUI.paint(image,p.id,c=>c.drawImage(productCache[p.id],0,0,64,64));
+    });
   }
   function multiplier() { return Math.min(5, 1 + Math.floor(game.streak / 5)); }
   function beltSpeed() { return (game.mission ? game.mission.speed*(game.worldRun?.pace||1) : Math.min(215, 66 + 15 * game.shift + 1.6 * (game.delivered % 12))) * (game.slow > 0 ? .55 : 1); }
@@ -1785,7 +1843,7 @@
     const mission=options.mission ? MR.getMission(options.mission.world.id,options.mission.stage) : null;
     if(mission && !MR.isUnlocked(mission,missionRecords))return;
     soundEffects.stopAll();
-    state = 'play'; paused = false; newBest = false; shake = bump = 0; tutorial = null; unlockToast = null; missionResult=null;engine.reset();frameBudget.reset();
+    state = 'play'; paused = false; pauseReason='';newBest = false; shake = bump = 0; tutorial = null; unlockToast = null; missionResult=null;engine.reset();frameBudget.reset();
     soundButtons.forEach(b => { b.disabled = false; }); fleetButtons.forEach(b => { b.disabled = false; });
     particles.length = popups.length = flights.length = ghosts.length = 0;presentedParcel=null;panels.clear();
     game = { score: 0, streak: 0, shift: 1, lives: 3, delivered: 0, perfects: 0, dispatched: 0, goalsCompleted: 0, cleanWithinShift: 0, hot: 0, slow: 0, travel: 14, gap: rand(72, 94), roller: 0, hold: 0, earlyHint: 0, specialDue: null, parcels: [], flashes: [0, 0, 0, 0], trucks: COLORS.map((_, type) => ({ type, fill: 0, x: type * 90 + 45, fromX: type * 90 + 45, toX: type * 90 + 45, slide: 0, enter: 0 })) };
@@ -1822,9 +1880,9 @@
     else { tutorial.done = .8; announce('Training complete. Your first shift starts now.'); }
     syncControls();
   }
-  function pauseGame(value = !paused) {
-    if (state !== 'play') return; paused = value; engine.reset();frameBudget.reset();presentedParcel=null; if (paused) {resetMusic();soundEffects.stopAll();progress.flush();} syncAudioMix();syncControls();
-    if (paused) { announce('Game paused.'); $('resume').focus({ preventScroll: true }); }
+  function pauseGame(value = !paused,reason='') {
+    if (state !== 'play') return; paused = value; pauseReason=value?reason:'';engine.reset();frameBudget.reset();presentedParcel=null; if (paused) {resetMusic();soundEffects.stopAll();progress.flush();} syncAudioMix();syncControls();
+    if (paused) { announce(reason||'Game paused.'); $('resume').focus({ preventScroll: true }); }
     else { wakeAudio(); announce('Back to the dock.'); $('pause').focus({ preventScroll: true }); }
   }
   function popup(message, x, y, color = '#f9f2dd', size = 17) {
@@ -2447,14 +2505,9 @@
     if (shake > 0 && state === 'play' && !paused && !reducedMotion) { const amplitude = shake / .38 * 6; ctx.translate(rand(-amplitude, amplitude), rand(-amplitude, amplitude)); }
     if(!layered){rect(ctx,-12,-12,W+24,H+24,'#101c23');ctx.imageSmoothingEnabled=!pixelArt[activeLocation];ctx.drawImage(floorCache,0,0,W,H);ctx.imageSmoothingEnabled=true;}
     locationMotion();
-    if (state === 'title') drawTitle();
-    else if (state === 'over') drawEnd();
-    else if (state === 'garage') drawGarage();
+    if(['title','over','garage','catalog','missions','missionResult'].includes(state)) {rect(ctx,0,0,W,H,'#0d222c');paintNativeMenus();}
     else if (state === 'settings') drawSettings();
-    else if (state === 'catalog') drawCatalog();
-    else if(state==='missions')drawMissionMap();
     else if(state==='briefing')drawBriefing();
-    else if(state==='missionResult'){drawMissionResult();drawEffects();}
     else { drawBelt(); drawDocks(); drawHUD();refreshScenery();drawEffects();if(paused)drawPause();else{drawTutorial();drawCountdown();} }
     ctx.restore();
   }
@@ -2554,7 +2607,7 @@
   for(let i=0;i<12;i++) {
     const b=document.createElement('button');b.type='button';b.className='cargo-choice';
     b.style.left=`${(22+i%3*107)/W*100}%`;b.style.top=`${(171+Math.floor(i/3)*81)/H*100}%`;
-    b.addEventListener('click',()=>{const p=catalogItems()[catalogPage*12+i];if(p){selectedCargo=p.id;engine.invalidate();announce(`${p.name}. ${p.category}. ${discovered.has(p.id)?'Delivered.':'Find it on the belt. Sort by the colour and shape sticker.'}`);}});
+    b.addEventListener('click',()=>{const p=catalogItems()[catalogPage*12+i];if(p){selectedCargo=p.id;syncNativeMenus();engine.invalidate();announce(`${p.name}. ${p.category}. ${discovered.has(p.id)?'Delivered.':'Find it on the belt. Sort by the colour and shape sticker.'}`);}});
     $('cargo-cards').appendChild(b);
   }
   $('pause').addEventListener('click', () => pauseGame(true)); $('resume').addEventListener('click', () => pauseGame(false));
@@ -2600,9 +2653,13 @@
   stage.addEventListener('click', wakeFromGesture, { capture:true });
   stage.addEventListener('keydown', wakeFromGesture, { capture:true });
   window.addEventListener('resize', fit);
-  if (window.visualViewport) window.visualViewport.addEventListener('resize', fit);
-  document.addEventListener('visibilitychange', () => { engine.reset(); if (document.hidden) { progress.flush();resetMusic();soundEffects.stopAll(true);syncAudioMix(); if (state === 'play') pauseGame(true); if (audio && audio.state === 'running') audio.suspend().catch(() => {}); }else if(musicAllowed())wakeAudio(); });
-  window.addEventListener('pagehide',()=>{progress.flush();resetMusic();soundEffects.stopAll(true);});
+  window.addEventListener('orientationchange',()=>{if(state==='play' && !paused)pauseGame(true,'Screen rotated. Take a moment to find your docks.');fit();});
+  if (window.visualViewport) {window.visualViewport.addEventListener('resize',fit);window.visualViewport.addEventListener('scroll',fit);}
+  document.addEventListener('visibilitychange', () => { engine.reset(); if (document.hidden) { progress.flush();resetMusic();soundEffects.stopAll(true);syncAudioMix(); if (state === 'play') pauseGame(true,'Your game waited while you were away.'); if (audio && audio.state === 'running') audio.suspend().catch(() => {}); }else{fit();if(musicAllowed())wakeAudio();} });
+  window.addEventListener('pagehide',()=>{if(state==='play')pauseGame(true,'Your game waited while you were away.');engine.reset();progress.flush();resetMusic();soundEffects.stopAll(true);});
+  window.addEventListener('pageshow',()=>{engine.reset();fit();if(musicAllowed())wakeAudio();});
+  window.addEventListener('blur',()=>{if(state==='play' && !paused)pauseGame(true,'Your game waited while you were away.');});
+  window.addEventListener('online',()=>{previewFailed.clear();loadPixelArt(activeLocation,3);if(state==='missions')primeMissionPreviews();else if(state==='settings')paintRoutePreviews();else if(state==='briefing')loadPreview(selectedMission.world.location,'urgent');engine.invalidate();});
   buildBelt(); parcelCache = [0, 1, 2, 3, 4].map(makeParcel); truckCache = trucksForSkin(profile.selectedSkin); lockedCache = makeTruck(3, true);
   buildProductCache(); preloadPixelArt(); syncSettings(); syncSound(); syncControls(); fit(); soundtrack.prime(settings.location); soundEffects.warm();requestAnimationFrame(frame);
   if(musicAllowed())wakeAudio();
