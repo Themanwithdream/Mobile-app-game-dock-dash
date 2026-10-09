@@ -29,7 +29,7 @@ async function ready(page,track){await page.waitForFunction(track=>__dockTest.so
   browser=await chromium.launch({executablePath:process.env.DOCK_CHROME||'/root/.cache/ms-playwright/dock-dash-chrome/chrome-headless-shell',args:['--no-sandbox','--autoplay-policy=document-user-activation-required']});
   const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true}),page=await context.newPage();await setup(page);
   assert.equal(await page.evaluate(()=>__audioCounts.sources+__audioCounts.nativePlays),0);assert.equal(await page.evaluate(()=>__dockTest.audio),null);
-  await page.locator('.sound:visible').tap();await ready(page,0);
+  await page.locator('.sound:visible').tap();await ready(page,2);
   const primary=await page.evaluate(()=>{const s=__dockTest.soundtrack,p=s.active.player;return {voices:s.slots.length,loop:p.source.loop,end:p.source.loopEnd,duration:p.buffer.duration,context:p.context===__dockTest.audio,native:__audioCounts.nativePlays,decoded:s.pool.entries.size,bytes:p.buffer.length*p.buffer.numberOfChannels*4};});
   assert.equal(primary.voices,1);assert.equal(primary.loop,true);assert.equal(primary.end,primary.duration);assert.equal(primary.context,true);assert.equal(primary.native,0);assert.equal(primary.decoded,1);assert.ok(primary.bytes<31*1024*1024);
   pass('a phone starts one bounded buffered voice on the shared effects context, after a gesture',primary);
@@ -52,7 +52,7 @@ async function ready(page,track){await page.waitForFunction(track=>__dockTest.so
    return results;
   });
   for(const s of seams){assert.equal(s.rendered,s.frames*2+360);assert.equal(s.jump,0);assert.ok(s.error<.0001,JSON.stringify(s));assert.ok(s.quiet<12,JSON.stringify(s));assert.ok(s.peak<1,JSON.stringify(s));}
-  pass('all 103 tracks render two complete repeats with continuous samples, no silent gap and no clipping',seams);
+  pass('all soundtrack entries render two complete repeats with continuous samples, no silent gap and no clipping',seams);
   await page.evaluate(async()=>{const p=__dockTest.soundtrack.active.player;p.currentTime=p.buffer.duration-.06;await p.play();window.__repeatSource=p.source;window.__beforeRepeat={...__audioCounts,decodes:__dockTest.soundtrack.pool.decodes};});
   await page.waitForTimeout(180);
   const repeat=await page.evaluate(()=>{const s=__dockTest.soundtrack,p=s.active.player;return {position:p.currentTime,same:p.source===__repeatSource,sources:__audioCounts.sources-__beforeRepeat.sources,native:__audioCounts.nativePlays-__beforeRepeat.nativePlays,decodes:s.pool.decodes-__beforeRepeat.decodes};});
@@ -64,7 +64,7 @@ async function ready(page,track){await page.waitForFunction(track=>__dockTest.so
   const stable=await page.evaluate(()=>{const d=__dockTest;d.game.readyIn=0;d.game.hold=100;d.render();const before={...__audioCounts,decodes:d.soundtrack.pool.decodes};for(let i=0;i<1000;i++){d.game.hot=i%2?10:0;d.tickMusic();d.wakeAudio();if(i<120)d.render();}return {sources:__audioCounts.sources-before.sources,native:__audioCounts.nativePlays-before.nativePlays,targets:__audioCounts.targets-before.targets,decodes:d.soundtrack.pool.decodes-before.decodes,rate:d.soundtrack.active.player.playbackRate};});
   assert.deepEqual(stable,{sources:0,native:0,targets:0,decodes:0,rate:1});pass('repeated touches, hot streaks and 120 game renders add no audio work or pitch changes',stable);
   await page.locator('#pause').tap();const position=await page.evaluate(()=>__dockTest.soundtrack.active.player.currentTime);await page.waitForTimeout(100);assert.equal(await page.evaluate(()=>__dockTest.soundtrack.active.player.currentTime),position);
-  await page.locator('#resume').tap();await ready(page,0);assert.ok(await page.evaluate(()=>__dockTest.soundtrack.active.player.currentTime)>=position);assert.equal(await page.evaluate(()=>__dockTest.soundtrack.pool.decodes),1);
+  await page.locator('#resume').tap();await ready(page,0);assert.ok(await page.evaluate(()=>__dockTest.soundtrack.active.player.currentTime)>=position);assert.equal(await page.evaluate(()=>__dockTest.soundtrack.pool.decodes),2);
   pass('pause freezes the position and resume reuses the decoded song');
   await page.evaluate(async()=>{window.__interruptedSource=__dockTest.soundtrack.active.player.source;await __dockTest.audio.suspend();});
   await page.waitForFunction(()=>__dockTest.soundtrack.blocked,null,{polling:50});await page.locator('#game').tap({position:{x:18,y:120}});await ready(page,0);
@@ -72,10 +72,10 @@ async function ready(page,track){await page.waitForFunction(track=>__dockTest.so
   pass('a suspended audio context recovers in the next touch gesture without replacing the loop source');
   for(const world of ['matchday','beacon','school','arctic','rome','egypt','viking','silkroad','diner','robot','prism']){await page.evaluate(world=>__dockTest.openBriefing(world,0),world);const track=await page.evaluate(()=>__dockTest.location);await ready(page,track);assert.equal(await page.evaluate(()=>__dockTest.soundtrack.pool.entries.size),1);assert.equal(await page.evaluate(()=>__dockTest.soundtrack.slots.filter(s=>!s.player.paused).length),1);assert.equal(await page.evaluate(()=>__audioCounts.nativePlays),0);}
   pass('theme changes keep one phone voice and one cached decoded theme');
-  await page.evaluate(()=>__dockTest.backToTitle());await ready(page,0);await page.locator('.sound:visible').tap();assert.equal(await page.evaluate(()=>__dockTest.soundtrack.active.player.paused),true);
+  await page.evaluate(()=>__dockTest.backToTitle());await ready(page,2);await page.locator('.sound:visible').tap();assert.equal(await page.evaluate(()=>__dockTest.soundtrack.active.player.paused),true);
   pass('mute stops the looping source immediately');
   const failedContext=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true}),fallback=await failedContext.newPage();await setup(fallback,{failDecode:true});
-  await fallback.locator('.sound:visible').tap();await ready(fallback,0);assert.equal(await fallback.evaluate(()=>__dockTest.soundtrack.active.player.fallback),true);assert.equal(await fallback.evaluate(()=>__audioCounts.sources),0);assert.equal(await fallback.evaluate(()=>__audioCounts.nativePlays),1);await fallback.locator('.sound:visible').tap();assert.equal(await fallback.evaluate(()=>document.querySelector('audio').paused),true);
+  await fallback.locator('.sound:visible').tap();await ready(fallback,2);assert.equal(await fallback.evaluate(()=>__dockTest.soundtrack.active.player.fallback),true);assert.equal(await fallback.evaluate(()=>__audioCounts.sources),0);assert.equal(await fallback.evaluate(()=>__audioCounts.nativePlays),1);await fallback.locator('.sound:visible').tap();assert.equal(await fallback.evaluate(()=>document.querySelector('audio').paused),true);
   pass('an unsupported decoder retains working single-player native music and mute');
   assert.deepEqual(errors,[]);pass('no browser runtime errors');fs.writeFileSync(path.join(output,'report.json'),JSON.stringify({checks,errors},null,2));
  }finally{if(browser)await browser.close();server.kill();}

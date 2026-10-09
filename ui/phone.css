@@ -32,8 +32,10 @@ html, body, .stage { touch-action: auto; }
 .home-title span { color:#ffd48b; }
 .home-subtitle { margin:0; color:#c5d9cb; font-size:13px; line-height:1.35; }
 .home-hero { position:relative; flex:1; min-height:64px; max-height:260px; overflow:hidden; border:1px solid #7da28a55; border-radius:13px; background:#213b43; }
-.home-hero canvas { width:100%; height:100%; object-fit:cover; image-rendering:pixelated; }
-.home-hero canvas, .route-preview { pointer-events:none; }
+.home-hero .home-art { display:block; width:100%; height:100%; object-fit:cover; object-position:center 25%; image-rendering:pixelated; pointer-events:none; }
+.home-hero .home-art-wide { object-position:center; image-rendering:auto; }
+.home-hero canvas { width:100%; height:100%; object-fit:cover; image-rendering:pixelated; pointer-events:none; }
+.route-preview { pointer-events:none; }
 .home-place { position:absolute; bottom:0; left:0; right:0; padding:8px 12px; background:#09212fe6; color:#fff0cf; font-size:13px; line-height:1.25; }
 .home-rule { margin:0; color:#d4e5c8; font-size:12px; line-height:1.4; text-align:center; }
 .home-actions { display:flex; flex-direction:column; gap:8px; }

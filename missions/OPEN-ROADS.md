@@ -1,4 +1,4 @@
-# Open Roads — 77 new places
+# Open Roads — 79 new places
 
 These places append to the original 100. Each has eight story missions and twelve local supplies. All first missions are free.
 
@@ -136,3 +136,12 @@ Records, storage, fair accounts and timely information keep a community connecte
 | Neighbourhood Repair Fair | Ari | Bring your routes together at a repair fair. |
 
 Full chapter text and stable IDs are authored in [open-roads.js](open-roads.js). Existing Hundred Lanterns content is unchanged.
+
+## Sky & Space
+
+Carry the next chapter beyond the ordinary road. A rainbow skyport and a lunar outpost need careful couriers to connect their crews, welcome arrivals and keep their homes supplied.
+
+| Place | Contact | Story |
+| --- | --- | --- |
+| Bifröst Skyport | Astrid | Guide cargo skiffs across Asgard’s rainbow bridge. |
+| Lunar Cargo Base | Maya | Build a welcoming home beneath Earth’s blue glow. |

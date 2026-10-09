@@ -44,6 +44,13 @@ jobs:
         run: |
           export DOCK_CHROME="$(node -e 'console.log(require("playwright").chromium.executablePath())')"
           node tests/mission-design.browser.cjs
+      - name: Test sky routes, artwork and home music
+        if: ${{ !cancelled() && steps.browser-install.outcome == 'success' }}
+        env:
+          DOCK_TEST_OUTPUT: phone-test-output
+        run: |
+          export DOCK_CHROME="$(node -e 'console.log(require("playwright").chromium.executablePath())')"
+          node tests/sky-routes.browser.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

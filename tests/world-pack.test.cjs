@@ -1,8 +1,8 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const M=require('../missions/mission-rules'),E=require('../economy/coin-rules'),P=require('../missions/world-pack');
 test('the hundred-world journey has complete authored arcs and no unreachable pages',()=>{
-  assert.equal(M.worlds.length,177);assert.equal(M.missions.length,1416);
-  assert.equal(new Set(M.worldPages.flat().map(w=>w.id)).size,177);
+  assert.equal(M.worlds.length,179);assert.equal(M.missions.length,1432);
+  assert.equal(new Set(M.worldPages.flat().map(w=>w.id)).size,179);
   assert.deepEqual(M.worldPages.flat(),M.worlds);
   for(const w of P.worlds){assert.equal(new Set(w.stages).size,8);assert.equal(new Set(w.stories).size,8);assert.equal(w.stories[0],w.lore.opening);assert.equal(w.stories[2],w.lore.turn);assert.equal(w.stories[7],w.lore.ending);assert.ok(w.lore.opening!==w.lore.ending);assert.equal(w.cargo.split(';').length,12);assert.ok(P.chapters[w.chapter]);}
   assert.equal(P.worlds.filter(w=>w.chapter==='greenwood').length,8);assert.equal(M.getMission('greenwood',0).world.keeper,'Rowan');
@@ -31,10 +31,10 @@ test('the playable roster, prose, artwork and music contain no retired character
   assert.equal(fs.existsSync(path.join(__dirname,'../assets/missions/batcave.png')),false);assert.equal(fs.existsSync(path.join(__dirname,'../audio/gotham-after-dark.mp3')),false);
 });
 test('chapter filters cover every world, keep stable old pages and have bounded previous/next ranges',()=>{
-  const all=M.chapterPages('');assert.equal(all.length,50);
+  const all=M.chapterPages('');assert.equal(all.length,51);
   assert.deepEqual(M.chapterPages('history'),[3]);assert.deepEqual(M.chapterPages('prism'),[6]);
   const coverage=[];for(const chapter of Object.keys(M.chapters)){const pages=M.chapterPages(chapter);assert.ok(pages.length);for(const page of pages){assert.equal(M.pageLabel(page),M.chapters[chapter]);coverage.push(...M.worldPages[page].map(w=>w.id));}}
-  assert.equal(coverage.length,177);assert.equal(new Set(coverage).size,177);
+  assert.equal(coverage.length,179);assert.equal(new Set(coverage).size,179);
 });
 test('only a completed final story restores one lantern, independently of star improvement or replay',()=>{
   assert.equal(M.lanternCount({}),0);assert.equal(M.lanternCount({'greenwood-1':{stars:3}}),0);

@@ -1,4 +1,4 @@
-/* Native mobile navigation for all 77 routes, independent endings and save continuity. */
+/* Native mobile navigation for all 79 routes, independent endings and save continuity. */
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),assert=require('node:assert/strict'),{spawn}=require('node:child_process');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright');
 const root=path.resolve(__dirname,'..'),out=process.env.DOCK_TEST_OUTPUT||path.join(os.tmpdir(),'dock-boss-open-roads'),url='http://127.0.0.1:8890/';fs.mkdirSync(out,{recursive:true});
@@ -31,8 +31,8 @@ async function layout(p,section){
   await p.goto(url);await p.waitForFunction(()=>window.__roads,null,{polling:30});
   const initial=await p.evaluate(()=>__roads.saveSnapshot());assert.equal(initial.best,54321);assert.equal(initial.wallet.coins,6000);assert.equal(initial.settings.location,13);assert.equal(initial.profile.selectedSkin,14);assert.deepEqual(initial.missions,oldRecords);assert.deepEqual(initial.cargo,[3,14,456,1499]);
   pass('a completed original save retains all 800 records, balance, cargo, selected vehicle, styles and settings');
-  await paint(p);await p.screenshot({path:path.join(out,'home-177-places.png')});await p.locator('#missions').tap();await p.locator('#mission-journal').tap();
-  assert.match(await p.locator('#story-content').textContent(),/A hundred lanterns shine/);assert.match(await p.locator('#story-content').textContent(),/100 \/ 100 lanterns restored · 0 \/ 77 new routes complete/);assert.equal(await p.locator('.journal-world.lit').count(),100);await p.locator('#story-close').tap();
+  await paint(p);await p.screenshot({path:path.join(out,'home-179-places.png')});await p.locator('#missions').tap();await p.locator('#mission-journal').tap();
+  assert.match(await p.locator('#story-content').textContent(),/A hundred lanterns shine/);assert.match(await p.locator('#story-content').textContent(),/100 \/ 100 lanterns restored · 0 \/ 79 new routes complete/);assert.equal(await p.locator('.journal-world.lit').count(),100);await p.locator('#story-close').tap();
   pass('the original ending remains visible immediately and the new completion log starts at zero');
   await p.locator('#mission-chapter').selectOption('openroads');await paint(p);assert.deepEqual(await p.locator('.mission-card:visible').evaluateAll(a=>a.map(b=>b.dataset.world)),['asgard','worldtree','frostfortress','dwarvenforge']);
   await p.waitForFunction(()=>[103,104,105,106].every(i=>__roads.previewImages.has(i)),null,{polling:30});await paint(p);await p.screenshot({path:path.join(out,'requested-first-places.png')});
@@ -48,7 +48,7 @@ async function layout(p,section){
    }
    if(await p.locator('#missions-next').isDisabled())break;await p.locator('#missions-next').tap();await paint(p);
   }
-  assert.equal(pages,20);assert.equal(visited.length,77);assert.equal(new Set(visited).size,77);assert.equal(new Set(scenes).size,77);assert.equal(new Set(sources).size,77);assert.deepEqual((await p.evaluate(()=>__roads.saveSnapshot())).missions,oldRecords);
+  assert.equal(pages,21);assert.equal(visited.length,79);assert.equal(new Set(visited).size,79);assert.equal(new Set(scenes).size,79);assert.equal(new Set(sources).size,79);assert.deepEqual((await p.evaluate(()=>__roads.saveSnapshot())).missions,oldRecords);
   pass('native cards reach every new place across 20 pages with distinct scenes, free starts, correct cargo and bounded caches',{places:visited.length,pages});
   for(const [term,id]of [['Africa','accracoast'],['ice cream','seasideicecream'],['economic','civicexchange'],['1950s','union1954'],['stocks','marketfloor']]){
    await p.locator('#mission-search').fill(term);await paint(p);assert.ok((await p.locator('.mission-card:visible').evaluateAll(a=>a.map(b=>b.dataset.world))).includes(id),term);
@@ -68,8 +68,8 @@ async function layout(p,section){
   pass('new location purchases, cargo and stars coexist with the full old save and export in the compatible backup format');
   await p.reload();await p.waitForFunction(()=>window.__roads&&__roads.art[103],null,{polling:30});assert.deepEqual(await p.evaluate(()=>__roads.saveSnapshot()),saves.data);
   pass('the combined save reloads with the new owned place and all previous progress exactly intact');
-  await p.locator('#missions').tap();await p.locator('#mission-chapter').selectOption('openroads');await p.locator('#mission-journal').tap();assert.match(await p.locator('#story-content').textContent(),/1 \/ 77 new routes complete/);assert.doesNotMatch(await p.locator('#story-content').textContent(),/quiet storm/);assert.equal(await p.locator('[data-journal-world]').count(),77);assert.equal(await p.locator('.journal-world.lit').count(),1);await p.locator('#story-close').tap();
-  await p.evaluate(()=>{const d=__roads;d.setRecords({...d.records,...Object.fromEntries(d.MR.routeWorlds.map(w=>[w.id+'-8',{stars:3,bestScore:1000,bestTime:50}]))});});await p.locator('#mission-journal').tap();assert.match(await p.locator('#story-content').textContent(),/All 77 Open Roads routes are complete/);assert.equal(await p.locator('.journal-world.lit').count(),77);await p.screenshot({path:path.join(out,'open-roads-complete.png')});await p.locator('#story-close').tap();
+  await p.locator('#missions').tap();await p.locator('#mission-chapter').selectOption('openroads');await p.locator('#mission-journal').tap();assert.match(await p.locator('#story-content').textContent(),/1 \/ 79 new routes complete/);assert.doesNotMatch(await p.locator('#story-content').textContent(),/quiet storm/);assert.equal(await p.locator('[data-journal-world]').count(),79);assert.equal(await p.locator('.journal-world.lit').count(),1);await p.locator('#story-close').tap();
+  await p.evaluate(()=>{const d=__roads;d.setRecords({...d.records,...Object.fromEntries(d.MR.routeWorlds.map(w=>[w.id+'-8',{stars:3,bestScore:1000,bestTime:50}]))});});await p.locator('#mission-journal').tap();assert.match(await p.locator('#story-content').textContent(),/All 79 Open Roads routes are complete/);assert.equal(await p.locator('.journal-world.lit').count(),79);await p.screenshot({path:path.join(out,'open-roads-complete.png')});await p.locator('#story-close').tap();
   pass('new completion stamps and the Open Roads ending are independent of the original 100-lantern ending');
   assert.deepEqual(errors,[]);assert.deepEqual(failed,[]);pass('no browser runtime errors or failed asset requests');fs.writeFileSync(path.join(out,'report.json'),JSON.stringify({checks,errors,failed,visited},null,2));
  }finally{await browser?.close();server.kill();}

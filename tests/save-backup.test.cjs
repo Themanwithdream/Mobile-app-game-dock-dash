@@ -1,6 +1,6 @@
 const test=require('node:test'),assert=require('node:assert/strict');
 const Backups=require('../engine/save-backup.js'),MR=require('../missions/mission-rules.js'),ER=require('../economy/coin-rules.js');
-const api=new Backups({missions:MR,economy:ER,productCount:2424});
+const api=new Backups({missions:MR,economy:ER,productCount:2448});
 const copy=x=>JSON.parse(JSON.stringify(x));
 function snapshot(){return {best:12345,muted:false,profile:{totalDelivered:240,totalPerfect:80,totalTrucks:40,totalGoals:20,highestShift:12,selectedSkin:4,selectedWrap:'wrap:stars',selectedZone:'zone:gold',tutorialDone:true},wallet:{version:1,coins:3200,earned:5000,spent:1800,owned:['school','venue:rome','wrap:stars','zone:gold']},settings:{location:13,rotate:true,music:true,sfx:false,musicVolume:.42,effects:'auto'},cargo:[3,14,456,1499],missions:{'rome-1':{stars:3,bestScore:1600,bestTime:23.12}}};}
 function storage(data=snapshot()){
@@ -8,8 +8,8 @@ function storage(data=snapshot()){
   return {values,getItem:k=>values.get(k)??null,setItem:(k,v)=>values.set(k,v),removeItem:k=>values.delete(k)};
 }
 test('a portable backup round-trips coins, ownership, equipment, settings, all stars and discovered cargo',()=>{
-  const original=snapshot();for(const m of MR.missions)original.missions[m.id]={stars:3,bestScore:12345,bestTime:m.seconds/2};original.cargo=Array.from({length:2424},(_,i)=>i);
-  const text=api.export(original,'2026-10-07T14:00:00Z'),read=api.read(text);assert.deepEqual(read.data,original);assert.equal(read.summary.stars,4248);assert.equal(read.summary.lanterns,100);assert.ok(text.length<Backups.maxBytes);
+  const original=snapshot();for(const m of MR.missions)original.missions[m.id]={stars:3,bestScore:12345,bestTime:m.seconds/2};original.cargo=Array.from({length:2448},(_,i)=>i);
+  const text=api.export(original,'2026-10-07T14:00:00Z'),read=api.read(text);assert.deepEqual(read.data,original);assert.equal(read.summary.stars,4296);assert.equal(read.summary.lanterns,100);assert.ok(text.length<Backups.maxBytes);
 });
 test('the renamed game reads an authentic previous Dock Dash backup and exports the new name without changing progress',()=>{
   const fs=require('node:fs'),path=require('node:path');
@@ -34,7 +34,7 @@ test('invalid currency, purchases, equipment and place selections cannot silentl
   for(const change of changes){const d=snapshot();change(d);assert.throws(()=>api.validate(d));}
 });
 test('only valid known missions and unique cargo IDs can enter a portable save',()=>{
-  const changes=[d=>d.missions['unknown-1']={stars:3,bestScore:1,bestTime:1},d=>d.missions['rome-1'].stars=4,d=>d.missions['rome-1'].bestTime=46,d=>d.cargo.push(2424),d=>d.cargo.push(3)];
+  const changes=[d=>d.missions['unknown-1']={stars:3,bestScore:1,bestTime:1},d=>d.missions['rome-1'].stars=4,d=>d.missions['rome-1'].bestTime=46,d=>d.cargo.push(2448),d=>d.cargo.push(3)];
   for(const change of changes){const d=snapshot();change(d);assert.throws(()=>api.validate(d));}
 });
 test('restoring writes only the seven game keys and keeps a usable previous-save copy',()=>{

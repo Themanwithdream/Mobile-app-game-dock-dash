@@ -144,9 +144,9 @@ async function advance(page, seconds) {
       }
       return results;
     });
-    assert.equal(results.length, 1416);
+    assert.equal(results.length, 1432);
     for (const r of results) { assert.equal(r.state, 'missionResult', r.id); assert.equal(r.stars, 3, r.id); assert.equal(r.lives, 3, r.id); assert.equal(r.remixes,r.expectedRemixes,r.id); }
-    pass('all 1,416 missions can be completed at three stars with their own cargo and every scheduled dock change', results);
+    pass('all 1,432 missions can be completed at three stars with their own cargo and every scheduled dock change', results);
     await sim.screenshot({ path: path.join(output, 'space-result.png') });
     assert.equal(await sim.evaluate(() => localStorage.getItem('dockDashBest')), '12345');
     await sim.reload(); await sim.waitForFunction(() => window.__dockTest && __dockTest.art[0]);

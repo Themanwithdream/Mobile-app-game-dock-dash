@@ -2,12 +2,12 @@ const test=require('node:test'),assert=require('node:assert/strict'),fs=require(
 const M=require('../missions/mission-rules'),R=require('../missions/open-roads'),E=require('../economy/coin-rules'),B=require('../engine/save-backup');
 const root=path.resolve(__dirname,'..'),original=require('./fixtures/hundred-places.json');
 
-test('177 places append the requested twenty and 57 more without changing any original mission, cargo or story',()=>{
-  assert.equal(M.worlds.length,177);assert.equal(M.missions.length,1416);assert.equal(R.worlds.length,77);
+test('179 places append the requested twenty and 59 more without changing any original mission, cargo or story',()=>{
+  assert.equal(M.worlds.length,179);assert.equal(M.missions.length,1432);assert.equal(R.worlds.length,79);
   assert.deepEqual(M.worlds.slice(0,100).map(w=>({id:w.id,name:w.name,location:w.location,cargo:w.cargo,stages:w.stages,stories:w.stories,products:M.getMission(w.id,0).products})),original);
   assert.deepEqual(M.worlds.slice(100,120).map(w=>w.id),['asgard','worldtree','frostfortress','dwarvenforge','atlantis','cornerburger','seasideicecream','marketbasket','civicexchange','union1954','palacecinema','fieldcamp','threadavenue','marketfloor','accracoast','riversidecollege','fourfieldfarm','motorcourt','pitstopauto','harbourhospital']);
-  assert.deepEqual(M.worlds.slice(100).map(w=>w.location),Array.from({length:77},(_,i)=>103+i));
-  assert.deepEqual(M.worlds.slice(100).flatMap(w=>M.getMission(w.id,0).products),Array.from({length:924},(_,i)=>1500+i));
+  assert.deepEqual(M.worlds.slice(100).map(w=>w.location),Array.from({length:79},(_,i)=>103+i));
+  assert.deepEqual(M.worlds.slice(100).flatMap(w=>M.getMission(w.id,0).products),Array.from({length:948},(_,i)=>1500+i));
 });
 test('every new place has eight distinct authored chapters, a practical resolution and twelve named supplies',()=>{
   const prose=new Set(),plans=new Set(),names=new Set();
@@ -20,11 +20,11 @@ test('every new place has eight distinct authored chapters, a practical resoluti
     assert.ok(!plans.has(w.artPlan));plans.add(w.artPlan);assert.ok(!names.has(w.name));names.add(w.name);
     assert.ok(R.chapters[w.chapter]);assert.ok(require('../missions/world-challenges').profiles[w.pattern]);
   }
-  assert.equal(prose.size,616);assert.equal(plans.size,77);
+  assert.equal(prose.size,632);assert.equal(plans.size,79);
 });
-test('new places browse as 20 bounded pages, preserving all thirty original pages and exposing every new chapter',()=>{
+test('new places browse as 21 bounded pages, preserving all thirty original pages and exposing every new chapter',()=>{
   assert.deepEqual(M.worldPages.slice(0,30).flat().map(w=>w.id),original.map(w=>w.id));
-  assert.deepEqual(M.chapterPages('openroads'),Array.from({length:20},(_,i)=>30+i));
+  assert.deepEqual(M.chapterPages('openroads'),Array.from({length:21},(_,i)=>30+i));
   assert.deepEqual(M.chapterPages('openroads').flatMap(p=>M.worldPages[p]).map(w=>w.id),R.worlds.map(w=>w.id));
   for(const [k]of Object.entries(R.chapters)){assert.ok(M.chapterPages(k).every(p=>p>=30));assert.ok(M.chapterPages(k).flatMap(p=>M.worldPages[p]).every(w=>w.chapter===k));}
 });
@@ -35,7 +35,7 @@ test('the original ending stays earned while the new completion log starts indep
   const next=M.recordResult(old,M.getMission('asgard',0),{won:true,elapsed:30,delivered:20,priorityLoaded:5,lives:3,perfects:8,score:1500});
   assert.deepEqual(M.readRecords(old),old);assert.equal(M.isUnlocked(M.getMission('asgard',1),next),true);assert.equal(M.routeCount(next),0);
   const finished={...old,...Object.fromEntries(R.worlds.map(w=>[w.id+'-8',{stars:1,bestScore:1000,bestTime:40}]))};
-  assert.equal(M.lanternCount(finished),100);assert.equal(M.routeCount(finished),77);assert.equal(M.completedPlaces(finished),177);
+  assert.equal(M.lanternCount(finished),100);assert.equal(M.routeCount(finished),79);assert.equal(M.completedPlaces(finished),179);
 });
 test('each new arcade place is optional, charges only its price and survives wallet reload',()=>{
   let wallet=E.readWallet({version:1,coins:100000,earned:104321,spent:4321,owned:['venue:rome','beacon','wrap:crest']});
@@ -43,15 +43,15 @@ test('each new arcade place is optional, charges only its price and survives wal
   assert.deepEqual(E.readWallet(JSON.stringify(wallet)),wallet);assert.ok(['venue:rome','beacon','wrap:crest'].every(id=>wallet.owned.includes(id)));
 });
 test('older portable saves and new expansion progress round-trip without changing the save schema',()=>{
-  const api=new B({missions:M,economy:E,productCount:2424}),legacy=api.read(fs.readFileSync(path.join(root,'tests/fixtures/parcel-odyssey-v1-backup.json'),'utf8'));
+  const api=new B({missions:M,economy:E,productCount:2448}),legacy=api.read(fs.readFileSync(path.join(root,'tests/fixtures/parcel-odyssey-v1-backup.json'),'utf8'));
   assert.deepEqual(legacy.data.cargo,[3,14,456,1499]);
-  const expanded=structuredClone(legacy.data);expanded.wallet=E.purchase(expanded.wallet,'venue:asgard').wallet;expanded.settings.location=103;expanded.cargo.push(1500,2423);expanded.missions['asgard-8']={stars:2,bestScore:3456,bestTime:70};
+  const expanded=structuredClone(legacy.data);expanded.wallet=E.purchase(expanded.wallet,'venue:asgard').wallet;expanded.settings.location=103;expanded.cargo.push(1500,2423,2447);expanded.missions['asgard-8']={stars:2,bestScore:3456,bestTime:70};
   const read=api.read(api.export(expanded));assert.deepEqual(read.data,expanded);assert.equal(read.summary.routes,1);assert.equal(read.summary.lanterns,0);assert.equal(read.summary.coins,expanded.wallet.coins);
   assert.equal(JSON.parse(api.export(expanded)).version,1);
 });
 test('all new scenery and previews are distinct phone-sized assets and music uses complete existing recordings',()=>{
   const manifest=require('../assets/worlds/open-roads/manifest.json'),previews=require('../assets/previews/manifest.json'),crypto=require('node:crypto'),hash=b=>crypto.createHash('sha256').update(b).digest('hex');
-  assert.equal(manifest.images.length,77);assert.equal(new Set(manifest.images.map(r=>r.sha256)).size,77);
+  assert.equal(manifest.images.length,79);assert.equal(new Set(manifest.images.map(r=>r.sha256)).size,79);
   let artBytes=0,previewBytes=0;
   for(const w of R.worlds){const row=manifest.images.find(r=>r.id===w.id),bytes=fs.readFileSync(path.join(root,w.backdrop)),preview=previews.images.find(p=>p.location===w.location);
     // Detailed paintings use the same download budget as the original worlds;

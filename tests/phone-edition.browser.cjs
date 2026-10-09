@@ -34,7 +34,7 @@ async function swipe(page,selector){
   await page.addInitScript(()=>{localStorage.setItem('dockDashMuted','true');localStorage.setItem('dockDashBest','12345');localStorage.setItem('dockDashProfileV2',JSON.stringify({tutorialDone:true,totalDelivered:180,selectedSkin:2}));localStorage.setItem('dockDashWalletV1',JSON.stringify({version:1,coins:5000,earned:5000,spent:0,owned:[]}));localStorage.setItem('dockDashMissionsV1',JSON.stringify({'rome-1':{stars:3,bestScore:1000,fastest:20}}));});
   await page.goto(url);await page.waitForFunction(()=>window.__phone&&__phone.art[0]);
   const original=await page.evaluate(()=>__phone.saveSnapshot());
-  assert.equal(await page.locator('meta[name="dock-dash-version"]').getAttribute('content'),'8.2-phone-edition');
+  assert.equal(await page.locator('meta[name="dock-dash-version"]').getAttribute('content'),'8.3-sky-routes');
   for(const size of [{width:320,height:568},{width:390,height:844},{width:430,height:932},{width:844,height:390},{width:1280,height:800}]){
    await page.setViewportSize(size);await page.locator('#start').waitFor();await controls(page);
    await page.locator('#missions').tap();await controls(page);

@@ -907,11 +907,11 @@
     {
       "location": 103,
       "source": "./assets/worlds/open-roads/asgard.png",
-      "sourceBytes": 199596,
-      "sourceSHA256": "3cb3295af31aa841ee08a38550eda8f2bebb5a48b1824a2e49729fad34ee3649",
+      "sourceBytes": 172248,
+      "sourceSHA256": "f4e16e5fc509ac41d067a064e9875d7baa70291a0a10f243d8c851820fcd3a16",
       "preview": "103.webp",
-      "previewBytes": 39312,
-      "previewSHA256": "cdfc62fb26a3d392f4185ac4610204b47fb8d6cf964953023fad59b68e8a8426"
+      "previewBytes": 42792,
+      "previewSHA256": "775216be065c140a92b429c94947aaefba8251dae109e81fe59837c916e8acd6"
     },
     {
       "location": 104,
@@ -1596,6 +1596,24 @@
       "preview": "179.webp",
       "previewBytes": 42332,
       "previewSHA256": "8fb5bc1c8bb15b4d99d69aba90a3cc7805b94c0e040962c728e8c8ac8376aee4"
+    },
+    {
+      "location": 180,
+      "source": "./assets/worlds/open-roads/bifrostskyport.png",
+      "sourceBytes": 165300,
+      "sourceSHA256": "34d2040e51555147c909e3f484045d0478e2b27d3e3b8e563d32e08dc35bc60f",
+      "preview": "180.webp",
+      "previewBytes": 39558,
+      "previewSHA256": "6cffc32a1bc88e5f0088aa6a12f59d7855a7e9c47e62cbe86ee1f82b17aae3f1"
+    },
+    {
+      "location": 181,
+      "source": "./assets/worlds/open-roads/lunarcargobase.png",
+      "sourceBytes": 180839,
+      "sourceSHA256": "df834b654b5251abc1ae359887a3eba52aaccb21a4ddbe90d6a1297b022b9a64",
+      "preview": "181.webp",
+      "previewBytes": 38232,
+      "previewSHA256": "abbbf3359034f38d422a4be1c7f983c72ef2c0a5d188f7edb88f63c9111ea03f"
     }
   ]
 }

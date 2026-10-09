@@ -26,8 +26,10 @@
       const bar = wrap(home, 'home-bar'); bar.append(node('span', 'ui-brand', 'OPEN ROADS'));
       this.balance = node('span', 'coin-pill'); bar.append(this.balance);
       const headline = node('h2', 'home-title'); headline.innerHTML = 'DOCK <span>BOSS</span>'; home.append(headline);
-      home.append(node('p', 'home-subtitle', 'One parcel. 177 places. A world of stories.'));
-      const hero = wrap(home, 'home-hero'); this.homeCanvas = canvas(hero, '', 632, 280);
+      this.homeSubtitle = node('p', 'home-subtitle'); home.append(this.homeSubtitle);
+      const hero = wrap(home, 'home-hero'); this.homeCanvas = canvas(hero, '', 632, 280); this.homeImage = node('img', 'home-art');
+      this.homeImage.alt = ''; this.homeImage.setAttribute('aria-hidden', 'true');
+      this.homeImage.decoding = 'async'; this.homeImage.fetchPriority = 'high'; hero.append(this.homeImage);
       this.homePlace = node('strong', 'home-place'); hero.append(this.homePlace);
       home.append(node('p', 'home-rule', 'Wait for green. Match the sticker. Tap.'));
       const actions = wrap(title, 'home-actions'); append(actions, 'start', 'missions');
@@ -103,6 +105,12 @@
       const {state, format, wallet, worlds, items, catalog, game, result} = model;
       this.get('stage').dataset.state = state;
       this.balance.textContent = `${format(wallet.coins)} coins`; this.homePlace.textContent = model.homeName;
+      this.homeSubtitle.textContent = `One parcel. ${model.worldCount} places. A world of stories.`;
+      this.homeImage.hidden = !model.homeArt; this.homeCanvas.hidden = !!model.homeArt;
+      if (state === 'title') {
+        if (model.homeArt && this.homeImage.getAttribute('src') !== model.homeArt) this.homeImage.src = model.homeArt;
+        this.homeImage.classList.toggle('home-art-wide', model.homeArtWide);
+      } else this.homeImage.removeAttribute('src');
       this.mapSubtitle.textContent = `${model.worldCount} places · ${format(model.totalStars)} / ${format(model.maximumStars)} stars`;
       this.mapPage.textContent = model.mapPage; this.mapEmpty.hidden = worlds.length > 0;
       this.worlds.forEach((card, i) => {

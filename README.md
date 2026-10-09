@@ -1,12 +1,22 @@
 # Dock Boss — Open Roads
 
-A phone-friendly pixel-art delivery adventure. One parcel. 177 places. Wait for the loading zone, match the parcel colour and shape, and tap its truck.
+A phone-friendly pixel-art delivery adventure. One parcel. 179 places. Wait for the loading zone, match the parcel colour and shape, and tap its truck.
 
 ## Play
 
-https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=8.2-phone-edition
+https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=8.3-sky-routes
 
 Previously Dock Dash and Parcel Odyssey. The repository and play URL stay in place so existing browser progress carries over.
+
+## Sky & Space — 8.3
+
+Two new places, **Bifröst Skyport** and **Lunar Cargo Base**, bring the game to **179 places, 1,432 missions and 4,296 stars**. Each adds eight authored story missions, twelve named supplies, an individual painting and an optional arcade venue. The Sky & Space filter reaches both routes, and every first mission is free. Existing mission, cargo, location and save IDs stay in place.
+
+Asgard now shows a golden palace, rainbow bridge and cascading waterfalls inspired by the supplied reference. Air Cargo Hub has a dedicated wide scenic picture on the home screen; other selected places show their own painting rather than a cropped gameplay floor. The home count follows the mission data.
+
+The home menu, its shop and settings, and the mission map use **Runway Rush**, Air Cargo Hub’s music. Starting arcade or a story mission restores that place’s theme. Saved mute, music and volume settings still apply, with playback recovering on the first tap if required by the browser.
+
+The new scene PNGs stay at 360 × 640 and below 240 KB. Their card previews keep the existing request and decode limits. The separate Air Cargo Hub home image is released when leaving home. The two original embedded game-floor PNGs now load as identical separate assets, reducing the startup HTML from 728 KB to 267 KB. Harbour Depot keeps its procedural home preview. See [art direction](assets/worlds/open-roads/SKY-ARTWORK.md) and [the full route list](missions/OPEN-ROADS.md).
 
 ## Phone Edition — 8.2
 

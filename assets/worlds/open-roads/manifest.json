@@ -8,12 +8,12 @@
       "plan": "citadel",
       "location": 103,
       "file": "asgard.png",
-      "bytes": 199596,
-      "sha256": "3cb3295af31aa841ee08a38550eda8f2bebb5a48b1824a2e49729fad34ee3649",
-      "sourceName": "Golden Citadel Restoration.png",
-      "sourceSHA256": "bec7060da8c535935f135e35a5e20fed2465444145cc623282ee36e81e0a8420",
+      "bytes": 172248,
+      "sha256": "f4e16e5fc509ac41d067a064e9875d7baa70291a0a10f243d8c851820fcd3a16",
+      "sourceName": "exec-247c584e-3f0a-4811-83c5-ec1aa93350bf.png",
+      "sourceSHA256": "5fad91f71199b49a5b82e2f171748d4c965079c6066436c22bfaab122cce2b8d",
       "method": "imagegen",
-      "recovered": true
+      "recovered": false
     },
     {
       "id": "worldtree",
@@ -1000,6 +1000,32 @@
       "sha256": "71df4657f1f37bf0c0f75233b4f416a90b9eb265cc1a29e0b5c5c914bcf7bd42",
       "sourceName": "exec-2dcd6c13-610d-4603-ba7a-3fa50442b2eb.png",
       "sourceSHA256": "9173d3b282473b3778a05a448c158e4d4f1de03754ef9e7b7214c61a6f4381fd",
+      "method": "imagegen",
+      "recovered": false
+    },
+    {
+      "id": "bifrostskyport",
+      "name": "Bifr\u00f6st Skyport",
+      "plan": "rainbowskyport",
+      "location": 180,
+      "file": "bifrostskyport.png",
+      "bytes": 165300,
+      "sha256": "34d2040e51555147c909e3f484045d0478e2b27d3e3b8e563d32e08dc35bc60f",
+      "sourceName": "exec-4a6608ab-1bf6-4a1b-afe4-c64ed4c43c20.png",
+      "sourceSHA256": "77ecbda87d8d8a60586fb94f880d32b463256ab2dd240b756fd602658164f6f2",
+      "method": "imagegen",
+      "recovered": false
+    },
+    {
+      "id": "lunarcargobase",
+      "name": "Lunar Cargo Base",
+      "plan": "lunaroutpost",
+      "location": 181,
+      "file": "lunarcargobase.png",
+      "bytes": 180839,
+      "sha256": "df834b654b5251abc1ae359887a3eba52aaccb21a4ddbe90d6a1297b022b9a64",
+      "sourceName": "exec-c1915977-24b9-47e8-9fe7-a188d40847fb.png",
+      "sourceSHA256": "9ea5ca0a247d17401d8d6753f95eda83bd4d76ed070ae8c3cdd28d0520241063",
       "method": "imagegen",
       "recovered": false
     }
