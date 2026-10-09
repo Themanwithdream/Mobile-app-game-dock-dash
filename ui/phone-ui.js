@@ -152,9 +152,9 @@
       if (this.lastPaint.get(canvas) === key) return;
       const ctx = canvas.getContext('2d'); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, canvas.width, canvas.height); draw(ctx); this.lastPaint.set(canvas, key);
     }
-    dock(index, truck, locked, skin, image) {
+    dock(index, truck, locked, skin, image, mission) {
       const card = this.docks[index]; card.name.textContent = locked ? `Dock ${index + 1} · closed` : `Dock ${index + 1} · ${truck.name}`;
-      card.count.textContent = locked ? 'Opens at shift 2' : `${truck.fill} / 5 parcels`;
+      card.count.textContent = locked ? mission ? 'Closed for this mission' : 'Opens at shift 2' : `${truck.fill} / 5 parcels`;
       card.button.style.setProperty('--dock-accent', truck.accent);
       this.paint(card.image, `${skin}:${truck.type}:${locked}`, ctx => ctx.drawImage(image, 0, 0, 90, 141));
     }

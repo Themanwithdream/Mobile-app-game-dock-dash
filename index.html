@@ -562,7 +562,7 @@
 <script src="./audio/sound-effects.js?v=8.1-illustrated-places"></script>
 <script src="./ui/browse.js?v=6.5-sound-effects"></script>
 <script src="./ui/phone-layout.js?v=8.2-phone-edition"></script>
-<script src="./ui/phone-ui.js?v=8.2-phone-edition"></script>
+<script src="./ui/phone-ui.js?v=8.2.1-phone-edition"></script>
 <script src="./missions/open-roads.js?v=8.1-illustrated-places"></script>
 <script src="./missions/world-pack.js?v=8.1-illustrated-places"></script>
 <script src="./missions/world-challenges.js?v=8.1-illustrated-places"></script>
@@ -1777,7 +1777,7 @@
     const label=`Dock ${i+1}: ${locked?game && game.mission?'closed in this mission':'locked until shift 2':`${COLORS[t?t.type:i].name} ${COLORS[t?t.type:i].symbol}, ${t?t.fill:0} of 5 parcels`}. Keyboard ${i+1}.`;
     if(b.getAttribute('aria-label')!==label)b.setAttribute('aria-label',label);
     const type=t?t.type:i;
-    phoneUI.dock(i,{type,fill:t?t.fill:0,name:`${COLORS[type].name} ${COLORS[type].symbol}`,accent:COLORS[type].bright},locked,profile.selectedSkin,locked?lockedCache:truckCache[type]);
+    phoneUI.dock(i,{type,fill:t?t.fill:0,name:`${COLORS[type].name} ${COLORS[type].symbol}`,accent:COLORS[type].bright},locked,profile.selectedSkin,locked?lockedCache:truckCache[type],!!game?.mission);
   }
   function syncNativeMenus() {
     const pages=MR.chapterPages(missionChapter),matches=missionQuery?missionMatches():null;
@@ -1786,7 +1786,7 @@
       homeName:ER.venues.find(v=>v.location===settings.location).name,
       worlds:visibleMissionWorlds().map(w=>({...w,stars:MR.totalStars(missionRecords,w.id)})),
       worldCount:MR.worlds.length,totalStars:MR.totalStars(missionRecords),maximumStars:MR.missions.length*3,levelCount:MR.levelCount,
-      mapPage:matches?`${matches.length} results · ${missionSearchPage+1} / ${Math.max(1,Math.ceil(matches.length/4))}`:`${MR.filters[missionChapter]||MR.pageLabel(missionPage)} · ${pages.indexOf(missionPage)+1} / ${pages.length}`,
+      mapPage:matches?`${matches.length} result${matches.length===1?'':'s'} · ${missionSearchPage+1} / ${Math.max(1,Math.ceil(matches.length/4))}`:`${MR.filters[missionChapter]||MR.pageLabel(missionPage)} · ${pages.indexOf(missionPage)+1} / ${pages.length}`,
       items:currentItems.slice(shopPage*4,shopPage*4+4).map(item=>({...item,owned:ER.isOwned(wallet,item,profile),selected:itemEquipped(item),missing:Math.max(0,item.price-wallet.coins),deliveries:Math.max(0,item.need-profile.totalDelivered)})),
       shopPage:`Page ${shopPage+1} / ${Math.max(1,Math.ceil(currentItems.length/4))}`,
       catalog:cargo.slice(catalogPage*12,catalogPage*12+12).map(p=>({...p,seen:discovered.has(p.id),selected:p.id===selectedCargo})),
