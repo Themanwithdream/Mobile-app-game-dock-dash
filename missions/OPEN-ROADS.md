@@ -1,4 +1,4 @@
-# Open Roads — 79 new places
+# Open Roads — 83 new places
 
 These places append to the original 100. Each has eight story missions and twelve local supplies. All first missions are free.
 
@@ -145,3 +145,14 @@ Carry the next chapter beyond the ordinary road. A rainbow skyport and a lunar o
 | --- | --- | --- |
 | Bifröst Skyport | Astrid | Guide cargo skiffs across Asgard’s rainbow bridge. |
 | Lunar Cargo Base | Maya | Build a welcoming home beneath Earth’s blue glow. |
+
+## Restaurant Row
+
+Four kitchens welcome you behind the counter. Carry fresh ingredients, repair a busy service routine and help each restaurant make room for its neighbours.
+
+| Place | Contact | Story |
+| --- | --- | --- |
+| Courtyard Pizzeria | Rafa | Keep the courtyard oven and pizza orders ready. |
+| Lantern Ramen House | Hana | Bring warm noodle suppers through a rainy evening. |
+| Jade Steam Dim Sum | Mei | Match every steamer tray to its harbour table. |
+| River Garden Bistro | Robin | Turn a garden harvest into a shared riverside supper. |

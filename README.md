@@ -1,12 +1,18 @@
 # Dock Boss — Open Roads
 
-A phone-friendly pixel-art delivery adventure. One parcel. 179 places. Wait for the loading zone, match the parcel colour and shape, and tap its truck.
+A phone-friendly pixel-art delivery adventure. One parcel. 183 places. Wait for the loading zone, match the parcel colour and shape, and tap its truck.
 
 ## Play
 
-https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=8.3-sky-routes
+https://themanwithdream.github.io/Mobile-app-game-dock-dash/index.html?v=8.4-restaurants
 
 Previously Dock Dash and Parcel Odyssey. The repository and play URL stay in place so existing browser progress carries over.
+
+## Restaurant Row — 8.4
+
+Four new places bring the game to **183 places, 1,464 missions and 4,392 stars**: Courtyard Pizzeria, Lantern Ramen House, Jade Steam Dim Sum and River Garden Bistro. Each has an individual painting, eight authored story missions, twelve named supplies and an optional arcade venue. Choose Restaurant Row in the mission map to visit all four; their opening missions are free. Their IDs append after the sky routes, preserving existing progress and purchases.
+
+The collection now has three evenly sized navigation buttons with readable labels. Native menu grids override the old positioned control widths, including mission and shop pagination. A full-width cargo category dropdown jumps directly to any collection, with at least 44-pixel touch targets and 16-pixel form text. See [restaurant art direction](assets/worlds/open-roads/RESTAURANT-ARTWORK.md) for the generation prompts and runtime asset paths.
 
 ## Sky & Space — 8.3
 

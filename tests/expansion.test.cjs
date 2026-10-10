@@ -16,8 +16,8 @@ test('all 112 previous records survive and cannot unlock the new second levels',
   const restored=M.readRecords(JSON.stringify(saved));assert.deepEqual(restored,saved);assert.equal(M.totalStars(restored),336);
   for(const id of ids)assert.equal(M.isUnlocked(M.getMission(id,1),restored),false);
 });
-test('192 new purchases retain existing ownership, spend exactly their prices and never charge an owned item',()=>{
-  assert.equal(E.newItems.length,192);assert.equal(E.newItems.filter(i=>i.type==='truck').length,17);assert.equal(E.newItems.filter(i=>i.type==='venue').length,165);assert.equal(E.newItems.filter(i=>i.type==='style').length,10);
+test('196 new purchases retain existing ownership, spend exactly their prices and never charge an owned item',()=>{
+  assert.equal(E.newItems.length,196);assert.equal(E.newItems.filter(i=>i.type==='truck').length,17);assert.equal(E.newItems.filter(i=>i.type==='venue').length,169);assert.equal(E.newItems.filter(i=>i.type==='style').length,10);
   let wallet=E.readWallet({version:1,coins:200000,earned:201000,spent:1000,owned:['beacon','wrap:crest','venue:rome']});
   const cost=E.newItems.reduce((sum,i)=>sum+i.price,0);
   for(const item of E.newItems){const previous=wallet,tx=E.purchase(wallet,item.id);assert.equal(tx.reason,'bought');wallet=tx.wallet;assert.equal(wallet.coins,previous.coins-item.price);assert.equal(E.purchase(wallet,item.id).wallet,wallet);}

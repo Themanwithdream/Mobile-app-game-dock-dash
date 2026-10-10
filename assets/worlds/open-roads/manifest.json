@@ -1028,6 +1028,58 @@
       "sourceSHA256": "9ea5ca0a247d17401d8d6753f95eda83bd4d76ed070ae8c3cdd28d0520241063",
       "method": "imagegen",
       "recovered": false
+    },
+    {
+      "id": "courtyardpizzeria",
+      "name": "Courtyard Pizzeria",
+      "plan": "pizzacourtyard",
+      "location": 182,
+      "file": "courtyardpizzeria.png",
+      "bytes": 184799,
+      "sha256": "8a0590220d198c0e0816ed75425b47d0434df40446b9f1404705b301f4a379f3",
+      "sourceName": "exec-7d7c9f3e-dee0-4cc5-b13e-e86f0500fb8e.png",
+      "sourceSHA256": "028ee5d3eff60257121c89c8f92584c7df02e2ff3c8c4e448a7e83370f23c1af",
+      "method": "imagegen",
+      "recovered": false
+    },
+    {
+      "id": "lanternramen",
+      "name": "Lantern Ramen House",
+      "plan": "ramenstreet",
+      "location": 183,
+      "file": "lanternramen.png",
+      "bytes": 187928,
+      "sha256": "6fa81cb369aa725887db1bd9e5c28601a8fdac71fd96ca9351a73d6c174807c9",
+      "sourceName": "exec-31c2d363-aad6-4eb1-a597-69780868fa93.png",
+      "sourceSHA256": "c3ddbdc18d8e66f0213a03091e54d768d587e4c93433ec37496103e91693a171",
+      "method": "imagegen",
+      "recovered": false
+    },
+    {
+      "id": "jadesteam",
+      "name": "Jade Steam Dim Sum",
+      "plan": "dimsumterrace",
+      "location": 184,
+      "file": "jadesteam.png",
+      "bytes": 174578,
+      "sha256": "d76a772d94a9188fd2fb4c9b97624152c614434b08a147b25adffa94753befd0",
+      "sourceName": "exec-49547971-3e30-46b1-9561-509e4ceb95ea.png",
+      "sourceSHA256": "8f1bf067deae380ef8dccdfa4c8152110a29600c70c4cf777a16598a5cd086c9",
+      "method": "imagegen",
+      "recovered": false
+    },
+    {
+      "id": "rivergardenbistro",
+      "name": "River Garden Bistro",
+      "plan": "gardenbistro",
+      "location": 185,
+      "file": "rivergardenbistro.png",
+      "bytes": 203622,
+      "sha256": "7c7a03cefab2310fc2cb62c2a659cb63b52cda3d89eca0537fcda4b0faf0efae",
+      "sourceName": "exec-52752db3-210b-4e78-846c-47c7663797a3.png",
+      "sourceSHA256": "f04d38bedfbcfd97a5a4ad47dd29ac766c43214e71e2ea9378196c4e5d6588d5",
+      "method": "imagegen",
+      "recovered": false
     }
   ],
   "release": "8.1-illustrated-places",

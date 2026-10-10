@@ -61,8 +61,8 @@ test('invalid awards and capped balances cannot create negative or nonfinite coi
   for(const amount of [0,-5,NaN,Infinity,1.5,'10'])assert.equal(rules.award(wallet,amount),wallet);
 });
 test('the expanded catalog has unique permanent IDs and retains all fourteen original vehicles',()=>{
-  assert.equal(rules.trucks.length,37);assert.equal(rules.venues.length,182);assert.equal(rules.styles.length,19);
-  assert.equal(new Set(rules.catalog.map(i=>i.id)).size,238);
+  assert.equal(rules.trucks.length,37);assert.equal(rules.venues.length,186);assert.equal(rules.styles.length,19);
+  assert.equal(new Set(rules.catalog.map(i=>i.id)).size,242);
   assert.equal(rules.trucks[7].id,'beacon');assert.equal(rules.trucks[13].id,'space');
   assert.deepEqual(rules.trucks.slice(14,20).map(t=>t.body),['beaconrunner','tidecrawler','fire','icecream','monster','rover']);
   for(const item of rules.catalog)assert.equal(rules.item(item.id),item);

@@ -1614,6 +1614,42 @@
       "preview": "181.webp",
       "previewBytes": 38232,
       "previewSHA256": "abbbf3359034f38d422a4be1c7f983c72ef2c0a5d188f7edb88f63c9111ea03f"
+    },
+    {
+      "location": 182,
+      "source": "./assets/worlds/open-roads/courtyardpizzeria.png",
+      "sourceBytes": 184799,
+      "sourceSHA256": "8a0590220d198c0e0816ed75425b47d0434df40446b9f1404705b301f4a379f3",
+      "preview": "182.webp",
+      "previewBytes": 33764,
+      "previewSHA256": "1c94dda02d5ce4e2c75b05c99832f2e10f5e0672782772be1408f89de1bf29dc"
+    },
+    {
+      "location": 183,
+      "source": "./assets/worlds/open-roads/lanternramen.png",
+      "sourceBytes": 187928,
+      "sourceSHA256": "6fa81cb369aa725887db1bd9e5c28601a8fdac71fd96ca9351a73d6c174807c9",
+      "preview": "183.webp",
+      "previewBytes": 35576,
+      "previewSHA256": "2f06636c46e86d4b9ee1a7ec49df6a7525a8ebb420b4a31b071a73a6bb9a8154"
+    },
+    {
+      "location": 184,
+      "source": "./assets/worlds/open-roads/jadesteam.png",
+      "sourceBytes": 174578,
+      "sourceSHA256": "d76a772d94a9188fd2fb4c9b97624152c614434b08a147b25adffa94753befd0",
+      "preview": "184.webp",
+      "previewBytes": 36928,
+      "previewSHA256": "c728b55adde3354bc71bc2f5f2443e17cbd48361f7af6bde22ec31e91ebabfe7"
+    },
+    {
+      "location": 185,
+      "source": "./assets/worlds/open-roads/rivergardenbistro.png",
+      "sourceBytes": 203622,
+      "sourceSHA256": "7c7a03cefab2310fc2cb62c2a659cb63b52cda3d89eca0537fcda4b0faf0efae",
+      "preview": "185.webp",
+      "previewBytes": 41206,
+      "previewSHA256": "fbdd7322c78d3a6c465dbe1e9afda190be00317d27ad87cd609fda21ad2c6ca5"
     }
   ]
 }

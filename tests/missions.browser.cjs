@@ -144,14 +144,14 @@ async function advance(page, seconds) {
       }
       return results;
     });
-    assert.equal(results.length, 1432);
+    assert.equal(results.length, 1464);
     for (const r of results) { assert.equal(r.state, 'missionResult', r.id); assert.equal(r.stars, 3, r.id); assert.equal(r.lives, 3, r.id); assert.equal(r.remixes,r.expectedRemixes,r.id); }
     fs.writeFileSync(path.join(output, 'mission-simulation.json'), JSON.stringify(results));
-    pass('all 1,432 missions can be completed at three stars with their own cargo and every scheduled dock change', {missions:results.length,stars:results.reduce((sum,r)=>sum+r.stars,0)});
+    pass('all 1,464 missions can be completed at three stars with their own cargo and every scheduled dock change', {missions:results.length,stars:results.reduce((sum,r)=>sum+r.stars,0)});
     await sim.screenshot({ path: path.join(output, 'space-result.png') });
     assert.equal(await sim.evaluate(() => localStorage.getItem('dockDashBest')), '12345');
     await sim.reload(); await sim.waitForFunction(() => window.__dockTest && __dockTest.art[0]);
-    assert.equal(await sim.evaluate(() => __dockTest.MR.totalStars(__dockTest.records)), 4296);
+    assert.equal(await sim.evaluate(() => __dockTest.MR.totalStars(__dockTest.records)), 4392);
     assert.ok(await sim.evaluate(() => __dockTest.profile.totalDelivered > 180 && [3,14,29].every(id=>__dockTest.discovered.has(id))));
     pass('mission stars, fleet deliveries and cargo persist after reload; arcade best is preserved');
     await sim.evaluate(() => { __dockTest.openBriefing('matchday', 0); __dockTest.launchMission(); }); await advance(sim, 3.01);

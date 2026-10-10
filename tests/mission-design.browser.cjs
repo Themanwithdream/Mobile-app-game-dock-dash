@@ -63,7 +63,7 @@ try{
   const d=__missionDesign;let count=0;const failures=[];
   for(const m of d.MR.missions){d.openBriefing(m.world.id,m.stage);d.render();for(const e of document.querySelectorAll('.briefing-world-heading,.briefing-mission-heading,.briefing-story-copy,.briefing-challenge,.briefing-rewards summary,.briefing-cargo li'))if(e.scrollWidth>e.clientWidth+1)failures.push({id:m.id,text:e.textContent,width:e.clientWidth,scroll:e.scrollWidth});count++;}
   return {count,failures};
- });assert.equal(reviewed.count,1432);assert.deepEqual(reviewed.failures,[]);pass('every title, story, supply label and reward wraps within its panel across all 1,432 missions',{missions:reviewed.count});
+ });assert.equal(reviewed.count,1464);assert.deepEqual(reviewed.failures,[]);pass('every title, story, supply label and reward wraps within its panel across all 1,464 missions',{missions:reviewed.count});
  for(const size of [{width:320,height:568},{width:390,height:664},{width:430,height:932},{width:844,height:390},{width:1280,height:800}]){
   await p.setViewportSize(size);await p.evaluate(()=>{window.dispatchEvent(new Event('resize'));__missionDesign.openBriefing('hundreddawn',7);__missionDesign.render();});
   await layout(p);await p.locator('#briefing-scroll').evaluate(e=>e.scrollTop=e.scrollHeight);await layout(p);await p.locator('#briefing-scroll').evaluate(e=>e.scrollTop=0);if(size.width===320)await p.screenshot({path:path.join(out,'small-phone-mission.png')});

@@ -13,9 +13,9 @@ test('media has exactly one scene and track for each route and mission world',()
 test('every world has exclusive scenery rather than shared images under different stories',()=>{
   const crypto=require('node:crypto'),source=fs.readFileSync(path.join(root,'index.html'),'utf8'),media=JSON.parse(source.match(/id="bundled-media">(.*?)<\/script>/)[1]),worlds=require('../missions/mission-rules.js').worlds;
   const files=worlds.map(w=>media.floors[w.location]);
-  assert.equal(new Set(files).size,179,'Two worlds share a backdrop URL');
+  assert.equal(new Set(files).size,worlds.length,'Two worlds share a backdrop URL');
   const hashes=files.map(src=>crypto.createHash('sha256').update(fs.readFileSync(path.join(root,src))).digest('hex'));
-  assert.equal(new Set(hashes).size,179,'Two worlds use identical backdrop pixels');
+  assert.equal(new Set(hashes).size,worlds.length,'Two worlds use identical backdrop pixels');
   for(const w of worlds.filter(w=>w.backdrop)){
     const data=fs.readFileSync(path.join(root,w.backdrop));
     assert.equal(data.readUInt32BE(16),360,w.id+' image width exceeds the phone art budget');

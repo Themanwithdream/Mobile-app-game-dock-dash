@@ -27,7 +27,7 @@ async function layout(page,selector){const boxes=await page.locator(selector+' b
     localStorage.setItem('dockDashMuted','true');
   });
   await page.goto(url);await page.waitForFunction(()=>window.__dockTest && __dockTest.art[__dockTest.scene],null,{polling:50});
-  assert.equal(requested.length,0);assert.equal(await page.evaluate(()=>__dockTest.PRODUCTS.length),2448);pass('nine added scenes stay lazy while the full 2448-item catalog is available');
+  assert.equal(requested.length,0);assert.equal(await page.evaluate(()=>__dockTest.PRODUCTS.length),2496);pass('nine added scenes stay lazy while the full 2496-item catalog is available');
   await page.locator('#missions').tap();for(let i=0;i<4;i++)await page.locator('#missions-next').tap();await paint(page);
   assert.deepEqual(await page.locator('.mission-card:visible').evaluateAll(a=>a.map(b=>b.dataset.world)),['diner','bakery','metro','canal']);
   await page.waitForFunction(()=>[17,18,19,20].every(i=>__dockTest.previewArt[i] || __dockTest.art[i]),null,{polling:50});await paint(page);await page.screenshot({path:path.join(out,'city-life-map.png')});

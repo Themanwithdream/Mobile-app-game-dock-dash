@@ -15,6 +15,16 @@ async function controls(page){
  });
  for(const control of result){assert.ok(control.h>=43.5,`${control.id} has ${control.h}px height`);assert.ok(control.contained,`${control.id} outside stage`);}
 }
+async function collectionLayout(page){
+ const layout=await page.evaluate(()=>{
+  const buttons=['catalog-prev','catalog-back','catalog-next'].map(id=>{const e=document.getElementById(id),b=e.getBoundingClientRect();return {id,width:b.width,clipped:e.scrollWidth>e.clientWidth+1};});
+  const filter=document.getElementById('catalog-filter'),grid=document.getElementById('cargo-cards');
+  return {buttons,filterWidth:filter.getBoundingClientRect().width,gridWidth:grid.getBoundingClientRect().width,font:parseFloat(getComputedStyle(filter).fontSize),options:filter.options.length};
+ });
+ assert.ok(Math.max(...layout.buttons.map(b=>b.width))-Math.min(...layout.buttons.map(b=>b.width))<2,'collection controls must have equal widths');
+ for(const b of layout.buttons){assert.ok(b.width>=90,b.id+' is too narrow');assert.equal(b.clipped,false,b.id+' label is clipped');}
+ assert.ok(Math.abs(layout.filterWidth-layout.gridWidth)<2,'cargo filter must fill the collection width');assert.equal(layout.font,16);assert.equal(layout.options,209);
+}
 async function swipe(page,selector){
  const box=await page.locator(selector).boundingBox(),cdp=await page.context().newCDPSession(page),x=box.x+box.width*.7,y=box.y+box.height*.8;
  const before=await page.locator(selector).evaluate(e=>e.scrollTop);
@@ -34,8 +44,8 @@ async function swipe(page,selector){
   await page.addInitScript(()=>{localStorage.setItem('dockDashMuted','true');localStorage.setItem('dockDashBest','12345');localStorage.setItem('dockDashProfileV2',JSON.stringify({tutorialDone:true,totalDelivered:180,selectedSkin:2}));localStorage.setItem('dockDashWalletV1',JSON.stringify({version:1,coins:5000,earned:5000,spent:0,owned:[]}));localStorage.setItem('dockDashMissionsV1',JSON.stringify({'rome-1':{stars:3,bestScore:1000,fastest:20}}));});
   await page.goto(url);await page.waitForFunction(()=>window.__phone&&__phone.art[0]);
   const original=await page.evaluate(()=>__phone.saveSnapshot());
-  assert.equal(await page.locator('meta[name="dock-dash-version"]').getAttribute('content'),'8.3-sky-routes');
-  for(const size of [{width:320,height:568},{width:390,height:844},{width:430,height:932},{width:844,height:390},{width:1280,height:800}]){
+  assert.equal(await page.locator('meta[name="dock-dash-version"]').getAttribute('content'),'8.4-restaurants');
+  for(const size of [{width:320,height:568},{width:390,height:844},{width:430,height:932},{width:474,height:572},{width:844,height:390},{width:1280,height:800}]){
    await page.setViewportSize(size);await page.locator('#start').waitFor();await controls(page);
    await page.locator('#missions').tap();await controls(page);
    assert.ok(await page.locator('.world-cards .card-name').first().innerText());assert.equal(await page.locator('#mission-search').evaluate(e=>parseFloat(getComputedStyle(e).fontSize)),16);
@@ -43,9 +53,21 @@ async function swipe(page,selector){
    await page.locator('[data-world="asgard"]').tap();await controls(page);assert.match(await page.locator('#mission-briefing-title').innerText(),/Asgard/);
    await page.locator('#mission-home').tap();await page.locator('.title-menu .fleet-button').tap();await controls(page);
    assert.ok(await page.locator('.shop-cards .card-name').first().innerText());await page.locator('#garage-back').tap();
-   await page.locator('.title-menu .catalog-button').tap();await controls(page);const firstCargo=await page.locator('.cargo-name').first().innerText();await page.locator('#catalog-next').tap();const nextCargo=await page.locator('.cargo-name').first().innerText();assert.notEqual(nextCargo,firstCargo);assert.ok((await page.locator('.cargo-choice').first().getAttribute('aria-label')).startsWith(nextCargo+'.'));await page.locator('#catalog-back').tap();
+   await page.locator('.title-menu .catalog-button').tap();await controls(page);await collectionLayout(page);const firstCargo=await page.locator('.cargo-name').first().innerText();await page.locator('#catalog-next').tap();const nextCargo=await page.locator('.cargo-name').first().innerText();assert.notEqual(nextCargo,firstCargo);assert.ok((await page.locator('.cargo-choice').first().getAttribute('aria-label')).startsWith(nextCargo+'.'));
+   await page.locator('#catalog-filter').selectOption({label:'River Garden Bistro deliveries'});assert.equal(await page.locator('.cargo-choice:visible').count(),12);assert.match(await page.locator('.cargo-name').first().innerText(),/Bistro herb planters/);assert.equal(await page.locator('#catalog-prev').isDisabled(),true);assert.equal(await page.locator('#catalog-next').isDisabled(),true);
+   await page.locator('#catalog-filter').selectOption('-1');assert.equal(await page.locator('.cargo-name').first().innerText(),firstCargo);await page.locator('#catalog-back').tap();
   }
-  pass('Home, missions, briefing, shop and collection have contained 44px controls at five screen sizes');
+  pass('Home, missions, briefing, shop and collection have contained 44px controls at six screen sizes; collection labels fit, buttons have equal widths and every category is directly selectable');
+  await page.setViewportSize({width:390,height:844});await page.locator('#missions').tap();await page.locator('#mission-search').fill('');await page.locator('#mission-chapter').selectOption('restaurants');
+  const restaurantIds=['courtyardpizzeria','lanternramen','jadesteam','rivergardenbistro'];assert.deepEqual(await page.locator('.mission-card:visible').evaluateAll(a=>a.map(b=>b.dataset.world)),restaurantIds);
+  for(const [i,id] of restaurantIds.entries()){
+   await page.locator(`[data-world="${id}"]`).tap();await page.waitForFunction(location=>!!__phone.art[location],182+i);await controls(page);
+   assert.equal(await page.locator('[data-mission-stage="0"]').isEnabled(),true);assert.equal(await page.locator('[data-mission-stage="1"]').isDisabled(),true);assert.equal(await page.locator('[data-mission-stage]').count(),8);
+   assert.deepEqual(await page.evaluate(location=>[__phone.art[location].width,__phone.art[location].height],182+i),[360,640]);assert.ok((await page.locator('#briefing-mission-title').innerText()).length>0);
+   await page.screenshot({path:path.join(output,id+'.png')});await page.locator('#briefing-back').tap();
+  }
+  await page.locator('#mission-home').tap();await page.locator('.title-menu .catalog-button').tap();await page.screenshot({path:path.join(output,'collection-fixed.png')});await page.locator('#catalog-back').tap();
+  pass('Restaurant Row opens four illustrated restaurants with eight missions each, a free first delivery and locked later chapters');
   assert.deepEqual(await page.evaluate(()=>__phone.saveSnapshot()),original);pass('native browsing preserves existing coins, purchases, stars, cargo and best score');
   await page.setViewportSize({width:390,height:844});await page.locator('#missions').tap();await page.locator('#mission-chapter').selectOption('');await page.locator('#mission-search').fill('');await page.locator('#mission-journal').tap();
   await swipe(page,'#story-content');await page.locator('#story-close').tap();await page.locator('#story-dialog').waitFor({state:'hidden'});assert.equal(await page.evaluate(()=>__phone.state),'missions');pass('long story journal scrolls with a real phone swipe and keeps Close available');

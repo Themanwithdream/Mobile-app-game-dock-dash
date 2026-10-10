@@ -24,7 +24,7 @@ async function setup(context,{location=103,music=true,volume=.65}={}){
   browser=await chromium.launch({executablePath:process.env.DOCK_CHROME,args:['--no-sandbox','--autoplay-policy=document-user-activation-required']});
   const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true}),p=await setup(context);
   const before=await p.evaluate(()=>__sky.saveSnapshot());
-  assert.match(await p.locator('.home-art').getAttribute('src'),/asgard\.png\?v=8\.3/);assert.match(await p.locator('.home-subtitle').textContent(),/179 places/);
+  assert.match(await p.locator('.home-art').getAttribute('src'),/asgard\.png\?v=8\.4/);assert.match(await p.locator('.home-subtitle').textContent(),/183 places/);
   assert.equal(await p.evaluate(()=>__sky.soundtrack.active?.player.paused??true),true);
   await p.locator('.sound:visible').tap();await ready(p,2);assert.equal(await p.evaluate(()=>__sky.settings.location),103);
   await p.locator('.settings-button:visible').tap();assert.match(await p.locator('#route-theme-status').textContent(),/Runway Rush/);await ready(p,2);
