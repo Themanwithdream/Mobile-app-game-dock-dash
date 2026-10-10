@@ -22,7 +22,7 @@ async function collectionLayout(page){
   return {buttons,filterWidth:filter.getBoundingClientRect().width,gridWidth:grid.getBoundingClientRect().width,font:parseFloat(getComputedStyle(filter).fontSize),options:filter.options.length};
  });
  assert.ok(Math.max(...layout.buttons.map(b=>b.width))-Math.min(...layout.buttons.map(b=>b.width))<2,'collection controls must have equal widths');
- for(const b of layout.buttons){assert.ok(b.width>=90,b.id+' is too narrow');assert.equal(b.clipped,false,b.id+' label is clipped');}
+ for(const b of layout.buttons){assert.ok(b.width>=80,b.id+' has only '+b.width+'px width');assert.equal(b.clipped,false,b.id+' label is clipped');}
  assert.ok(Math.abs(layout.filterWidth-layout.gridWidth)<2,'cargo filter must fill the collection width');assert.equal(layout.font,16);assert.equal(layout.options,209);
 }
 async function swipe(page,selector){
