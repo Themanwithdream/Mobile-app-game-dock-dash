@@ -1,4 +1,5 @@
 /* Expanded shop: real touch purchases, themed arcade routes and cached styles. */
+const {visibleBounds,settledViewport}=require('./browser-geometry.cjs');
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),assert=require('node:assert/strict'),{spawn}=require('node:child_process');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright':'playwright');
 const root=path.resolve(__dirname,'..'),output=process.env.DOCK_TEST_OUTPUT||path.join(os.tmpdir(),'dock-dash-shop-checks'),url='http://127.0.0.1:8846/';
@@ -110,10 +111,10 @@ const overlap=(a,b)=>a.x<b.x+b.width && a.x+a.width>b.x && a.y<b.y+b.height && a
    await page.locator('[data-shop="styles"]').tap();while(!await page.locator('#shop-next').isDisabled())await page.locator('#shop-next').tap();assert.equal(await page.locator('.skin-choice:visible').count(),3);assert.equal(await page.locator('#shop-next').isDisabled(),true);
    pass('short final pages hide unused cards and prevent advancing past the catalog');
    for(const size of [{width:320,height:568},{width:390,height:844},{width:414,height:896},{width:844,height:390}]){
-     await page.setViewportSize(size);await page.waitForFunction(()=>{const v=document.getElementById('viewport'),b=v.getBoundingClientRect(),c=getComputedStyle(v),s=Math.min((b.width-parseFloat(c.paddingLeft)-parseFloat(c.paddingRight))/360,(b.height-parseFloat(c.paddingTop)-parseFloat(c.paddingBottom))/640);return Math.abs(document.getElementById('stage').getBoundingClientRect().width-360*s)<1;},null,{polling:50});
+     await page.setViewportSize(size);await settledViewport(page);
      for(const category of ['trucks','venues','styles','new']){
        await page.evaluate(category=>{__dockTest.changeShopCategory(category);__dockTest.render();},category);
-       const boxes=await page.locator('#garage-menu button:visible').evaluateAll(a=>a.map(b=>{const r=b.getBoundingClientRect();return {id:b.id||b.dataset.item||b.dataset.shop,x:r.x,y:r.y,width:r.width,height:r.height};})),stage=await page.locator('#stage').boundingBox();
+       const boxes=await page.locator('#garage-menu button:visible').evaluateAll(visibleBounds),stage=await page.locator('#stage').boundingBox();
        for(let i=0;i<boxes.length;i++){const a=boxes[i];assert.ok(a.x>=stage.x-.5 && a.x+a.width<=stage.x+stage.width+.5 && a.y+a.height<=stage.y+stage.height+.5);for(let j=i+1;j<boxes.length;j++)assert.equal(overlap(a,boxes[j]),false,JSON.stringify({category,size,a,b:boxes[j]}));}
      }
    }
@@ -121,14 +122,14 @@ const overlap=(a,b)=>a.x<b.x+b.width && a.x+a.width>b.x && a.y<b.y+b.height && a
    await page.setViewportSize({width:390,height:844});
    await page.evaluate(()=>{const d=__dockTest;d.selectShopItem('venue:beacon');d.closeGarage();});await page.locator('.sound:visible').tap();
    const ready=async track=>{await page.waitForFunction(track=>__dockTest.soundtrack.active?.track===track && !__dockTest.soundtrack.pending && !__dockTest.soundtrack.active.player.paused && __dockTest.soundtrack.active.player.readyState>=3,track,{polling:50});assert.equal(await page.evaluate(()=>__dockTest.soundtrack.slots.filter(s=>!s.player.paused).length),1);};
-   await ready(7);await page.locator('#start').tap();await ready(7);
+   await ready(2);await page.locator('#start').tap();await ready(7);
    await page.locator('#pause').tap();assert.equal(await page.evaluate(()=>__dockTest.soundtrack.slots.filter(s=>!s.player.paused).length),0);
    await page.locator('#resume').tap();await ready(7);await page.locator('#pause').tap();await page.locator('#exit-run').tap();
    pass('native Beacon Bay arcade music uses one phone player and pauses and resumes without overlap');
    await page.locator('.fleet-button:visible').tap();await page.locator('[data-shop="venues"]').tap();
-   await page.evaluate(()=>{__dockTest.changeShopPage(-1000);__dockTest.changeShopPage(2);});await page.locator('[data-item="venue:school"]').tap();await ready(8);
+   await page.evaluate(()=>{__dockTest.changeShopPage(-1000);__dockTest.changeShopPage(2);});await page.locator('[data-item="venue:school"]').tap();await ready(2);
    await page.locator('#garage-back').tap();await page.locator('#start').tap();await ready(8);await page.evaluate(()=>{__dockTest.game.readyIn=0;__dockTest.render();});await page.screenshot({path:path.join(output,'school-arcade-with-music.png')});
-   pass('a native venue equip switches to school music and keeps a single decoder through arcade launch');
+   pass('a native venue equip retains home music, then switches to school music with one decoder on arcade launch');
    const other=await browser.newContext({viewport:{width:390,height:844},hasTouch:true,isMobile:true}),low=await other.newPage();
    await setup(low,{wallet:{coins:100,earned:820},profile:{selectedSkin:19,selectedWrap:'wrap:crest',selectedZone:'zone:gold'},settings:{location:12}});
    assert.deepEqual(await low.evaluate(()=>[__dockTest.wallet.coins,__dockTest.profile.selectedSkin,__dockTest.settings.location,__dockTest.profile.selectedWrap,__dockTest.profile.selectedZone]),[100,0,0,'wrap:classic','zone:classic']);

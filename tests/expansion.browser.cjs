@@ -1,4 +1,5 @@
 /* Native expansion navigation, purchases, colour-sensitive cargo and original fleet art. */
+const {visibleBounds,settledViewport}=require('./browser-geometry.cjs');
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),assert=require('node:assert/strict'),{spawn}=require('node:child_process');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright':'playwright');
 const root=path.resolve(__dirname,'..'),out=process.env.DOCK_TEST_OUTPUT||path.join(os.tmpdir(),'dock-dash-expansion-checks'),url='http://127.0.0.1:8850/';
@@ -10,7 +11,7 @@ const checks=[],errors=[],requested=[];
 const pass=(name,detail)=>{checks.push({name,detail});console.log('PASS '+name+(detail?' · '+JSON.stringify(detail):''));};
 const overlap=(a,b)=>a.x<b.x+b.width-.5 && a.x+a.width>b.x+.5 && a.y<b.y+b.height-.5 && a.y+a.height>b.y+.5;
 async function paint(page){await page.evaluate(()=>__dockTest.render());}
-async function layout(page,selector){const boxes=await page.locator(selector+' button:visible').evaluateAll(a=>a.map(b=>{const r=b.getBoundingClientRect();return {id:b.id||b.dataset.shop||b.dataset.item||b.dataset.world,x:r.x,y:r.y,width:r.width,height:r.height};})),stage=await page.locator('#stage').boundingBox();for(let i=0;i<boxes.length;i++){const a=boxes[i];assert.ok(a.x>=stage.x-.5 && a.x+a.width<=stage.x+stage.width+.5 && a.y>=stage.y-.5 && a.y+a.height<=stage.y+stage.height+.5,JSON.stringify(a));for(let j=i+1;j<boxes.length;j++)assert.equal(overlap(a,boxes[j]),false,JSON.stringify({a,b:boxes[j]}));}}
+async function layout(page,selector){const boxes=await page.locator(selector+' button:visible').evaluateAll(visibleBounds),stage=await page.locator('#stage').boundingBox();for(let i=0;i<boxes.length;i++){const a=boxes[i];assert.ok(a.x>=stage.x-.5 && a.x+a.width<=stage.x+stage.width+.5 && a.y>=stage.y-.5 && a.y+a.height<=stage.y+stage.height+.5,JSON.stringify(a));for(let j=i+1;j<boxes.length;j++)assert.equal(overlap(a,boxes[j]),false,JSON.stringify({a,b:boxes[j]}));}}
 (async()=>{
  const server=spawn('python',['-m','http.server','8850','--bind','127.0.0.1'],{cwd:root,stdio:'ignore'});let browser;
  try{
@@ -48,7 +49,7 @@ async function layout(page,selector){const boxes=await page.locator(selector+' b
   pass('all nine worlds are reachable through native cards, start free with a countdown and keep their own cargo',worlds);
   assert.equal(await page.locator('#missions-next').isDisabled(),false);await layout(page,'#missions-menu');await paint(page);await page.screenshot({path:path.join(out,'prism-map.png')});
   await page.locator('#mission-home').tap();await page.locator('.fleet-button:visible').tap();await page.locator('[data-shop="new"]').tap();await paint(page);
-  assert.equal(await page.locator('[data-shop="new"]').textContent(),'New · 190');assert.deepEqual(await page.locator('.skin-choice:visible').evaluateAll(a=>a.map(b=>b.dataset.item)),['food-truck','bread-van','city-tram','canal-wagon']);await page.screenshot({path:path.join(out,'new-arrivals-shop.png')});
+  assert.equal(await page.locator('[data-shop="new"]').textContent(),'New · 196');assert.deepEqual(await page.locator('.skin-choice:visible').evaluateAll(a=>a.map(b=>b.dataset.item)),['food-truck','bread-van','city-tram','canal-wagon']);await page.screenshot({path:path.join(out,'new-arrivals-shop.png')});
   pass('a dedicated New shop tab exposes the expansion without moving existing vehicles or purchases');
   const items=await page.evaluate(()=>__dockTest.ER.newItems.map(i=>({id:i.id,price:i.price}))),start=await page.evaluate(()=>__dockTest.wallet.coins);let spent=0;
   for(let i=0;i<items.length;i++){
@@ -57,7 +58,7 @@ async function layout(page,selector){const boxes=await page.locator(selector+' b
     assert.equal(await page.evaluate(()=>__dockTest.wallet.coins),start-spent);await button.tap();assert.equal(await page.evaluate(()=>__dockTest.wallet.coins),start-spent);
     assert.equal(await button.getAttribute('aria-pressed'),'true');
   }
-  assert.equal(await page.locator('#shop-next').isDisabled(),true);pass('all 190 native purchases deduct their exact cost, equip and reject repeat charges',{purchases:items.length,spent});
+  assert.equal(await page.locator('#shop-next').isDisabled(),true);pass('all 196 native purchases deduct their exact cost, equip and reject repeat charges',{purchases:items.length,spent});
   for(const size of [{width:320,height:568},{width:390,height:844},{width:844,height:390},{width:1280,height:800}]){
     await page.setViewportSize(size);await page.evaluate(()=>window.dispatchEvent(new Event('resize')));
     for(const category of ['trucks','venues','styles','new']){await page.evaluate(c=>{__dockTest.changeShopCategory(c);__dockTest.render();},category);await layout(page,'#garage-menu');}

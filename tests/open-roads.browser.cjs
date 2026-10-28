@@ -1,4 +1,5 @@
 /* Native mobile navigation for all 83 routes, independent endings and save continuity. */
+const {visibleBounds,settledViewport}=require('./browser-geometry.cjs');
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),assert=require('node:assert/strict'),{spawn}=require('node:child_process');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright');
 const root=path.resolve(__dirname,'..'),out=process.env.DOCK_TEST_OUTPUT||path.join(os.tmpdir(),'dock-boss-open-roads'),url='http://127.0.0.1:8890/';fs.mkdirSync(out,{recursive:true});
@@ -8,9 +9,7 @@ get state(){return state;},get game(){return game;},get art(){return pixelArt;},
 const checks=[],errors=[],failed=[];const pass=(name,detail)=>{checks.push({name,detail});console.log('PASS '+name+(detail?' · '+JSON.stringify(detail):''));};
 const paint=p=>p.evaluate(()=>__roads.render());
 async function layout(p,section){
- const stage=await p.locator('#stage').boundingBox(),boxes=await p.locator(section+' button:visible,'+section+' select:visible').evaluateAll(a=>a.map(b=>{
-  const r=b.getBoundingClientRect(),s=b.closest('.briefing-scroll')?.getBoundingClientRect();return {id:b.id||b.dataset.world,x:s?Math.max(r.x,s.x):r.x,y:s?Math.max(r.y,s.y):r.y,right:s?Math.min(r.right,s.right):r.right,bottom:s?Math.min(r.bottom,s.bottom):r.bottom};
- }).filter(b=>b.right>b.x&&b.bottom>b.y));
+ const stage=await p.locator('#stage').boundingBox(),boxes=await p.locator(section+' button:visible,'+section+' select:visible').evaluateAll(visibleBounds);
  for(const b of boxes)assert.ok(b.x>=stage.x-.6&&b.right<=stage.x+stage.width+.6&&b.y>=stage.y-.6&&b.bottom<=stage.y+stage.height+.6,JSON.stringify(b));
 }
 (async()=>{

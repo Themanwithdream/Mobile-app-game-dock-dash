@@ -1,4 +1,5 @@
 /* Touch shop, wallet persistence, extra worlds and performance invariants. */
+const {visibleBounds,settledViewport}=require('./browser-geometry.cjs');
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),assert=require('node:assert/strict'),{spawn}=require('node:child_process');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright':'playwright');
 const root=path.resolve(__dirname,'..'),output=process.env.DOCK_TEST_OUTPUT || path.join(os.tmpdir(),'dock-dash-economy-checks'),url='http://127.0.0.1:8845/';
@@ -95,10 +96,10 @@ function overlap(a,b){return a.x<b.x+b.width && a.x+a.width>b.x && a.y<b.y+b.hei
  const idle=await page.evaluate(()=>{const d=__dockTest;d.game.hold=100;d.render();const before=__counts.canvases;for(let i=0;i<120;i++)d.render();return __counts.canvases-before;});assert.equal(idle,0);
  pass('coin awards retain one dock update, deferred persistence and zero canvas allocations across 120 unchanged frames');
  for(const size of [{width:320,height:568},{width:390,height:844},{width:414,height:896},{width:844,height:390}]){
- await page.setViewportSize(size);await page.waitForFunction(()=>{const v=document.getElementById('viewport'),b=v.getBoundingClientRect(),c=getComputedStyle(v),s=Math.min((b.width-parseFloat(c.paddingLeft)-parseFloat(c.paddingRight))/360,(b.height-parseFloat(c.paddingTop)-parseFloat(c.paddingBottom))/640);return Math.abs(document.getElementById('stage').getBoundingClientRect().width-360*s)<1;},null,{polling:50});
+ await page.setViewportSize(size);await settledViewport(page);
  await page.evaluate(()=>{__dockTest.backToTitle();__dockTest.openGarage();__dockTest.render();});
  for(const section of ['#garage-menu','#missions-menu']){if(section.includes('missions'))await page.evaluate(()=>{__dockTest.openMissionMap();__dockTest.render();});
- const boxes=await page.locator(section+' button:visible').evaluateAll(a=>a.map(b=>{const r=b.getBoundingClientRect();return {id:b.id || b.className,x:r.x,y:r.y,width:r.width,height:r.height};})),stage=await page.locator('#stage').boundingBox();
+ const boxes=await page.locator(section+' button:visible').evaluateAll(visibleBounds),stage=await page.locator('#stage').boundingBox();
  for(let i=0;i<boxes.length;i++){const a=boxes[i];assert.ok(a.y+a.height<=stage.y+stage.height+.5);for(let j=i+1;j<boxes.length;j++)assert.equal(overlap(a,boxes[j]),false,JSON.stringify({size,section,a,b:boxes[j]}));}
  }}pass('shop and mission controls fit four phone layouts with no overlapping hit areas');
  assert.deepEqual(errors,[]);pass('no browser runtime errors');fs.writeFileSync(path.join(output,'report.json'),JSON.stringify({checks,errors},null,2));

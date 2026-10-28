@@ -1,4 +1,5 @@
 /* Gameplay timing and the two reported layouts, in touch-enabled Chromium. */
+const {visibleBounds,settledViewport}=require('./browser-geometry.cjs');
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os');
 const assert=require('node:assert/strict');
 const {spawn}=require('node:child_process');
@@ -45,7 +46,7 @@ async function frame(page,now){await page.evaluate(now=>__dockTest.frame(now),no
     await page.screenshot({path:path.join(output,'phone-pause-fixed.png')});
     for(const size of [{width:320,height:568},{width:390,height:844},{width:414,height:896},{width:844,height:390}]){
       await page.setViewportSize(size);
-      await page.waitForFunction(()=>{const v=document.getElementById('viewport'),b=v.getBoundingClientRect(),c=getComputedStyle(v),s=Math.min((b.width-parseFloat(c.paddingLeft)-parseFloat(c.paddingRight))/360,(b.height-parseFloat(c.paddingTop)-parseFloat(c.paddingBottom))/640);return Math.abs(document.getElementById('stage').getBoundingClientRect().width-360*s)<1;},null,{polling:50});
+      await settledViewport(page);
       const {exit,extras,stage}=await page.evaluate(()=>{const box=id=>{const b=document.querySelector(id).getBoundingClientRect();return {x:b.x,y:b.y,width:b.width,height:b.height};};return {exit:box('#exit-run'),extras:box('.pause-menu .catalog-button'),stage:box('#stage')};});
       assert.equal(overlap(exit,extras),false,JSON.stringify({size,exit,extras,stage}));
       assert.ok(exit.y+exit.height<=stage.y+stage.height);

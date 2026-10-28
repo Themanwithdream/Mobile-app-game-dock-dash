@@ -68,6 +68,7 @@ html, body, .stage { touch-action: auto; }
 .ui-screen .search-clear { display:block; width:100%; margin-top:10px; background:#e9bc6d; color:#302416; }
 .menu .menu-home, .mission-home, .ui-screen #shop-owned, .ui-screen #mission-journal { position:absolute; top:10px; height:44px; min-height:44px; padding:8px 12px; font-size:13px; border-radius:10px; }
 .menu .menu-home, .mission-home { left:14px; width:auto; min-width:86px; }
+.stage .ui-screen .menu-home { position:absolute; top:10px; left:14px; width:auto; }
 .ui-screen #shop-owned, .ui-screen #mission-journal { right:14px; left:auto; width:auto; min-width:84px; }
 .ui-screen #mission-journal { background:#405339; color:#ffe6b4; }
 .ui-screen #cargo-cards { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
