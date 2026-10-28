@@ -47,7 +47,7 @@ try{
  await p.locator('#settings-scroll').evaluate(e=>{window.__routeScrollSettled=false;e.addEventListener('scrollend',()=>window.__routeScrollSettled=true,{once:true});});
  const footer=await p.locator('#settings-back').boundingBox(),scroll=await p.locator('#settings-scroll').boundingBox(),cdp=await context.newCDPSession(p),x=scroll.x+scroll.width*.65,y=scroll.y+scroll.height*.8;
  await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y}]});for(let i=1;i<=8;i++){await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x,y:y-scroll.height*.65*i/8}]});await new Promise(r=>setTimeout(r,20));}await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await cdp.detach();
- await p.waitForFunction(()=>document.getElementById('settings-scroll').scrollTop>30,null,{polling:50});assert.deepEqual(await p.locator('#settings-back').boundingBox(),footer);await p.waitForFunction(()=>window.__routeScrollSettled);
+ await p.waitForFunction(()=>document.getElementById('settings-scroll').scrollTop>30,null,{polling:50});assert.deepEqual(await p.locator('#settings-back').boundingBox(),footer);await p.waitForFunction(()=>window.__routeScrollSettled,null,{polling:50});
  await p.locator('#settings-sound-jump').tap();assert.equal(await p.locator('#music-toggle').evaluate(b=>b===document.activeElement),true);assert.deepEqual(await p.locator('#settings-back').boundingBox(),footer);assert.equal(await p.locator('#stage').evaluate(e=>e.scrollTop),0);await p.screenshot({path:path.join(out,'audio-phone.png')});
  pass('trusted touch swipes and the Audio shortcut reach settings while Back stays fixed');
 

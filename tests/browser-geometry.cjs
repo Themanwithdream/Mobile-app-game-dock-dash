@@ -20,6 +20,6 @@ async function settledViewport(page) {
     const expected = DockDashPhoneLayout.measure(box.width - parseFloat(css.paddingLeft) - parseFloat(css.paddingRight), box.height - parseFloat(css.paddingTop) - parseFloat(css.paddingBottom));
     const stage = document.getElementById('stage').getBoundingClientRect();
     return Math.abs(stage.width - expected.width) < 1 && Math.abs(stage.height - expected.height) < 1;
-  });
+  }, null, {polling: 50});
 }
 module.exports = {visibleBounds, settledViewport};
