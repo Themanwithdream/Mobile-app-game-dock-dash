@@ -2,6 +2,7 @@ name: Phone quality
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 permissions:
   contents: read
@@ -9,8 +10,6 @@ jobs:
   phone:
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    env:
-      CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/node_modules
     steps:
       - uses: actions/checkout@v4
         with:
@@ -25,32 +24,11 @@ jobs:
       - name: Install Chromium
         id: browser-install
         run: npx playwright install --with-deps chromium
-      - name: Test phone menus and touch gestures
+      - name: Run every Chromium browser regression
         env:
           DOCK_TEST_OUTPUT: phone-test-output
-        run: node tests/phone-edition.browser.cjs
-      - name: Test gameplay timing and performance
         if: ${{ !cancelled() && steps.browser-install.outcome == 'success' }}
-        run: |
-          export DOCK_CHROME="$(node -e 'console.log(require("playwright").chromium.executablePath())')"
-          node tests/gameplay.browser.cjs
-      - name: Test every story mission
-        if: ${{ !cancelled() && steps.browser-install.outcome == 'success' }}
-        run: |
-          export DOCK_CHROME="$(node -e 'console.log(require("playwright").chromium.executablePath())')"
-          node tests/missions.browser.cjs
-      - name: Test mission reading and fleet identity
-        if: ${{ !cancelled() && steps.browser-install.outcome == 'success' }}
-        run: |
-          export DOCK_CHROME="$(node -e 'console.log(require("playwright").chromium.executablePath())')"
-          node tests/mission-design.browser.cjs
-      - name: Test sky routes, artwork and home music
-        if: ${{ !cancelled() && steps.browser-install.outcome == 'success' }}
-        env:
-          DOCK_TEST_OUTPUT: phone-test-output
-        run: |
-          export DOCK_CHROME="$(node -e 'console.log(require("playwright").chromium.executablePath())')"
-          node tests/sky-routes.browser.cjs
+        run: node tools/run-browser-tests.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
