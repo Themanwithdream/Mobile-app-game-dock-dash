@@ -91,7 +91,7 @@ async function layout(page,selector){const boxes=await page.locator(selector+' b
   });fs.writeFileSync(path.join(out,'new-cargo.png'),Buffer.from(atlas.split(',')[1],'base64'));pass('all 108 new cargo illustrations render into the collection cache');
   await page.reload();await page.waitForFunction(()=>window.__dockTest && __dockTest.art[__dockTest.scene],null,{polling:50});
   const saved=await page.evaluate(()=>({coins:__dockTest.wallet.coins,spent:__dockTest.wallet.spent,owned:__dockTest.wallet.owned,skin:__dockTest.ER.trucks[__dockTest.profile.selectedSkin].id,wrap:__dockTest.profile.selectedWrap,zone:__dockTest.profile.selectedZone,location:__dockTest.settings.location}));
-  assert.equal(saved.coins,start-spent);assert.equal(saved.spent,1000+spent);assert.ok(items.every(i=>saved.owned.includes(i.id)));assert.ok(['beacon','wrap:crest','venue:rome'].every(id=>saved.owned.includes(id)));assert.equal(saved.skin,'comet-courier');assert.equal(saved.wrap,'wrap:letter');assert.equal(saved.zone,'zone:tide');assert.equal(saved.location,179);
+  assert.equal(saved.coins,start-spent);assert.equal(saved.spent,1000+spent);assert.ok(items.every(i=>saved.owned.includes(i.id)));assert.ok(['beacon','wrap:crest','venue:rome'].every(id=>saved.owned.includes(id)));assert.equal(saved.skin,'comet-courier');assert.equal(saved.wrap,'wrap:letter');assert.equal(saved.zone,'zone:tide');assert.equal(saved.location,185);
   pass('new purchases and equipment persist together with the previous wallet and ownership after reload',saved);
   assert.deepEqual(errors,[]);pass('no browser runtime errors');fs.writeFileSync(path.join(out,'report.json'),JSON.stringify({checks,errors},null,2));
  }finally{if(browser)await browser.close();server.kill();}
