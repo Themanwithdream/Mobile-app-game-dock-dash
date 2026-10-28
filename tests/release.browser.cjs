@@ -1,4 +1,5 @@
 /* Rebranding keeps old saves; help, sharing and practice work through native controls. */
+const {settledViewport}=require('./browser-geometry.cjs');
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),assert=require('node:assert/strict'),{spawn}=require('node:child_process');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright');
 const root=path.resolve(__dirname,'..'),out=process.env.DOCK_TEST_OUTPUT||path.join(os.tmpdir(),'dock-boss-release'),url='http://127.0.0.1:8868/';fs.mkdirSync(out,{recursive:true});
@@ -45,7 +46,7 @@ async function reveal(p,id){await p.locator('#'+id).evaluate(e=>{const scroll=e.
   pass('browsers without a share sheet copy the link, with a readable manual fallback when clipboard access is unavailable');
 
   const layouts=[];for(const size of [{width:320,height:568},{width:390,height:664},{width:414,height:896},{width:844,height:390},{width:1100,height:800}]){
-   await p.setViewportSize(size);await p.locator('#help-content').evaluate(e=>e.scrollTop=0);const bounds=await p.evaluate(()=>{const box=e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height};};return {dialog:box(document.getElementById('help-dialog')),header:box(document.querySelector('#help-dialog>header')),scroll:box(document.getElementById('help-content')),footer:box(document.querySelector('.help-actions'))};});const d=bounds.dialog;
+   await p.setViewportSize(size);await settledViewport(p);await p.locator('#help-content').evaluate(e=>e.scrollTop=0);const bounds=await p.evaluate(()=>{const box=e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height};};return {dialog:box(document.getElementById('help-dialog')),header:box(document.querySelector('#help-dialog>header')),scroll:box(document.getElementById('help-content')),footer:box(document.querySelector('.help-actions'))};});const d=bounds.dialog;
    assert.ok(d.x>=0&&d.y>=0&&d.x+d.w<=size.width+.5&&d.y+d.h<=size.height+.5,JSON.stringify({size,bounds}));assert.ok(bounds.header.y+bounds.header.h<=bounds.scroll.y+1&&bounds.scroll.y+bounds.scroll.h<=bounds.footer.y+1,JSON.stringify({size,bounds}));assert.ok(bounds.scroll.h>40,JSON.stringify({size,bounds}));assert.equal(await p.locator('#help-content').evaluate(e=>e.scrollWidth<=e.clientWidth+1),true);
    for(const id of ['help-practice','help-close','help-share','help-link']){await reveal(p,id);const r=await p.locator('#'+id).boundingBox();assert.ok(r.height>=43.5&&r.x>=d.x&&r.x+r.width<=d.x+d.w+.5,JSON.stringify({size,id,r,d}));}
    assert.equal(await p.locator('#help-dialog button').filter({hasText:'Back to home'}).count(),1);await p.locator('#help-content').evaluate(e=>e.scrollTop=0);await p.screenshot({path:path.join(out,`help-${size.width}x${size.height}.png`)});layouts.push(size);

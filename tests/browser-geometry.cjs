@@ -15,11 +15,17 @@ function visibleBounds(elements) {
   }).filter(rect => rect.width > 0 && rect.height > 0);
 }
 async function settledViewport(page) {
-  await page.waitForFunction(() => {
+  await page.waitForFunction(target => {
+    if (target && (Math.abs(innerWidth - target.width) > 1 || Math.abs(innerHeight - target.height) > 1)) return false;
+    // These resize checks run with the keyboard closed and without pinch zoom.
+    const visual = window.visualViewport;
+    if (visual && (Math.abs(visual.width - innerWidth) > 1 || Math.abs(visual.height - innerHeight) > 1)) return false;
     const viewport = document.getElementById('viewport'), box = viewport.getBoundingClientRect(), css = getComputedStyle(viewport);
+    if (Math.abs(box.width - innerWidth) > 1 || Math.abs(box.height - innerHeight) > 1) return false;
+    if (Math.abs(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--visible-height')) - innerHeight) > 1) return false;
     const expected = DockDashPhoneLayout.measure(box.width - parseFloat(css.paddingLeft) - parseFloat(css.paddingRight), box.height - parseFloat(css.paddingTop) - parseFloat(css.paddingBottom));
     const stage = document.getElementById('stage').getBoundingClientRect();
     return Math.abs(stage.width - expected.width) < 1 && Math.abs(stage.height - expected.height) < 1;
-  }, null, {polling: 50});
+  }, page.viewportSize(), {polling: 50});
 }
 module.exports = {visibleBounds, settledViewport};

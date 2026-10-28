@@ -1,4 +1,5 @@
 /* Real touch gestures, native menus and lifecycle checks. Hooks exist only in test responses. */
+const {settledViewport}=require('./browser-geometry.cjs');
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright':'playwright');
 const root=path.resolve(__dirname,'..'),url='http://127.0.0.1:8852/',checks=[],errors=[];
@@ -46,7 +47,7 @@ async function swipe(page,selector){
   const original=await page.evaluate(()=>__phone.saveSnapshot());
   assert.equal(await page.locator('meta[name="dock-dash-version"]').getAttribute('content'),'8.4-restaurants');
   for(const size of [{width:320,height:568},{width:390,height:844},{width:430,height:932},{width:474,height:572},{width:844,height:390},{width:1280,height:800}]){
-   await page.setViewportSize(size);await page.locator('#start').waitFor();await controls(page);
+   await page.setViewportSize(size);await settledViewport(page);await page.locator('#start').waitFor();await controls(page);
    await page.locator('#missions').tap();await controls(page);
    assert.ok(await page.locator('.world-cards .card-name').first().innerText());assert.equal(await page.locator('#mission-search').evaluate(e=>parseFloat(getComputedStyle(e).fontSize)),16);
    await page.locator('#mission-chapter').selectOption('openroads');await page.locator('#mission-search').fill('Asgard');assert.deepEqual(await page.locator('.mission-card:visible').evaluateAll(a=>a.map(b=>b.dataset.world)),['asgard','bifrostskyport']);
