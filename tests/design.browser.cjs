@@ -1,5 +1,5 @@
 /* Menu navigation and collection regressions using native phone controls. */
-const {visibleBounds,settledViewport}=require('./browser-geometry.cjs');
+const {visibleBounds,resizeViewport}=require('./browser-geometry.cjs');
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),assert=require('node:assert/strict'),{spawn}=require('node:child_process');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright':'playwright');
 const root=path.resolve(__dirname,'..'),output=process.env.DOCK_TEST_OUTPUT||path.join(os.tmpdir(),'dock-dash-design-checks'),url='http://127.0.0.1:8847/';
@@ -85,7 +85,7 @@ const overlap=(a,b)=>a.x<b.x+b.width && a.x+a.width>b.x && a.y<b.y+b.height && a
   assert.ok(textBounds.length>100);assert.ok(textBounds.some(row=>row.text.includes('1,000,000,000')));for(const row of textBounds)assert.ok(row.fits,JSON.stringify(row));
   pass('all native catalog text and the maximum wallet balance wrap within their panels');
   for(const size of [{width:320,height:568},{width:390,height:844},{width:414,height:896},{width:844,height:390}]){
-   await page.setViewportSize(size);await settledViewport(page);
+   await resizeViewport(page,size);
    for(const menu of ['garage','missions']){
     await page.evaluate(menu=>{__dockTest.backToTitle();menu==='garage'?__dockTest.openGarage():__dockTest.openMissionMap();__dockTest.render();},menu);
     const boxes=await page.locator('#stage button:visible').evaluateAll(visibleBounds),stage=await page.locator('#stage').boundingBox();
@@ -95,7 +95,7 @@ const overlap=(a,b)=>a.x<b.x+b.width && a.x+a.width>b.x && a.y<b.y+b.height && a
    if(size.width===320){await page.evaluate(()=>{__dockTest.backToTitle();__dockTest.openGarage();__dockTest.changeShopCategory('trucks');__dockTest.changeShopPage(-1000);__dockTest.render();});await page.screenshot({path:path.join(output,'narrow-phone-shop.png')});}
   }
   pass('both menus have exactly one Home control, contained labels and separate touch targets in four phone layouts');
-  await page.setViewportSize({width:390,height:844});await page.evaluate(()=>__dockTest.backToTitle());await page.locator('.sound:visible').tap();await readyMusic(page,2);
+  await resizeViewport(page,{width:390,height:844});await page.evaluate(()=>__dockTest.backToTitle());await page.locator('.sound:visible').tap();await readyMusic(page,2);
   await page.locator('#missions').tap();await page.evaluate(()=>__dockTest.openBriefing('beacon',0));await page.locator('#mission-launch').tap();await readyMusic(page,7);await page.evaluate(()=>__dockTest.finishMission(false));
   await page.locator('#mission-shop').tap();assert.equal(await page.locator('#garage-back').getAttribute('aria-label'),'Back to results');await page.locator('#garage-back').tap();assert.equal(await page.evaluate(()=>__dockTest.state),'missionResult');
   await page.locator('#mission-shop').tap();await page.locator('[data-shop="venues"]').tap();await page.evaluate(()=>__dockTest.changeShopPage(-1000));await page.locator('[data-item="venue:warehouse"]').tap();

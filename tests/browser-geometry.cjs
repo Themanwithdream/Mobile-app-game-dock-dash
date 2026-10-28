@@ -28,4 +28,8 @@ async function settledViewport(page) {
     return Math.abs(stage.width - expected.width) < 1 && Math.abs(stage.height - expected.height) < 1;
   }, page.viewportSize(), {polling: 50});
 }
-module.exports = {visibleBounds, settledViewport};
+async function resizeViewport(page, size) {
+  await page.setViewportSize(size);
+  await settledViewport(page);
+}
+module.exports = {visibleBounds, resizeViewport};

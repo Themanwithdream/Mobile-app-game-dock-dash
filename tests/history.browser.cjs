@@ -1,4 +1,5 @@
 /* Historical themes, eight-level navigation, save migration and cargo legibility. */
+const {resizeViewport}=require('./browser-geometry.cjs');
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),assert=require('node:assert/strict'),{spawn}=require('node:child_process');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright':'playwright');
 const root=path.resolve(__dirname,'..'),out=process.env.DOCK_TEST_OUTPUT||path.join(os.tmpdir(),'dock-dash-history-checks'),url='http://127.0.0.1:8849/';
@@ -49,14 +50,14 @@ async function layout(page){
   pass('all thirty original records survive and returning players continue at level four');
   const sizes=[];
   for(const size of [{width:320,height:568},{width:390,height:844},{width:844,height:390},{width:1280,height:800}]){
-   await page.setViewportSize(size);await page.evaluate(()=>window.dispatchEvent(new Event('resize')));await paint(page);assert.equal(await page.locator('.mission-stage').count(),8);
+   await resizeViewport(page,size);await page.evaluate(()=>window.dispatchEvent(new Event('resize')));await paint(page);assert.equal(await page.locator('.mission-stage').count(),8);
    for(let i=0;i<8;i++){
     const tile=page.locator(`[data-mission-stage="${i}"]`);await tile.scrollIntoViewIfNeeded();await layout(page);
     const b=await tile.boundingBox(),panel=await page.locator('#briefing-scroll').boundingBox();assert.ok(b.y>=panel.y-.5&&b.y+b.height<=panel.y+panel.height+.5);
    }
    const level=await page.locator('[data-mission-stage="0"]').boundingBox();sizes.push({...size,levelWidth:level.width,levelHeight:level.height});
   }
-  await page.setViewportSize({width:390,height:844});await page.evaluate(()=>window.dispatchEvent(new Event('resize')));pass('eight levels remain reachable and fixed launch and back controls stay separate on phones, landscape and desktop',sizes);
+  await resizeViewport(page,{width:390,height:844});await page.evaluate(()=>window.dispatchEvent(new Event('resize')));pass('eight levels remain reachable and fixed launch and back controls stay separate on phones, landscape and desktop',sizes);
   await page.locator('#briefing-back').tap();for(let i=0;i<3;i++)await page.locator('#missions-next').tap();
   assert.deepEqual(await page.locator('.mission-card:visible').evaluateAll(a=>a.map(b=>b.dataset.world)),['rome','egypt','viking','silkroad']);
   await paint(page);await page.waitForFunction(()=>[13,14,15,16].every(i=>__dockTest.previewArt[i] || __dockTest.art[i]),null,{polling:50});await paint(page);await page.screenshot({path:path.join(out,'historical-map.png')});

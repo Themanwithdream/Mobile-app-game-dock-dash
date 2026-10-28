@@ -1,4 +1,5 @@
 /* Route search, native card layouts, touch scrolling and paused-run shopping. */
+const {resizeViewport}=require('./browser-geometry.cjs');
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),assert=require('node:assert/strict'),{spawn}=require('node:child_process');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright':'playwright');
 const root=path.resolve(__dirname,'..'),out=process.env.DOCK_TEST_OUTPUT||path.join(os.tmpdir(),'dock-dash-routes'),url='http://127.0.0.1:8867/';fs.mkdirSync(out,{recursive:true});
@@ -64,7 +65,7 @@ try{
 
  await p.evaluate(()=>__routes.backToTitle());await open(p);const layouts=[];
  for(const size of [{width:320,height:568},{width:390,height:664},{width:414,height:896},{width:844,height:390},{width:1100,height:800}]){
-  await p.setViewportSize(size);await p.waitForTimeout(80);await p.locator('#settings-scroll').evaluate(e=>e.scrollTop=0);await paint(p);
+  await resizeViewport(p,size);await p.locator('#settings-scroll').evaluate(e=>e.scrollTop=0);await paint(p);
   const bounds=await p.evaluate(()=>{
    const box=e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height};};
    return {stage:box(document.getElementById('stage')),header:box(document.querySelector('.settings-header')),scroll:box(document.getElementById('settings-scroll')),footer:box(document.querySelector('.settings-footer'))};

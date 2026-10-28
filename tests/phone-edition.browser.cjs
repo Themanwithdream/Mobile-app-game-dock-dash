@@ -1,5 +1,5 @@
 /* Real touch gestures, native menus and lifecycle checks. Hooks exist only in test responses. */
-const {settledViewport}=require('./browser-geometry.cjs');
+const {resizeViewport}=require('./browser-geometry.cjs');
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright':'playwright');
 const root=path.resolve(__dirname,'..'),url='http://127.0.0.1:8852/',checks=[],errors=[];
@@ -47,7 +47,7 @@ async function swipe(page,selector){
   const original=await page.evaluate(()=>__phone.saveSnapshot());
   assert.equal(await page.locator('meta[name="dock-dash-version"]').getAttribute('content'),'8.4-restaurants');
   for(const size of [{width:320,height:568},{width:390,height:844},{width:430,height:932},{width:474,height:572},{width:844,height:390},{width:1280,height:800}]){
-   await page.setViewportSize(size);await settledViewport(page);await page.locator('#start').waitFor();await controls(page);
+   await resizeViewport(page,size);await page.locator('#start').waitFor();await controls(page);
    await page.locator('#missions').tap();await controls(page);
    assert.ok(await page.locator('.world-cards .card-name').first().innerText());assert.equal(await page.locator('#mission-search').evaluate(e=>parseFloat(getComputedStyle(e).fontSize)),16);
    await page.locator('#mission-chapter').selectOption('openroads');await page.locator('#mission-search').fill('Asgard');assert.deepEqual(await page.locator('.mission-card:visible').evaluateAll(a=>a.map(b=>b.dataset.world)),['asgard','bifrostskyport']);
@@ -61,7 +61,7 @@ async function swipe(page,selector){
    await page.locator('#catalog-filter').selectOption('-1');assert.equal(await page.locator('.cargo-name').first().innerText(),firstCargo);await page.locator('#catalog-back').tap();
   }
   pass('Home, missions, briefing, shop and collection have contained 44px controls at six screen sizes; collection labels fit, buttons have equal widths and every category is directly selectable');
-  await page.setViewportSize({width:390,height:844});await page.locator('#missions').tap();await page.locator('#mission-search').fill('');await page.locator('#mission-chapter').selectOption('restaurants');
+  await resizeViewport(page,{width:390,height:844});await page.locator('#missions').tap();await page.locator('#mission-search').fill('');await page.locator('#mission-chapter').selectOption('restaurants');
   const restaurantIds=['courtyardpizzeria','lanternramen','jadesteam','rivergardenbistro'];assert.deepEqual(await page.locator('.mission-card:visible').evaluateAll(a=>a.map(b=>b.dataset.world)),restaurantIds);
   for(const [i,id] of restaurantIds.entries()){
    await page.locator(`[data-world="${id}"]`).tap();await page.waitForFunction(location=>!!__phone.art[location],182+i);await controls(page);
@@ -72,18 +72,18 @@ async function swipe(page,selector){
   await page.locator('#mission-home').tap();await page.locator('.title-menu .catalog-button').tap();await page.screenshot({path:path.join(output,'collection-fixed.png')});await page.locator('#catalog-back').tap();
   pass('Restaurant Row opens four illustrated restaurants with eight missions each, a free first delivery and locked later chapters');
   assert.deepEqual(await page.evaluate(()=>__phone.saveSnapshot()),original);pass('native browsing preserves existing coins, purchases, stars, cargo and best score');
-  await page.setViewportSize({width:390,height:844});await page.locator('#missions').tap();await page.locator('#mission-chapter').selectOption('');await page.locator('#mission-search').fill('');await page.locator('#mission-journal').tap();
+  await resizeViewport(page,{width:390,height:844});await page.locator('#missions').tap();await page.locator('#mission-chapter').selectOption('');await page.locator('#mission-search').fill('');await page.locator('#mission-journal').tap();
   await swipe(page,'#story-content');await page.locator('#story-close').tap();await page.locator('#story-dialog').waitFor({state:'hidden'});assert.equal(await page.evaluate(()=>__phone.state),'missions');pass('long story journal scrolls with a real phone swipe and keeps Close available');
   await page.locator('#mission-search').fill('Asgard');await page.waitForFunction(()=>document.getElementById('mission-search').value==='Asgard'&&document.querySelectorAll('.mission-card:not([hidden])').length===2);await page.locator('[data-world="asgard"]').tap();await swipe(page,'#briefing-scroll');await page.locator('#mission-launch').tap();
   await page.waitForFunction(()=>__phone.game?.readyIn===0);await page.locator('#pause').tap();await page.waitForFunction(()=>__phone.paused);const beforePause=await page.evaluate(()=>({elapsed:__phone.game.missionElapsed,lives:__phone.game.lives,parcels:__phone.game.parcels.map(p=>p.y)}));
   await page.waitForTimeout(150);assert.deepEqual(await page.evaluate(()=>({elapsed:__phone.game.missionElapsed,lives:__phone.game.lives,parcels:__phone.game.parcels.map(p=>p.y)})),beforePause);await controls(page);
-  await page.locator('#resume').tap();await page.waitForFunction(()=>!__phone.paused);await page.setViewportSize({width:844,height:390});await page.waitForFunction(()=>__phone.paused);await controls(page);
+  await page.locator('#resume').tap();await page.waitForFunction(()=>!__phone.paused);await resizeViewport(page,{width:844,height:390});await page.waitForFunction(()=>__phone.paused);await controls(page);
   await page.locator('#resume').tap();await page.waitForFunction(()=>!__phone.paused);assert.equal(await page.locator('.stage').getAttribute('class'),'stage wide');assert.equal(await page.locator('[data-lane="3"] .dock-copy span').innerText(),'Closed for this mission');
   for(const button of await page.locator('.lane-input:enabled').all()){const box=await button.boundingBox();assert.ok(box.width>=112&&box.height>=98);}
   await page.evaluate(()=>window.dispatchEvent(new PageTransitionEvent('pagehide',{persisted:true})));assert.equal(await page.evaluate(()=>__phone.paused),true);
   await page.evaluate(()=>window.dispatchEvent(new PageTransitionEvent('pageshow',{persisted:true})));assert.equal(await page.evaluate(()=>__phone.paused),true);
   await page.locator('#mission-home').tap();pass('swipe briefing, pause, rotation and restored pages preserve the run and require an explicit resume');
-  await page.setViewportSize({width:390,height:844});await page.locator('.title-menu .settings-button').tap();await swipe(page,'#settings-scroll');await page.locator('#settings-sound-jump').tap();await page.locator('#preferences-open').tap();
+  await resizeViewport(page,{width:390,height:844});await page.locator('.title-menu .settings-button').tap();await swipe(page,'#settings-scroll');await page.locator('#settings-sound-jump').tap();await page.locator('#preferences-open').tap();
   await page.locator('#preferences-dialog').waitFor({state:'visible'});const validBackup=await page.evaluate(()=>{const data=__phone.saveSnapshot();return {data,restored:__phone.backups.read(__phone.backups.export(data)).data};});assert.deepEqual(validBackup.restored,validBackup.data);await page.locator('#preferences-close').tap();await page.locator('#preferences-dialog').waitFor({state:'hidden'});await page.locator('#settings-back').tap();pass('settings and save controls remain reachable by touch, with an exact backup round trip');
   await page.locator('#missions').tap();await page.locator('#mission-search').fill('');await page.locator('#mission-chapter').selectOption('');for(let i=0;i<15;i++){if(await page.locator('#missions-next').isEnabled())await page.locator('#missions-next').tap();}
   const requests=await page.evaluate(()=>({active:__phone.fullArtQueue.active.size,queued:__phone.fullArtQueue.jobs.size}));assert.ok(requests.active<=2&&requests.queued<=4);pass('fast browsing stays within the two-request full-art limit');

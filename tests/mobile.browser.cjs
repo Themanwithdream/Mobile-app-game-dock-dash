@@ -1,4 +1,5 @@
 /* Touch-device regressions; test hooks and counters never ship in the game. */
+const {resizeViewport}=require('./browser-geometry.cjs');
 const fs = require('node:fs');
 const path = require('node:path');
 const os = require('node:os');
@@ -77,12 +78,12 @@ async function assertHome(page,oldRecords) {
     const beforeResize=await page.evaluate(()=>__counts.canvases);
     await page.evaluate(()=>{for(let i=0;i<100;i++){window.dispatchEvent(new Event('resize'));window.visualViewport.dispatchEvent(new Event('resize'));}});
     assert.equal(await page.evaluate(()=>__counts.canvases),beforeResize);
-    await page.setViewportSize({width:390,height:800});
+    await resizeViewport(page,{width:390,height:800});
     assert.equal(await page.evaluate(()=>__counts.canvases),beforeResize);
-    await page.setViewportSize({width:844,height:390});
+    await resizeViewport(page,{width:844,height:390});
     await page.waitForFunction(n=>__counts.canvases>n,beforeResize,{polling:50});
     await page.screenshot({path:path.join(output,'landscape-menu.png')});
-    await page.setViewportSize({width:390,height:844});
+    await resizeViewport(page,{width:390,height:844});
     await page.waitForFunction(()=>__dockTest.paused);await page.locator('#resume').tap();await readyMusic(page,3);
     const canvases=await page.evaluate(()=>__counts.canvases);
     await page.evaluate(()=>__dockTest.fit());assert.equal(await page.evaluate(()=>__counts.canvases),canvases);

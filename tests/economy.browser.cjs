@@ -1,5 +1,5 @@
 /* Touch shop, wallet persistence, extra worlds and performance invariants. */
-const {visibleBounds,settledViewport}=require('./browser-geometry.cjs');
+const {visibleBounds,resizeViewport}=require('./browser-geometry.cjs');
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),assert=require('node:assert/strict'),{spawn}=require('node:child_process');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright':'playwright');
 const root=path.resolve(__dirname,'..'),output=process.env.DOCK_TEST_OUTPUT || path.join(os.tmpdir(),'dock-dash-economy-checks'),url='http://127.0.0.1:8845/';
@@ -96,7 +96,7 @@ function overlap(a,b){return a.x<b.x+b.width && a.x+a.width>b.x && a.y<b.y+b.hei
  const idle=await page.evaluate(()=>{const d=__dockTest;d.game.hold=100;d.render();const before=__counts.canvases;for(let i=0;i<120;i++)d.render();return __counts.canvases-before;});assert.equal(idle,0);
  pass('coin awards retain one dock update, deferred persistence and zero canvas allocations across 120 unchanged frames');
  for(const size of [{width:320,height:568},{width:390,height:844},{width:414,height:896},{width:844,height:390}]){
- await page.setViewportSize(size);await settledViewport(page);
+ await resizeViewport(page,size);
  await page.evaluate(()=>{__dockTest.backToTitle();__dockTest.openGarage();__dockTest.render();});
  for(const section of ['#garage-menu','#missions-menu']){if(section.includes('missions'))await page.evaluate(()=>{__dockTest.openMissionMap();__dockTest.render();});
  const boxes=await page.locator(section+' button:visible').evaluateAll(visibleBounds),stage=await page.locator('#stage').boundingBox();

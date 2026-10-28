@@ -1,5 +1,5 @@
 /* Native expansion navigation, purchases, colour-sensitive cargo and original fleet art. */
-const {visibleBounds,settledViewport}=require('./browser-geometry.cjs');
+const {visibleBounds,resizeViewport}=require('./browser-geometry.cjs');
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),assert=require('node:assert/strict'),{spawn}=require('node:child_process');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright':'playwright');
 const root=path.resolve(__dirname,'..'),out=process.env.DOCK_TEST_OUTPUT||path.join(os.tmpdir(),'dock-dash-expansion-checks'),url='http://127.0.0.1:8850/';
@@ -60,11 +60,11 @@ async function layout(page,selector){const boxes=await page.locator(selector+' b
   }
   assert.equal(await page.locator('#shop-next').isDisabled(),true);pass('all 196 native purchases deduct their exact cost, equip and reject repeat charges',{purchases:items.length,spent});
   for(const size of [{width:320,height:568},{width:390,height:844},{width:844,height:390},{width:1280,height:800}]){
-    await page.setViewportSize(size);await page.evaluate(()=>window.dispatchEvent(new Event('resize')));
+    await resizeViewport(page,size);await page.evaluate(()=>window.dispatchEvent(new Event('resize')));
     for(const category of ['trucks','venues','styles','new']){await page.evaluate(c=>{__dockTest.changeShopCategory(c);__dockTest.render();},category);await layout(page,'#garage-menu');}
   }
   pass('four shop tabs and their controls fit small phones, landscape and desktop without overlap');
-  await page.setViewportSize({width:390,height:844});await page.evaluate(()=>window.dispatchEvent(new Event('resize')));
+  await resizeViewport(page,{width:390,height:844});await page.evaluate(()=>window.dispatchEvent(new Event('resize')));
   const rings=await page.evaluate(()=>{
     const d=__dockTest,id=d.MR.getMission('prism',0).products[0],calls=[],original=DockDashExpansionArt.draw;
     DockDashExpansionArt.draw=function(c,kind,col){if(kind==='prismring')calls.push(col);return original(c,kind,col);};d.parcelSprites.clear();

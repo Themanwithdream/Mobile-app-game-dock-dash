@@ -1,5 +1,5 @@
 /* Native mobile navigation for all 83 routes, independent endings and save continuity. */
-const {visibleBounds,settledViewport}=require('./browser-geometry.cjs');
+const {visibleBounds,resizeViewport}=require('./browser-geometry.cjs');
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),assert=require('node:assert/strict'),{spawn}=require('node:child_process');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright');
 const root=path.resolve(__dirname,'..'),out=process.env.DOCK_TEST_OUTPUT||path.join(os.tmpdir(),'dock-boss-open-roads'),url='http://127.0.0.1:8890/';fs.mkdirSync(out,{recursive:true});
@@ -54,8 +54,8 @@ async function layout(p,section){
   }await p.locator('#mission-search').fill('');await p.locator('#mission-chapter').selectOption('firststops');await p.locator('[data-world="asgard"]').tap();await p.locator('#briefing-story').tap();assert.equal(await p.locator('.locked-story').count(),7);assert.doesNotMatch(await p.locator('#story-content').textContent(),/The citadel opens to everyone/);await p.locator('#story-close').tap();
   pass('the requested subjects are searchable and future story endings stay locked until their preceding missions are completed');
   for(const size of [{width:320,height:568},{width:390,height:664},{width:414,height:896},{width:844,height:390},{width:1100,height:800}]){
-   await p.setViewportSize(size);await p.evaluate(()=>window.dispatchEvent(new Event('resize')));await paint(p);await layout(p,'#briefing-menu');await p.locator('#briefing-back').tap();await layout(p,'#missions-menu');await p.locator('[data-world="asgard"]').tap();await p.locator('#briefing-story').tap();assert.ok(await p.locator('#story-close').isVisible());await p.locator('#story-close').tap();
-  }await p.setViewportSize({width:390,height:664});await p.evaluate(()=>window.dispatchEvent(new Event('resize')));
+   await resizeViewport(p,size);await p.evaluate(()=>window.dispatchEvent(new Event('resize')));await paint(p);await layout(p,'#briefing-menu');await p.locator('#briefing-back').tap();await layout(p,'#missions-menu');await p.locator('[data-world="asgard"]').tap();await p.locator('#briefing-story').tap();assert.ok(await p.locator('#story-close').isVisible());await p.locator('#story-close').tap();
+  }await resizeViewport(p,{width:390,height:664});await p.evaluate(()=>window.dispatchEvent(new Event('resize')));
   pass('new map cards, eight level buttons and story dialogs fit five phone, landscape and desktop layouts');
   await paint(p);await p.screenshot({path:path.join(out,'asgard-briefing.png')});
   const saves=await p.evaluate(old=>{

@@ -1,4 +1,5 @@
 /* Exercise actual rendered art, audio playback and save continuity on a phone. */
+const {resizeViewport}=require('./browser-geometry.cjs');
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright':'playwright');
 const root=path.resolve(__dirname,'..'),url='http://127.0.0.1:8853/',out=process.env.DOCK_TEST_OUTPUT||'/tmp/dock-boss-sky-checks';fs.mkdirSync(out,{recursive:true});
@@ -47,11 +48,11 @@ async function setup(context,{location=103,music=true,volume=.65}={}){
   const hubContext=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true}),hub=await setup(hubContext,{location:2});
   assert.match(await hub.locator('.home-art').getAttribute('src'),/heroes\/air-cargo-hub\.webp/);assert.deepEqual(await hub.locator('.home-art').evaluate(e=>[e.naturalWidth,e.naturalHeight]),[720,480]);
   for(const size of [{width:320,height:568},{width:390,height:844},{width:844,height:390}]){
-    await hub.setViewportSize(size);await hub.waitForTimeout(100);
+    await resizeViewport(hub,size);
     assert.equal(await hub.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
     const image=await hub.locator('.home-art').boundingBox();assert.ok(image.width>50&&image.height>=60);
   }
-  await hub.setViewportSize({width:390,height:844});await hub.screenshot({path:path.join(out,'air-cargo-home.png')});
+  await resizeViewport(hub,{width:390,height:844});await hub.screenshot({path:path.join(out,'air-cargo-home.png')});
   pass('the Air Cargo Hub scenic hero loads and fits small phone, portrait and landscape menus');
   const harbourContext=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true}),harbour=await setup(harbourContext,{location:1});
   assert.equal(await harbour.locator('.home-art').isVisible(),false);assert.equal(await harbour.locator('.home-hero canvas').isVisible(),true);

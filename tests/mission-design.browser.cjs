@@ -1,4 +1,5 @@
 /* Mission reading, scrolling, accessible level selection and fleet identity. */
+const {resizeViewport}=require('./browser-geometry.cjs');
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),assert=require('node:assert/strict'),{spawn}=require('node:child_process');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright');
 const root=path.resolve(__dirname,'..'),out=process.env.DOCK_TEST_OUTPUT||path.join(os.tmpdir(),'dock-dash-mission-design'),url='http://127.0.0.1:8861/';fs.mkdirSync(out,{recursive:true});
@@ -65,11 +66,11 @@ try{
   return {count,failures};
  });assert.equal(reviewed.count,1464);assert.deepEqual(reviewed.failures,[]);pass('every title, story, supply label and reward wraps within its panel across all 1,464 missions',{missions:reviewed.count});
  for(const size of [{width:320,height:568},{width:390,height:664},{width:430,height:932},{width:844,height:390},{width:1280,height:800}]){
-  await p.setViewportSize(size);await p.evaluate(()=>{window.dispatchEvent(new Event('resize'));__missionDesign.openBriefing('hundreddawn',7);__missionDesign.render();});
+  await resizeViewport(p,size);await p.evaluate(()=>{window.dispatchEvent(new Event('resize'));__missionDesign.openBriefing('hundreddawn',7);__missionDesign.render();});
   await layout(p);await p.locator('#briefing-scroll').evaluate(e=>e.scrollTop=e.scrollHeight);await layout(p);await p.locator('#briefing-scroll').evaluate(e=>e.scrollTop=0);if(size.width===320)await p.screenshot({path:path.join(out,'small-phone-mission.png')});
  }
  pass('long mission text and the fixed actions fit five phone, landscape and desktop layouts');
- await p.setViewportSize({width:390,height:664});
+ await resizeViewport(p,{width:390,height:664});
  const fleet=await p.evaluate(()=>{
   const d=__missionDesign,hashes=[],plates=[],examples=['classic','school','matchday','festival','rescue','fire-engine','monster','moon-rover','sky-glider','beacon-runner','cement-mixer','comet-courier'];
   const sheet=document.createElement('canvas');sheet.width=720;sheet.height=6*185;const c=sheet.getContext('2d');c.fillStyle='#112b38';c.fillRect(0,0,sheet.width,sheet.height);c.imageSmoothingEnabled=false;

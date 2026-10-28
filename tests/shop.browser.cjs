@@ -1,5 +1,5 @@
 /* Expanded shop: real touch purchases, themed arcade routes and cached styles. */
-const {visibleBounds,settledViewport}=require('./browser-geometry.cjs');
+const {visibleBounds,resizeViewport}=require('./browser-geometry.cjs');
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),assert=require('node:assert/strict'),{spawn}=require('node:child_process');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright':'playwright');
 const root=path.resolve(__dirname,'..'),output=process.env.DOCK_TEST_OUTPUT||path.join(os.tmpdir(),'dock-dash-shop-checks'),url='http://127.0.0.1:8846/';
@@ -111,7 +111,7 @@ const overlap=(a,b)=>a.x<b.x+b.width && a.x+a.width>b.x && a.y<b.y+b.height && a
    await page.locator('[data-shop="styles"]').tap();while(!await page.locator('#shop-next').isDisabled())await page.locator('#shop-next').tap();assert.equal(await page.locator('.skin-choice:visible').count(),3);assert.equal(await page.locator('#shop-next').isDisabled(),true);
    pass('short final pages hide unused cards and prevent advancing past the catalog');
    for(const size of [{width:320,height:568},{width:390,height:844},{width:414,height:896},{width:844,height:390}]){
-     await page.setViewportSize(size);await settledViewport(page);
+     await resizeViewport(page,size);
      for(const category of ['trucks','venues','styles','new']){
        await page.evaluate(category=>{__dockTest.changeShopCategory(category);__dockTest.render();},category);
        const boxes=await page.locator('#garage-menu button:visible').evaluateAll(visibleBounds),stage=await page.locator('#stage').boundingBox();
@@ -119,7 +119,7 @@ const overlap=(a,b)=>a.x<b.x+b.width && a.x+a.width>b.x && a.y<b.y+b.height && a
      }
    }
    pass('four shop categories fit four phone orientations without overlapping touch controls');
-   await page.setViewportSize({width:390,height:844});
+   await resizeViewport(page,{width:390,height:844});
    await page.evaluate(()=>{const d=__dockTest;d.selectShopItem('venue:beacon');d.closeGarage();});await page.locator('.sound:visible').tap();
    const ready=async track=>{await page.waitForFunction(track=>__dockTest.soundtrack.active?.track===track && !__dockTest.soundtrack.pending && !__dockTest.soundtrack.active.player.paused && __dockTest.soundtrack.active.player.readyState>=3,track,{polling:50});assert.equal(await page.evaluate(()=>__dockTest.soundtrack.slots.filter(s=>!s.player.paused).length),1);};
    await ready(2);await page.locator('#start').tap();await ready(7);

@@ -1,5 +1,5 @@
 /* Strict/permitted autoplay, real missed parcels, small previews and slow originals. */
-const {settledViewport}=require('./browser-geometry.cjs');
+const {resizeViewport}=require('./browser-geometry.cjs');
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),assert=require('node:assert/strict'),{spawn}=require('node:child_process');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright');
 const root=path.resolve(__dirname,'..'),out=process.env.DOCK_TEST_OUTPUT||path.join(os.tmpdir(),'dock-boss-phone'),url='http://127.0.0.1:8869/';fs.mkdirSync(out,{recursive:true});
@@ -42,7 +42,7 @@ async function miss(p,{lives=3,express=false}={}){
   await images.evaluate(()=>{const w=__boss.MR.worlds.find(w=>w.location===70);__boss.openBriefing(w.id,0);});await images.waitForFunction(()=>__boss.previewFailed.has(70)&&__boss.art[70],null,{polling:20,timeout:6000});await images.evaluate(()=>{for(let i=0;i<100;i++)__boss.render();});assert.equal(previewRequests.filter(s=>s==='070.webp').length,1);const source70=await images.evaluate(()=>new URL(__boss.MEDIA.floors[70],location.href).pathname);assert.equal(originalRequests.filter(s=>s===source70).length,1);
   const budgets=await images.evaluate(()=>({previews:__boss.previewImages.size,pending:__boss.pendingPreviews.size,queue:__boss.previewQueue.length,full:__boss.imageSources.size,canvases:__boss.previewFloors.entries.size}));assert.ok(budgets.previews<=8&&budgets.pending<=4&&budgets.queue<=8&&budgets.full<=4&&budgets.canvases<=7);
   pass('failed previews recover with original artwork without repeated requests, and image caches stay bounded',budgets);
-  for(const size of [{width:320,height:568},{width:390,height:664},{width:414,height:896},{width:844,height:390},{width:1100,height:800}]){await images.setViewportSize(size);await settledViewport(images);await images.locator('#mission-home').tap();await images.locator('#missions').tap();await images.evaluate(()=>__boss.render());const stage=await images.locator('#stage').boundingBox(),home=await images.locator('#mission-home').boundingBox(),story=await images.locator('#mission-journal').boundingBox();assert.ok(home.x>=stage.x&&home.x+home.width<story.x&&story.x+story.width<=stage.x+stage.width);await images.screenshot({path:path.join(out,`map-${size.width}x${size.height}.png`)});}
+  for(const size of [{width:320,height:568},{width:390,height:664},{width:414,height:896},{width:844,height:390},{width:1100,height:800}]){await resizeViewport(images,size);await images.locator('#mission-home').tap();await images.locator('#missions').tap();await images.evaluate(()=>__boss.render());const stage=await images.locator('#stage').boundingBox(),home=await images.locator('#mission-home').boundingBox(),story=await images.locator('#mission-journal').boundingBox();assert.ok(home.x>=stage.x&&home.x+home.width<story.x&&story.x+story.width<=stage.x+stage.width);await images.screenshot({path:path.join(out,`map-${size.width}x${size.height}.png`)});}
   pass('native Home and Story controls stay separate and contained in five phone, landscape and desktop layouts');
   await strict.close();strict=null;
 
