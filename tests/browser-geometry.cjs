@@ -1,0 +1,35 @@
+/* Browser-only measurements: scrollable cards may be partially clipped. */
+function visibleBounds(elements) {
+  return elements.map(element => {
+    const rect = element.getBoundingClientRect();
+    let {left, top, right, bottom} = rect;
+    for (let parent = element.parentElement; parent && parent.id !== 'stage'; parent = parent.parentElement) {
+      if (!parent.matches('.ui-scroll,.briefing-scroll')) continue;
+      const clip = parent.getBoundingClientRect();
+      left = Math.max(left, clip.left); top = Math.max(top, clip.top);
+      right = Math.min(right, clip.right); bottom = Math.min(bottom, clip.bottom);
+    }
+    return {id: element.id || element.dataset.world || element.dataset.item || element.dataset.shop || element.dataset.missionStage || element.className,
+      x: left, y: top, right, bottom, width: right - left, height: bottom - top, w: right - left, h: bottom - top,
+      textFits: element.scrollWidth <= element.clientWidth + 1};
+  }).filter(rect => rect.width > 0 && rect.height > 0);
+}
+async function settledViewport(page) {
+  await page.waitForFunction(target => {
+    if (target && (Math.abs(innerWidth - target.width) > 1 || Math.abs(innerHeight - target.height) > 1)) return false;
+    // These resize checks run with the keyboard closed and without pinch zoom.
+    const visual = window.visualViewport;
+    if (visual && (Math.abs(visual.width - innerWidth) > 1 || Math.abs(visual.height - innerHeight) > 1)) return false;
+    const viewport = document.getElementById('viewport'), box = viewport.getBoundingClientRect(), css = getComputedStyle(viewport);
+    if (Math.abs(box.width - innerWidth) > 1 || Math.abs(box.height - innerHeight) > 1) return false;
+    if (Math.abs(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--visible-height')) - innerHeight) > 1) return false;
+    const expected = DockDashPhoneLayout.measure(box.width - parseFloat(css.paddingLeft) - parseFloat(css.paddingRight), box.height - parseFloat(css.paddingTop) - parseFloat(css.paddingBottom));
+    const stage = document.getElementById('stage').getBoundingClientRect();
+    return Math.abs(stage.width - expected.width) < 1 && Math.abs(stage.height - expected.height) < 1;
+  }, page.viewportSize(), {polling: 50});
+}
+async function resizeViewport(page, size) {
+  await page.setViewportSize(size);
+  await settledViewport(page);
+}
+module.exports = {visibleBounds, resizeViewport};

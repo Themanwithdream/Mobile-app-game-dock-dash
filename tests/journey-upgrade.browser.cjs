@@ -1,4 +1,5 @@
 /* Real controls for backup/undo; fixed-step missions and bounded long sessions. */
+const {resizeViewport}=require('./browser-geometry.cjs');
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),assert=require('node:assert/strict'),{spawn}=require('node:child_process');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright');
 const root=path.resolve(__dirname,'..'),out=process.env.DOCK_TEST_OUTPUT||path.join(os.tmpdir(),'dock-journey-upgrade'),url='http://127.0.0.1:8862/';fs.mkdirSync(out,{recursive:true});
@@ -75,7 +76,7 @@ async function importText(p,text){const chooser=p.waitForEvent('filechooser');aw
 
   await preferences(p);
   for(const size of [{width:320,height:568},{width:390,height:664},{width:430,height:932},{width:844,height:390},{width:1280,height:800}]){
-    await p.setViewportSize(size);const box=await p.locator('#preferences-dialog').boundingBox();assert.ok(box.x>=0&&box.y>=0&&box.x+box.width<=size.width+.5&&box.y+box.height<=size.height+.5,JSON.stringify({size,box}));
+    await resizeViewport(p,size);const box=await p.locator('#preferences-dialog').boundingBox();assert.ok(box.x>=0&&box.y>=0&&box.x+box.width<=size.width+.5&&box.y+box.height<=size.height+.5,JSON.stringify({size,box}));
     for(const id of ['effects-toggle','backup-export','backup-import','preferences-close']){await p.locator('#'+id).scrollIntoViewIfNeeded();assert.ok((await p.locator('#'+id).boundingBox()).height>=44);}
     assert.equal(await p.locator('#preferences-dialog').evaluate(e=>e.scrollWidth<=e.clientWidth+1),true);
   }

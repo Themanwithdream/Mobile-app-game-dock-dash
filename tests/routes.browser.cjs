@@ -1,4 +1,5 @@
 /* Route search, native card layouts, touch scrolling and paused-run shopping. */
+const {resizeViewport}=require('./browser-geometry.cjs');
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),assert=require('node:assert/strict'),{spawn}=require('node:child_process');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright':'playwright');
 const root=path.resolve(__dirname,'..'),out=process.env.DOCK_TEST_OUTPUT||path.join(os.tmpdir(),'dock-dash-routes'),url='http://127.0.0.1:8867/';fs.mkdirSync(out,{recursive:true});
@@ -41,12 +42,13 @@ try{
    rows.push({index,found:cards.some(b=>Number(b.dataset.location)===index),fits:cards.every(b=>b.scrollWidth<=b.clientWidth+1)});
   }
   d.setWallet(old);d.searchRoutes('');return rows;
- });assert.equal(all.length,180);for(const row of all){assert.equal(row.found,true,JSON.stringify(row));assert.equal(row.fits,true,JSON.stringify(row));}
- pass('all 180 arcade places remain searchable when owned, including every story world');
+ });assert.equal(all.length,186);for(const row of all){assert.equal(row.found,true,JSON.stringify(row));assert.equal(row.fits,true,JSON.stringify(row));}
+ pass('all 186 arcade places remain searchable when owned, including every story world');
 
+ await p.locator('#settings-scroll').evaluate(e=>{window.__routeScrollSettled=false;e.addEventListener('scrollend',()=>window.__routeScrollSettled=true,{once:true});});
  const footer=await p.locator('#settings-back').boundingBox(),scroll=await p.locator('#settings-scroll').boundingBox(),cdp=await context.newCDPSession(p),x=scroll.x+scroll.width*.65,y=scroll.y+scroll.height*.8;
  await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y}]});for(let i=1;i<=8;i++){await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x,y:y-scroll.height*.65*i/8}]});await new Promise(r=>setTimeout(r,20));}await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await cdp.detach();
- await p.waitForFunction(()=>document.getElementById('settings-scroll').scrollTop>30,null,{polling:50});assert.deepEqual(await p.locator('#settings-back').boundingBox(),footer);
+ await p.waitForFunction(()=>document.getElementById('settings-scroll').scrollTop>30,null,{polling:50});assert.deepEqual(await p.locator('#settings-back').boundingBox(),footer);await p.waitForFunction(()=>window.__routeScrollSettled,null,{polling:50});
  await p.locator('#settings-sound-jump').tap();assert.equal(await p.locator('#music-toggle').evaluate(b=>b===document.activeElement),true);assert.deepEqual(await p.locator('#settings-back').boundingBox(),footer);assert.equal(await p.locator('#stage').evaluate(e=>e.scrollTop),0);await p.screenshot({path:path.join(out,'audio-phone.png')});
  pass('trusted touch swipes and the Audio shortcut reach settings while Back stays fixed');
 
@@ -63,7 +65,7 @@ try{
 
  await p.evaluate(()=>__routes.backToTitle());await open(p);const layouts=[];
  for(const size of [{width:320,height:568},{width:390,height:664},{width:414,height:896},{width:844,height:390},{width:1100,height:800}]){
-  await p.setViewportSize(size);await p.waitForTimeout(80);await p.locator('#settings-scroll').evaluate(e=>e.scrollTop=0);await paint(p);
+  await resizeViewport(p,size);await p.locator('#settings-scroll').evaluate(e=>e.scrollTop=0);await paint(p);
   const bounds=await p.evaluate(()=>{
    const box=e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height};};
    return {stage:box(document.getElementById('stage')),header:box(document.querySelector('.settings-header')),scroll:box(document.getElementById('settings-scroll')),footer:box(document.querySelector('.settings-footer'))};

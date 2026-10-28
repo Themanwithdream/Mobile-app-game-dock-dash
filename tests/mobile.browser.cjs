@@ -1,4 +1,5 @@
 /* Touch-device regressions; test hooks and counters never ship in the game. */
+const {resizeViewport}=require('./browser-geometry.cjs');
 const fs = require('node:fs');
 const path = require('node:path');
 const os = require('node:os');
@@ -63,7 +64,7 @@ async function assertHome(page,oldRecords) {
     assert.equal(await page.evaluate(()=>__counts.plays),0);
     await page.waitForFunction(()=>__dockTest.soundtrack.slots[0].player.readyState>=3,null,{polling:50});
     pass('phone buffers its selected theme with one player and no autoplay');
-    await page.locator('#missions').tap();await readyMusic(page,0);
+    await page.locator('#missions').tap();await readyMusic(page,2);
     await page.locator('[data-world="matchday"]').tap();await readyMusic(page,3);
     await page.evaluate(()=>__dockTest.render());
     await page.screenshot({path:path.join(output,'briefing-main-menu.png')});
@@ -77,13 +78,13 @@ async function assertHome(page,oldRecords) {
     const beforeResize=await page.evaluate(()=>__counts.canvases);
     await page.evaluate(()=>{for(let i=0;i<100;i++){window.dispatchEvent(new Event('resize'));window.visualViewport.dispatchEvent(new Event('resize'));}});
     assert.equal(await page.evaluate(()=>__counts.canvases),beforeResize);
-    await page.setViewportSize({width:390,height:800});
+    await resizeViewport(page,{width:390,height:800});
     assert.equal(await page.evaluate(()=>__counts.canvases),beforeResize);
-    await page.setViewportSize({width:844,height:390});
+    await resizeViewport(page,{width:844,height:390});
     await page.waitForFunction(n=>__counts.canvases>n,beforeResize,{polling:50});
     await page.screenshot({path:path.join(output,'landscape-menu.png')});
-    await page.setViewportSize({width:390,height:844});
-    await page.waitForTimeout(100);
+    await resizeViewport(page,{width:390,height:844});
+    await page.waitForFunction(()=>__dockTest.paused);await page.locator('#resume').tap();await readyMusic(page,3);
     const canvases=await page.evaluate(()=>__counts.canvases);
     await page.evaluate(()=>__dockTest.fit());assert.equal(await page.evaluate(()=>__counts.canvases),canvases);
     pass('duplicate viewport events and browser-bar changes reuse scene bitmaps; rotation still resizes');
@@ -121,7 +122,7 @@ async function assertHome(page,oldRecords) {
     pass('phone volume, independent effects/music switches and resumed mission audio work');
     const records=await page.evaluate(()=>__dockTest.records);
     await page.locator('#pause').tap();const calls=await page.evaluate(()=>__counts.plays);
-    await page.locator('#mission-home').tap();await assertHome(page,records);await readyMusic(page,0);
+    await page.locator('#mission-home').tap();await assertHome(page,records);await readyMusic(page,2);
     assert.equal(await page.evaluate(()=>__counts.plays),calls+1);
     pass('paused mission returns directly to the main menu and starts only the menu theme');
     await mobile.close();
@@ -146,11 +147,11 @@ async function assertHome(page,oldRecords) {
 
     const safari=await browser.newContext({viewport:{width:390,height:844},hasTouch:true,isMobile:true});
     const fallback=await safari.newPage();await setup(fallback,{readonly:true});
-    await fallback.locator('#missions').tap();await readyMusic(fallback,0);
+    await fallback.locator('#missions').tap();await readyMusic(fallback,2);
     await fallback.locator('[data-world="space"]').tap();await readyMusic(fallback,6);
     assert.equal(await fallback.locator('audio').count(),1);
     assert.equal(await fallback.evaluate(()=>__dockTest.soundtrack.canFade),false);
-    await fallback.locator('#mission-home').tap();await readyMusic(fallback,0);
+    await fallback.locator('#mission-home').tap();await readyMusic(fallback,2);
     pass('simulated Safari volume restrictions and absent WebAudio retain native phone music');
     await safari.close();
 
@@ -158,7 +159,7 @@ async function assertHome(page,oldRecords) {
     const pc=await desktop.newPage();await setup(pc);
     assert.equal(await pc.locator('audio').count(),2);
     assert.equal(await pc.evaluate(()=>__dockTest.soundtrack.canFade),true);
-    await pc.locator('#missions').click();await readyMusic(pc,0);
+    await pc.locator('#missions').click();await readyMusic(pc,2);
     await pc.waitForFunction(()=>__dockTest.soundtrack.timer===null,null,{polling:50});
     await pc.locator('[data-world="festival"]').click();await readyMusic(pc,4);
     await pc.waitForFunction(()=>__dockTest.soundtrack.timer===null,null,{polling:50});

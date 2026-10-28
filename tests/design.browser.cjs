@@ -1,4 +1,5 @@
 /* Menu navigation and collection regressions using native phone controls. */
+const {visibleBounds,resizeViewport}=require('./browser-geometry.cjs');
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),assert=require('node:assert/strict'),{spawn}=require('node:child_process');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright':'playwright');
 const root=path.resolve(__dirname,'..'),output=process.env.DOCK_TEST_OUTPUT||path.join(os.tmpdir(),'dock-dash-design-checks'),url='http://127.0.0.1:8847/';
@@ -77,25 +78,24 @@ const overlap=(a,b)=>a.x<b.x+b.width && a.x+a.width>b.x && a.y<b.y+b.height && a
   pass('cleared maps offer missing stars and replays, and Escape follows briefing, map and home navigation');
   await page.locator('.fleet-button:visible').tap();
   const textBounds=await page.evaluate(()=>{
-   const d=__dockTest,draw=CanvasRenderingContext2D.prototype.fillText,rows=[];
-   CanvasRenderingContext2D.prototype.fillText=function(str,x,y,...args){if(this.canvas.id==='game'){const width=this.measureText(str).width,left=this.textAlign==='center'?x-width/2:this.textAlign==='right'?x-width:x;rows.push({str,left,right:left+width,y});}return draw.call(this,str,x,y,...args);};
-   try{for(const category of ['trucks','venues','styles']){d.changeShopCategory(category);d.changeShopPage(-1000);do{d.render();if(document.getElementById('shop-next').disabled)break;d.changeShopPage(1);}while(true);}const coins=d.wallet.coins;d.wallet.coins=1e9;d.render();d.wallet.coins=coins;}finally{CanvasRenderingContext2D.prototype.fillText=draw;}
-   return rows;
+   const d=__dockTest,rows=[],capture=()=>{for(const e of document.querySelectorAll('#garage-menu .card-copy *,#garage-menu .ui-subtitle'))if(e.getBoundingClientRect().width)rows.push({text:e.textContent,fits:e.scrollWidth<=e.clientWidth+1});};
+   for(const category of ['trucks','venues','styles']){d.changeShopCategory(category);d.changeShopPage(-1000);do{capture();if(document.getElementById('shop-next').disabled)break;d.changeShopPage(1);}while(true);}
+   const coins=d.wallet.coins;d.wallet.coins=1e9;d.changeShopPage(0);capture();d.wallet.coins=coins;d.changeShopPage(0);return rows;
   });
-  for(const row of textBounds)assert.ok(row.left>=15 && row.right<=345,JSON.stringify(row));
-  pass('all catalog text and the maximum wallet balance fit within the canvas');
+  assert.ok(textBounds.length>100);assert.ok(textBounds.some(row=>row.text.includes('1,000,000,000')));for(const row of textBounds)assert.ok(row.fits,JSON.stringify(row));
+  pass('all native catalog text and the maximum wallet balance wrap within their panels');
   for(const size of [{width:320,height:568},{width:390,height:844},{width:414,height:896},{width:844,height:390}]){
-   await page.setViewportSize(size);await page.waitForFunction(()=>{const v=document.getElementById('viewport'),b=v.getBoundingClientRect(),c=getComputedStyle(v),s=Math.min((b.width-parseFloat(c.paddingLeft)-parseFloat(c.paddingRight))/360,(b.height-parseFloat(c.paddingTop)-parseFloat(c.paddingBottom))/640);return Math.abs(document.getElementById('stage').getBoundingClientRect().width-360*s)<1;},null,{polling:50});
+   await resizeViewport(page,size);
    for(const menu of ['garage','missions']){
     await page.evaluate(menu=>{__dockTest.backToTitle();menu==='garage'?__dockTest.openGarage():__dockTest.openMissionMap();__dockTest.render();},menu);
-    const boxes=await page.locator('#stage button:visible').evaluateAll(a=>a.map(b=>{const r=b.getBoundingClientRect();return {id:b.id||b.dataset.item||b.dataset.world,x:r.x,y:r.y,width:r.width,height:r.height,textFits:b.scrollWidth<=b.clientWidth+1};})),stage=await page.locator('#stage').boundingBox();
+    const boxes=await page.locator('#stage button:visible').evaluateAll(visibleBounds),stage=await page.locator('#stage').boundingBox();
     for(let i=0;i<boxes.length;i++){const a=boxes[i];assert.ok(a.textFits,JSON.stringify({size,a}));assert.ok(a.x>=stage.x-.5 && a.x+a.width<=stage.x+stage.width+.5 && a.y>=stage.y && a.y+a.height<=stage.y+stage.height+.5);for(let j=i+1;j<boxes.length;j++)assert.equal(overlap(a,boxes[j]),false,JSON.stringify({size,a,b:boxes[j]}));}
     const homes=await page.locator('#stage button:visible').evaluateAll(a=>a.filter(b=>/Home|Main menu/.test(b.textContent)).length);assert.equal(homes,1);
    }
    if(size.width===320){await page.evaluate(()=>{__dockTest.backToTitle();__dockTest.openGarage();__dockTest.changeShopCategory('trucks');__dockTest.changeShopPage(-1000);__dockTest.render();});await page.screenshot({path:path.join(output,'narrow-phone-shop.png')});}
   }
   pass('both menus have exactly one Home control, contained labels and separate touch targets in four phone layouts');
-  await page.setViewportSize({width:390,height:844});await page.evaluate(()=>__dockTest.backToTitle());await page.locator('.sound:visible').tap();await readyMusic(page,7);
+  await resizeViewport(page,{width:390,height:844});await page.evaluate(()=>__dockTest.backToTitle());await page.locator('.sound:visible').tap();await readyMusic(page,2);
   await page.locator('#missions').tap();await page.evaluate(()=>__dockTest.openBriefing('beacon',0));await page.locator('#mission-launch').tap();await readyMusic(page,7);await page.evaluate(()=>__dockTest.finishMission(false));
   await page.locator('#mission-shop').tap();assert.equal(await page.locator('#garage-back').getAttribute('aria-label'),'Back to results');await page.locator('#garage-back').tap();assert.equal(await page.evaluate(()=>__dockTest.state),'missionResult');
   await page.locator('#mission-shop').tap();await page.locator('[data-shop="venues"]').tap();await page.evaluate(()=>__dockTest.changeShopPage(-1000));await page.locator('[data-item="venue:warehouse"]').tap();

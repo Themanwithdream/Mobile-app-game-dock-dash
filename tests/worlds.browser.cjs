@@ -1,4 +1,5 @@
 /* Hundred-world native navigation, story gating, migration and memory budgets. */
+const {visibleBounds,resizeViewport}=require('./browser-geometry.cjs');
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),assert=require('node:assert/strict'),{spawn}=require('node:child_process');
 const {chromium}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/playwright');
 const root=path.resolve(__dirname,'..'),out=process.env.DOCK_TEST_OUTPUT||path.join(os.tmpdir(),'dock-dash-worlds'),url='http://127.0.0.1:8851/';fs.mkdirSync(out,{recursive:true});
@@ -8,11 +9,7 @@ get state(){return state;},get wallet(){return wallet;},get game(){return game;}
 const checks=[],errors=[];const pass=(name,detail)=>{checks.push({name,detail});console.log('PASS '+name+(detail?' · '+JSON.stringify(detail):''));};
 async function paint(page){await page.evaluate(()=>__dockTest.render());}
 async function checkLayout(page,section){
- const boxes=await page.locator(section+' button:visible,'+section+' select:visible,#mission-home:visible').evaluateAll(a=>a.map(b=>{
-  const r=b.getBoundingClientRect(),panel=b.closest('.briefing-scroll'),clip=panel?.getBoundingClientRect();
-  const x=clip?Math.max(r.x,clip.x):r.x,y=clip?Math.max(r.y,clip.y):r.y,right=clip?Math.min(r.right,clip.right):r.right,bottom=clip?Math.min(r.bottom,clip.bottom):r.bottom;
-  return {id:b.id||b.dataset.world||b.dataset.missionStage,x,y,w:Math.max(0,right-x),h:Math.max(0,bottom-y)};
- }).filter(r=>r.w>0&&r.h>0)),stage=await page.locator('#stage').boundingBox();
+ const boxes=await page.locator(section+' button:visible,'+section+' select:visible,#mission-home:visible').evaluateAll(visibleBounds),stage=await page.locator('#stage').boundingBox();
  for(let i=0;i<boxes.length;i++){const a=boxes[i];assert.ok(a.x>=stage.x-.5&&a.x+a.w<=stage.x+stage.width+.5&&a.y>=stage.y-.5&&a.y+a.h<=stage.y+stage.height+.5,JSON.stringify(a));for(let j=i+1;j<boxes.length;j++){const b=boxes[j];assert.equal(a.x<b.x+b.w-.5&&a.x+a.w>b.x+.5&&a.y<b.y+b.h-.5&&a.y+a.h>b.y+.5,false,JSON.stringify({a,b}));}}
 }
 (async()=>{
@@ -58,9 +55,9 @@ async function checkLayout(page,section){
   assert.equal(new Set(visited).size,77);assert.equal(new Set(fingerprints).size,77);assert.equal(new Set(backdrops).size,77);assert.equal(new Set(sources).size,77);pass('all 77 appended worlds are reachable, have distinct rendered depots and retain bounded image, floor and cargo caches',{worlds:visited.length,uniqueScenes:new Set(fingerprints).size});
   await page.locator('#mission-chapter').selectOption('starlight');await paint(page);await page.screenshot({path:path.join(out,'starlight-chapter.png')});
   for(const size of [{width:320,height:568},{width:390,height:844},{width:844,height:390},{width:1280,height:800}]){
-   await page.setViewportSize(size);await page.evaluate(()=>window.dispatchEvent(new Event('resize')));await page.locator('#mission-chapter').selectOption('greenwood');await paint(page);await checkLayout(page,'#missions-menu');await page.locator('[data-world="greenwood"]').tap();await paint(page);await checkLayout(page,'#briefing-menu');await page.locator('#briefing-back').tap();
+   await resizeViewport(page,size);await page.evaluate(()=>window.dispatchEvent(new Event('resize')));await page.locator('#mission-chapter').selectOption('greenwood');await paint(page);await checkLayout(page,'#missions-menu');await page.locator('[data-world="greenwood"]').tap();await paint(page);await checkLayout(page,'#briefing-menu');await page.locator('#briefing-back').tap();
   }pass('chapter controls, journal buttons, eight stage buttons and Home fit four viewport sizes without overlap');
-  await page.setViewportSize({width:390,height:844});await page.evaluate(()=>window.dispatchEvent(new Event('resize')));await page.locator('[data-world="greenwood"]').tap();await paint(page);await page.screenshot({path:path.join(out,'greenwood-briefing.png')});
+  await resizeViewport(page,{width:390,height:844});await page.evaluate(()=>window.dispatchEvent(new Event('resize')));await page.locator('[data-world="greenwood"]').tap();await paint(page);await page.screenshot({path:path.join(out,'greenwood-briefing.png')});
   const scores=await page.evaluate(()=>{const d=__dockTest,c=document.createElement('canvas');c.width=480;c.height=11*155;const g=c.getContext('2d');g.fillStyle='#142b39';g.fillRect(0,0,c.width,c.height);let plates=0;const fleet=[d.ER.trucks[7],d.ER.trucks[14],d.ER.trucks[15],...d.ER.trucks.slice(29)];fleet.forEach((t,row)=>{d.trucksForSkin(d.ER.trucks.indexOf(t)).slice(0,4).forEach((im,type)=>{const p=im.getContext('2d').getImageData(90,86,1,1).data,rgb=d.COLORS[type].ink.match(/[a-f0-9]{2}/gi).map(x=>parseInt(x,16));if(rgb.every((n,i)=>Math.abs(p[i]-n)<=3))plates++;g.drawImage(im,type*120+18,row*155,90,141);});g.fillStyle='#fff0d1';g.font='11px sans-serif';g.fillText(t.name,5,row*155+152);});return {plates,image:c.toDataURL('image/png')};});
   assert.equal(scores.plates,44);fs.writeFileSync(path.join(out,'original-keeper-fleet.png'),Buffer.from(scores.image.split(',')[1],'base64'));pass('all eleven original replacement and chapter bodies preserve the four colour-and-shape sorting plates');
   await page.evaluate(()=>{const d=__dockTest;d.setRecords(Object.fromEntries(d.MR.missions.filter(m=>m.world.campaign!=='openroads').map(m=>[m.id,{stars:3,bestScore:1200,bestTime:30}])));d.openMissionMap();});await page.locator('#mission-chapter').selectOption('');await page.locator('#mission-journal').tap();assert.match(await page.locator('#story-content').textContent(),/A hundred lanterns shine/);assert.equal(await page.locator('.journal-world.lit').count(),100);await page.screenshot({path:path.join(out,'hundred-lanterns-complete.png')});await page.locator('#story-close').tap();pass('a complete journey lights exactly one hundred persistent world markers and reveals its ending');
